@@ -9,6 +9,6 @@
 <body>
 <h1>test1</h1>
 <h1>test2</h1>
-<h2>test입니다</h2>
+<h2>index.jsp 커밋 테스트</h2>
 </body>
 </html>
