@@ -21,7 +21,7 @@ public class QnaDao {
 	private Properties prop = new Properties();
 
 	public QnaDao() {
-		String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
+		String fileName = BoardDao.class.getResource("/sql/valueSa-query.properties").getPath();
 		System.out.println("fileName   " + fileName);
 		try {
 			prop.load(new FileReader(fileName));
@@ -39,8 +39,16 @@ public class QnaDao {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		String sql = prop.getProperty(null);
+//		selectQnaList=
+//				SELECT * FROM 
+//				(SELECT ROWNUM RNUM, A.* FROM 
+//				(SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
+//				FROM QNA_BOARD Q JOIN QNA_CATEGORY USING(QNA_CATEGORY_NO) 
+//				JOIN MEMBER ON (QNA_WRITER=USER_NO) 
+//				WHERE Q.STATUS='Y' 
+//				ORDER BY QNA_NO DESC) A) 
+//				WHERE RNUM BETWEEN ? AND ?
+		String sql = prop.getProperty("selectQnaList");
 		
 		
 //		board 게시글 currentPage = 1 startRow = 1 endRow = 10; currentPage = 2 
@@ -50,6 +58,26 @@ public class QnaDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			//QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
+			while(rset.next()) {
+				Qna q = new Qna();
+				q.setQnaNo(rset.getInt("QNA_NO"));
+				q.setCategory(rset.getString("QNA_CATEGORY_NAME"));
+				q.setQnaTitle(rset.getString("QNA_TITLE"));
+				q.setQnaWriter(rset.getString("USER_ID"));
+				q.setCount(rset.getInt("COUNT"));
+				q.setCreateDate(rset.getDate("CREATE_DATE"));
+				
+				if(rset.getString("QNA_REPLY") != null) {
+					q.setQnaReply(rset.getString("QNA_REPLY"));
+				}
+				
+				list.add(q);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,12 +94,16 @@ public class QnaDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty(null);
+		//getListCount=SELECT COUNT(*) FROM QNA_BOARD WHERE STATUS='Y'
+		String sql = prop.getProperty("getListCount");
 		
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
 			
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -80,6 +112,7 @@ public class QnaDao {
 			close(rset);
 			close(stmt);
 		}
+	
 		
 		return listCount;
 	}
