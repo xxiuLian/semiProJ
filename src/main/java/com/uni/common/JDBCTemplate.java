@@ -33,6 +33,7 @@ public class JDBCTemplate {
 
 				// 2. DBMS와 연결
 				conn = DriverManager.getConnection(url, user, password);
+				System.out.println("conn"+conn);
 
 				conn.setAutoCommit(false);
 
