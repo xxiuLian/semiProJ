@@ -57,7 +57,7 @@ public class TgbDao {
 								rset.getDate("CREATE_DATE"), 
 								rset.getString("STATUS")));
 				
-			}
+			} 
 			
 			
 		} catch (SQLException e) {
