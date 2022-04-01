@@ -12,6 +12,6 @@
 <h1>test3-서영</h1>
 <h1>test4브런치-서영</h1>
 <h2>index.jsp 커밋 테스트</h2>
-<h3>테스트입니다</h3>
+<a href="qnaTest">문의게시판 테스트</a>
 </body>
 </html>
