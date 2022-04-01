@@ -43,18 +43,7 @@ public class TgbDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
-//			TGB_NO	NUMBER
-//			TGB_CATEGORY_NO	NUMBER
-//			TGB_TITLE	VARCHAR2(100 BYTE)
-//			TGB_CONTENT	VARCHAR2(4000 BYTE)
-//			TGB_GUIDE	VARCHAR2(4000 BYTE)
-//			TGB_WRITER	NUMBER
-//			TGB_COUNT	NUMBER
-//			TGB_TERM	DATE
-//			TGB_PRICE	NUMBER
-//			CREATE_DATE	DATE
-//			STATUS	VARCHAR2(1 BYTE)
-			
+
 			while(rset.next()) {
 				list.add(new Tgb(rset.getInt("TGB_NO"),
 								String.valueOf(rset.getInt("TGB_CATEGORY_NO")), 

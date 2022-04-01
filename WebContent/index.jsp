@@ -14,5 +14,6 @@
 <h2>index.jsp 커밋 테스트</h2>
 <a href="qnaTest">문의게시판 테스트</a>
 <a href="tgbList.do">공동구매 조회</a>
+<a href="tgbEnrollForm.do">공동구매 등록</a>
 </body>
 </html>
