@@ -16,7 +16,7 @@ import com.uni.qna.model.service.QnaService;
 /**
  * Servlet implementation class test
  */
-@WebServlet("/qnaTest4")
+@WebServlet("/qnaTest")
 public class test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -115,7 +115,7 @@ public class test extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
-		request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/qna/qnaListView.jsp").forward(request, response);
 	}
 
 	/**
