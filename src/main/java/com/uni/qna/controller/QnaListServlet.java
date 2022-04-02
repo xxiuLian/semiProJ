@@ -16,14 +16,14 @@ import com.uni.qna.model.service.QnaService;
 /**
  * Servlet implementation class test
  */
-@WebServlet("/qnaTest")
-public class test extends HttpServlet {
+@WebServlet("/qnaList.do")
+public class QnaListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public test() {
+    public QnaListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
