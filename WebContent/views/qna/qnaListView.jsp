@@ -4,7 +4,6 @@
 <%
 	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	String contextPath = request.getContextPath();
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -38,7 +37,7 @@
 </style>
 </head>
 <body>
-	
+	<%@ include file="../common/menubar.jsp" %>
 	<div class="outer">
 		<br>
 		
@@ -125,7 +124,7 @@
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
 				var bno = $(this).children().eq(0).text();
-				location.href = "<%=contextPath%>/detailBoard.do?bno="+bno;
+				location.href = "<%=contextPath%>/detailQna.do?qno="+qno;
 			})
 		})
 		<%}%>
