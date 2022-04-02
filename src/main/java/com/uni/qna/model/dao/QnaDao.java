@@ -21,7 +21,7 @@ public class QnaDao {
 	private Properties prop = new Properties();
 
 	public QnaDao() {
-		String fileName = BoardDao.class.getResource("/sql/valueSa-query.properties").getPath();
+		String fileName = BoardDao.class.getResource("/sql/qna_kwon/qna-query.properties").getPath();
 		System.out.println("fileName   " + fileName);
 		try {
 			prop.load(new FileReader(fileName));
@@ -115,6 +115,65 @@ public class QnaDao {
 	
 		
 		return listCount;
+	}
+
+	public int increaseCount(Connection conn, int qno) {
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		// increaseCount=UPDATE QNA_BOARD SET COUNT=COUNT+1 WHERE BOARD_NO=?
+		String sql = prop.getProperty("increaseCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Qna selectQna(Connection conn, int qno) {
+		Qna q = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		
+		//selectQna=SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, QNA_CONTENT, USER_ID, COUNT, CREATE_DATE FROM QNA_BOARD B JOIN MEMBER ON(QNA_WRITER = USER_NO) LEFT JOIN QNA_CATEGORY USING(QNA_CATEGORY_NO) WHERE B.STATUS = 'Y' AND QNA_NO=?
+		String sql = prop.getProperty("selectQna");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			rset = pstmt.executeQuery();
+			//QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, QNA_CONTENT, USER_ID, COUNT, CREATE_DATE
+			if (rset.next()) {
+				q = new Qna();
+				q.setQnaNo(rset.getInt("QNA_NO"));
+				q.setCategory(rset.getString("QNA_CATEGORY_NAME"));
+				q.setQnaTitle(rset.getString("QNA_TITLE"));
+				q.setQnaContent(rset.getString("QNA_CONTENT"));
+				q.setQnaWriter(rset.getString("USER_ID"));
+				q.setCount(rset.getInt("COUNT"));
+				q.setCreateDate(rset.getDate("CREATE_DATE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return q;
 	}
 
 }
