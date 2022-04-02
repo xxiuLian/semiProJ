@@ -19,7 +19,7 @@ public class TgbDao {
 	
 	public TgbDao() {
 
-		String fileName = TgbDao.class.getResource("/sql/valueSa-query.properties").getPath();
+		String fileName = TgbDao.class.getResource("/sql/TGB_choi/TGB-query.properties").getPath();
 		System.out.println("fileName   " + fileName);
 		try {
 			prop.load(new FileReader(fileName));
@@ -71,6 +71,48 @@ public class TgbDao {
 		
 		
 		return list;
+	}
+
+	public int insertTgb(Connection conn, Tgb t) {
+		int result = 0;
+		//tgbInsert=INSERT INTO TGB VALUES
+		//(SEQ.TGB.NEXTVAL, ?, ?, ?, ?, ?, 0, ?, ?, SYSDATE, DEFAULT)
+
+//		TGB_CATEGORY_NO
+//		TGB_TITLE
+//		TGB_CONTENT
+//		TGB_GUIDE
+//		TGB_WRITER
+//		TGB_COUNT
+//		TGB_TERM
+//		TGB_PRICE
+//		CREATE_DATE
+//		STATUS
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("tgbInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(t.getTgbCategory()));
+			pstmt.setString(2, t.getTgbTitle());
+			pstmt.setString(3, t.getTgbContent());
+			pstmt.setString(4, t.getTgbGuide());
+			pstmt.setInt(5, Integer.parseInt(t.getTgbWriter()));
+			pstmt.setDate(6, t.getTgbTerm());
+			pstmt.setInt(7, t.getTgb_Price());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }

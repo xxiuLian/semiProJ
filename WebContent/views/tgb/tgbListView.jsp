@@ -8,9 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="../../css/styles.css" rel="stylesheet" />
 </head>
 <body>
-<h2 align="center">공구 게시판</h2>
+<%@ include file="../common/menubar.jsp" %>
+
+<h2 align="center">공구 목록 조회</h2>
 		<br>
 		
 		<table class="listArea" align="center">
@@ -24,7 +27,7 @@
 					<th width="150">작성일</th>
 				</tr>
 			<thead>
-			<%--   <tbody>
+			  <tbody>
 				<%if(list.isEmpty()){ %>
 				<tr>
 					<td colspan="6">조회된 리스트가 없습니다.</td>
@@ -32,6 +35,8 @@
 				<%}else{ %>
 					<% for( Tgb t : list){ %>
 					<tr>
+						<td><%= t.getTgbNo() %></td>
+						<td><%= t.getTgbCategory() %>
 						<td><%= t.getTgbTitle() %></td>
 						<td><%= t.getTgbContent() %></td>
 						<td><%= t.getTgbContent() %></td>
@@ -41,6 +46,6 @@
 					<%} %>
 				<%} %>
 			</tbody>
-		</table>--%>
+		</table>
 </body>
 </html>
