@@ -1,28 +1,23 @@
-package com.uni.tgb.controller;
+package com.uni.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.tgb.model.dto.Tgb;
-import com.uni.tgb.model.service.TgbService;
-
 /**
- * Servlet implementation class test
+ * Servlet implementation class MemberLoginServlet
  */
-@WebServlet("/tgbSelect.do")
-public class TgbListServlet extends HttpServlet {
+@WebServlet("/login.do")
+public class MemberLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TgbListServlet() {
+    public MemberLoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +26,8 @@ public class TgbListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ArrayList<Tgb> list = new TgbService().selectList();
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/tgb/tgbListView.jsp").forward(request, response);
-		
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
