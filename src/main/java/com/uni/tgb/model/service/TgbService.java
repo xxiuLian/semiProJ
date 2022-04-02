@@ -17,7 +17,23 @@ public class TgbService {
 		
 		close(conn);
 		
-		return null;
+		return list;
+	}
+
+	public int insertTgb(Tgb t) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		result = new TgbDao().insertTgb(conn, t);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		
+		return result;
 	}
 
 }

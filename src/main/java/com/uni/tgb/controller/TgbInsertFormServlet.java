@@ -1,28 +1,23 @@
 package com.uni.tgb.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.tgb.model.dto.Tgb;
-import com.uni.tgb.model.service.TgbService;
-
 /**
- * Servlet implementation class test
+ * Servlet implementation class TgbEnrollFormServlet
  */
-@WebServlet("/tgbSelect.do")
-public class TgbListServlet extends HttpServlet {
+@WebServlet("/tgbInsert.do")
+public class TgbInsertFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TgbListServlet() {
+    public TgbInsertFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +27,7 @@ public class TgbListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Tgb> list = new TgbService().selectList();
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/tgb/tgbListView.jsp").forward(request, response);
-		
-		
+		request.getRequestDispatcher("views/tgb/tgbInsertForm.jsp").forward(request, response);
 	}
 
 	/**
