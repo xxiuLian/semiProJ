@@ -40,7 +40,7 @@ public class QnaDetailServlet extends HttpServlet {
 			q.setQnaContent(q.getQnaContent().replaceAll("\n", "<br>"));
 			request.setAttribute("q", q);
 			request.setAttribute("at", at);
-			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
+			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "게시글 상세조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
