@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR" import="com.uni.qna.model.dto.*, com.uni.common.Attachment"%>
 <%
 	Qna q = (Qna)request.getAttribute("q");
-	Attachment at = (Attachment)request.getAttribute("at");
+	//Attachment at = (Attachment)request.getAttribute("at");
 %>
 <!DOCTYPE html>
 <html>
@@ -40,6 +40,7 @@
 					<p><%= q.getQnaContent() %></p>
 				</td>
 			</tr>
+			<%--
 			<tr>
 				<th>첨부파일</th>
 				<td colspan="3">
@@ -49,14 +50,14 @@
 					첨부파일이 없습니다.
 					<% } %>
 				</td> 
-			</tr>
+			</tr> --%>
 		</table>
 		<br>
 		
 		<div class="btns" align="center">
 			<button type="button" onclick="location.href='<%=contextPath%>/listBoard.do?currentPage=1';">목록으로</button>
 			
-			<% if(loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())){ %>
+			<% if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
 				
 				<button type="button" onclick="updateForm();">수정하기</button>
 				<button type="button" onclick="deleteBoard();">삭제하기</button>
@@ -64,7 +65,7 @@
 		</div>
 		
 		<form action="" id="postForm" method="post">
-			<input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
+			<input type="hidden" name="bno" value="<%= q.getQnaNo() %>">
 		</form>
 		<script>
 			function updateForm(){
@@ -84,11 +85,13 @@
 		<table border="1" align="center">
 			<tr>
 				<th>댓글작성</th>
-				<% if(loginUser != null){ %>
+				<%if(loginUser != null) {%>
+				<% if(loginUser.getUserId().equals("admin")){ %>
 				<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
 				<td><button id="addReply">댓글등록</button></td>
-				<% }else{ %>
-				<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea></td>
+				<% } %>
+				<% }else { %>
+				<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
 				<td><button disabled>댓글등록</button></td>
 				<% } %>
 			</tr>
@@ -119,7 +122,7 @@
 		selectReplyList();
 		$("#addReply").click(function(){
 			var content = $("#replyContent").val();
-			var bId = <%=q.getBoardNo()%>;
+			var qId = <%=q.getQnaNo()%>;
 			
 			
 			$.ajax({
@@ -127,7 +130,7 @@
 				type:"post",
 				data:{
 						content:content,
-					    bId:bId
+					    qId:qId
 				},
 				success:function(status){
 					if(status =="success"){
@@ -148,7 +151,7 @@
 			$("#replyList").empty();
 			$.ajax({
 				url:"rlist.do",
-				data:{bId:<%=q.getBoardNo()%>},
+				data:{bId:<%=q.getQnaNo()%>},
 				type:"get",
 				success:function(list){
 					console.log(list)

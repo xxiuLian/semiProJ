@@ -111,19 +111,19 @@
 			<button onclick="location.href='<%=contextPath%>/qnaTest?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
 		</div> 
 		<br><br>
-		<%-- 
+
 		<div align="center">
-		<% if(loginUser != null){ %>
-		<button onclick="location.href='enrollFormBoard.do'">작성하기</button>
-		<% } %>
+		<%// if(loginUser != null){ %>
+		<button onclick="location.href='enrollFormQna.do'">작성하기</button>
+		<%// } %>
 		</div> 
-		--%>
+	
 	</div>
 	<script>
 		<%if(!list.isEmpty()){%>
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
-				var bno = $(this).children().eq(0).text();
+				var qno = $(this).children().eq(0).text();
 				location.href = "<%=contextPath%>/detailQna.do?qno="+qno;
 			})
 		})
