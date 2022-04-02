@@ -74,4 +74,14 @@ public class Member {
 		this.status = status;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
+				+ ", address=" + address + ", phone=" + phone + ", email=" + email + ", account=" + account
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
+	}
+	
+	
+
 }
