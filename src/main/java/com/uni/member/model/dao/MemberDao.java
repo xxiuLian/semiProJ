@@ -1,5 +1,8 @@
 package com.uni.member.model.dao;
 
+import static com.uni.common.JDBCTemplate.*;
+
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -58,9 +61,13 @@ public class MemberDao {
 			
 			result = pstmt.executeUpdate();
 			
+			System.out.println(member);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}

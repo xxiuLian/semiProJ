@@ -35,12 +35,12 @@ public class MemberInsertServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String phone = request.getParameter("phone");
-		String account = request.getParameter("account");
 		String address = request.getParameter("address");
 		String email = request.getParameter("email");
+		String account = request.getParameter("account");
 		
 		//dto Member 매개변수 생성자 O
-		Member member = new Member(userName, userId, userPwd, phone, account, address, email);
+		Member member = new Member(userId, userPwd, userName, address, email, phone, account);
 		int result = new MemberService().insertMember(member);
 		
 		//insert 성공

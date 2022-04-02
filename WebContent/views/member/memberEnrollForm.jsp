@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String msg = (String)request.getAttribute("msg");
+	String message = (String)request.getAttribute("msg");
 %>
 <!DOCTYPE html>
 <html>
@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-<%@ include file="../common/menubar.jsp" %>
+<%@ include file= "../common/menubar.jsp" %>
 
 	<div class="outer">
 		<br>
@@ -45,7 +45,7 @@
 		
 		<form id="enrollForm" action="<%=request.getContextPath() %>/insertMember.do" method="post" onsubmit="return joinValidate();">
 			<!-- 회원가입 양식 작성 후 insertMember.do로 전송 -> MemberInsertServlet.java만들기  -->
-			<table>
+		<table>
 				<tr>
 					<td>* 이름</td>
 					<td><input type="text" maxlength="5" name="userName" required></td>
@@ -68,28 +68,15 @@
 					<td><input type="password" maxlength="15" name="checkPwd" required></td>
 					<td><label id = "pwdResult"></label></td>
 				</tr>	
+				
 				<tr>
 					<td>* 휴대폰 번호</td>
 					<td><input type="tel" maxlength="11" name="phone" placeholder="(-없이)01012345678" required></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td>계좌번호</td>
-					<td><input type="text" name="account"></td>
-					<td>
-					<select name="bank">
-						<option selected>은행선택</option>
-			            <option value="shin">신한</option>
-			            <option value="guk">국민</option>
-			            <option value="woo">우리</option>
-			            <option value="nong">농협</option>
-			            <option value="ha">하나</option>
-			            <option value="gi">기업</option>
-			            <option value="kB">케이뱅크</option>
-			            <option value="kakaoB">카카오뱅크</option>
-			            <option value="etcB">직접입력</option>
-			        </select>
-			        </td>
+					<td>이메일</td>
+					<td><input type="email" name="email"></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -98,22 +85,12 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>이메일</td>
-					<td><input type="email" name="email"></td>
-					<!--  <td>
-					<select name="email">
-						<option selected>email</option>
-			            <option value="naver">naver.com</option>
-			            <option value="daum">daum.net</option>
-			            <option value="nate">nate.com</option>
-			            <option value="gmail">gmail.com</option>
-			            <option value="icloud">icloud.com</option>
-			            <option value="etcE">직접입력</option>
-			        </select>-->
-			        </td>
+					<td>계좌번호</td>
+					<td><input type="text" name="account"></td>
 					<td></td>
 				</tr>
 			</table>
+			<br>
 			<p id="p">* 표시는 필수 입력 항목입니다.</p>
 			<br>
 			
