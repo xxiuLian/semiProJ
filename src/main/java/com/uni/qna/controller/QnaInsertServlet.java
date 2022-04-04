@@ -16,7 +16,7 @@ import com.uni.common.Attachment;
 import com.uni.common.MyFileRenamePolicy;
 import com.uni.member.model.dto.Member;
 import com.uni.qna.model.dto.Qna;
-import com.uni.tgb_board.model.service.BoardService;
+import com.uni.qna.model.service.QnaService;
 
 /**
  * Servlet implementation class QnaInsertServlet
@@ -50,7 +50,9 @@ public class QnaInsertServlet extends HttpServlet {
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
 			
-			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+			
+			//int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+			int userNo = 8; //테스트용
 			
 			Qna q = new Qna();
 			q.setCategory(category);
@@ -65,21 +67,21 @@ public class QnaInsertServlet extends HttpServlet {
 				System.out.println("originName : " + originName);
 				System.out.println("changeName : " + changeName);
 				
-				at = new Attachment();
-				at.setFilePath(savePath);
-				at.setOriginName(originName);
-				at.setChangeName(changeName);
+//				at = new Attachment();
+//				at.setFilePath(savePath);
+//				at.setOriginName(originName);
+//				at.setChangeName(changeName);
 			}
 			
-			int result = new BoardService().insertBoard(q, at);
+			int result = new QnaService().insertQna(q, at);
 			
 			if(result > 0) {
 				request.getSession().setAttribute("msg", "게시글 등록 완료");
-				response.sendRedirect("listBoard.do");
+				response.sendRedirect("qnaList.do");
 			}else {
 				if(at != null) {
-					File failedFile = new File(savePath + at.getChangeName());
-					failedFile.delete();
+//					File failedFile = new File(savePath + at.getChangeName());
+//					failedFile.delete();
 				}
 				
 				request.setAttribute("msg", "게시글 등록 실패");

@@ -77,4 +77,25 @@ public class QnaService {
 		return result1 * result2;
 	}
 
+	public int insertQna(Qna q, Attachment at) {
+		Connection conn = getConnection();
+		int result1 = new QnaDao().insertQna(conn, q);
+		
+		int result2 = 1;
+		
+		if(at != null) {
+			result2 = new QnaDao().insertAttachment(conn, at);
+		}
+		
+		if(result1 * result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+		
+	}
+
 }

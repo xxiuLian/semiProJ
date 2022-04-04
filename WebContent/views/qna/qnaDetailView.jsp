@@ -57,11 +57,11 @@
 		<div class="btns" align="center">
 			<button type="button" onclick="location.href='<%=contextPath%>/qnaList.do?currentPage=1';">목록으로</button>
 			
-			<% if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
+			<% //if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
 				
 				<button type="button" onclick="updateForm();">수정하기</button>
 				<button type="button" onclick="deleteBoard();">삭제하기</button>
-			<% } %>
+			<% //} %>
 		</div>
 		
 		<form action="" id="postForm" method="post">

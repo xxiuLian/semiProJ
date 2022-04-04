@@ -253,4 +253,42 @@ public class QnaDao {
 		return result;
 	}
 
+	public int insertQna(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		// insertQna=INSERT INTO QNA_BOARD VALUES(SEQ_BNO.NEXTVAL, ?, ?, ?, ?, DEFAULT,
+		// SYSDATE, DEFAULT, NULL)
+		String sql = prop.getProperty("insertQna");
+//		QNA_NO	NUMBER
+//		QNA_CATEGORY_NO	NUMBER 1 
+//		QNA_TITLE	VARCHAR2(100 BYTE) 2
+//		QNA_CONTENT	VARCHAR2(4000 BYTE) 3
+//		QNA_WRITER	NUMBER 4
+//		COUNT	NUMBER
+//		CREATE_DATE	DATE
+//		STATUS	VARCHAR2(1 BYTE)
+//		QNA_REPLY	VARCHAR2(400 BYTE)
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(q.getCategory()));
+			pstmt.setString(2, q.getQnaTitle());
+			pstmt.setString(3, q.getQnaContent());
+			pstmt.setInt(4, Integer.parseInt(q.getQnaWriter()));
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertAttachment(Connection conn, Attachment at) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
