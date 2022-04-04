@@ -54,11 +54,10 @@
 		<div class="btns" align="center">
 			<button type="button" onclick="location.href='${contextPath}/qnaList.do?currentPage=1';">목록으로</button>
 			
-			<% //if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
-				
+			<c:if test="${sessionScope.loginUser.userId eq q.qnaWriter}">
 				<button type="button" onclick="updateForm();">수정하기</button>
 				<button type="button" onclick="deleteQna();">삭제하기</button>
-			<% //} %>
+			</c:if>	
 		</div>
 		
 		<form action="" id="postForm" method="post">
@@ -81,17 +80,11 @@
 		<!-- 댓글 작성하는 div -->
 		<table border="1" align="center">
 			<tr>
-				<th>댓글작성</th>
-				<c:choose>
-					<c:when test="${sessionScope.loginUser.userId == 'admin'}">
+				<c:if test="${sessionScope.loginUser.userId == 'admin'}">
+					<th>답변작성</th>
 						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-						<td><button id="addReply">댓글등록</button></td>
-					</c:when>
-					<c:otherwise>
-						<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
-						<td><button disabled>댓글등록</button></td>
-					</c:otherwise>
-				</c:choose>
+						<td><button id="addReply">답변등록</button></td>
+				</c:if>
 			</tr>
 		</table>
 		<!-- 댓글 리스트들 보여주는 div -->
@@ -151,8 +144,8 @@
 				url:"rlist.do",
 				data:{qId:${q.qnaNo}},
 				type:"get",
-				success:function(list){
-					console.log(list)
+				success:function(reply){
+					console.log(reply)
 				/*	var value="";
 					for(var i in list){
 						value += '<tr>'+
@@ -177,17 +170,17 @@
 					
 					
 					// 3번 방법
-					$.each(list, function(index, obj){
+					//$.each(list, function(index, obj){
 						
-						var writerTd = $("<td>").text(obj.replyWriter).attr("width", "100px");
-						var contentTd = $("<td>").text(obj.replyContent).attr("width", "330px");
-						var dateTd = $("<td>").text(obj.createDate).attr("width", "150px");
-						
-						var tr = $("<tr>").append(writerTd, contentTd, dateTd);
+						//var writerTd = $("<td>").text(obj.replyWriter).attr("width", "100px");
+						var contentTd = $("<td>").text(reply).attr("width", "330px");
+						//var dateTd = $("<td>").text(obj.createDate).attr("width", "150px");
+						var text = $("<td>").text('답변내용').attr("width", "100px");
+						var tr = $("<tr>").append(text, contentTd);
 						
 						$("#replyList").append(tr);
 						
-					});
+					//});
 				},
 				error:function(){
 					console.log("ajax 통신실패 -댓글조회")

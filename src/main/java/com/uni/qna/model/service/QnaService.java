@@ -1,6 +1,9 @@
 package com.uni.qna.model.service;
 
-import static com.uni.common.JDBCTemplate.*;
+import static com.uni.common.JDBCTemplate.close;
+import static com.uni.common.JDBCTemplate.commit;
+import static com.uni.common.JDBCTemplate.getConnection;
+import static com.uni.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -129,6 +132,31 @@ public class QnaService {
 		close(conn);
 		
 		return result1 * result2;
+	}
+
+	public int insertReply(Qna q) {
+		Connection conn = getConnection();
+		int result = new QnaDao().insertReply(conn, q);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public String selectRList(int qId) {
+		Connection conn = getConnection();
+		
+		String list = new QnaDao().selectRList(conn ,qId);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

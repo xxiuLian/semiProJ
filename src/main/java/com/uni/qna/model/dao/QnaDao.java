@@ -376,4 +376,57 @@ public class QnaDao {
 		return result;
 	}
 
+	public int insertReply(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//insertQnaReply=UPDATE QNA_BOARD SET QNA_REPLY = ? WHERE QNA_NO = ?
+		String sql = prop.getProperty("insertQnaReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getQnaReply());
+			pstmt.setInt(2, q.getQnaNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectRList(Connection conn, int qId) {
+		String reply = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//selectQnaReply=SELECT QNA_REPLY FROM QNA_BOARD WHERE QNA_NO=? AND STATUS = 'Y'
+		String sql = prop.getProperty("selectQnaReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reply = rset.getString("QNA_REPLY");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return reply;
+	}
+
 }

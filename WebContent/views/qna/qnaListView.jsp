@@ -130,13 +130,11 @@
 		<br><br>
 
 		<div align="center">
-		<%-- 
+	
 		<c:if test="${loginUser != null}">
-		--%>
 			<button onclick="location.href='enrollFormQna.do'">작성하기</button>
-		<%-- 
 		</c:if>
-		--%>
+		
 		</div> 
 	
 	</div>
