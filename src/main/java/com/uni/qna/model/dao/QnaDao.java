@@ -16,13 +16,12 @@ import java.util.Properties;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
-import com.uni.tgb_board.model.dao.BoardDao;
 
 public class QnaDao {
 	private Properties prop = new Properties();
 
 	public QnaDao() {
-		String fileName = BoardDao.class.getResource("/sql/qna_kwon/qna-query.properties").getPath();
+		String fileName = QnaDao.class.getResource("/sql/qna_kwon/qna-query.properties").getPath();
 		System.out.println("fileName   " + fileName);
 		try {
 			prop.load(new FileReader(fileName));
