@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.uni.member.model.dto.Member"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
    Member loginUser = (Member)session.getAttribute("loginUser");
    String contextPath = request.getContextPath();
 %>
+<c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
+<c:set var="msg" value="${sessionScope.msg}" scope="session"/>
+<c:set var="contextPath" value="<%= request.getContextPath()%>" scope="session"/>
 <!DOCTYPE html>
 <html>
 <head>
