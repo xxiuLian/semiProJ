@@ -19,22 +19,22 @@
 		<table align="center">
 			<tr>
 				<th width="100">분야</th>
-				<td>${q.getCategory()}</td>
+				<td>${q.category}</td>
 				<th>제목</th>
-				<td colspan="2">${q.getQnaTitle()}</td>
+				<td colspan="2">${q.qnaTitle}</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>${q.getQnaWriter()}</td>
+				<td>${q.qnaWrite)}</td>
 				<th>조회수</th>
-				<td>${q.getCount()}</td>
+				<td>${q.Count}</td>
 				<th>작성일</th>
-				<td>${q.getCreateDate()}</td>
+				<td>${q.createDate}</td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td colspan="3">
-					<p>${q.getQnaContent()}</p>
+					<p>${q.qnaContent}</p>
 				</td>
 			</tr>
 			<%--
@@ -62,7 +62,7 @@
 		</div>
 		
 		<form action="" id="postForm" method="post">
-			<input type="hidden" name="qno" value="${q.getQnaNo()}">
+			<input type="hidden" name="qno" value="${q.qnaNo}">
 		</form>
 		<script>
 			function updateForm(){
@@ -82,7 +82,7 @@
 		<table border="1" align="center">
 			<tr>
 				<th>댓글작성</th>
-				<c:if test="${loginUser.getUserId() == 'admin'}">
+				<c:if test="${loginUser.userId() == 'admin'}">
 					<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
 					<td><button disabled>댓글등록</button></td>
 				</c:if>
@@ -115,7 +115,7 @@
 		selectReplyList();
 		$("#addReply").click(function(){
 			var content = $("#replyContent").val();
-			var qId = ${q.getQnaNo()};
+			var qId = ${q.qnaNo()};
 			
 			
 			$.ajax({
@@ -144,7 +144,7 @@
 			$("#replyList").empty();
 			$.ajax({
 				url:"rlist.do",
-				data:{bId:${q.getQnaNo()}},
+				data:{bId:${q.qnaNo()}},
 				type:"get",
 				success:function(list){
 					console.log(list)
