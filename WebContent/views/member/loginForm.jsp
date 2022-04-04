@@ -1,19 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.uni.member.model.dto.Member"%>
-    <%
-	Member loginUser = (Member)session.getAttribute("loginUser"); //import직접하기
+<% String msg = (String)session.getAttribute("msg"); %>
 
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+	$(function(){
+		let msg = <%=msg %>
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("msg");%> //메세지 띄우고 세션 삭제
+		}
+	})
+	function loginValidate(){
+		if($("#userId").val().trim().length === 0){
+			alert("아이디를 입력하세요");
+			$("#userId").focus();
+			return false;
+		}
+		if($("#userPwd").val().trim().length === 0){
+			alert("비밀번호를 입력하세요");
+			$("#userPwd").focus();
+			return false;
+		}
+		return true;
+	}
+</script>
 </head>
 <body>
+<%@ include file= "../common/menubar.jsp" %>
 <div class= "loginArea">
 	
-		<% if(loginUser == null){ %>
+		 <% if(loginUser == null){ %>
 		<form id = "loginForm" action="<%=request.getContextPath()%>/loginMember.do" method="post" onsubmit="return loginValidate();">
 			<table>
 				<tr>
@@ -43,5 +65,10 @@
 			
 		<% } %>
 		</div>
+		<script>
+			function enrollPage(){
+				location.href="<%=request.getContextPath()%>/enroll.do";
+			}
+		</script>
 </body>
 </html>

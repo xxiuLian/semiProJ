@@ -23,4 +23,13 @@ public class MemberService {
 		return result;
 	}
 
+	public Member loginMember(String userId, String userPwd) {
+		Connection conn = getConnection();
+		
+		Member loginUser = new MemberDao().loginUser(conn, userId, userPwd);
+
+		close(conn);
+		return loginUser;
+	}
+
 }
