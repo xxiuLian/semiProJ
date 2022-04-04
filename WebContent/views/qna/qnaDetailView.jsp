@@ -82,11 +82,16 @@
 		<table border="1" align="center">
 			<tr>
 				<th>댓글작성</th>
-				<c:if test="${loginUser.userId == 'admin'}">
-					<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
-					<td><button disabled>댓글등록</button></td>
-				</c:if>
-			
+				<c:choose>
+					<c:when test="${sessionScope.loginUser.userId == 'admin'}">
+						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
+						<td><button id="addReply">댓글등록</button></td>
+					</c:when>
+					<c:otherwise>
+						<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
+						<td><button disabled>댓글등록</button></td>
+					</c:otherwise>
+				</c:choose>
 			</tr>
 		</table>
 		<!-- 댓글 리스트들 보여주는 div -->
