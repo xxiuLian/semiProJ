@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.common.Attachment;
+import com.uni.common.PageInfo;
 import com.uni.tgb.model.dto.Tgb;
 import static com.uni.common.JDBCTemplate.*;
 
@@ -33,29 +35,37 @@ public class TgbDao {
 	
 	}
 
-	public ArrayList<Tgb> selectList(Connection conn) {
+	public ArrayList<Tgb> selectList(Connection conn, PageInfo pi) {
 		ArrayList<Tgb> list = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("tgbselectlist");
 		
+		int startRow = (pi.getCurrentPage() -1)*pi.getBoardLimit()+1;
+		int endRow = startRow+pi.getBoardLimit() -1;
+//tgbselectlist=SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM(SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, USER_ID, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME \
+//FROM TGB JOIN MEMBER ON TGB_WRITER=USER_NO JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) JOIN (SELECT * FROM ATTACHMENT \
+//WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE TYPE LIKE 'TGB' GROUP BY B_NO)) ON TGB_NO = B_NO \
+//WHERE STATUS = 'Y' ORDER BY TGB_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 
 			while(rset.next()) {
 				list.add(new Tgb(rset.getInt("TGB_NO"),
-								String.valueOf(rset.getInt("TGB_CATEGORY_NO")), 
+								rset.getString("TGB_CATEGORY_NAME"),
 								rset.getString("TGB_TITLE"), 
-								rset.getString("TGB_CONTENT"), 
-								rset.getString("TGB_GUIDE"), 
-								String.valueOf(rset.getInt("TGB_WRITER")), 
+								rset.getString("USER_ID"), 
 								rset.getInt("TGB_COUNT"), 
 								rset.getDate("TGB_TERM"), 
 								rset.getInt("TGB_PRICE"), 
-								rset.getDate("CREATE_DATE"), 
-								rset.getString("STATUS")));
+								rset.getDate("CREATE_DATE"),
+								rset.getString("CHANGE_NAME")));
 				
 			} 
 			
@@ -74,6 +84,8 @@ public class TgbDao {
 	}
 
 	public int insertTgb(Connection conn, Tgb t) {
+		
+		
 		int result = 0;
 		//tgbInsert=INSERT INTO TGB VALUES
 		//(SEQ.TGB.NEXTVAL, ?, ?, ?, ?, ?, 0, ?, ?, SYSDATE, DEFAULT)
@@ -112,6 +124,67 @@ public class TgbDao {
 			close(pstmt);
 		}
 
+		return result;
+	}
+
+	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
+		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_TGB.CURRVAL, ?)
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			for(Attachment f : fileList) {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, f.getOriginName());
+			pstmt.setString(2, f.getChangeName());
+			pstmt.setString(3, f.getFilePath());
+			pstmt.setString(4, f.getType());
+			
+			result = pstmt.executeUpdate();
+			
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int getlistCount(Connection conn) {
+		
+		//listCount=SELECT COUNT(*) FROM TGB WHERE STATUS='Y'
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("listCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
 		return result;
 	}
 
