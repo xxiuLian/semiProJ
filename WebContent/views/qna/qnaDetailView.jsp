@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR" import="com.uni.qna.model.dto.*, com.uni.common.Attachment"%>
+    pageEncoding="UTF-8" import="com.uni.qna.model.dto.*, com.uni.common.Attachment"%>
 <%
-	Qna q = (Qna)request.getAttribute("q");
+	//Qna q = (Qna)request.getAttribute("q");
 	//Attachment at = (Attachment)request.getAttribute("at");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -16,38 +16,38 @@
 	<div class="outer">
 		<br>
 		
-		<h2 align="center">°Ô½ÃÆÇ »ó¼¼º¸±â</h2>
+		<h2 align="center">ê²Œì‹œíŒ ìƒì„¸ë³´ê¸°</h2>
 		<br>
 		
 		<table align="center">
 			<tr>
-				<th width="100">ºĞ¾ß</th>
-				<td><%= q.getCategory() %></td>
-				<th>Á¦¸ñ</th>
-				<td colspan="2"><%= q.getQnaTitle() %></td>
+				<th width="100">ë¶„ì•¼</th>
+				<td>${q.getCategory()}</td>
+				<th>ì œëª©</th>
+				<td colspan="2">${q.getQnaTitle()}</td>
 			</tr>
 			<tr>
-				<th>ÀÛ¼ºÀÚ</th>
-				<td><%= q.getQnaWriter() %></td><%-- 
-				<th>Á¶È¸¼ö</th>
-				<td><%= b.getCount() %></td> --%>
-				<th>ÀÛ¼ºÀÏ</th>
-				<td><%= q.getCreateDate() %></td>
+				<th>ì‘ì„±ì</th>
+				<td>${q.getQnaWriter()}</td>
+				<th>ì¡°íšŒìˆ˜</th>
+				<td>${q.getCount()}</td>
+				<th>ì‘ì„±ì¼</th>
+				<td>${q.getCreateDate()}</td>
 			</tr>
 			<tr>
-				<th>³»¿ë</th>
+				<th>ë‚´ìš©</th>
 				<td colspan="3">
-					<p><%= q.getQnaContent() %></p>
+					<p>${q.getQnaContent()}</p>
 				</td>
 			</tr>
 			<%--
 			<tr>
-				<th>Ã·ºÎÆÄÀÏ</th>
+				<th>ì²¨ë¶€íŒŒì¼</th>
 				<td colspan="3">
 					<% if(at != null){ %>
 					<a download="<%= at.getOriginName() %>" href="<%=contextPath%>/resources/board_upfiles/<%=at.getChangeName()%>"><%= at.getOriginName() %></a>
 					<% }else{ %>
-					Ã·ºÎÆÄÀÏÀÌ ¾ø½À´Ï´Ù.
+					ì²¨ë¶€íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤.
 					<% } %>
 				</td> 
 			</tr> --%>
@@ -55,64 +55,60 @@
 		<br>
 		
 		<div class="btns" align="center">
-			<button type="button" onclick="location.href='<%=contextPath%>/listBoard.do?currentPage=1';">¸ñ·ÏÀ¸·Î</button>
+			<button type="button" onclick="location.href='${contextPath}/qnaList.do?currentPage=1';">ëª©ë¡ìœ¼ë¡œ</button>
 			
-			<% if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
+			<% //if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
 				
-				<button type="button" onclick="updateForm();">¼öÁ¤ÇÏ±â</button>
-				<button type="button" onclick="deleteBoard();">»èÁ¦ÇÏ±â</button>
-			<% } %>
+				<button type="button" onclick="updateForm();">ìˆ˜ì •í•˜ê¸°</button>
+				<button type="button" onclick="deleteQna();">ì‚­ì œí•˜ê¸°</button>
+			<% //} %>
 		</div>
 		
 		<form action="" id="postForm" method="post">
-			<input type="hidden" name="bno" value="<%= q.getQnaNo() %>">
+			<input type="hidden" name="qno" value="${q.getQnaNo()}">
 		</form>
 		<script>
 			function updateForm(){
-				$("#postForm").attr("action", "<%=contextPath%>/updateFormBoard.do");
+				$("#postForm").attr("action", "${contextPath}/updateFormQna.do");
 				$("#postForm").submit();
 			}
 			
 			function deleteBoard(){
-				$("#postForm").attr("action", "<%=contextPath%>/deleteBoard.do");
+				$("#postForm").attr("action", "${contextPath}/deleteQna.do");
 				$("#postForm").submit();
 			}
 		</script>
 	</div>
 	
 	<div class="replyArea">
-		<!-- ´ñ±Û ÀÛ¼ºÇÏ´Â div -->
+		<!-- ëŒ“ê¸€ ì‘ì„±í•˜ëŠ” div -->
 		<table border="1" align="center">
 			<tr>
-				<th>´ñ±ÛÀÛ¼º</th>
-				<%if(loginUser != null) {%>
-				<% if(loginUser.getUserId().equals("admin")){ %>
-				<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-				<td><button id="addReply">´ñ±Ûµî·Ï</button></td>
-				<% } %>
-				<% }else { %>
-				<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">°ü¸®ÀÚ¸¸ ÀÛ¼º °¡´ÉÇÕ´Ï´Ù.</textarea></td>
-				<td><button disabled>´ñ±Ûµî·Ï</button></td>
-				<% } %>
+				<th>ëŒ“ê¸€ì‘ì„±</th>
+				<c:if test="${loginUser.getUserId() == 'admin'}">
+					<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">ê´€ë¦¬ìë§Œ ì‘ì„± ê°€ëŠ¥í•©ë‹ˆë‹¤.</textarea></td>
+					<td><button disabled>ëŒ“ê¸€ë“±ë¡</button></td>
+				</c:if>
+			
 			</tr>
 		</table>
-		<!-- ´ñ±Û ¸®½ºÆ®µé º¸¿©ÁÖ´Â div -->
+		<!-- ëŒ“ê¸€ ë¦¬ìŠ¤íŠ¸ë“¤ ë³´ì—¬ì£¼ëŠ” div -->
 		<div id="replyListArea">
 			<table id="replyList" border="1" align="center">
 				<!-- <tr>
 					<td width="100px">admin</td>
-					<td width="330px">´ñ±ÛÀÛ¼º³»¿ë</td>
-					<td width="150px">2020³â 1¿ù 23ÀÏ</td>
+					<td width="330px">ëŒ“ê¸€ì‘ì„±ë‚´ìš©</td>
+					<td width="150px">2020ë…„ 1ì›” 23ì¼</td>
 				</tr>
 				<tr>
 					<td width="100px">user01</td>
-					<td width="330px">´ñ±ÛÀÛ¼º³»¿ë</td>
-					<td width="150px">2020³â 1¿ù 22ÀÏ</td>
+					<td width="330px">ëŒ“ê¸€ì‘ì„±ë‚´ìš©</td>
+					<td width="150px">2020ë…„ 1ì›” 22ì¼</td>
 				</tr>
 				<tr>
 					<td width="100px">test01</td>
-					<td width="330px">´ñ±ÛÀÛ¼º³»¿ë</td>
-					<td width="150px">2020³â 1¿ù 20ÀÏ</td>
+					<td width="330px">ëŒ“ê¸€ì‘ì„±ë‚´ìš©</td>
+					<td width="150px">2020ë…„ 1ì›” 20ì¼</td>
 				</tr> -->
 			</table>
 		</div>
@@ -122,7 +118,7 @@
 		selectReplyList();
 		$("#addReply").click(function(){
 			var content = $("#replyContent").val();
-			var qId = <%=q.getQnaNo()%>;
+			var qId = ${q.getQnaNo()};
 			
 			
 			$.ajax({
@@ -139,7 +135,7 @@
 					}
 				},
 				error:function(){
-					console.log("ajax Åë½Å½ÇÆĞ -´ñ±Ûµî·Ï")
+					console.log("ajax í†µì‹ ì‹¤íŒ¨ -ëŒ“ê¸€ë“±ë¡")
 				}
 				
 			})
@@ -151,7 +147,7 @@
 			$("#replyList").empty();
 			$.ajax({
 				url:"rlist.do",
-				data:{bId:<%=q.getQnaNo()%>},
+				data:{bId:${q.getQnaNo()}},
 				type:"get",
 				success:function(list){
 					console.log(list)
@@ -166,7 +162,7 @@
 					$("#replyList").html(value);
 					
 					
-					//2¹ø¹æ¹ı 
+					//2ë²ˆë°©ë²• 
 					var value="";
 					$.each(list,function(index,obj){
 						value += '<tr>'+
@@ -178,7 +174,7 @@
 					$("#replyList").html(value);*/
 					
 					
-					// 3¹ø ¹æ¹ı
+					// 3ë²ˆ ë°©ë²•
 					$.each(list, function(index, obj){
 						
 						var writerTd = $("<td>").text(obj.replyWriter).attr("width", "100px");
@@ -192,7 +188,7 @@
 					});
 				},
 				error:function(){
-					console.log("ajax Åë½Å½ÇÆĞ -´ñ±ÛÁ¶È¸")
+					console.log("ajax í†µì‹ ì‹¤íŒ¨ -ëŒ“ê¸€ì¡°íšŒ")
 				}
 				
 			})
