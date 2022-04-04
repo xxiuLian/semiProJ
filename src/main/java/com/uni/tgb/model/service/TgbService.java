@@ -6,15 +6,16 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.uni.common.Attachment;
+import com.uni.common.PageInfo;
 import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
 
 public class TgbService {
 
-	public ArrayList<Tgb> selectList() {
+	public ArrayList<Tgb> selectList(PageInfo pi) {
 		Connection conn = getConnection();
 		
-		ArrayList<Tgb> list = new TgbDao().selectList(conn);
+		ArrayList<Tgb> list = new TgbDao().selectList(conn, pi);
 		
 		close(conn);
 		
@@ -33,9 +34,19 @@ public class TgbService {
 			rollback(conn);
 		}
 		
-		
+		close(conn);
 		
 		return result1*result2;
+	}
+
+	public int getlistCount() {
+		Connection conn = getConnection();
+		int result = new TgbDao().getlistCount(conn);
+		
+		close(conn);
+		
+		
+		return result;
 	}
 
 }

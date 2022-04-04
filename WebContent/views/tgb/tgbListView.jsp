@@ -87,6 +87,8 @@
 		</div>
 		<%} %>
 		
+		<button onclick="location.href='<%=contextPath%>/listBoard.do?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
+		
 		
 </body>
 </html>

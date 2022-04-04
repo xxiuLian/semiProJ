@@ -22,7 +22,7 @@ public class Tgb {
 	public Tgb() {}
 
 	public Tgb(int tgbNo, String tgbCategory, String tgbTitle, String tgbContent, String tgbGuide, String tgbWriter,
-			int count, Date tgbTerm, int tgb_Price, Date createDate, String status) {
+			int count, Date tgbTerm, int tgb_Price, Date createDate) {
 		super();
 		this.tgbNo = tgbNo;
 		this.tgbCategory = tgbCategory;
