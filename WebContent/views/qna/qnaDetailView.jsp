@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR" import="com.uni.qna.model.dto.*, com.uni.common.Attachment"%>
+    pageEncoding="UTF-8" import="com.uni.qna.model.dto.*, com.uni.common.Attachment"%>
 <%
 	Qna q = (Qna)request.getAttribute("q");
 	//Attachment at = (Attachment)request.getAttribute("at");
@@ -16,38 +16,38 @@
 	<div class="outer">
 		<br>
 		
-		<h2 align="center">°Ô½ÃÆÇ »ó¼¼º¸±â</h2>
+		<h2 align="center">ê²Œì‹œíŒ ìƒì„¸ë³´ê¸°</h2>
 		<br>
 		
 		<table align="center">
 			<tr>
-				<th width="100">ºÐ¾ß</th>
+				<th width="100">ë¶„ì•¼</th>
 				<td><%= q.getCategory() %></td>
-				<th>Á¦¸ñ</th>
+				<th>ì œëª©</th>
 				<td colspan="2"><%= q.getQnaTitle() %></td>
 			</tr>
 			<tr>
-				<th>ÀÛ¼ºÀÚ</th>
+				<th>ìž‘ì„±ìž</th>
 				<td><%= q.getQnaWriter() %></td><%-- 
-				<th>Á¶È¸¼ö</th>
+				<th>ì¡°íšŒìˆ˜</th>
 				<td><%= b.getCount() %></td> --%>
-				<th>ÀÛ¼ºÀÏ</th>
+				<th>ìž‘ì„±ì¼</th>
 				<td><%= q.getCreateDate() %></td>
 			</tr>
 			<tr>
-				<th>³»¿ë</th>
+				<th>ë‚´ìš©</th>
 				<td colspan="3">
 					<p><%= q.getQnaContent() %></p>
 				</td>
 			</tr>
 			<%--
 			<tr>
-				<th>Ã·ºÎÆÄÀÏ</th>
+				<th>ì²¨ë¶€íŒŒì¼</th>
 				<td colspan="3">
 					<% if(at != null){ %>
 					<a download="<%= at.getOriginName() %>" href="<%=contextPath%>/resources/board_upfiles/<%=at.getChangeName()%>"><%= at.getOriginName() %></a>
 					<% }else{ %>
-					Ã·ºÎÆÄÀÏÀÌ ¾ø½À´Ï´Ù.
+					ì²¨ë¶€íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤.
 					<% } %>
 				</td> 
 			</tr> --%>
@@ -55,12 +55,12 @@
 		<br>
 		
 		<div class="btns" align="center">
-			<button type="button" onclick="location.href='<%=contextPath%>/listBoard.do?currentPage=1';">¸ñ·ÏÀ¸·Î</button>
+			<button type="button" onclick="location.href='<%=contextPath%>/listBoard.do?currentPage=1';">ëª©ë¡ìœ¼ë¡œ</button>
 			
 			<% if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
 				
-				<button type="button" onclick="updateForm();">¼öÁ¤ÇÏ±â</button>
-				<button type="button" onclick="deleteBoard();">»èÁ¦ÇÏ±â</button>
+				<button type="button" onclick="updateForm();">ìˆ˜ì •í•˜ê¸°</button>
+				<button type="button" onclick="deleteBoard();">ì‚­ì œí•˜ê¸°</button>
 			<% } %>
 		</div>
 		
@@ -81,38 +81,38 @@
 	</div>
 	
 	<div class="replyArea">
-		<!-- ´ñ±Û ÀÛ¼ºÇÏ´Â div -->
+		<!-- ëŒ“ê¸€ ìž‘ì„±í•˜ëŠ” div -->
 		<table border="1" align="center">
 			<tr>
-				<th>´ñ±ÛÀÛ¼º</th>
+				<th>ëŒ“ê¸€ìž‘ì„±</th>
 				<%if(loginUser != null) {%>
 				<% if(loginUser.getUserId().equals("admin")){ %>
 				<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-				<td><button id="addReply">´ñ±Ûµî·Ï</button></td>
+				<td><button id="addReply">ëŒ“ê¸€ë“±ë¡</button></td>
 				<% } %>
 				<% }else { %>
-				<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">°ü¸®ÀÚ¸¸ ÀÛ¼º °¡´ÉÇÕ´Ï´Ù.</textarea></td>
-				<td><button disabled>´ñ±Ûµî·Ï</button></td>
+				<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">ê´€ë¦¬ìžë§Œ ìž‘ì„± ê°€ëŠ¥í•©ë‹ˆë‹¤.</textarea></td>
+				<td><button disabled>ëŒ“ê¸€ë“±ë¡</button></td>
 				<% } %>
 			</tr>
 		</table>
-		<!-- ´ñ±Û ¸®½ºÆ®µé º¸¿©ÁÖ´Â div -->
+		<!-- ëŒ“ê¸€ ë¦¬ìŠ¤íŠ¸ë“¤ ë³´ì—¬ì£¼ëŠ” div -->
 		<div id="replyListArea">
 			<table id="replyList" border="1" align="center">
 				<!-- <tr>
 					<td width="100px">admin</td>
-					<td width="330px">´ñ±ÛÀÛ¼º³»¿ë</td>
-					<td width="150px">2020³â 1¿ù 23ÀÏ</td>
+					<td width="330px">ëŒ“ê¸€ìž‘ì„±ë‚´ìš©</td>
+					<td width="150px">2020ë…„ 1ì›” 23ì¼</td>
 				</tr>
 				<tr>
 					<td width="100px">user01</td>
-					<td width="330px">´ñ±ÛÀÛ¼º³»¿ë</td>
-					<td width="150px">2020³â 1¿ù 22ÀÏ</td>
+					<td width="330px">ëŒ“ê¸€ìž‘ì„±ë‚´ìš©</td>
+					<td width="150px">2020ë…„ 1ì›” 22ì¼</td>
 				</tr>
 				<tr>
 					<td width="100px">test01</td>
-					<td width="330px">´ñ±ÛÀÛ¼º³»¿ë</td>
-					<td width="150px">2020³â 1¿ù 20ÀÏ</td>
+					<td width="330px">ëŒ“ê¸€ìž‘ì„±ë‚´ìš©</td>
+					<td width="150px">2020ë…„ 1ì›” 20ì¼</td>
 				</tr> -->
 			</table>
 		</div>
@@ -139,7 +139,7 @@
 					}
 				},
 				error:function(){
-					console.log("ajax Åë½Å½ÇÆÐ -´ñ±Ûµî·Ï")
+					console.log("ajax í†µì‹ ì‹¤íŒ¨ -ëŒ“ê¸€ë“±ë¡")
 				}
 				
 			})
@@ -166,7 +166,7 @@
 					$("#replyList").html(value);
 					
 					
-					//2¹ø¹æ¹ý 
+					//2ë²ˆë°©ë²• 
 					var value="";
 					$.each(list,function(index,obj){
 						value += '<tr>'+
@@ -178,7 +178,7 @@
 					$("#replyList").html(value);*/
 					
 					
-					// 3¹ø ¹æ¹ý
+					// 3ë²ˆ ë°©ë²•
 					$.each(list, function(index, obj){
 						
 						var writerTd = $("<td>").text(obj.replyWriter).attr("width", "100px");
@@ -192,7 +192,7 @@
 					});
 				},
 				error:function(){
-					console.log("ajax Åë½Å½ÇÆÐ -´ñ±ÛÁ¶È¸")
+					console.log("ajax í†µì‹ ì‹¤íŒ¨ -ëŒ“ê¸€ì¡°íšŒ")
 				}
 				
 			})
