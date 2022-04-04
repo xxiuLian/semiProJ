@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import= "java.util.ArrayList, com.uni.qna.model.dto.*, com.uni.common.PageInfo"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%
 	ArrayList<Qna> list = (ArrayList<Qna>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
