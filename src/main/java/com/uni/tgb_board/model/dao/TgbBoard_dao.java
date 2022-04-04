@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -21,7 +22,6 @@ public class TgbBoard_dao {
 	
 	public TgbBoard_dao() {
 		String fileName = TgbBoard_dao.class.getResource("/sql/tgb_wook/tgb_board_query.properties").getPath();
-		System.out.println("fileName ? : " + fileName);
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -34,8 +34,8 @@ public class TgbBoard_dao {
 	
 	
 	
-	//페이지별 게시글
-	public ArrayList<TgbBoard_dto> getBoardList(Connection conn, int currentPage){
+	//페이지별 게시글 
+	public ArrayList<TgbBoard_dto> getBoardList(Connection conn, int currentPage, int listPageCount){
 		
 		//currentPage 1 이면 1  ~ 10
 		//currentPage 2 이면 11 ~ 20
@@ -52,8 +52,10 @@ public class TgbBoard_dao {
 		ArrayList<TgbBoard_dto> list = new ArrayList<TgbBoard_dto>();
 		String sql = prop.getProperty("selectTGBBoard");
 		
-		int startRow =  1 + (currentPage-1) * 10;
-		int endRow = 10 + (currentPage-1) * 10;
+		
+		//a + (n-1)d
+		int startRow =  1 + (currentPage-1) * listPageCount;
+		int endRow = listPageCount + (currentPage-1) * listPageCount;
 		
 //		selectTGBBoard=SELECT * FROM TGB_BOARD\
 //				( \
@@ -102,9 +104,38 @@ public class TgbBoard_dao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(list.size());
 		return list;
 		
+	}
+
+
+	//전체 글 수
+	public int getTgbBoard_listCount(Connection conn) {
+		
+		int listCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getListCountTGBBoard");
+		//getListCount=SELECT COUNT(BOARD_NO) FROM TGB_BOARD;
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
 	}
 	
 	
