@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.uni.qna.model.dto.*, com.uni.common.Attachment"%>
 <%
-	Qna q = (Qna)request.getAttribute("q");
-	Attachment at = (Attachment)request.getAttribute("at");
+	//Qna q = (Qna)request.getAttribute("q");
+	//Attachment at = (Attachment)request.getAttribute("at");
 %>
 <!DOCTYPE html>
 <html>
@@ -22,22 +22,22 @@
 		<table align="center">
 			<tr>
 				<th width="100">분야</th>
-				<td><%= q.getCategory() %></td>
+				<td>${q.getCategory()}</td>
 				<th>제목</th>
-				<td colspan="2"><%= q.getQnaTitle() %></td>
+				<td colspan="2">${q.getQnaTitle()}</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><%= q.getQnaWriter() %></td><%-- 
+				<td>${q.getQnaWriter()}</td>
 				<th>조회수</th>
-				<td><%= b.getCount() %></td> --%>
+				<td>${q.getCount()}</td>
 				<th>작성일</th>
-				<td><%= q.getCreateDate() %></td>
+				<td>${q.getCreateDate()}</td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td colspan="3">
-					<p><%= q.getQnaContent() %></p>
+					<p>${q.getQnaContent()}</p>
 				</td>
 			</tr>
 			<%--
@@ -55,7 +55,7 @@
 		<br>
 		
 		<div class="btns" align="center">
-			<button type="button" onclick="location.href='<%=contextPath%>/qnaList.do?currentPage=1';">목록으로</button>
+			<button type="button" onclick="location.href='${contextPath}/qnaList.do?currentPage=1';">목록으로</button>
 			
 			<% //if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
 				
@@ -65,16 +65,16 @@
 		</div>
 		
 		<form action="" id="postForm" method="post">
-			<input type="hidden" name="qno" value="<%= q.getQnaNo() %>">
+			<input type="hidden" name="qno" value="${q.getQnaNo()}">
 		</form>
 		<script>
 			function updateForm(){
-				$("#postForm").attr("action", "<%=contextPath%>/updateFormQna.do");
+				$("#postForm").attr("action", "${contextPath}/updateFormQna.do");
 				$("#postForm").submit();
 			}
 			
 			function deleteBoard(){
-				$("#postForm").attr("action", "<%=contextPath%>/deleteQna.do");
+				$("#postForm").attr("action", "${contextPath}/deleteQna.do");
 				$("#postForm").submit();
 			}
 		</script>
@@ -85,15 +85,11 @@
 		<table border="1" align="center">
 			<tr>
 				<th>댓글작성</th>
-				<%//if(loginUser != null) {%>
-				<%// if(loginUser.getUserId().equals("admin")){ %>
-				<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-				<td><button id="addReply">댓글등록</button></td>
-				<% //} %>
-				<% //}else { %>
-				<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
-				<td><button disabled>댓글등록</button></td>
-				<% //} %>
+				<c:if test="${loginUser.getUserId() == 'admin'}">
+					<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
+					<td><button disabled>댓글등록</button></td>
+				</c:if>
+			
 			</tr>
 		</table>
 		<!-- 댓글 리스트들 보여주는 div -->
@@ -122,7 +118,7 @@
 		selectReplyList();
 		$("#addReply").click(function(){
 			var content = $("#replyContent").val();
-			var qId = <%=q.getQnaNo()%>;
+			var qId = ${q.getQnaNo()};
 			
 			
 			$.ajax({
@@ -151,7 +147,7 @@
 			$("#replyList").empty();
 			$.ajax({
 				url:"rlist.do",
-				data:{bId:<%=q.getQnaNo()%>},
+				data:{bId:${q.getQnaNo()}},
 				type:"get",
 				success:function(list){
 					console.log(list)
