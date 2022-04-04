@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.uni.member.model.dto.Member"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
    Member loginUser = (Member)session.getAttribute("loginUser");
    String contextPath = request.getContextPath();
 %>
+<c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
+<c:set var="msg" value="${sessionScope.msg}" scope="session"/>
+<c:set var="contextPath" value="<%= request.getContextPath()%>" scope="session"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +32,7 @@
 			 <form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="login.do">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="enroll.do">회원가입</a></li>
