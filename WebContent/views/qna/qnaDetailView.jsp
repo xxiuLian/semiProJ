@@ -55,7 +55,7 @@
 		<br>
 		
 		<div class="btns" align="center">
-			<button type="button" onclick="location.href='<%=contextPath%>/listBoard.do?currentPage=1';">목록으로</button>
+			<button type="button" onclick="location.href='<%=contextPath%>/qnaList.do?currentPage=1';">목록으로</button>
 			
 			<% if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
 				
