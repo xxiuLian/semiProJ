@@ -2,9 +2,8 @@
 	pageEncoding="UTF-8" import="com.uni.member.model.dto.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	String msg = (String)session.getAttribute("msg");
-	String contextPath = request.getContextPath();
+   Member loginUser = (Member)session.getAttribute("loginUser");
+   String contextPath = request.getContextPath();
 %>
 <c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
 <c:set var="msg" value="${sessionScope.msg}" scope="session"/>
@@ -29,9 +28,11 @@
 				aria-label="Toggle navigation">
 				Menu <i class="fas fa-bars ms-1"></i>
 			</button>
+			<% if(loginUser == null){ %>
 			 <form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="login.do">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="enroll.do">회원가입</a></li>
@@ -44,6 +45,24 @@
 					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
 				</ul>
 			</div>
+			<% }else{ %>
+				<form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+					<li class="nav-item"><a class="nav-link" href="category.do">카테고리</a></li>
+					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
+					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
+				</ul>
+			</div>
+			<div id = "userInfo">
+            <b style = "color:black;"><%=loginUser.getUserName() %> 님 </b> 의 방문을 환영합니다.
+            <br><br>
+            <div class ="btns" align="center">
+               <a href = "<%=contextPath %>/myPage.do">마이페이지</a>
+               <a href = "<%=contextPath %>/logoutMember.do">로그아웃</a>
+            </div>
+         </div>
+			<% } %>
 		</div>
 	</nav>
 </body>
