@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="com.uni.qna.model.dto.*, com.uni.common.Attachment"%>
 <%
 	Qna q = (Qna)request.getAttribute("q");
-	//Attachment at = (Attachment)request.getAttribute("at");
+	Attachment at = (Attachment)request.getAttribute("at");
 %>
 <!DOCTYPE html>
 <html>
@@ -60,7 +60,7 @@
 			<% //if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
 				
 				<button type="button" onclick="updateForm();">수정하기</button>
-				<button type="button" onclick="deleteBoard();">삭제하기</button>
+				<button type="button" onclick="deleteQna();">삭제하기</button>
 			<% //} %>
 		</div>
 		
@@ -69,12 +69,12 @@
 		</form>
 		<script>
 			function updateForm(){
-				$("#postForm").attr("action", "<%=contextPath%>/updateFormBoard.do");
+				$("#postForm").attr("action", "<%=contextPath%>/updateFormQna.do");
 				$("#postForm").submit();
 			}
 			
 			function deleteBoard(){
-				$("#postForm").attr("action", "<%=contextPath%>/deleteBoard.do");
+				$("#postForm").attr("action", "<%=contextPath%>/deleteQna.do");
 				$("#postForm").submit();
 			}
 		</script>
@@ -85,15 +85,15 @@
 		<table border="1" align="center">
 			<tr>
 				<th>댓글작성</th>
-				<%if(loginUser != null) {%>
-				<% if(loginUser.getUserId().equals("admin")){ %>
+				<%//if(loginUser != null) {%>
+				<%// if(loginUser.getUserId().equals("admin")){ %>
 				<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
 				<td><button id="addReply">댓글등록</button></td>
-				<% } %>
-				<% }else { %>
+				<% //} %>
+				<% //}else { %>
 				<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
 				<td><button disabled>댓글등록</button></td>
-				<% } %>
+				<% //} %>
 			</tr>
 		</table>
 		<!-- 댓글 리스트들 보여주는 div -->

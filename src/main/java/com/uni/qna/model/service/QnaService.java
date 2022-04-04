@@ -98,4 +98,37 @@ public class QnaService {
 		
 	}
 
+	public Qna selectUpdateQna(int qno) {
+		Connection conn = getConnection();
+		Qna q = new QnaDao().selectQna(conn, qno);
+		close(conn);
+		return q;
+	}
+
+	public int updateQna(Qna q, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = new QnaDao().updateQna(conn ,q);
+		
+		int result2 = 1;
+		
+		if(at != null) {
+			if(at.getFileNo() != 0) {
+				result2 = new QnaDao().updateAttachment(conn, at);
+			}else {
+				result2 = new QnaDao().insertNewAttachment(conn, at);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+	}
+
 }

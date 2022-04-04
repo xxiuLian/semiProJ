@@ -291,4 +291,90 @@ public class QnaDao {
 		return 0;
 	}
 
+	public int updateQna(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		// updateQna=UPDATE QNA_BOARD SET QNA_CATEGORY_NO=?, QNA_TITLE=?, QNA_CONTENT=?
+		// WHERE QNA_NO=?
+		String sql = prop.getProperty("updateQna");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(q.getCategory()));
+			pstmt.setString(2, q.getQnaTitle());
+			pstmt.setString(3, q.getQnaContent());
+			pstmt.setInt(4, q.getQnaNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		// updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?,
+		// FILE_PATH=? WHERE FILE_NO=?
+		String sql = prop.getProperty("updateAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getChangeName());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertNewAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		// insertNewAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_FNO.NEXTVAL, ?, ?, ?,
+		// ?, SYSDATE, 1, DEFAULT)
+		String sql = prop.getProperty("insertNewAttachment");
+
+		try {
+//			FILE_NO	NUMBER
+//			REF_BNO	NUMBER 1
+//			ORIGIN_NAME	VARCHAR2(255 BYTE) 2
+//			CHANGE_NAME	VARCHAR2(255 BYTE) 3
+//			FILE_PATH	VARCHAR2(1000 BYTE) 4
+//			UPLOAD_DATE	DATE
+//			FILE_LEVEL	NUMBER
+//			STATUS	VARCHAR2(1 BYTE)
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getRefBoardNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
 }

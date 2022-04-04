@@ -22,11 +22,11 @@
 					<td width="500">
 						<select name="category">
 							<option value="10">공통</option>
-							<option value="20">운동</option>
-							<option value="30">등산</option>
-							<option value="40">게임</option>
-							<option value="50">낚시</option>
-							<option value="60">요리</option>
+							<option value="20">회원</option>
+							<option value="30">이벤트</option>
+							<option value="40">주문/결제</option>
+							<option value="50">배송</option>
+							<option value="60">취소/반품/교환</option>
 							<option value="70">기타</option> 
 						</select>
 					</td>
