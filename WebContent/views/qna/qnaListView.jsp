@@ -48,6 +48,9 @@
 		<br>
 		
 		<h2 align="center">문의 게시판</h2>
+		<c:out value="<p2>${sessionScope.contextPath}</p2>"></c:out>
+		<c:out value="<p2>${sessionScope.loginUser}</p2>"></c:out>
+		<c:out value="<p2>${sessionScope.msg}</p2>"></c:out>
 		<br>
 		<table class="listArea" align="center">
 			<thead>
@@ -116,7 +119,7 @@
 					<button disabled> &gt; </button>
 				</c:when>
 				<c:otherwise>
-					<button onclick="location.href='${contextPath}/qnaTest?currentPage=${contextPath + 1}'"> &gt; </button>
+					<button onclick="location.href='${contextPath}/qnaTest?currentPage=${currentPage + 1}'"> &gt; </button>
 				</c:otherwise>
 			</c:choose>
 		
@@ -126,9 +129,13 @@
 		<br><br>
 
 		<div align="center">
+		<%-- 
 		<c:if test="${loginUser != null}">
+		--%>
 			<button onclick="location.href='enrollFormQna.do'">작성하기</button>
+		<%-- 
 		</c:if>
+		--%>
 		</div> 
 	
 	</div>

@@ -65,22 +65,22 @@
 						<select name="category">
 						<c:set var="ctg" value="${q.category}"/>
 						<c:choose>
-							<c:when test="${ctg eq 공통}">
+							<c:when test="${ctg eq '공통'}">
 								<option value="10" selected[0] = "selected">공통</option>
 							</c:when>
-							<c:when test="${ctg eq 회원}">
+							<c:when test="${ctg eq '회원'}">
 								<option value="20" selected[1] = "selected">회원</option>
 							</c:when>
-							<c:when test="${ctg eq 이벤트}">
+							<c:when test="${ctg eq '이벤트'}">
 								<option value="30" selected[2] = "selected">이벤트</option>
 							</c:when>
-							<c:when test="${ctg eq 주문/결제}">
+							<c:when test="${ctg eq '주문/결제'}">
 								<option value="40" selected[3] = "selected">주문/결제</option>
 							</c:when>
-							<c:when test="${ctg eq 배송}">
+							<c:when test="${ctg eq '배송'}">
 								<option value="50" selected[4] = "selected">배송</option>
 							</c:when>
-							<c:when test="${ctg eq 취소/반품/교환}">
+							<c:when test="${ctg eq '취소/반품/교환'}">
 								<option value="10" selected[5] = "selected">취소/반품/교환</option>
 							</c:when>
 							<c:otherwise>

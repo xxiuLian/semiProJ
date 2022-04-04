@@ -25,9 +25,9 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>${q.qnaWrite)}</td>
+				<td>${q.qnaWriter}</td>
 				<th>조회수</th>
-				<td>${q.Count}</td>
+				<td>${q.count}</td>
 				<th>작성일</th>
 				<td>${q.createDate}</td>
 			</tr>
@@ -70,7 +70,7 @@
 				$("#postForm").submit();
 			}
 			
-			function deleteBoard(){
+			function deleteQna(){
 				$("#postForm").attr("action", "${contextPath}/deleteQna.do");
 				$("#postForm").submit();
 			}
@@ -82,7 +82,7 @@
 		<table border="1" align="center">
 			<tr>
 				<th>댓글작성</th>
-				<c:if test="${loginUser.userId() == 'admin'}">
+				<c:if test="${loginUser.userId == 'admin'}">
 					<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
 					<td><button disabled>댓글등록</button></td>
 				</c:if>
@@ -115,7 +115,7 @@
 		selectReplyList();
 		$("#addReply").click(function(){
 			var content = $("#replyContent").val();
-			var qId = ${q.qnaNo()};
+			var qId = ${q.qnaNo};
 			
 			
 			$.ajax({
@@ -144,7 +144,7 @@
 			$("#replyList").empty();
 			$.ajax({
 				url:"rlist.do",
-				data:{bId:${q.qnaNo()}},
+				data:{qId:${q.qnaNo}},
 				type:"get",
 				success:function(list){
 					console.log(list)
