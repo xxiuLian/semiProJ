@@ -215,10 +215,10 @@ public class QnaDao {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-//				at = new Attachment();
-//				at.setFileNo(rset.getInt("FILE_NO"));
-//				at.setOriginName(rset.getString("ORIGIN_NAME"));
-//				at.setChangeName(rset.getString("CHANGE_NAME"));
+				at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

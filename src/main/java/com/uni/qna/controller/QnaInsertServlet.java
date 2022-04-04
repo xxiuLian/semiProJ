@@ -67,10 +67,10 @@ public class QnaInsertServlet extends HttpServlet {
 				System.out.println("originName : " + originName);
 				System.out.println("changeName : " + changeName);
 				
-//				at = new Attachment();
-//				at.setFilePath(savePath);
-//				at.setOriginName(originName);
-//				at.setChangeName(changeName);
+				at = new Attachment();
+				at.setFilePath(savePath);
+				at.setOriginName(originName);
+				at.setChangeName(changeName);
 			}
 			
 			int result = new QnaService().insertQna(q, at);
@@ -80,8 +80,8 @@ public class QnaInsertServlet extends HttpServlet {
 				response.sendRedirect("qnaList.do");
 			}else {
 				if(at != null) {
-//					File failedFile = new File(savePath + at.getChangeName());
-//					failedFile.delete();
+					File failedFile = new File(savePath + at.getChangeName());
+					failedFile.delete();
 				}
 				
 				request.setAttribute("msg", "게시글 등록 실패");
