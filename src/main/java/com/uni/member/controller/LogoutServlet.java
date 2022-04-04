@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberLoginServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/login.do")
-public class MemberLoginServlet extends HttpServlet {
+@WebServlet("/logoutMember.do")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberLoginServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,8 @@ public class MemberLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/member/loginForm.jsp").forward(request, response);
+		request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath());//index.jsp로 돌아감
 	}
 
 	/**

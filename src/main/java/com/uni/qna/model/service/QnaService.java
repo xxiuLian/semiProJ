@@ -55,4 +55,80 @@ public class QnaService {
 		return null;
 	}
 
+	public int deleteQna(int qno) {
+		Connection conn = getConnection();
+		
+		int result1 = new QnaDao().deleteQna(conn, qno);
+		int result2 = 1;
+		
+		Attachment at = new QnaDao().selectAttachment(conn, qno);
+		if(at != null) {
+			result2 = new QnaDao().deleteAttachment(conn, qno);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+	}
+
+	public int insertQna(Qna q, Attachment at) {
+		Connection conn = getConnection();
+		int result1 = new QnaDao().insertQna(conn, q);
+		
+		int result2 = 1;
+		
+		if(at != null) {
+			result2 = new QnaDao().insertAttachment(conn, at);
+		}
+		
+		if(result1 * result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+		
+	}
+
+	public Qna selectUpdateQna(int qno) {
+		Connection conn = getConnection();
+		Qna q = new QnaDao().selectQna(conn, qno);
+		close(conn);
+		return q;
+	}
+
+	public int updateQna(Qna q, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = new QnaDao().updateQna(conn ,q);
+		
+		int result2 = 1;
+		
+		if(at != null) {
+			if(at.getFileNo() != 0) {
+				result2 = new QnaDao().updateAttachment(conn, at);
+			}else {
+				result2 = new QnaDao().insertNewAttachment(conn, at);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+	}
+
 }
