@@ -48,9 +48,9 @@
 		<br>
 		
 		<h2 align="center">문의 게시판</h2>
-		<c:out value="<p2>${sessionScope.contextPath}</p2>"></c:out>
-		<c:out value="<p2>${sessionScope.loginUser}</p2>"></c:out>
-		<c:out value="<p2>${sessionScope.msg}</p2>"></c:out>
+		<c:out value="<p>${sessionScope.contextPath}</p>" escapeXml="false"><br></c:out>
+		<c:out value="<p>${sessionScope.loginUser}</p>" escapeXml="false"><br></c:out>
+		<c:out value="<p>${sessionScope.msg}</p>" escapeXml="false"><br></c:out>
 		<br>
 		<table class="listArea" align="center">
 			<thead>
