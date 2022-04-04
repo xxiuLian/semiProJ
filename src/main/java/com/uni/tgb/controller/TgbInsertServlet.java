@@ -58,13 +58,9 @@ public class TgbInsertServlet extends HttpServlet {
 			String category = multiRequest.getParameter("category");
 			String trm = multiRequest.getParameter("term");
 			int price = Integer.parseInt(multiRequest.getParameter("price"));
-			
-			String rqcontent = request.getParameter("content");
-			
+				
 			System.out.println("title : "+title);
-			System.out.println("content : "+content);
-			System.out.println("guide : "+guide);
-			System.out.println("writer : "+writer);
+		
 			
 			
 			Date term = Date.valueOf(trm);//String term을 Date로 변환
@@ -75,7 +71,7 @@ public class TgbInsertServlet extends HttpServlet {
 			
 			for(int i = 1; i<=3; i++) {
 				
-				String name = "file"+1;
+				String name = "file"+i;
 				
 				if(multiRequest.getOriginalFileName(name) != null) {
 					String originName = multiRequest.getOriginalFileName(name);

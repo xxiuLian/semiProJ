@@ -44,10 +44,10 @@ public class TgbDao {
 		
 		int startRow = (pi.getCurrentPage() -1)*pi.getBoardLimit()+1;
 		int endRow = startRow+pi.getBoardLimit() -1;
-//tgbselectlist=SELECT * FROM(SELECT ROWNUM RNUM, A.* FROM (\
-//SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, TGB_CONTENT,TGB_GUIDE, USER_ID, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE \
-//FROM TGB JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) JOIN MEMBER ON TGB_WRITER=USER_NO WHERE TGB.STATUS = 'Y' ORDER BY TGB_NO DESC)A) \
-//WHERE RNUM BETWEEN ? AND ?
+//tgbselectlist=SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM(SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, USER_ID, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME \
+//FROM TGB JOIN MEMBER ON TGB_WRITER=USER_NO JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) JOIN (SELECT * FROM ATTACHMENT \
+//WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE TYPE LIKE 'TGB' GROUP BY B_NO)) ON TGB_NO = B_NO \
+//WHERE STATUS = 'Y' ORDER BY TGB_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -60,13 +60,12 @@ public class TgbDao {
 				list.add(new Tgb(rset.getInt("TGB_NO"),
 								rset.getString("TGB_CATEGORY_NAME"),
 								rset.getString("TGB_TITLE"), 
-								rset.getString("TGB_CONTENT"), 
-								rset.getString("TGB_GUIDE"), 
 								rset.getString("USER_ID"), 
 								rset.getInt("TGB_COUNT"), 
 								rset.getDate("TGB_TERM"), 
 								rset.getInt("TGB_PRICE"), 
-								rset.getDate("CREATE_DATE")));
+								rset.getDate("CREATE_DATE"),
+								rset.getString("CHANGE_NAME")));
 				
 			} 
 			
@@ -85,6 +84,8 @@ public class TgbDao {
 	}
 
 	public int insertTgb(Connection conn, Tgb t) {
+		
+		
 		int result = 0;
 		//tgbInsert=INSERT INTO TGB VALUES
 		//(SEQ.TGB.NEXTVAL, ?, ?, ?, ?, ?, 0, ?, ?, SYSDATE, DEFAULT)
