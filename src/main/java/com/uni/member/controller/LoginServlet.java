@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.member.model.dto.Member;
+import com.uni.member.model.service.MemberService;
+
 /**
- * Servlet implementation class MemberInsertServlet
+ * Servlet implementation class LoginServlet
  */
-@WebServlet("/enroll.do")
-public class MemberEnrollFormServlet extends HttpServlet {
+@WebServlet("/loginMember.do")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberEnrollFormServlet() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +31,23 @@ public class MemberEnrollFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/member/memberEnrollForm.jsp").forward(request, response);
+		//loginForm.jsp에서 값 받아오기
+		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
+		String originPwd = (String)request.getAttribute("originPwd");
 		
+		Member loginUser = new MemberService().loginMember(userId, userPwd);
+		System.out.println(loginUser);
+		
+		if(loginUser != null) {//유저가 있으면 session값 전달
+			request.setAttribute("msg", "로그인 완료");
+			request.getSession().setAttribute("loginUser", loginUser);
+			response.sendRedirect(request.getContextPath());
+		}else {
+			request.setAttribute("msg", "로그인 실패하였습니다.");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
 	}
 
 	/**
