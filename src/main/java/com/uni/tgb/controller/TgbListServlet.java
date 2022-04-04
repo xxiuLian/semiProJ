@@ -65,10 +65,8 @@ public class TgbListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-		
-		
-		
 		ArrayList<Tgb> list = new TgbService().selectList(pi);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
