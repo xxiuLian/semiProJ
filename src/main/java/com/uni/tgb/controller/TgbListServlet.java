@@ -15,7 +15,7 @@ import com.uni.tgb.model.service.TgbService;
 /**
  * Servlet implementation class test
  */
-@WebServlet("/tgbSelect.do")
+@WebServlet("/tgbList.do")
 public class TgbListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

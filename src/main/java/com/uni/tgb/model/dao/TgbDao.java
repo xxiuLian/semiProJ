@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.common.Attachment;
 import com.uni.tgb.model.dto.Tgb;
 import static com.uni.common.JDBCTemplate.*;
 
@@ -112,6 +113,37 @@ public class TgbDao {
 			close(pstmt);
 		}
 
+		return result;
+	}
+
+	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
+		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_TGB.CURRVAL, ?)
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		
+		try {
+			for(Attachment f : fileList) {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, f.getOriginName());
+			pstmt.setString(2, f.getChangeName());
+			pstmt.setString(3, f.getFilePath());
+			pstmt.setString(4, f.getType());
+			
+			result = pstmt.executeUpdate();
+			
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
 		return result;
 	}
 

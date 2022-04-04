@@ -5,6 +5,7 @@ import static com.uni.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.uni.common.Attachment;
 import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
 
@@ -20,20 +21,21 @@ public class TgbService {
 		return list;
 	}
 
-	public int insertTgb(Tgb t) {
+	public int insertTgb(Tgb t, ArrayList<Attachment> fileList) {
 		Connection conn = getConnection();
-		int result = 0;
+		int result1 =  new TgbDao().insertTgb(conn, t);
+		int result2 = new TgbDao().insertAttachment(conn, fileList);
 		
-		result = new TgbDao().insertTgb(conn, t);
-		
-		if(result >0) {
+		if(result1*result2 > 0) {
+			
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
 		
-		return result;
+		
+		return result1*result2;
 	}
 
 }
