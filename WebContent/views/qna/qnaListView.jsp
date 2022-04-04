@@ -74,6 +74,7 @@
 						<c:forEach var="q" items="${list}">
 						<tr>
 							<td>${q.qnaNo}</td>
+							<td>${q.category}</td>
 							<td>${q.qnaTitle}</td>
 							<td>${q.qnaWriter}</td>
 							<td>${q.count}</td>
@@ -90,7 +91,7 @@
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button onclick="location.href='${contextPath}/qnaTest?currentPage=1'"> &lt;&lt; </button>
+			<button onclick="location.href='${contextPath}/qnaList.do?currentPage=1'"> &lt;&lt; </button>
 		
 			<!-- 이전페이지로(<) -->
 			<c:choose>
@@ -98,7 +99,7 @@
 					<button disabled> &lt; </button>	
 				</c:when>
 				<c:otherwise>
-					<button onclick="location.href='${contextPath}/qnaTest?currentPage=${currentPage - 1}'"> &lt; </button>
+					<button onclick="location.href='${contextPath}/qnaList.do?currentPage=${currentPage - 1}'"> &lt; </button>
 				</c:otherwise>
 			</c:choose>
 			<!-- 페이지 목록 -->
@@ -108,7 +109,7 @@
 						<button disabled> ${p} </button>
 					</c:when>
 					<c:otherwise>
-						<button onclick="location.href='${contextPath}/qnaTest?currentPage=${p}'"> ${p} </button>
+						<button onclick="location.href='${contextPath}/qnaList.do?currentPage=${p}'"> ${p} </button>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -119,12 +120,12 @@
 					<button disabled> &gt; </button>
 				</c:when>
 				<c:otherwise>
-					<button onclick="location.href='${contextPath}/qnaTest?currentPage=${currentPage + 1}'"> &gt; </button>
+					<button onclick="location.href='${contextPath}/qnaList.do?currentPage=${currentPage + 1}'"> &gt; </button>
 				</c:otherwise>
 			</c:choose>
 		
 			<!-- 맨 끝으로 (>>) -->
-			<button onclick="location.href='${contextPath}/qnaTest?currentPage=${maxPage}'"> &gt;&gt; </button>
+			<button onclick="location.href='${contextPath}/qnaList.do?currentPage=${maxPage}'"> &gt;&gt; </button>
 		</div> 
 		<br><br>
 
@@ -141,11 +142,10 @@
 	</div>
 	<script>
 		if(!${empty list}){
-			<%//if(!list.isEmpty()){%>
 			$(function(){
 				$(".listArea>tbody>tr").click(function(){
 					var qno = $(this).children().eq(0).text();
-					location.href = "<%=contextPath%>/detailQna.do?qno="+qno;
+					location.href = "${contextPath}/detailQna.do?qno="+qno;
 				})
 			})
 		}
