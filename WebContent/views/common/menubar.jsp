@@ -35,7 +35,7 @@
 					<li class="nav-item"><a class="nav-link" href="myPage.do">마이페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="admin.do">관리자페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
-					<li class="nav-item"><a class="nav-link" href="tgbSelect.do">공동구매 조회</a></li>
+					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li><!--  -->
 					<li class="nav-item"><a class="nav-link" href="category.do">카테고리</a></li>
 					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
 				</ul>
