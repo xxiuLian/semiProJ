@@ -65,7 +65,7 @@
 		</div>
 		
 		<form action="" id="postForm" method="post">
-			<input type="hidden" name="bno" value="<%= q.getQnaNo() %>">
+			<input type="hidden" name="qno" value="<%= q.getQnaNo() %>">
 		</form>
 		<script>
 			function updateForm(){

@@ -55,4 +55,26 @@ public class QnaService {
 		return null;
 	}
 
+	public int deleteQna(int qno) {
+		Connection conn = getConnection();
+		
+		int result1 = new QnaDao().deleteQna(conn, qno);
+		int result2 = 1;
+		
+		Attachment at = new QnaDao().selectAttachment(conn, qno);
+		if(at != null) {
+			result2 = new QnaDao().deleteAttachment(conn, qno);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+	}
+
 }

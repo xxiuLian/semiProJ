@@ -1,11 +1,14 @@
 package com.uni.qna.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.uni.qna.model.service.QnaService;
 
 /**
  * Servlet implementation class QnaDeleteServlet
@@ -27,6 +30,16 @@ public class QnaDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int qno = Integer.parseInt(request.getParameter("qno"));
+		
+		int result = new QnaService().deleteQna(qno);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("msg", "문의글 삭제 완료");
+			response.sendRedirect("qnaList.do");
+		}else {
+			request.setAttribute("msg", "문의글 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

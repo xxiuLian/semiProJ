@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 import com.uni.tgb_board.model.dao.BoardDao;
@@ -174,6 +175,82 @@ public class QnaDao {
 		}
 
 		return q;
+	}
+
+	public int deleteQna(Connection conn, int qno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//deleteQna=UPDATE QNA_BOARD SET STATUS='N' WHERE QNA_NO=?
+		String sql = prop.getProperty("deleteQna");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public Attachment selectAttachment(Connection conn, int qno) {
+		Attachment at = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
+		// WHERE REF_BNO=? AND STATUS='Y'
+		String sql = prop.getProperty("selectAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+//				at = new Attachment();
+//				at.setFileNo(rset.getInt("FILE_NO"));
+//				at.setOriginName(rset.getString("ORIGIN_NAME"));
+//				at.setChangeName(rset.getString("CHANGE_NAME"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return at;
+	}
+
+	public int deleteAttachment(Connection conn, int qno) {
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		// deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE REF_BNO=?
+		String sql = prop.getProperty("deleteAttachment");
+		System.out.println("deleteAttachment : " + sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
