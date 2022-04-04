@@ -14,21 +14,20 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.uni.common.Attachment;
 import com.uni.common.MyFileRenamePolicy;
-import com.uni.member.model.dto.Member;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class QnaInsertServlet
+ * Servlet implementation class QnaUpdateServlet
  */
-@WebServlet("/insertQna.do")
-public class QnaInsertServlet extends HttpServlet {
+@WebServlet("/updateQna.do")
+public class QnaUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaInsertServlet() {
+    public QnaUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,56 +36,55 @@ public class QnaInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (ServletFileUpload.isMultipartContent(request)) {
+		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 * 1024; // 10MB
-			
+
 			String resources = request.getSession().getServletContext().getRealPath("/resources");
-			
+
 			String savePath = resources + "\\board_upfiles\\";
-			
+
+			System.out.println("savePath : " + savePath);
+
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			String category = multiRequest.getParameter("category");
-			String title = multiRequest.getParameter("title");
-			String content = multiRequest.getParameter("content");
-			
-			
-			//int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-			int userNo = 8; //테스트용
+			int qno = Integer.parseInt(multiRequest.getParameter("qno"));
 			
 			Qna q = new Qna();
-			q.setCategory(category);
-			q.setQnaTitle(title);
-			q.setQnaContent(content);
-			q.setQnaWriter(String.valueOf(userNo));
+			q.setQnaTitle(multiRequest.getParameter("title"));
+			q.setQnaContent(multiRequest.getParameter("content"));
+			q.setCategory(multiRequest.getParameter("category"));
+			q.setQnaNo(qno);
+			
 			Attachment at = null;
-			if(multiRequest.getOriginalFileName("upfile") != null) {
-				String originName = multiRequest.getOriginalFileName("upfile");
-				String changeName = multiRequest.getFilesystemName("upfile");
-				
-				System.out.println("originName : " + originName);
-				System.out.println("changeName : " + changeName);
-				
+			
+			//수정페이지에서  사용자가 새로 파일 첨부하면
+			if(multiRequest.getOriginalFileName("upFile") != null) {
+				String originName = multiRequest.getOriginalFileName("upFile");
+				String changeName = multiRequest.getFilesystemName("upFile");
+				//수정
 				at = new Attachment();
 				at.setFilePath(savePath);
 				at.setOriginName(originName);
 				at.setChangeName(changeName);
+				
+				if(multiRequest.getParameter("originFile") != null) {
+					File deleteFile = new File(savePath + multiRequest.getParameter("originFile"));
+					deleteFile.delete();
+					
+					at.setFileNo(Integer.parseInt(multiRequest.getParameter("originFileNo")));
+				}else {
+					at.setRefBoardNo(qno);
+				}
 			}
 			
-			int result = new QnaService().insertQna(q, at);
+			int result = new QnaService().updateQna(q, at);
 			
 			if(result > 0) {
-				request.getSession().setAttribute("msg", "게시글 등록 완료");
-				response.sendRedirect("qnaList.do");
+				request.getSession().setAttribute("msg", "게시글 수정 완료");
+				response.sendRedirect("detailQna.do?qno=" + qno);
 			}else {
-				if(at != null) {
-					File failedFile = new File(savePath + at.getChangeName());
-					failedFile.delete();
-				}
-				
-				request.setAttribute("msg", "게시글 등록 실패");
+				request.setAttribute("msg", "게시글 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-
 			}
 		}
 	}

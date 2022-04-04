@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 import com.uni.tgb_board.model.dao.BoardDao;
@@ -174,6 +175,206 @@ public class QnaDao {
 		}
 
 		return q;
+	}
+
+	public int deleteQna(Connection conn, int qno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//deleteQna=UPDATE QNA_BOARD SET STATUS='N' WHERE QNA_NO=?
+		String sql = prop.getProperty("deleteQna");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public Attachment selectAttachment(Connection conn, int qno) {
+		Attachment at = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
+		// WHERE REF_BNO=? AND STATUS='Y'
+		String sql = prop.getProperty("selectAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return at;
+	}
+
+	public int deleteAttachment(Connection conn, int qno) {
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		// deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE REF_BNO=?
+		String sql = prop.getProperty("deleteAttachment");
+		System.out.println("deleteAttachment : " + sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertQna(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		// insertQna=INSERT INTO QNA_BOARD VALUES(SEQ_BNO.NEXTVAL, ?, ?, ?, ?, DEFAULT,
+		// SYSDATE, DEFAULT, NULL)
+		String sql = prop.getProperty("insertQna");
+//		QNA_NO	NUMBER
+//		QNA_CATEGORY_NO	NUMBER 1 
+//		QNA_TITLE	VARCHAR2(100 BYTE) 2
+//		QNA_CONTENT	VARCHAR2(4000 BYTE) 3
+//		QNA_WRITER	NUMBER 4
+//		COUNT	NUMBER
+//		CREATE_DATE	DATE
+//		STATUS	VARCHAR2(1 BYTE)
+//		QNA_REPLY	VARCHAR2(400 BYTE)
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(q.getCategory()));
+			pstmt.setString(2, q.getQnaTitle());
+			pstmt.setString(3, q.getQnaContent());
+			pstmt.setInt(4, Integer.parseInt(q.getQnaWriter()));
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertAttachment(Connection conn, Attachment at) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int updateQna(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		// updateQna=UPDATE QNA_BOARD SET QNA_CATEGORY_NO=?, QNA_TITLE=?, QNA_CONTENT=?
+		// WHERE QNA_NO=?
+		String sql = prop.getProperty("updateQna");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(q.getCategory()));
+			pstmt.setString(2, q.getQnaTitle());
+			pstmt.setString(3, q.getQnaContent());
+			pstmt.setInt(4, q.getQnaNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		// updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?,
+		// FILE_PATH=? WHERE FILE_NO=?
+		String sql = prop.getProperty("updateAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getChangeName());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertNewAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		// insertNewAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_FNO.NEXTVAL, ?, ?, ?,
+		// ?, SYSDATE, 1, DEFAULT)
+		String sql = prop.getProperty("insertNewAttachment");
+
+		try {
+//			FILE_NO	NUMBER
+//			REF_BNO	NUMBER 1
+//			ORIGIN_NAME	VARCHAR2(255 BYTE) 2
+//			CHANGE_NAME	VARCHAR2(255 BYTE) 3
+//			FILE_PATH	VARCHAR2(1000 BYTE) 4
+//			UPLOAD_DATE	DATE
+//			FILE_LEVEL	NUMBER
+//			STATUS	VARCHAR2(1 BYTE)
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getRefBoardNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }
