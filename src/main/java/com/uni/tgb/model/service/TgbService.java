@@ -49,4 +49,43 @@ public class TgbService {
 		return result;
 	}
 
+	public Tgb selectTgb(int bno) {
+		Connection conn = getConnection();
+		Tgb t = new TgbDao().selectTgb(conn, bno);
+		
+		close(conn);
+		
+		return t;
+	}
+
+	public ArrayList<Attachment> selectAttachment(int bno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> list = new TgbDao().selectAttachment(conn, bno);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public Tgb updateFormTgb(int bno) {
+		Connection conn = getConnection();
+		Tgb t = new TgbDao().selectTgb(conn, bno);
+		
+		close(conn);
+		
+		return t;
+		
+	}
+
+	public ArrayList<Attachment> updateFormAttachment(int bno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> list = new TgbDao().selectAttachment(conn, bno);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }

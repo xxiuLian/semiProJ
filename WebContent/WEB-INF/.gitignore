@@ -17,7 +17,7 @@ local.properties
 .recommenders
 .project
 .classpath
-.WebContent/assets/img_upfile/
+.img_upfile/
 
 # External tool builders
 .externalToolBuilders/
