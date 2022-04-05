@@ -37,17 +37,19 @@
 					<p>${q.qnaContent}</p>
 				</td>
 			</tr>
-			<%--
 			<tr>
 				<th>첨부파일</th>
 				<td colspan="3">
-					<% if(at != null){ %>
-					<a download="<%= at.getOriginName() %>" href="<%=contextPath%>/resources/board_upfiles/<%=at.getChangeName()%>"><%= at.getOriginName() %></a>
-					<% }else{ %>
-					첨부파일이 없습니다.
-					<% } %>
+					<c:choose>
+						<c:when test="${at != null}">
+							<a download="${at.originName}" href="${contextPath}/resources/qna_board_upfiles/${at.changeName}">${at.originName}</a>	
+						</c:when>
+						<c:otherwise>
+							첨부파일이 없습니다.
+						</c:otherwise>
+					</c:choose>
 				</td> 
-			</tr> --%>
+			</tr>
 		</table>
 		<br>
 		

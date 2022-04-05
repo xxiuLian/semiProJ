@@ -202,9 +202,9 @@ public class QnaDao {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
+		
 		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
-		// WHERE REF_BNO=? AND STATUS='Y'
+		// WHERE B_NO=? AND STATUS='Y' AND TYPE='QNA'
 		String sql = prop.getProperty("selectAttachment");
 
 		try {
@@ -226,7 +226,7 @@ public class QnaDao {
 			close(rset);
 			close(pstmt);
 		}
-
+		System.out.println("첨부파일 조회 : " + at);
 		return at;
 	}
 
@@ -255,7 +255,7 @@ public class QnaDao {
 	public int insertQna(Connection conn, Qna q) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		// insertQna=INSERT INTO QNA_BOARD VALUES(SEQ_BNO.NEXTVAL, ?, ?, ?, ?, DEFAULT,
+		// insertQna=INSERT INTO QNA_BOARD VALUES(SEQ_QNO.NEXTVAL, ?, ?, ?, ?, DEFAULT,
 		// SYSDATE, DEFAULT, NULL, NULL)
 		String sql = prop.getProperty("insertQna");
 //		QNA_NO	NUMBER
@@ -288,7 +288,7 @@ public class QnaDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
-		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, ?, 'QNA')
+		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_QNO.CURRVAL, 'QNA')
 		String sql = prop.getProperty("insertAttachment");
 //		FILE_NO	NUMBER
 //		ORIGIN_NAME	VARCHAR2(255 BYTE) 1
@@ -296,7 +296,7 @@ public class QnaDao {
 //		FILE_PATH	VARCHAR2(1000 BYTE) 3
 //		UPLOAD_DATE	DATE
 //		STATUS	VARCHAR2(1 BYTE)
-//		B_NO	NUMBER 4
+//		B_NO	NUMBER
 //		TYPE	VARCHAR2(50 BYTE)
 
 		try {
@@ -304,7 +304,6 @@ public class QnaDao {
 			pstmt.setString(1, at.getOriginName());
 			pstmt.setString(2, at.getChangeName());
 			pstmt.setString(3, at.getFilePath());
-			pstmt.setInt(4, q.getQnaNo());
 			System.out.println(q.getQnaNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

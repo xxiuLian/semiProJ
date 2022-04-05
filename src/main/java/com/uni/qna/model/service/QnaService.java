@@ -54,8 +54,12 @@ public class QnaService {
 	}
 
 	public Attachment selectAttachment(int qno) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = getConnection();
+
+		Attachment at = new QnaDao().selectAttachment(conn, qno);
+		close(conn);
+		
+		return at;
 	}
 
 	public int deleteQna(int qno) {
