@@ -34,31 +34,20 @@ public class TgbBoard_listServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
-		int listStart = 0; //글번호(한 페이지 내에 게시글 시작)
-		int listEnd = 0;//글번호(한 페이지 내에 게시글 끝)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
 		int listPageCount = 10; //한 페이지 내의 글 수
 		int listCount= 0 ; //총 글 수
-		int barStart = 1; //페이징바
-		int barEnd = 0; //페이징바
+		int barStart = 1; //페이징바(한페이지 내에서)
+		int barEnd = 0; //페이징바(한페이지 내에서)
+		int barMax = 0; //페이징바 가장 마지막
 		int barCount = 5; //페이징바 5개
 		int currentPage = 1; //현재 페이지
-		
-		
-		
+			
 		//파라미터 값에 따라서 페이지 변경
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
-		barEnd = currentPage + 4 ;
-		barStart = barEnd - 4 ;
-				
-		//게시글 처음~끝 : a+(n-1)d && 존재하는 글만
-		//존재하는 글
-		//listStart =  1 + (currentPage-1) * 10;
-		//listEnd = 10 + (currentPage-1) * 10;
 		
 		//총 글 수
 		listCount = new TGBBoard_service().getTgbBoard_listCount();
@@ -66,8 +55,28 @@ public class TgbBoard_listServlet extends HttpServlet {
 		//게시글 목록
 		ArrayList<TgbBoard_dto> list = new TGBBoard_service().getBoardList(currentPage, listPageCount);
 		
+		//목록 마지막
+		// 총 124 한 페이지 10개 면 13개 바 개수
+		barMax = listCount/listPageCount+1;
+	
+		// 이제 저기에 + 1 해주면, 1...2...3... 이런 식
+		// => a + (n-1)d = x (등차 어쩌고 공식)
+		// => 1 + (x-1)*5 => 1...6...11... 
+		
+		int x = 0;
+		x = (currentPage - 1) / barCount + 1 ; //1...2...3...
+		barStart = 1 + (x - 1) * barCount; //6...11...16...
+		
+		barEnd = barStart + barCount - 1;  //5...10...15...
+		
+		//마지막 페이지 일경우 //5...10..15(x)13(o)...
+		if((barStart <= barMax) && (barMax <= barEnd)){
+			System.out.println((barStart <= barMax) && (barMax <= barEnd));
+			barEnd = barMax; 
+		}
+
 		//pi 생성자로 생성
-		TgbBoard_pageInfo pi = new TgbBoard_pageInfo(listStart, listEnd, listCount, currentPage, barStart, barEnd, barCount);
+		TgbBoard_pageInfo pi = new TgbBoard_pageInfo(listCount, currentPage, barStart, barEnd, barCount, listPageCount, barMax);
 		
 		
 		request.setAttribute("list", list);

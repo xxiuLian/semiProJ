@@ -4,13 +4,15 @@ import java.sql.Date;
 
 public class TgbBoard_dto {
 	private int tgbBoardNo;
-	private int tgbBoardCategory;
-	private int tgbBoardWriter;
+	private String tgbBoardCategory;
+	private String tgbBoardWriter;
 	private String tgbBoardTitle;
 	private String tgbBoardContent;
 	private int tgbBoardCount;
 	private Date tgbBoardDate;
 	private String tgbBoardStatus;
+	
+	
 	
 	public TgbBoard_dto() {
 		// TODO Auto-generated constructor stub
@@ -18,7 +20,7 @@ public class TgbBoard_dto {
 	
 	
 
-	public TgbBoard_dto(int tgbBoardNo, int tgbBoardCategory, int tgbBoardWriter, String tgbBoardTitle,
+	public TgbBoard_dto(int tgbBoardNo, String tgbBoardCategory, String tgbBoardWriter, String tgbBoardTitle,
 			String tgbBoardContent, int tgbBoardCount, Date tgbBoardDate, String tgbBoardStatus) {
 		super();
 		this.tgbBoardNo = tgbBoardNo;
@@ -45,25 +47,25 @@ public class TgbBoard_dto {
 
 
 
-	public int getTgbBoardCategory() {
+	public String getTgbBoardCategory() {
 		return tgbBoardCategory;
 	}
 
 
 
-	public void setTgbBoardCategory(int tgbBoardCategory) {
+	public void setTgbBoardCategory(String tgbBoardCategory) {
 		this.tgbBoardCategory = tgbBoardCategory;
 	}
 
 
 
-	public int getTgbBoardWriter() {
+	public String getTgbBoardWriter() {
 		return tgbBoardWriter;
 	}
 
 
 
-	public void setTgbBoardWriter(int tgbBoardWriter) {
+	public void setTgbBoardWriter(String tgbBoardWriter) {
 		this.tgbBoardWriter = tgbBoardWriter;
 	}
 
