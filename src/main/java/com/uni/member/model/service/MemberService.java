@@ -32,4 +32,13 @@ public class MemberService {
 		return loginUser;
 	}
 
+	public Member selectMember(String userId) {
+		Connection conn = getConnection();
+		Member member = new MemberDao().selectMember(conn, userId);
+		
+		close(conn);//조회 잘 했으면 Connection 닫기
+		
+		return member;
+	}
+
 }

@@ -67,6 +67,7 @@ public class TgbInsertServlet extends HttpServlet {
 			
 			Tgb t = new Tgb(category, title, content, guide, writer, term, price);
 			
+					
 			ArrayList<Attachment> fileList = new ArrayList<>();
 			
 			for(int i = 1; i<=3; i++) {

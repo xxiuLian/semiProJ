@@ -5,72 +5,63 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
 <style>
-/*.editer{
-	border: 1px solid black;
-    width: 1000px;
-    height: 1000px;
-}*/
-
-img{
-    border: 1px dashed black;
-}
+    #contentArea, #guidArea{
+        border: 1px solid black;
+        width: 800px;
+        height: 500px;
+    }
 </style>
 <body>
-
+<%@ include file="../common/menubar.jsp" %>
 <form method="post" action="tgbInsertServlet.do" enctype="multipart/form-data">
+<div>카테고리 : 
     <select name="category">
         <option value="1">식품</option>
         <option value="2">의류</option>
-    </select><br>
-제목 : <input type="text" name="title"><br>
-제품 이미지 : 
-<div><img id="Img1" width="150" height="150"><img id="Img2" width="150" height="150"><img id="Img3" width="150" height="150"></div>
-제품 설명 : <div><textarea rows="10 cols="40" name="content"></textarea></div>
-공구 설명 : <div><textarea rows="10" cols="40" name="guide"></textarea><br></div>
-공구 기간 : <input type="date" name="term"><br>
-공구 가격 : <input type="text" name="price"><br>
-writer_no<input type="text" name="writer" value="5" hidden><br>
-<div id="fileArea" hidden>
-    <input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
-    <input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
-    <input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
+    </select>
 </div>
+    <div>제목 : <input type="text" name="title"></div>
+    <div>공구 기간 : <input type="date" name="term"></div>
+    <div>공구 가격 : <input type="number" name="price" step="1000"></div>
+    <div id="contentArea" contenteditable="true"></div>
+    <div id="guidArea" contenteditable="true"></div>
 
+</div>
+<input type="file" id="inputFile" name="file" multiple>
+<input type="text" name="writer" value="<%=loginUser.getUserNo() %>" hidden><!--writer_NO-->
+<textarea name="content" hidden></textarea>
+<textarea name="guide" hidden></textarea>
+<button type="button" onclick="onsubmit()">작성완료</button>
+</form>
 <script>
-    $("#Img1").click(function(){
-        $("#file1").click();
-    });
-    $("#Img2").click(function(){
-        $("#file2").click();
-    });
-    $("#Img3").click(function(){
-        $("#file3").click();
+    var i = 0;
+
+    $(document).ready(function(){
+        $('#inputFile').on("change", fileInputArea)
     });
 
-    function loadImg(input, num){
-        if(input.files.length == 1){
-            var reader = new FileReader();
-            reader.readAsDataURL(input.files[0]);
-            reader.onload = function(e){
-                switch(num){
-                    case 1 : $("#Img1").attr("src", e.target.result); break; 
-                    case 2 : $("#Img2").attr("src", e.target.result); break; 
-                    case 3 : $("#Img3").attr("src", e.target.result); break; 
-                }
-            }
+    function fileInputArea(event){
+        let fileInputControl = event.target;
+        let files = fileInputControl.files;
+
+        while(i < files.length){
+            FormData.append('files', files[i]);
+            i++;
         }
+
+         
+
     }
+
 
 </script>
 
-<!--<div class="editer" name="content2" contenteditable="true" spellcheck="false">sdf
-    <img src="https://sir.kr/data/editor/2008/3739827612_1596626375.8311.png">
-</div>-->
-<button type="submit">등록</button>
-</form>
+
+
+
 
 </body>
 </html>

@@ -38,26 +38,32 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertMember");
-		/*	USER_NO		NUMBER
-			*USER_ID	VARCHAR2(30 BYTE)
-			*USER_PWD	VARCHAR2(100 BYTE)
-			*USER_NAME	VARCHAR2(15 BYTE)
-			*ADDRESS	VARCHAR2(100 BYTE)
-			*PHONE		VARCHAR2(100 BYTE)
-			*EMAIL		VARCHAR2(100 BYTE)
-			*ACCOUNT	VARCHAR2(100 BYTE)
+		/*	USER_NO	NUMBER
+			1USER_ID	VARCHAR2(30 BYTE)
+			2USER_PWD	VARCHAR2(100 BYTE)
+			3USER_NAME	VARCHAR2(15 BYTE)
+			4PHONE	VARCHAR2(100 BYTE)
+			5EMAIL	VARCHAR2(100 BYTE)
+			6ACCOUNT	VARCHAR2(100 BYTE)
+			7BANK	VARCHAR2(15 BYTE)
+			8POST	NUMBER
+			9ADDRESS1	VARCHAR2(100 BYTE)
+			10ADDRESS2	VARCHAR2(100 BYTE)
 			ENROLL_DATE	DATE
 			MODIFY_DATE	DATE
-			STATUS		VARCHAR2(1 BYTE)*/
+			STATUS	VARCHAR2(1 BYTE)*/
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getUserId());
 			pstmt.setString(2, member.getUserPwd());
 			pstmt.setString(3, member.getUserName());
-			pstmt.setString(4, member.getAddress());
-			pstmt.setString(5, member.getPhone());
-			pstmt.setString(6, member.getEmail());
-			pstmt.setString(7, member.getAccount());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getEmail());
+			pstmt.setString(6, member.getAccount());
+			pstmt.setString(7, member.getBank());
+			pstmt.setInt(8, member.getPost());
+			pstmt.setString(9, member.getAddress1());
+			pstmt.setString(10, member.getAddress2());
 			
 			result = pstmt.executeUpdate();
 			
@@ -104,10 +110,13 @@ public class MemberDao {
 						   rset.getString("USER_ID"),
 						   rset.getString("USER_PWD"),
 						   rset.getString("USER_NAME"),
-						   rset.getString("ADDRESS"),
 						   rset.getString("PHONE"),
 						   rset.getString("EMAIL"),
 						   rset.getString("ACCOUNT"),
+						   rset.getString("BANK"),
+						   rset.getInt("POST"),
+						   rset.getString("ADDRESS1"),
+						   rset.getString("ADDRESS2"),
 						   rset.getDate("ENROLL_DATE"),
 						   rset.getDate("MODIFY_DATE"),
 						   rset.getString("STATUS")
@@ -124,6 +133,49 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return loginUser;
+	}
+
+	public Member selectMember(Connection conn, String userId) {
+		//selectMember=SELECT * FROM MEMBER WHERE USER_ID=? AND STATUS='Y'
+		Member mem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Member(rset.getInt("USER_NO"),
+						   rset.getString("USER_ID"),
+						   rset.getString("USER_PWD"),
+						   rset.getString("USER_NAME"),
+						   rset.getString("PHONE"),
+						   rset.getString("EMAIL"),
+						   rset.getString("ACCOUNT"),
+						   rset.getString("BANK"),
+						   rset.getInt("POST"),
+						   rset.getString("ADDRESS1"),
+						   rset.getString("ADDRESS2"),
+						   rset.getDate("ENROLL_DATE"),
+						   rset.getDate("MODIFY_DATE"),
+						   rset.getString("STATUS")
+						   );
+			}
+			System.out.println("Member : " + mem);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mem;
 	}
 
 }

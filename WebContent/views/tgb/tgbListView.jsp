@@ -18,6 +18,7 @@
 <title>Insert title here</title>
 <link href="../../css/styles.css" rel="stylesheet" />
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <body>
 <%@ include file="../common/menubar.jsp" %>
 
@@ -42,12 +43,11 @@
 				</tr>
 				<%}else{ %>
 					<% for( Tgb t : list){ %>
-					<tr>
+					<tr class="list">
+						<td><img src = <%=contextPath%>/assets/img_upfile/<%= t.getThumnail() %> width="200px" height="150px"></td>
 						<td><%= t.getTgbNo() %></td>
 						<td><%= t.getTgbCategory() %>
 						<td><%= t.getTgbTitle() %></td>
-						<td><%= t.getTgbContent() %></td>
-						<td><%= t.getTgbContent() %></td>
 						<td><%= t.getCount() %></td>
 						<td><%= t.getCreateDate() %></td>
 					</tr>
@@ -55,6 +55,17 @@
 				<%} %>
 			</tbody>
 		</table>
+
+		<script>
+			$(function(){
+				$('.list').click(function(){
+					var bno = $(this).children().eq(1).text();
+					console.log(bno)
+					location.href="<%=contextPath%>/detailTgb.do?bno="+bno ;
+ 				});
+			});
+		</script>
+
 		<br><br>
 		<!-- 페이징바 -->
 		<div>
