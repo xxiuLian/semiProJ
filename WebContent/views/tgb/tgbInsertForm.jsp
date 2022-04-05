@@ -34,25 +34,34 @@
 <input type="text" name="writer" value="<%=loginUser.getUserNo() %>" hidden><!--writer_NO-->
 <textarea name="content" hidden></textarea>
 <textarea name="guide" hidden></textarea>
-<button type="button" onclick="onsubmit()">작성완료</button>
+<button id="btn1">작성완료</button>
 </form>
 <script>
-    $.ajax({
-        type: "POST",
-        enctype: 'multipart/form-data',
-        url:'/tgbInsertServlet.do',
-        data: FormData,
-        processData:false,
-        contentType: false,
-        cache: false,
-        success:function(result){
 
-        },
-        error:function(e){
+    $(function(){
+        $('#btn1').click(function(){
 
-        }
-    })
+            $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url:'/tgbInsertServlet.do',
+                        data: FormData,
+                        processData:false,
+                        contentType: false,
+                        cache: false,
+                        success:function(result){
 
+                        },
+                        error:function(e){
+
+                        }
+                    })
+
+        })
+    })    
+
+
+    
     var i = 0;
 
     $(document).ready(function(){

@@ -77,6 +77,7 @@ public class TgbInsertServlet extends HttpServlet {
 				if(multiRequest.getOriginalFileName(name) != null) {
 					String originName = multiRequest.getOriginalFileName(name);
 					String changeName = multiRequest.getFilesystemName(name);
+					System.out.println(originName);
 					
 					Attachment at = new Attachment();
 					at.setFilePath(savePath);
