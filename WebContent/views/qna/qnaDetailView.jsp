@@ -37,28 +37,29 @@
 					<p>${q.qnaContent}</p>
 				</td>
 			</tr>
-			<%--
 			<tr>
 				<th>첨부파일</th>
 				<td colspan="3">
-					<% if(at != null){ %>
-					<a download="<%= at.getOriginName() %>" href="<%=contextPath%>/resources/board_upfiles/<%=at.getChangeName()%>"><%= at.getOriginName() %></a>
-					<% }else{ %>
-					첨부파일이 없습니다.
-					<% } %>
+					<c:choose>
+						<c:when test="${at != null}">
+							<a download="${at.originName}" href="${contextPath}/resources/qna_board_upfiles/${at.changeName}">${at.originName}</a>	
+						</c:when>
+						<c:otherwise>
+							첨부파일이 없습니다.
+						</c:otherwise>
+					</c:choose>
 				</td> 
-			</tr> --%>
+			</tr>
 		</table>
 		<br>
 		
 		<div class="btns" align="center">
 			<button type="button" onclick="location.href='${contextPath}/qnaList.do?currentPage=1';">목록으로</button>
 			
-			<% //if(loginUser != null && loginUser.getUserId().equals(q.getQnaWriter())){ %>
-				
+			<c:if test="${sessionScope.loginUser.userId eq q.qnaWriter}">
 				<button type="button" onclick="updateForm();">수정하기</button>
 				<button type="button" onclick="deleteQna();">삭제하기</button>
-			<% //} %>
+			</c:if>	
 		</div>
 		
 		<form action="" id="postForm" method="post">
@@ -81,17 +82,11 @@
 		<!-- 댓글 작성하는 div -->
 		<table border="1" align="center">
 			<tr>
-				<th>댓글작성</th>
-				<c:choose>
-					<c:when test="${sessionScope.loginUser.userId == 'admin'}">
+				<c:if test="${sessionScope.loginUser.userId == 'admin'}">
+					<th>답변작성</th>
 						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-						<td><button id="addReply">댓글등록</button></td>
-					</c:when>
-					<c:otherwise>
-						<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 작성 가능합니다.</textarea></td>
-						<td><button disabled>댓글등록</button></td>
-					</c:otherwise>
-				</c:choose>
+						<td><button id="addReply">답변등록</button></td>
+				</c:if>
 			</tr>
 		</table>
 		<!-- 댓글 리스트들 보여주는 div -->
@@ -151,43 +146,28 @@
 				url:"rlist.do",
 				data:{qId:${q.qnaNo}},
 				type:"get",
-				success:function(list){
-					console.log(list)
-				/*	var value="";
-					for(var i in list){
-						value += '<tr>'+
-									'<td width="100px">'+ list[i].replyWriter+'</td>'+ 
-									'<td width="330px">'+ list[i].replyContent+'</td>'+ 
-									'<td width="150px">'+ list[i].createDate+'</td>'+ 
-								'</tr>';
-					}
-					$("#replyList").html(value);
-					
-					
-					//2번방법 
-					var value="";
-					$.each(list,function(index,obj){
-						value += '<tr>'+
-								'<td width="100px">'+ obj.replyWriter+'</td>'+ 
-								'<td width="330px">'+ obj.replyContent+'</td>'+ 
-								'<td width="150px">'+ obj.createDate+'</td>'+ 
-						'</tr>';
-					})
-					$("#replyList").html(value);*/
-					
-					
-					// 3번 방법
-					$.each(list, function(index, obj){
+				success:function(reply){
+					console.log(reply)
+					console.log(reply.qnaReply)
+					console.log(reply.replyDate)
+						if(reply.qnaReply != null){
+							var replyInfo = $("<td>").text('답변내용').attr("width", "100px");
+							var dateInfo = $("<td>").text('답변 작성일').attr("width", "100px");
+							var replyContent = $("<td>").text(reply.qnaReply).attr("width", "330px");
+							var replyDate = $("<td>").text(reply.replyDate).attr("width", "150px");
+							
+							var tr = $("<tr>").append(replyInfo, replyContent, dateInfo, replyDate);
+							
+							$("#replyList").append(tr);
+							
+						}else {
+							var replyInfo = $("<td>").text('답변 대기중').attr("width", "500px").attr("text-align", "center");
+							var tr = $("<tr>").append(replyInfo);
+							$("#replyList").append(tr);
+						}
 						
-						var writerTd = $("<td>").text(obj.replyWriter).attr("width", "100px");
-						var contentTd = $("<td>").text(obj.replyContent).attr("width", "330px");
-						var dateTd = $("<td>").text(obj.createDate).attr("width", "150px");
 						
-						var tr = $("<tr>").append(writerTd, contentTd, dateTd);
-						
-						$("#replyList").append(tr);
-						
-					});
+				
 				},
 				error:function(){
 					console.log("ajax 통신실패 -댓글조회")

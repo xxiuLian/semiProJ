@@ -202,9 +202,9 @@ public class QnaDao {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
+		
 		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
-		// WHERE REF_BNO=? AND STATUS='Y'
+		// WHERE B_NO=? AND STATUS='Y' AND TYPE='QNA'
 		String sql = prop.getProperty("selectAttachment");
 
 		try {
@@ -226,7 +226,7 @@ public class QnaDao {
 			close(rset);
 			close(pstmt);
 		}
-
+		System.out.println("첨부파일 조회 : " + at);
 		return at;
 	}
 
@@ -235,7 +235,7 @@ public class QnaDao {
 
 		PreparedStatement pstmt = null;
 
-		// deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE REF_BNO=?
+		//deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE B_NO=?
 		String sql = prop.getProperty("deleteAttachment");
 		System.out.println("deleteAttachment : " + sql);
 		try {
@@ -255,8 +255,8 @@ public class QnaDao {
 	public int insertQna(Connection conn, Qna q) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		// insertQna=INSERT INTO QNA_BOARD VALUES(SEQ_BNO.NEXTVAL, ?, ?, ?, ?, DEFAULT,
-		// SYSDATE, DEFAULT, NULL)
+		// insertQna=INSERT INTO QNA_BOARD VALUES(SEQ_QNO.NEXTVAL, ?, ?, ?, ?, DEFAULT,
+		// SYSDATE, DEFAULT, NULL, NULL)
 		String sql = prop.getProperty("insertQna");
 //		QNA_NO	NUMBER
 //		QNA_CATEGORY_NO	NUMBER 1 
@@ -273,7 +273,6 @@ public class QnaDao {
 			pstmt.setString(2, q.getQnaTitle());
 			pstmt.setString(3, q.getQnaContent());
 			pstmt.setInt(4, Integer.parseInt(q.getQnaWriter()));
-
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -285,9 +284,36 @@ public class QnaDao {
 		return result;
 	}
 
-	public int insertAttachment(Connection conn, Attachment at) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertAttachment(Connection conn, Attachment at, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_QNO.CURRVAL, 'QNA')
+		String sql = prop.getProperty("insertAttachment");
+//		FILE_NO	NUMBER
+//		ORIGIN_NAME	VARCHAR2(255 BYTE) 1
+//		CHANGE_NAME	VARCHAR2(255 BYTE) 2
+//		FILE_PATH	VARCHAR2(1000 BYTE) 3
+//		UPLOAD_DATE	DATE
+//		STATUS	VARCHAR2(1 BYTE)
+//		B_NO	NUMBER
+//		TYPE	VARCHAR2(50 BYTE)
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			System.out.println(q.getQnaNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 	public int updateQna(Connection conn, Qna q) {
@@ -374,6 +400,61 @@ public class QnaDao {
 		}
 
 		return result;
+	}
+
+	public int insertReply(Connection conn, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//insertQnaReply=UPDATE QNA_BOARD SET QNA_REPLY=?, REPLY_DATE=SYSDATE WHERE QNA_NO=?
+		String sql = prop.getProperty("insertQnaReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getQnaReply());
+			pstmt.setInt(2, q.getQnaNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Qna selectRList(Connection conn, int qId) {
+		Qna reply = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//selectQnaReply=SELECT QNA_REPLY, REPLY_DATE FROM QNA_BOARD WHERE QNA_NO=? AND STATUS = 'Y'
+		String sql = prop.getProperty("selectQnaReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reply = new Qna();
+				reply.setQnaReply(rset.getString("QNA_REPLY"));
+				reply.setReplyDate(rset.getDate("REPLY_DATE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return reply;
 	}
 
 }

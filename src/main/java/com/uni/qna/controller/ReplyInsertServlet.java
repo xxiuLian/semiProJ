@@ -1,6 +1,7 @@
 package com.uni.qna.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
+import com.uni.member.model.dto.Member;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class qnaDetailServlet
+ * Servlet implementation class ReplyInsertServlet
  */
-@WebServlet("/detailQna.do")
-public class QnaDetailServlet extends HttpServlet {
+@WebServlet("/rinsert.do")
+public class ReplyInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDetailServlet() {
+    public ReplyInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +32,24 @@ public class QnaDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int qno = Integer.parseInt(request.getParameter("qno"));
+		String content = request.getParameter("content");
+		int qId = Integer.parseInt(request.getParameter("qId"));
 		
-		Qna q = new QnaService().selectQna(qno);
-		Attachment at = new QnaService().selectAttachment(qno);
+		Qna q = new Qna();
+		q.setQnaNo(qId);
+		q.setQnaReply(content);
 		
-		if(q != null) {
-			q.setQnaContent(q.getQnaContent().replaceAll("\n", "<br>"));
-			request.setAttribute("q", q);
-			request.setAttribute("at", at); 
-			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);
+		int result = new QnaService().insertReply(q);
+		
+		PrintWriter out = response.getWriter();
+		if(result > 0) {
+			out.print("success");
 		}else {
-			request.setAttribute("msg", "게시글 상세조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			out.print("fail");
 		}
+		
+		out.flush();
+		out.close();
 	}
 
 	/**
