@@ -235,7 +235,7 @@ public class QnaDao {
 
 		PreparedStatement pstmt = null;
 
-		// deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE REF_BNO=?
+		//deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE B_NO=?
 		String sql = prop.getProperty("deleteAttachment");
 		System.out.println("deleteAttachment : " + sql);
 		try {
