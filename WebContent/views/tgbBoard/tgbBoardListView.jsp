@@ -1,21 +1,22 @@
+<%@page import="java.util.ListIterator"%>
 <%@page import="com.uni.tgb_board.model.dto.TgbBoard_pageInfo"%>
 <%@page import="com.uni.tgb_board.model.dto.TgbBoard_dto"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+   
 <% String contextPath = request.getContextPath(); %>
 <%
 	ArrayList<TgbBoard_dto> list = (ArrayList<TgbBoard_dto>)request.getAttribute("list");
 	TgbBoard_pageInfo pi = (TgbBoard_pageInfo)request.getAttribute("pi");
-	
-	int listStart = pi.getListStart();
-	int listEnd = pi.getListEnd();
+
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int barStart = pi.getBarStart();
 	int barEnd = pi.getBarEnd();
 	int barCount = pi.getBarCount();
+	int listPageCount = pi.getListPageCount();
+	int barMax = pi.getBarMax();
 	
 %>
 
@@ -24,19 +25,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+.tgbBoardArea{
+		border:1px solid white;
+		text-align:center;
+	}
+.tgbBoardArea>tbody>tr:hover{
+	background:darkgrey;
+	cursor:pointer
+}
+</style>
 </head>
 <body>
 
-listStart : <%= listStart %> <br>
-listEnd : <%= listEnd %> <br>
-listCount : <%= listCount %> <br>
-currentPage : <%= currentPage %> <br>
-barStart :  <%= currentPage %> <br>
-barEnd :  <%= barEnd %> <br>
-barCount : <%= barCount %> <br>
+<!-- 
+	listCount : <%= listCount %> <br>
+	currentPage : <%= currentPage %> <br>
+	barStart :  <%= barStart %> <br>
+	barEnd :  <%= barEnd %> <br>
+	barCount : <%= barCount %> <br>
+	listPageCount : <%= listPageCount %> <br>
+	barMax : <%= barMax %> <br>
+  -->
 
 	<!-- 1.목록 -->
-	<table>
+	<table class="tgbBoardArea">
 		<thead>
 			<tr>
 				<td>번호</td>
@@ -55,6 +69,7 @@ barCount : <%= barCount %> <br>
 				<td>조회된 리스트가 없습니다.</td>
 			</tr>
 			<%}else{ %>
+			
 				<% for(TgbBoard_dto b : list){ %>
 				<tr>
 					<td><%= b.getTgbBoardNo() %></td>
@@ -71,21 +86,29 @@ barCount : <%= barCount %> <br>
 		</tbody>
 	</table>
 	
+	<br><br>
+	
 	<!-- 2.페이징바 -->
 	<div class="pagingArea" align="center">
 		<button onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%= 1 %>'"> &lt;&lt; </button>
 		<button onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%= currentPage-1 %>'">&lt;</button>
-		
-		
+	
 		<!-- 페이징바 이동 -->
-		<% for(int i = barStart; i < (barStart + barCount); i++){ %>
-			<button onclick="location.href='<%=contextPath %>/tgbBoardSelect.do?currentPage=<%= i-2 %>'"><%= i-2 %></button>
+		<% for(int i = barStart; i <= barEnd; i++){ %>
+			<button onclick="location.href='<%=contextPath %>/tgbBoardSelect.do?currentPage=<%= i %>'"><%= i %></button>
 		<% } %>
-		
-		
+
 		<button onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%= currentPage+1 %>'">&gt;</button>
 	</div>
-	
-	
+	<script>
+	<%if(!list.isEmpty()){%>
+		$(function(){
+			$(".tgbBoardArea>tbody>tr").click(function(){
+				var bno = $(this).children().eq(0).text();
+				location.href = "<%=contextPath%>/tgbBoardDetail.do?bno="+bno;
+			})
+		})
+	<%}%>
+	</script>
 </body>
 </html>

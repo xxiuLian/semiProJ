@@ -29,6 +29,19 @@ public class TGBBoard_service {
 		close(conn);
 		return listCount;
 	}
+
+	public TgbBoard_dto selectTgbBoard(int bno) {
+		Connection conn = getConnection();
+		TgbBoard_dto b = null;
+		//조회수
+		//int result
+		
+		b = new TgbBoard_dao().selectBoard(conn, bno);
+		
+		close(conn);
+		
+		return b;
+	}
 	
 	
 }

@@ -56,16 +56,6 @@ public class TgbBoard_dao {
 		//a + (n-1)d
 		int startRow =  1 + (currentPage-1) * listPageCount;
 		int endRow = listPageCount + (currentPage-1) * listPageCount;
-		
-//		selectTGBBoard=SELECT * FROM TGB_BOARD\
-//				( \
-//				SELECT BOARD_NO, BOARD_CATEGORY_NO, BOARD_WRITER \
-//				,BOARD_TITLE,BOARD_CONTENT \
-//				,COUNT,CREATE_DATE,STATUS \
-//				FROM TGB_BOARD \
-//				ORDER BY BOARD_NO \
-//				) A \
-//				WHERE BOARD_NO BETWEEN ? AND ?;
 
 
 //		BOARD_NO	NUMBER
@@ -88,8 +78,8 @@ public class TgbBoard_dao {
 			while(rset.next()) {
 				list.add(new TgbBoard_dto(
 						rset.getInt("BOARD_NO"),
-						rset.getInt("BOARD_CATEGORY_NO"),
-						rset.getInt("BOARD_WRITER"),
+						rset.getString("BOARD_CATEGORY_NAME"),
+						rset.getString("USER_ID"),
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getInt("COUNT"),
@@ -136,6 +126,51 @@ public class TgbBoard_dao {
 		}
 		
 		return listCount;
+	}
+
+
+//	B.BOARD_NO NUMBER //번호
+//	B.BOARD_TITLE VARCHAR2(100 BYTE) //제목
+//	B.BOARD_CONTENT VARCHAR2(4000 BYTE) //내용
+//	B.COUNT NUMBER //조회
+//	B.CREATE_DATE DATE//작성일
+//	M.USER_ID VARCHAR2(30 BYTE)//작성자
+//  C.BOARD_CATEGORY_NAME VARCHAR2(30 BYTE)//카테고리
+	
+
+	public TgbBoard_dto selectBoard(Connection conn, int bno) {
+		TgbBoard_dto b = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("detailTgbBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new TgbBoard_dto(
+						rset.getInt("BOARD_NO"),
+						rset.getString("BOARD_CATEGORY_NAME"),
+						rset.getString("USER_ID"),
+						rset.getString("BOARD_TITLE"),
+						rset.getString("BOARD_CONTENT"),
+						rset.getInt("COUNT"),
+						rset.getDate("CREATE_DATE"),
+						rset.getString("STATUS")
+						);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return b;
 	}
 	
 	
