@@ -37,6 +37,22 @@
 <button type="button" onclick="onsubmit()">작성완료</button>
 </form>
 <script>
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url:'/tgbInsertServlet.do',
+        data: FormData,
+        processData:false,
+        contentType: false,
+        cache: false,
+        success:function(result){
+
+        },
+        error:function(e){
+
+        }
+    })
+
     var i = 0;
 
     $(document).ready(function(){
@@ -45,12 +61,30 @@
 
     function fileInputArea(event){
         let fileInputControl = event.target;
-        let files = fileInputControl.files;
+        let files = Array.from(fileInputControl.files);
 
-        while(i < files.length){
-            FormData.append('files', files[i]);
-            i++;
+        if(i<=10){
+
+            files.forEach((file, index) => {
+                FormData.append("file"+i, file);
+                i++;
+
+                var reader = new FileReader();
+                reader.onload = function(){
+                    var dataURL = reader.result;
+                    $('#contentArea').append("<img src="+dataURL+">");
+
+                }
+                reader.readAsDataURL(file);
+
+            })
+            
+
+           
+        }else{
+            alert("사진은 10장까지 삽입이 가능합니다.");
         }
+
 
          
 
