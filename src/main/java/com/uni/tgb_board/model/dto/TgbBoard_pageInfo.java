@@ -4,32 +4,52 @@ import lombok.Data;
 
 public class TgbBoard_pageInfo {
 	
-	private int listStart; //데이터 행 시작(글번호)
-	private int listEnd; //데이터 행 끝(글번호)
 	private int listCount; //총 글 수
 	
 	private int currentPage; //페이징바에 따른 현재 페이지
+	private int listPageCount; //한 페이지 내의 글 수
 	
 	private int barStart; //페이징바 시작
-	private int barEnd; //페이징바 끝
-	private int barCount; //페이징바 수
+	private int barEnd; //페이징바 끝(한 페이지 내)
+	private int barCount; //페이징바 수(한 페이지 내)
+	private int barMax; //전체 페이징 마지막
 
 	public TgbBoard_pageInfo() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public TgbBoard_pageInfo(int listStart, int listEnd, int listSum, int currentPage, int barStart, int barEnd, int barCount) {
+	public TgbBoard_pageInfo(int listSum, int currentPage, int barStart, int barEnd, int barCount, int listPageCount, int barMax) {
 		super();
-		this.listStart = listStart;
-		this.listEnd = listEnd;
 		this.listCount = listSum;
 		this.currentPage = currentPage;
 		this.barStart = barStart;
 		this.barEnd = barEnd;
 		this.barCount = barCount;
+		this.listPageCount = listPageCount;
+		this.barMax = barMax;
 	}
 	
+	public int getBarMax() {
+		return barMax;
+	}
+
+
+	public void setBarMax(int barMax) {
+		this.barMax = barMax;
+	}
+
+
+	public int getListPageCount() {
+		return listPageCount;
+	}
+
+
+	public void setListPageCount(int listPageCount) {
+		this.listPageCount = listPageCount;
+	}
+
+
 	public int getBarCount() {
 		return barCount;
 	}
@@ -39,19 +59,6 @@ public class TgbBoard_pageInfo {
 		this.barCount = barCount;
 	}
 
-
-	public int getListStart() {
-		return listStart;
-	}
-	public void setListStart(int listStart) {
-		this.listStart = listStart;
-	}
-	public int getListEnd() {
-		return listEnd;
-	}
-	public void setListEnd(int listEnd) {
-		this.listEnd = listEnd;
-	}
 	public int getListCount() {
 		return listCount;
 	}
