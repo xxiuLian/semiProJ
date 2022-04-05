@@ -1,6 +1,7 @@
 package com.uni.qna.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class qnaDetailServlet
+ * Servlet implementation class ReplyListServlet
  */
-@WebServlet("/detailQna.do")
-public class QnaDetailServlet extends HttpServlet {
+@WebServlet("/rlist.do")
+public class ReplyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDetailServlet() {
+    public ReplyListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +33,14 @@ public class QnaDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int qno = Integer.parseInt(request.getParameter("qno"));
+		int qId = Integer.parseInt(request.getParameter("qId"));
 		
-		Qna q = new QnaService().selectQna(qno);
-		Attachment at = new QnaService().selectAttachment(qno);
-		
-		if(q != null) {
-			q.setQnaContent(q.getQnaContent().replaceAll("\n", "<br>"));
-			request.setAttribute("q", q);
-			request.setAttribute("at", at); 
-			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);
-		}else {
-			request.setAttribute("msg", "게시글 상세조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		Qna reply = new QnaService().selectRList(qId);
+		System.out.println("답변일 : "+reply.getQnaReply());
+		System.out.println("답변날짜 : "+reply.getReplyDate());
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create();
+		gson.toJson(reply, response.getWriter());
 	}
 
 	/**

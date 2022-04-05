@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
     };
 
+
     // Shrink the navbar 
     navbarShrink();
 

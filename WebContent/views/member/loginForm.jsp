@@ -13,7 +13,6 @@
 <!-- 카카오 -->
 
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script>window.Kakao.init("9fb8871864e8f093d41c5c8020df9c37")</script>
 
 <script type="text/javascript">
 
@@ -21,7 +20,7 @@
 		let msg = "<%=msg %>"
 		if(msg != "null"){
 			alert(msg);
-			<% session.removeAttribute("msg");%> //메세지 띄우고 세션 삭제
+			<% session.removeAttribute("msg");%> //메세지 띄우고 삭제
 		}
 	})
 	function loginValidate(){
@@ -61,35 +60,66 @@
 			    <button id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button>
 			</div>
 			<div style="height: 50px;margin-top: 1%; " id="naver_id_login"></div>
+			<!-- 카카오 로그인 버튼 노출 영역 -->
 			<a href="javascript:kakaoLogin();"><img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="height:40px;width:auto;"></a>
+	  	  	<ul>
+		<li onclick="kakaoLogout();">
+	      <a href="javascript:void(0)">
+	          <span>카카오 로그아웃</span>
+	      </a>
+		</li>
+	</ul>
 	  <!-- 네이버 로그인 버튼 노출 영역 -->
 	  <script type="text/javascript">
-	  	var naver_id_login = new naver_id_login("ZncfIzzOzACjfv58Qta_", "http://localhost:8070/valueSa");
+	  	var naver_id_login = new naver_id_login("ZncfIzzOzACjfv58Qta_", "http://localhost:8070/valueSa/naverLogin.jsp");
 	  	var state = naver_id_login.getUniqState();
-	  	naver_id_login.setButton("green",6);
+	  	naver_id_login.setButton("green",4);
 	  	naver_id_login.setState(state);	
 	  	naver_id_login.setPopup();
 	  	naver_id_login.init_naver_id_login();
 	  	<!-- 카카오 로그인 버튼 노출 영역 -->
-	  	function kakaoLogin(){
-	  		window.Kakao.Auth.login({
-	  			scope:'account_email',
-	  			success:function(response){
-	  				console.log(response);
-	  				window.Kakao.API.request({
-	  					url:'v2/user/me',
-	  					success:res=>{
-	  						const kakao_account = res.kakao_account;
-	  						console.log(kakao_account);
-	  					}
-	  				});
-	  			},
-	  			error:function(error){
-	  				console.log(error)
-	  			}
-	  		});
-	  	}
-	   </script>
+
+	<!-- 카카오 스크립트 -->
+
+	Kakao.init('9fb8871864e8f093d41c5c8020df9c37'); //발급받은 키 중 javascript키를 사용해준다.
+	Kakao.isInitialized();
+	console.log(Kakao.isInitialized()); // sdk초기화여부판단
+	//카카오로그인
+	function kakaoLogin() {
+	    Kakao.Auth.login({
+	      success: function (response) {
+	        Kakao.API.request({
+	          url: '/v2/user/me',
+	          success: function (response) {
+	                console.log(response),
+	                location.href="http://localhost:8070/valueSa"
+	         },
+	          fail: function (error) {
+	            console.log(error)
+	          },
+	        })
+	      },
+	      fail: function (error) {
+	        console.log(error)
+	      },
+	    })
+	  }
+	//카카오로그아웃  
+	function kakaoLogout() {
+	    if (Kakao.Auth.getAccessToken()) {
+	      Kakao.API.request({
+	        url: '/v1/user/unlink',
+	        success: function (response) {
+	        	console.log(response)
+	        },
+	        fail: function (error) {
+	          console.log(error)
+	        },
+	      })
+	      Kakao.Auth.setAccessToken(undefined)
+	    }
+	  }  
+	</script>
 
 		</form>
 		<% }else{ %> 
