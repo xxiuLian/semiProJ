@@ -39,7 +39,7 @@ public class QnaDetailServlet extends HttpServlet {
 		if(q != null) {
 			q.setQnaContent(q.getQnaContent().replaceAll("\n", "<br>"));
 			request.setAttribute("q", q);
-			request.setAttribute("at", at);
+			request.setAttribute("at", at); 
 			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "게시글 상세조회 실패");
