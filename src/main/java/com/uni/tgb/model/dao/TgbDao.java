@@ -40,7 +40,7 @@ public class TgbDao {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("tgbselectlist");
+		String sql = prop.getProperty("selectList");
 		
 		int startRow = (pi.getCurrentPage() -1)*pi.getBoardLimit()+1;
 		int endRow = startRow+pi.getBoardLimit() -1;
@@ -102,7 +102,7 @@ public class TgbDao {
 //		STATUS
 		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("tgbInsert");
+		String sql = prop.getProperty("insertTgb");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -164,7 +164,7 @@ public class TgbDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("listCount");
+		String sql = prop.getProperty("getlistCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -186,6 +186,94 @@ public class TgbDao {
 		
 		
 		return result;
+	}
+
+	public Tgb selectTgb(Connection conn, int bno) {
+		Tgb t = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+//		selectTgb=SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, TGB_CONTENT, TGB_GUIDE, USER_ID, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE FROM TGB \
+//				JOIN MEMBER ON TGB_WRITER = USER_NO JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) WHERE TGB_NO = ?
+		String sql = prop.getProperty("selectTgb");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				t = new Tgb(rset.getInt("TGB_NO"), 
+							rset.getString("TGB_CATEGORY_NAME"), 
+							rset.getString("TGB_TITLE"), 
+							rset.getString("TGB_CONTENT"), 
+							rset.getString("TGB_GUIDE"), 
+							rset.getString("USER_ID"), 
+							rset.getInt("TGB_COUNT"), 
+							rset.getDate("TGB_TERM"), 
+							rset.getInt("TGB_PRICE"), 
+							rset.getDate("CREATE_DATE"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		
+		return t;
+	}
+
+	public ArrayList<Attachment> selectAttachment(Connection conn, int bno) {
+		ArrayList<Attachment> list = new ArrayList<Attachment>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		//selectAttachment=SELECT * FROM ATTACHMENT WHERE B_NO = ? AND TYPE LIKE ?
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			pstmt.setString(2, "TGB");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				System.out.println("Dao에서 rset 담는다");
+				System.out.println(rset.getString("ORIGIN_NAME"));
+				Attachment a = new Attachment();
+				a.setOriginName(rset.getString("ORIGIN_NAME"));
+				a.setChangeName(rset.getString("CHANGE_NAME"));
+				a.setFilePath(rset.getString("FILE_PATH"));
+				
+				System.out.println("a 투스트링 : "+a.toString());
+				
+				list.add(a);
+				int i = 0;
+				for(Attachment b : list) {
+					System.out.println(i);
+					i++;
+					System.out.println("b" + b.getOriginName());
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		
+		return list;
 	}
 
 }
