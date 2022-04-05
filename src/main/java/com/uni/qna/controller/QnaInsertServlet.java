@@ -42,7 +42,7 @@ public class QnaInsertServlet extends HttpServlet {
 			
 			String resources = request.getSession().getServletContext().getRealPath("/resources");
 			
-			String savePath = resources + "\\board_upfiles\\";
+			String savePath = resources + "\\qna_board_upfiles\\";
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
@@ -50,9 +50,7 @@ public class QnaInsertServlet extends HttpServlet {
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
 			
-			
-			//int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-			int userNo = 8; //테스트용
+			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 			
 			Qna q = new Qna();
 			q.setCategory(category);

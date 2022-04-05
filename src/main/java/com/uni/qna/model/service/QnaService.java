@@ -1,6 +1,9 @@
 package com.uni.qna.model.service;
 
-import static com.uni.common.JDBCTemplate.*;
+import static com.uni.common.JDBCTemplate.close;
+import static com.uni.common.JDBCTemplate.commit;
+import static com.uni.common.JDBCTemplate.getConnection;
+import static com.uni.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -51,8 +54,12 @@ public class QnaService {
 	}
 
 	public Attachment selectAttachment(int qno) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = getConnection();
+
+		Attachment at = new QnaDao().selectAttachment(conn, qno);
+		close(conn);
+		
+		return at;
 	}
 
 	public int deleteQna(int qno) {
@@ -84,7 +91,7 @@ public class QnaService {
 		int result2 = 1;
 		
 		if(at != null) {
-			result2 = new QnaDao().insertAttachment(conn, at);
+			result2 = new QnaDao().insertAttachment(conn, at, q);
 		}
 		
 		if(result1 * result2 > 0) {
@@ -129,6 +136,31 @@ public class QnaService {
 		close(conn);
 		
 		return result1 * result2;
+	}
+
+	public int insertReply(Qna q) {
+		Connection conn = getConnection();
+		int result = new QnaDao().insertReply(conn, q);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public Qna selectRList(int qId) {
+		Connection conn = getConnection();
+		
+		Qna reply = new QnaDao().selectRList(conn ,qId);
+		
+		close(conn);
+		
+		return reply;
 	}
 
 }

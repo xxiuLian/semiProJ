@@ -17,7 +17,7 @@ public class Qna {
 	private String status;		//문의게시글 상태값(Y,N)
 
 	private String qnaReply;	//문의게시글 댓글(답변)
-	 
+	private Date replyDate;		//답변 작성일
 	
 	public Qna() {}
 	
