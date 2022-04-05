@@ -149,14 +149,14 @@ public class QnaService {
 		return result;
 	}
 
-	public String selectRList(int qId) {
+	public Qna selectRList(int qId) {
 		Connection conn = getConnection();
 		
-		String list = new QnaDao().selectRList(conn ,qId);
+		Qna reply = new QnaDao().selectRList(conn ,qId);
 		
 		close(conn);
 		
-		return list;
+		return reply;
 	}
 
 }

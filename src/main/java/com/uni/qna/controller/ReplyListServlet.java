@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
 
 /**
@@ -34,8 +35,9 @@ public class ReplyListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int qId = Integer.parseInt(request.getParameter("qId"));
 		
-		String reply = new QnaService().selectRList(qId);
-		
+		Qna reply = new QnaService().selectRList(qId);
+		System.out.println("답변일 : "+reply.getQnaReply());
+		System.out.println("답변날짜 : "+reply.getReplyDate());
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create();
 		gson.toJson(reply, response.getWriter());

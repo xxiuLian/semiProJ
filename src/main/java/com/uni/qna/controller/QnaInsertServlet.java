@@ -51,8 +51,7 @@ public class QnaInsertServlet extends HttpServlet {
 			String content = multiRequest.getParameter("content");
 			
 			
-			//int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-			int userNo = 8; //테스트용
+			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 			
 			Qna q = new Qna();
 			q.setCategory(category);

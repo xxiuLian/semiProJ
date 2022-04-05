@@ -146,6 +146,8 @@
 				type:"get",
 				success:function(reply){
 					console.log(reply)
+					console.log(reply.qnaReply)
+					console.log(reply.replyDate)
 				/*	var value="";
 					for(var i in list){
 						value += '<tr>'+
@@ -171,12 +173,12 @@
 					
 					// 3번 방법
 					//$.each(list, function(index, obj){
+						var replyInfo = $("<td>").text('답변내용').attr("width", "100px");
+						var replyInfo = $("<td>").text('답변 작성일').attr("width", "100px");
+						var replyContent = $("<td>").text(reply.qnaReply).attr("width", "330px");
+						var replyDate = $("<td>").text(reply.replyDate).attr("width", "150px");
 						
-						//var writerTd = $("<td>").text(obj.replyWriter).attr("width", "100px");
-						var contentTd = $("<td>").text(reply).attr("width", "330px");
-						//var dateTd = $("<td>").text(obj.createDate).attr("width", "150px");
-						var text = $("<td>").text('답변내용').attr("width", "100px");
-						var tr = $("<tr>").append(text, contentTd);
+						var tr = $("<tr>").append(replyInfo, replyContent, replyInfo, replyDate);
 						
 						$("#replyList").append(tr);
 						

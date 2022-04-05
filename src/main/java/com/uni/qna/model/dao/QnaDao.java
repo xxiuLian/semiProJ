@@ -256,7 +256,7 @@ public class QnaDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		// insertQna=INSERT INTO QNA_BOARD VALUES(SEQ_BNO.NEXTVAL, ?, ?, ?, ?, DEFAULT,
-		// SYSDATE, DEFAULT, NULL)
+		// SYSDATE, DEFAULT, NULL, NULL)
 		String sql = prop.getProperty("insertQna");
 //		QNA_NO	NUMBER
 //		QNA_CATEGORY_NO	NUMBER 1 
@@ -273,7 +273,6 @@ public class QnaDao {
 			pstmt.setString(2, q.getQnaTitle());
 			pstmt.setString(3, q.getQnaContent());
 			pstmt.setInt(4, Integer.parseInt(q.getQnaWriter()));
-
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -380,7 +379,7 @@ public class QnaDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		//insertQnaReply=UPDATE QNA_BOARD SET QNA_REPLY = ? WHERE QNA_NO = ?
+		//insertQnaReply=UPDATE QNA_BOARD SET QNA_REPLY=?, REPLY_DATE=SYSDATE WHERE QNA_NO=?
 		String sql = prop.getProperty("insertQnaReply");
 		
 		try {
@@ -400,13 +399,13 @@ public class QnaDao {
 		return result;
 	}
 
-	public String selectRList(Connection conn, int qId) {
-		String reply = null;
+	public Qna selectRList(Connection conn, int qId) {
+		Qna reply = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		//selectQnaReply=SELECT QNA_REPLY FROM QNA_BOARD WHERE QNA_NO=? AND STATUS = 'Y'
+		//selectQnaReply=SELECT QNA_REPLY, REPLY_DATE FROM QNA_BOARD WHERE QNA_NO=? AND STATUS = 'Y'
 		String sql = prop.getProperty("selectQnaReply");
 		
 		try {
@@ -416,7 +415,9 @@ public class QnaDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				reply = rset.getString("QNA_REPLY");
+				reply = new Qna();
+				reply.setQnaReply(rset.getString("QNA_REPLY"));
+				reply.setReplyDate(rset.getDate("REPLY_DATE"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
