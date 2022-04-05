@@ -148,41 +148,24 @@
 					console.log(reply)
 					console.log(reply.qnaReply)
 					console.log(reply.replyDate)
-				/*	var value="";
-					for(var i in list){
-						value += '<tr>'+
-									'<td width="100px">'+ list[i].replyWriter+'</td>'+ 
-									'<td width="330px">'+ list[i].replyContent+'</td>'+ 
-									'<td width="150px">'+ list[i].createDate+'</td>'+ 
-								'</tr>';
-					}
-					$("#replyList").html(value);
-					
-					
-					//2번방법 
-					var value="";
-					$.each(list,function(index,obj){
-						value += '<tr>'+
-								'<td width="100px">'+ obj.replyWriter+'</td>'+ 
-								'<td width="330px">'+ obj.replyContent+'</td>'+ 
-								'<td width="150px">'+ obj.createDate+'</td>'+ 
-						'</tr>';
-					})
-					$("#replyList").html(value);*/
-					
-					
-					// 3번 방법
-					//$.each(list, function(index, obj){
-						var replyInfo = $("<td>").text('답변내용').attr("width", "100px");
-						var replyInfo = $("<td>").text('답변 작성일').attr("width", "100px");
-						var replyContent = $("<td>").text(reply.qnaReply).attr("width", "330px");
-						var replyDate = $("<td>").text(reply.replyDate).attr("width", "150px");
+						if(reply.qnaReply != null){
+							var replyInfo = $("<td>").text('답변내용').attr("width", "100px");
+							var dateInfo = $("<td>").text('답변 작성일').attr("width", "100px");
+							var replyContent = $("<td>").text(reply.qnaReply).attr("width", "330px");
+							var replyDate = $("<td>").text(reply.replyDate).attr("width", "150px");
+							
+							var tr = $("<tr>").append(replyInfo, replyContent, dateInfo, replyDate);
+							
+							$("#replyList").append(tr);
+							
+						}else{
+							var replyInfo = $("<td>").text('답변 대기중').attr("width", "500px").attr("text-align", "center");
+							var tr = $("<tr>").append(replyInfo);
+							$("#replyList").append(tr);
+						}
 						
-						var tr = $("<tr>").append(replyInfo, replyContent, replyInfo, replyDate);
 						
-						$("#replyList").append(tr);
-						
-					//});
+				
 				},
 				error:function(){
 					console.log("ajax 통신실패 -댓글조회")

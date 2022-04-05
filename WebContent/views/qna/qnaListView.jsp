@@ -61,6 +61,7 @@
 					<th width="100">작성자</th>
 					<th width="100">조회수</th>
 					<th width="150">작성일</th>
+					<th width="150">답변상태</th>
 				</tr>
 			<thead>
 			<tbody>
@@ -79,6 +80,14 @@
 							<td>${q.qnaWriter}</td>
 							<td>${q.count}</td>
 							<td>${q.createDate}</td>
+							<c:choose>
+								<c:when test="${q.qnaReply != null}">
+									<td>답변 완료</td>
+								</c:when>
+								<c:otherwise>
+									<td>답변 대기중</td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 						</c:forEach>
 					</c:otherwise>
