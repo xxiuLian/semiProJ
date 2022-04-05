@@ -284,9 +284,37 @@ public class QnaDao {
 		return result;
 	}
 
-	public int insertAttachment(Connection conn, Attachment at) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertAttachment(Connection conn, Attachment at, Qna q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, ?, 'QNA')
+		String sql = prop.getProperty("insertAttachment");
+//		FILE_NO	NUMBER
+//		ORIGIN_NAME	VARCHAR2(255 BYTE) 1
+//		CHANGE_NAME	VARCHAR2(255 BYTE) 2
+//		FILE_PATH	VARCHAR2(1000 BYTE) 3
+//		UPLOAD_DATE	DATE
+//		STATUS	VARCHAR2(1 BYTE)
+//		B_NO	NUMBER 4
+//		TYPE	VARCHAR2(50 BYTE)
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, q.getQnaNo());
+			System.out.println(q.getQnaNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 	public int updateQna(Connection conn, Qna q) {

@@ -158,7 +158,7 @@
 							
 							$("#replyList").append(tr);
 							
-						}else{
+						}else {
 							var replyInfo = $("<td>").text('답변 대기중').attr("width", "500px").attr("text-align", "center");
 							var tr = $("<tr>").append(replyInfo);
 							$("#replyList").append(tr);

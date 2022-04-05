@@ -87,7 +87,7 @@ public class QnaService {
 		int result2 = 1;
 		
 		if(at != null) {
-			result2 = new QnaDao().insertAttachment(conn, at);
+			result2 = new QnaDao().insertAttachment(conn, at, q);
 		}
 		
 		if(result1 * result2 > 0) {
