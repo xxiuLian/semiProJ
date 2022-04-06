@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String message = (String)request.getAttribute("msg");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +31,8 @@
    
    #enrollForm td{font-weight:bold;}
    
-   #p{font-size:12px; color:blue; margin:5px 100px 0 0; padding:0; float:right;}
+   #p{font-size:12px; color:blue; margin:5px 150px 0 0; padding:0; float:right;}
+
 </style>
 
 </head>
@@ -71,12 +69,12 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>연락처</td>
+					<td>* 연락처</td>
 					<td><input type="tel" maxlength="11" name="phone" placeholder="(-없이)01012345678"></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td>이메일</td>
+					<td>* 이메일</td>
 					<td><input type="email" name="email"></td>
 					<td></td>
 				</tr>
@@ -92,6 +90,7 @@
 			            <option value="국민">국민</option>
 			            <option value="하나">하나</option>
 			            <option value="기업">기업</option>
+			            <option value="카카오뱅크">카카오뱅크</option>
 			        </select>
 					</td>
 				</tr>
@@ -118,7 +117,10 @@
 				</tr>
 					
 			</table>
+			<p id="p">* 표시는 필수 입력 항목입니다.</p>
 			<br>
+			
+			
 			  <!-- jQuery와 Postcodify를 로딩한다. -->
 		    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 		    <script>
@@ -130,7 +132,7 @@
 			
 			<div class="btns" align="center">
 				<button type="button" id="goMain" onclick= "location.href='<%= request.getContextPath()%>'">메인으로</button>
-				<button type="submit" id="joinBtn" >가입하기</button> <!-- disabled  추가 -->
+				<button type="submit" id="joinBtn" disabled>가입하기</button> <!-- disabled  추가 -->
 				
 			</div>
 		</form>
@@ -162,22 +164,21 @@
 		function checkId(){
 			var userId = $("#enrollForm input[name=userId]");
 			if(userId.val()==""){
-				alert("아이디를입력해주세요")
+				alert("아이디를 입력해주세요")
 				return false;
 			}
-			
 			
 			$.ajax({
 				url:"idCheck.do", //해당 서블릿 만들기
 				type:"post",
-				data:{userId:userId.val()}, //userId키값에 userid값을 넣음
+				data:{userId : userId.val()}, //userId키값에 userid값을 넣음
 				success:function(result){
 					if(result =="fail"){
-						alert("사용할수없는 아이디입니다.");
+						alert("사용할 수 없는 아이디입니다.");
 						userId.focus();
 						
 					}else{
-						if(confirm("사용가능한 아이디입니다. 사용하시겠습니까?")){
+						if(confirm("사용 가능한 아이디입니다. 사용 하시겠습니까?")){
 							userId.attr("readonly","true");
 							$("#joinBtn").removeAttr("disabled");
 						}else{
