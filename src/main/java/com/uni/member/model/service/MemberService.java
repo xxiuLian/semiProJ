@@ -3,6 +3,7 @@ package com.uni.member.model.service;
 import static com.uni.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.uni.member.model.dao.MemberDao;
 import com.uni.member.model.dto.Member;
@@ -97,6 +98,15 @@ public class MemberService {
 		}
 		close(conn);
 		return updateMem;
+	}
+
+	public ArrayList<Member> selectAllMember() {
+		Connection conn = getConnection();
+		ArrayList<Member> list = new MemberDao().selectAllMember(conn);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }
