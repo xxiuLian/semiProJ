@@ -4,8 +4,6 @@
 	Tgb t = (Tgb)request.getAttribute("t");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
 
-	System.out.println(t.getTgbContent()+"이거");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -34,6 +32,11 @@
 	#insertForm img{
 		border:1px dashed darkgray;
 	}
+	#contentArea, #guidArea{
+        border: 1px solid black;
+        width: 800px;
+        height: 500px;
+    }
 </style>
 </head>
 
@@ -41,7 +44,7 @@
 	
 	<div class="outer">
 	
-		<form id="insertForm" action="updateTgb.do" method="post" enctype="multipart/form-data">
+		<form method="post" id="updateForm" action="updateTgb.do" enctype="multipart/form-data">
 
 			<%-- <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">--%> 
 			<table align="center">
@@ -59,13 +62,19 @@
 					<th width="100">제목</th>
 					<td colspan="3"><input type="text" name="title" value="<%= t.getTgbTitle()%>"></td>
 				</tr>
+				<tr>
+					<td>공구 기간 : <input type="date" name="term"></td>
+					<td>공구 가격 : <input type="number" name="price" step="1000"></td>
+				</tr>
 			</table>
 			<button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button>
 
 			<div id="contentArea" contenteditable="true"><%=t.getTgbContent()%></div>
 			<div id="guidArea" contenteditable="true" hidden><%=t.getTgbGuide() %></div>
+			
 			<textarea id="ctnhtml" name="content" hidden></textarea>
 			<textarea id="gidhtml" name="guide" hidden></textarea>	
+			<input type="text" name="tgbNo" value=<%=t.getTgbWriter() %> hidden>
 		
 			<br>
 
@@ -81,19 +90,18 @@
 				<input type="file" class="inputFile" name="file9" onchange="loadImg(event)">
 				<input type="file" class="inputFile" name="file10" onchange="loadImg(event)">
 			</div>
-		
+		<!--  이미지 첨부 표시-->
 			<div id="originFile">
 				<% for(Attachment at : list){ %>
-				<div><input type="checkbox" class="ckoldFile" name="deletefile" value=<%=at.getFileNo() %>><%=at.getOriginName()  %></div>
-				<div><input type="checkbox" class="ckoldFile" name="deletefile" value="왜왜 안도돼 왜"><%=at.getOriginName()  %></div>
+				<div><input type="checkbox" class="ckoldFile" value=<%=at.getFileNo() %>><%=at.getOriginName()  %></div>
 				
 				<% } %>
-				
-				
+			
 			</div>	
 			<div class="btns" align="center">
-				<button type="submit">수정 완료하기</button>
+				<button id="btn1" onsubmit="fmdata()">수정 완료하기</button>
 			</div>
+			<input type="text" id="deletefile" name="deletefile" style="display:none"><!-- 지우고싶은 파일을 여기에 저장해준다. -->
 		</form>
 			<button type="button" onclick="deleteImg()">선택파일 삭제</button>
 			<button type="button" id="fileinput">이미지 삽입</button>
@@ -102,14 +110,18 @@
 	
 	<script>
 	var atCnt = <%=list.size()%>//현재 파일 목록에 있는 파일 수
+	var deletefile;
 	
 	function fmdata(){
         $('#contentArea').children('img').attr("src","");
 
         $('#gidhtml').val($('#guidArea').html());
         $('#ctnhtml').val($('#contentArea').html());
+        
+        $('#deletefile').val(deletefile);// delete 할때 값이 들어가는거 콘솔로 다 확인함
+        console.log($('#deletefile').val());
 
-        return true;
+        return false;
 
     }
 
@@ -139,25 +151,25 @@
 
 		for(var i = 0; i<ckoldFile.length; i++){
 			if($(ckoldFile[i]).is(":checked")){
-				$(ckoldFile[i]).parent().attr("style", "display:none");
+				deletefile =","+$(ckoldFile[i]).val();
+				console.log(deletefile)//콘솔에 deletefile value 받은거 출력
+				$(ckoldFile[i]).parent().remove();//style disply:non
 				atCnt--;
 			}
 
 		}
 		
-		for(var i = 0; i<cknewFile.length; i++){
+		for(var i = 0; i<cknewFile.length; i++){//새로 추가한 파일
 			if($(cknewFile[i]).is(":checked")){
-				$(cknewFile[i]).parent().remove();
+				$(cknewFile[i]).parent().remove();// 화면의 첨부파일 목록에서 없애주고
 				
 				var filename = "file"+atCnt;
-				$(input[name=filename]).val("");
+				$(input[name=filename]).val("");// 해당 파일INPUT의 value만 지워준다. 
 				atCnt--;
 			}
 
 		}
-		
-		
-		
+
 		
 	};
     

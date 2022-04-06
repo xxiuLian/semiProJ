@@ -92,7 +92,7 @@ public class TgbService {
 		Connection conn = getConnection();
 		
 		int result = new TgbDao().deleteAttachment(conn, fno);
-		
+		System.out.println("서비스에서 result : "+result);
 		if(result >0) {
 			commit(conn);
 		}else {
