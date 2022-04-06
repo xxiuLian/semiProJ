@@ -1,11 +1,16 @@
 package com.uni.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.uni.member.model.dto.Member;
+import com.uni.member.model.service.MemberService;
 
 /**
  * Servlet implementation class adminPageServlet
@@ -26,6 +31,8 @@ public class adminPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<Member> list = new MemberService().selectAllMember();
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/admin/adminPage.jsp").forward(request, response);
 	}
 

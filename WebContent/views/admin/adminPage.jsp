@@ -18,79 +18,45 @@
                 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <div class="sb-sidenav-menu-heading">회원</div>
+                            <a class="nav-link" href="adminMember.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                전체 회원
                             </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <div class="sb-sidenav-menu-heading">상품</div>
+                            <a class="nav-link" href="adminTGB.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                상품
+                            </a>
+                           <div class="sb-sidenav-menu-heading">게시판</div>
+                            <a class="nav-link" href="adminQna.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                문의
+                            </a>
+                            <a class="nav-link" href="adminBoard.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                커뮤니티
+                            </a>
+                             <div class="sb-sidenav-menu-heading">카테고리</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
+                                카테고리
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                    <a class="nav-link" href="layout-static.html">상품</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">커뮤니티</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">문의</a>
                                 </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
-                        </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
+                  
                 </nav>
             </div>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Sidenav Light</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Sidenav Light</li>
-                        </ol>
+                        <h1 class="mt-4">전체 회원 관리</h1>
                         <div class="card mb-4">
                             <div class="card-body">
                                 This page is an example of using the light side navigation option. By appending the
@@ -102,8 +68,57 @@
                                 is also available for a darker option.
                             </div>
                         </div>
+                       <br>
+		<table class="listArea" align="center">
+			<thead>
+				<tr>
+					<th width="100"></th>
+					<th width="100">회원번호</th>
+					<th width="100">아이디</th>
+					<th width="300">전화번호</th>
+					<th width="100">이메일</th>
+					<th width="100">가입일</th>
+					<th width="150">탈퇴여부</th>
+				</tr>
+			<thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${empty list}">
+						<tr>
+							<td colspan="6">조회된 리스트가 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="m" items="${list}">
+						<tr>
+							<td><input type="checkbox" id="memberChecked" name="memberChecked"></td>
+							<td>${m.userNo}</td>
+							<td>${m.userId}</td>
+							<td>${m.phone}</td>
+							<td>${m.email}</td>
+							<td>${m.enrollDate}</td>
+							<c:choose>
+								<c:when test="${m.status eq 'Y'}">
+									<td>미탈퇴</td>
+								</c:when>
+								<c:otherwise>
+									<td>탈퇴</td>
+								</c:otherwise>
+							</c:choose>
+						</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
                     </div>
                 </main>
+                
+                
+                
+                
+                
+                
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.uni.member.model.dto.Member;
@@ -282,6 +283,50 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Member> selectAllMember(Connection conn) {
+		 ArrayList<Member> list = new ArrayList<Member>();
+		 PreparedStatement pstmt = null;
+		 ResultSet rset = null;
+		 
+		 //selectAllMember=SELECT * FROM MEMBER
+		 String sql = prop.getProperty("selectAllMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Member m = new Member(rset.getInt("USER_NO"),
+							   rset.getString("USER_ID"),
+							   rset.getString("USER_PWD"),
+							   rset.getString("USER_NAME"),
+							   rset.getString("PHONE"),
+							   rset.getString("EMAIL"),
+							   rset.getString("ACCOUNT"),
+							   rset.getString("BANK"),
+							   rset.getInt("POST"),
+							   rset.getString("ADDRESS1"),
+							   rset.getString("ADDRESS2"),
+							   rset.getDate("ENROLL_DATE"),
+							   rset.getDate("MODIFY_DATE"),
+							   rset.getString("STATUS")
+							   );
+					
+					list.add(m);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+		 
+		return list;
 	}
 
 }
