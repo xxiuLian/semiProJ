@@ -276,4 +276,30 @@ public class TgbDao {
 		return list;
 	}
 
+	public int deleteAttachment(Connection conn, String[] fno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		//deleteAttachment=UPDATE ATTACHMENT SET STATUS=N WHERE FILE_NO=?
+		String sql = prop.getProperty("deleteAttachment");
+		
+			
+			try {
+				
+				for(String no : fno) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, no);
+				
+				result += pstmt.executeUpdate();
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+			close(pstmt);
+		}
+	
+		return result;
+	}
+
 }

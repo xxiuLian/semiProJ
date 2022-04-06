@@ -41,7 +41,7 @@
 	
 	<div class="outer">
 	
-		<form id="insertForm" action="insertThumb.do" method="post" enctype="multipart/form-data">
+		<form id="insertForm" action="updateTgb.do" method="post" enctype="multipart/form-data">
 
 			<%-- <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">--%> 
 			<table align="center">
@@ -81,21 +81,21 @@
 				<input type="file" class="inputFile" name="file9" onchange="loadImg(event)">
 				<input type="file" class="inputFile" name="file10" onchange="loadImg(event)">
 			</div>
-			<div class="btns" align="center">
-	
-				<button type="submit">수정 완료하기</button>
-			</div>
-		</form>
 		
 			<div id="originFile">
 				<% for(Attachment at : list){ %>
-				<div><input type="checkbox" class="ckFile" name="deletefile" value=<%=at.getFileNo() %>""><%=at.getOriginName()  %></div>
+				<div><input type="checkbox" class="ckoldFile" name="deletefile" value=<%=at.getFileNo() %>><%=at.getOriginName()  %></div>
+				<div><input type="checkbox" class="ckoldFile" name="deletefile" value="왜왜 안도돼 왜"><%=at.getOriginName()  %></div>
 				
 				<% } %>
-				<div><input type="checkbox" class="ckFile">lkwjeafl;k</div>
-				<button type="button" onclick="deleteImg()">선택파일 삭제</button>
+				
 				
 			</div>	
+			<div class="btns" align="center">
+				<button type="submit">수정 완료하기</button>
+			</div>
+		</form>
+			<button type="button" onclick="deleteImg()">선택파일 삭제</button>
 			<button type="button" id="fileinput">이미지 삽입</button>
 				
 	</div>
@@ -130,23 +130,64 @@
         $("#gidbtn").attr("disabled", true);
         $('#ctnbtn').attr("disabled", false);
         
-    })  
+    });
 
 	function deleteImg(){
 		
-		var ckfile = document.getElementsByClassName("ckFile");
+		var ckoldFile = document.getElementsByClassName("ckoldFile");
+		var cknewFile = document.getElementsByClassName("cknewfile");
 
-		for(var i = 0; i<ckfile.length; i++){
-			if($(ckfile[i]).is(":checked")){
-				$(ckfile[i]).
+		for(var i = 0; i<ckoldFile.length; i++){
+			if($(ckoldFile[i]).is(":checked")){
+				$(ckoldFile[i]).parent().attr("style", "display:none");
+				atCnt--;
+			}
+
+		}
+		
+		for(var i = 0; i<cknewFile.length; i++){
+			if($(cknewFile[i]).is(":checked")){
+				$(cknewFile[i]).parent().remove();
+				
+				var filename = "file"+atCnt;
+				$(input[name=filename]).val("");
 				atCnt--;
 			}
 
 		}
 		
 		
-	}
+		
+		
+	};
+    
+    $('#fileinput').click(function(){
+    	if(atCnt<10){
+    		 $('#inputFileArea').children().eq(atCnt).click();
+    		 atCnt++; // 파일 추가할때마다 목록 갯수 하나씩 늘림
+    	}else{
+    		alert("사진은 10이하 삽입이 가능합니다.")
+    	}
+    });
+    
 
+	function loadImg(event){
+        
+        let fileInputControl = event.target;
+        let files = Array.from(fileInputControl.files);
+
+             files.forEach((file, index) => {
+               
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            var dataURL = reader.result;
+                            $('#contentArea').append("<img id= file"+atCnt+" src="+dataURL+">");
+                            $('#originFile').append("<div><input type=checkbox class=cknewfile>"+file.name+"</div>");
+
+                        }
+                        reader.readAsDataURL(file);
+            })    
+    }
 	
 	</script>
 

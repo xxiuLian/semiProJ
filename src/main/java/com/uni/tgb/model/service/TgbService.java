@@ -88,4 +88,19 @@ public class TgbService {
 		return list;
 	}
 
+	public int deleteAttachment(String[] fno) {
+		Connection conn = getConnection();
+		
+		int result = new TgbDao().deleteAttachment(conn, fno);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		
+		return result;
+	}
+
 }
