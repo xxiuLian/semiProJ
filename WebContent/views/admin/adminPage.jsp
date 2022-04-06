@@ -130,9 +130,6 @@
 														<td>탈퇴</td>
 													</c:otherwise>
 												</c:choose>
-												<td><jsp:forward page="myInfoView.jsp">
-														<jsp:param value="${m}" name="member" />
-													</jsp:forward></td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>
