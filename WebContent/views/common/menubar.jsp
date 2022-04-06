@@ -15,11 +15,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
- <link href="../../css/styles.css" rel="stylesheet" />
+ <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+	<nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="mainNav" style="background-color: #CF3D82;">
 		<div class="container">
 			<a class="navbar-brand" href="#page-top"><img
 				src="assets/img/navbar-logo.svg" alt="..." /></a>
