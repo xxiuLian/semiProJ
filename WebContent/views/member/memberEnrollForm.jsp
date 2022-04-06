@@ -95,7 +95,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>주소</td>
+					<td>우편번호</td>
 					<td>
 						<input type="text"  name="post" class="form-control mr-2 postcodify_postcode5" value="${ post }" size="6"> 
          				<button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button>

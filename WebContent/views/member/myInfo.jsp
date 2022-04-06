@@ -1,49 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
- <%
-	Member m = (Member)request.getAttribute("loginUser");
-	String userId = m.getUserId(); //loginUser 세션에 담겨있는 유저 정보들
-	String userPwd = m.getUserPwd();
-	String userName = m.getUserName();
-	String phone = m.getPhone() != null ? m.getPhone() : "";
-	String email = m.getEmail()!= null ? m.getEmail() : "";
-	String account = m.getAccount() != null ? m.getAccount() : "";
-	
-	int post = m.getPost() == 0 ? 0 : m.getPost();
-	String address1 = m.getAddress1()!= null ? m.getAddress1() : "";
-	String address2 = m.getAddress2()!= null ? m.getAddress2() : "";
-	String originPwd = (String)session.getAttribute("originPwd");
-	
-	String[] bankArr = new String[8];
-	for(int i = 0; i < bankArr.length; i++){
-		switch(m.getBank()){
-		case "선택" : bankArr[0] = "selected"; break;
-		case "신한" : bankArr[1] = "selected"; break;
-		case "우리" : bankArr[2] = "selected"; break;
-		case "농협" : bankArr[3] = "selected"; break;
-		case "국민" : bankArr[4] = "selected"; break;
-		case "하나" : bankArr[5] = "selected"; break;
-		case "기업" : bankArr[6] = "selected"; break;
-		case "카카오뱅크" : bankArr[7] = "selected"; break;
-		}
-	}
-	
-%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
+<c:set var="msg" value="${sessionScope.msg}" scope="session"/>
+<c:set var="contextPath" value="<%= request.getContextPath()%>" scope="session"/>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	.outer{
-		background:black;
-		width:600px;
-		height:500px;
-		margin-top:50px;
-		margin-left:auto;
-		margin-right:auto;
-		color:white;
-	}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Simple Sidebar - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/myPageStyles.css" rel="stylesheet" />
+        <style>
+
 	#updateForm{
 		/* border:1px solid white; */
 		width:100%;
@@ -56,79 +30,118 @@
 	#joinBtn{background:yellowgreen;}
 	#goMain{background:orangered;}
 </style>
-</head>
-<body>
-<%@ include file="../common/menubar.jsp" %>
-
-	<div class="outer">
-		<br>
-		
-		<h2 align="center">마이페이지</h2>
-		<form id="updateForm" action="<%=request.getContextPath() %>/updateMember.do" method="post">
+    </head>
+    <body>
+    <%@ include file="../../views/common/menubar.jsp" %>
+    
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do" id="myInfo">내 정보</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">나의 내역 조회</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+                </div>
+            </div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+                <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
+                    <div class="container-fluid">
+                        <button class="btn btn-primary" id="sidebarToggle">My Menu</button>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0 bg-light">
+                                <li class="nav-item active"><a class="nav-link" href="/valueSa">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#!">Action</a>
+                                        <a class="dropdown-item" href="#!">Another action</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#!">Something else here</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Page content-->
+				<!-- <div class="content">
+				
+				</div> -->
+				
+				<div>
+				<h2 align="center">마이페이지</h2>
+				<form id="updateForm" action="<%=request.getContextPath() %>/updateMember.do" method="post">
 															
 			<table>
 				<tr>
 					<td width="200px">* 아이디</td>
-					<td><input type="text" maxlength="13" name= "userId" value= "<%= userId %>"readonly></td>
+					<td><input type="text" maxlength="13" name= "userId" var ="loginUser" value= "${loginUser.userId}"readonly></td>
 				</tr>
 				<tr>
 					<td>* 비밀번호</td>
-					<td><input type="text" id = "originPwd" name ="originPwd" value="<%=originPwd %>" readonly></td>
+					<td><input type="text" id = "originPwd" name ="originPwd" value="${originPwd}" readonly></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>* 이름</td>
-					<td><input type="text" maxlength="5" name="userName" value= "<%= userName %>" required></td>
+					<td><input type="text" maxlength="5" name="userName" value= "${loginUser.userName }" required></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>연락처</td>
-					<td><input type="tel" maxlength="11" name="phone" value= "<%= phone %>"placeholder="(-없이)01012345678"></td>
+					<td><input type="tel" maxlength="11" name="phone" value= "${loginUser.phone }" placeholder="(-없이)01012345678"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>이메일</td>
-					<td><input type="email" name="email" value= "<%= email %>"></td>
+					<td><input type="email" name="email" value= "${loginUser.email }"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>계좌번호</td>
-					<td><input type="text" name="account" value= "<%= account %>" placeholder="(-없이) 입력"></td>
+					<td><input type="text" name="account" value= "${loginUser.account }" placeholder="(-없이) 입력"></td>
 					<td>
 					<select name="bank">
-			            <option <%= bankArr[0] %>>선택</option>
-			            <option value="신한" <%= bankArr[1] %>>신한</option>
-			            <option value="우리"  <%= bankArr[2] %>>우리</option>
-			            <option value="농협"  <%= bankArr[3] %>>농협</option>
-			            <option value="국민"  <%= bankArr[4] %>>국민</option>
-			            <option value="하나"  <%= bankArr[5] %>>하나</option>
-			            <option value="기업"  <%= bankArr[6] %>>기업</option>
-			            <option value="카카오뱅크"  <%= bankArr[7] %>>카카오뱅크</option>
+			            <option>선택</option>
+			            <option value="신한" <c:if test ="${loginUser.bank eq '신한'}">selected</c:if>>신한</option>
+			            <option value="우리"  <c:if test ="${loginUser.bank eq '우리'}">selected</c:if>>우리</option>
+			            <option value="농협"  <c:if test ="${loginUser.bank eq '농협'}">selected</c:if>>농협</option>
+			            <option value="국민" <c:if test ="${loginUser.bank eq '국민'}">selected</c:if>>국민</option>
+			            <option value="하나" <c:if test ="${loginUser.bank eq '하나'}">selected</c:if>>하나</option>
+			            <option value="기업"  <c:if test ="${loginUser.bank eq '기업'}">selected</c:if>>기업</option>
+			            <option value="카카오뱅크" <c:if test ="${loginUser.bank eq '카카오뱅크'}">selected</c:if>>카카오뱅크</option>
 			        </select>
 					</td>
 				</tr>
 				<tr>
-					<td>주소</td>
-					<td>
-						<input type="text"  name="post" value= "<%= post %>"class="form-control mr-2 postcodify_postcode5" size="6"> 
-         				<button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button>
-					</td>
+					<td>우편번호</td>
+					<td><input type="text"  name="post" value= "${loginUser.post }" class="form-control mr-2 postcodify_postcode5" size="6"></td> 
+         			<td><button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button></td>
+					
 					
 					<td></td>
 				</tr>
 				<tr>
 					<td>도로명 주소</td>
 					<td> 
-						<input type="text" name="address1" value= "<%= address1 %>" class="form-control postcodify_address"  size="30">
+						<input type="text" name="address1" value= "${loginUser.address1 }" class="form-control postcodify_address"  size="30">
 					</td>
 				</tr>
 				<tr>
 					<td>상세주소</td>
 					<td> 
-						<input type="text" name="address2" value= "<%= address2 %>"class="form-control postcodify_extra_info" size="30">
+						<input type="text" name="address2" value= "${loginUser.address2 }" class="form-control postcodify_extra_info" size="30">
 					</td>
 				</tr>
-			</table>
+				</table>
 			<br>
 			
 			<div class="btns" align="center">
@@ -139,6 +152,8 @@
 				
 			</div>
 		</form> <!-- form 안에 있는 button은 type 설정하지 않으면 onclick함수 적용이 안됨 꼭 type을 지정해야함 -->
+	</div>
+	</div>
 	</div>
 	<script>
 	
@@ -165,5 +180,9 @@
 
 	</script>
 
-</body>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/myPageScripts.js"></script>
+    </body>
 </html>
