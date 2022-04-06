@@ -21,7 +21,7 @@
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do">내 정보</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do" id="myInfo">내 정보</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
@@ -60,7 +60,7 @@
 			
 				<div class="topList" align="center">
 				<br>
-				<h2>인기게시글</h2>
+				
 		
 				<div id="thumbList">
 		
@@ -68,6 +68,11 @@
 		
 			</div>
 			<script>
+			$(function(){
+				$("#myInfo").click(function(){
+					$(".topList").attr("")
+				})
+			})
 			$(function(){
 				
 				//

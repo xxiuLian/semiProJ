@@ -14,16 +14,17 @@
 	String address2 = m.getAddress2()!= null ? m.getAddress2() : "";
 	String originPwd = (String)session.getAttribute("originPwd");
 	
-	String[] bankArr = new String[7];
+	String[] bankArr = new String[8];
 	for(int i = 0; i < bankArr.length; i++){
 		switch(m.getBank()){
-		case "신한" : bankArr[0] = "selected"; break;
-		case "우리" : bankArr[1] = "selected"; break;
-		case "농협" : bankArr[2] = "selected"; break;
-		case "국민" : bankArr[3] = "selected"; break;
-		case "하나" : bankArr[4] = "selected"; break;
-		case "기업" : bankArr[5] = "selected"; break;
-		case "선택" : bankArr[6] = "selected"; break;
+		case "선택" : bankArr[0] = "selected"; break;
+		case "신한" : bankArr[1] = "selected"; break;
+		case "우리" : bankArr[2] = "selected"; break;
+		case "농협" : bankArr[3] = "selected"; break;
+		case "국민" : bankArr[4] = "selected"; break;
+		case "하나" : bankArr[5] = "selected"; break;
+		case "기업" : bankArr[6] = "selected"; break;
+		case "카카오뱅크" : bankArr[7] = "selected"; break;
 		}
 	}
 	
@@ -95,13 +96,14 @@
 					<td><input type="text" name="account" value= "<%= account %>" placeholder="(-없이) 입력"></td>
 					<td>
 					<select name="bank">
-			            <option <%= bankArr[6] %>>선택</option>
-			            <option value="신한" <%= bankArr[0] %>>신한</option>
-			            <option value="우리"  <%= bankArr[1] %>>우리</option>
-			            <option value="농협"  <%= bankArr[2] %>>농협</option>
-			            <option value="국민"  <%= bankArr[3] %>>국민</option>
-			            <option value="하나"  <%= bankArr[4] %>>하나</option>
-			            <option value="기업"  <%= bankArr[5] %>>기업</option>
+			            <option <%= bankArr[0] %>>선택</option>
+			            <option value="신한" <%= bankArr[1] %>>신한</option>
+			            <option value="우리"  <%= bankArr[2] %>>우리</option>
+			            <option value="농협"  <%= bankArr[3] %>>농협</option>
+			            <option value="국민"  <%= bankArr[4] %>>국민</option>
+			            <option value="하나"  <%= bankArr[5] %>>하나</option>
+			            <option value="기업"  <%= bankArr[6] %>>기업</option>
+			            <option value="카카오뱅크"  <%= bankArr[7] %>>카카오뱅크</option>
 			        </select>
 					</td>
 				</tr>
@@ -141,24 +143,26 @@
 	<script>
 	
 		function updatePwd(){
-			window.open("<%= request.getContextPath()%>/updatePwdForm.do","비밀번호 변경창 ","width=500, height=300")
+			window.open("<%= contextPath %>/updatePwdForm.do","비밀번호 변경창 ","width=500, height=300")
 		} //window.open : 새창 열기
 
 		function deleteMember(){
-			var pwd = prompt("현재 비밀번호를 입력하세요");
+			var pwd = prompt("비밀번호를 입력하세요");
 			var op = $("#originPwd").val(); //form 안에 있는 원래 비번 값(.val())
 			
 			if(op === pwd){
-				var val = confirm("정말로 삭제 하시겠습니까?");
+				var val = confirm("정말로 가치사를 탈퇴 하시겠습니까?");
 				if(val){ //true(확인) : 삭제하겠따
-					$("#updateForm").attr("action","<%= request.getContextPath()%>/deleteMember.do"); 
+					$("#updateForm").attr("action","<%= contextPath %>/deleteMember.do"); 
 					                                                            //MemberDeleteServlet.java로 이동
 					$("#updateForm").submit();
+					alert("탈퇴 완료 되었습니다.");
 				}else{
 					alert("취소하였습니다");
 				}
 			}
 		}
+
 	</script>
 
 </body>

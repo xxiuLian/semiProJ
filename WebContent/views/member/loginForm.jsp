@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.uni.member.model.dto.Member"%>
+    <%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <% String msg = (String)session.getAttribute("msg"); %>
 
 <!DOCTYPE html>
@@ -41,7 +44,7 @@
 <body>
 <%@ include file= "../common/menubar.jsp" %>
 <div class= "loginArea">
-	
+
 		 <% if(loginUser == null){ %>
 		<form id = "loginForm" action="<%=request.getContextPath()%>/loginMember.do" method="post" onsubmit="return loginValidate();">
 			<table>
@@ -69,14 +72,45 @@
 	      </a>
 		</li>
 	</ul>
+	<ul>
+	<li onclick="naverLogout(); return false;">
+      <a href="javascript:void(0)">
+          <span>네이버 로그아웃</span>
+      </a>
+	</li>
+</ul>
+
+<!-- 네이버 스크립트 -->
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+
+		<script>
+			var testPopUp;
+			function openPopUp() {
+			    testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
+			}
+			function closePopUp(){
+			    testPopUp.close();
+			}
+			
+			function naverLogout() {
+				openPopUp();
+				setTimeout(function() {
+					closePopUp();
+					}, 1000);
+			}
+		</script>
 	  <!-- 네이버 로그인 버튼 노출 영역 -->
 	  <script type="text/javascript">
-	  	var naver_id_login = new naver_id_login("ZncfIzzOzACjfv58Qta_", "http://localhost:8070/valueSa/naverLogin.jsp");
-	  	var state = naver_id_login.getUniqState();
-	  	naver_id_login.setButton("green",4);
-	  	naver_id_login.setState(state);	
-	  	naver_id_login.setPopup();
-	  	naver_id_login.init_naver_id_login();
+		var clientId = "ZncfIzzOzACjfv58Qta_";
+		var callbackUrl = "http://localhost:8070/valueSa/naverLogin.do";
+		var naver_id_login = new naver_id_login(clientId, callbackUrl);
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("green", 3, 40);
+		naver_id_login.setDomain("localhost:8070/valueSa");
+		naver_id_login.setState(state);
+		naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+
 	  	<!-- 카카오 로그인 버튼 노출 영역 -->
 
 	<!-- 카카오 스크립트 -->
