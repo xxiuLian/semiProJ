@@ -16,13 +16,13 @@ import com.uni.member.model.service.MemberService;
  * Servlet implementation class adminPageServlet
  */
 @WebServlet("/admin.do")
-public class adminPageServlet extends HttpServlet {
+public class AdminPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminPageServlet() {
+    public AdminPageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
