@@ -6,9 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/smarteditor/js/service/HuskyEZCreator.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
 
+function save(){
+	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);  
+    		//스마트 에디터 값을 텍스트컨텐츠로 전달
+	var content = document.getElementById("smartEditor").value;
+	alert(document.getElementById("ir1").value); 
+    		// 값을 불러올 땐 document.get으로 받아오기
+	return; 
+}
+
+</script>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
@@ -44,39 +57,29 @@
 						style="width: 100%;" placeholder="내용을 입력해 주세요"></textarea>
 				</div>
 
-				<div>
+				<div id="se2_sample" style="margin: 10px 0;">
+					<input type="button" onclick="save();" value="본문 내용 가져오기">
 					<button type="submit" id="save">등록</button>
 					<button type="reset">취소</button>
 				</div>
 			</form>
 		</div>
 </body>
-<script type="text/javascript">
-var oEditors = [];
-$(function(){
-      nhn.husky.EZCreator.createInIFrame({
-          oAppRef: oEditors,
-          elPlaceHolder: "ir1", //textarea에서 지정한 id와 일치해야 합니다. 
-          //SmartEditor2Skin.html 파일이 존재하는 경로
-          sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
-					htParams : {
-						// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-						bUseToolbar : true,
-						// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-						bUseVerticalResizer : true,
-						// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-						bUseModeChanger : true,
-						fOnBeforeUnload : function() {
-
-						}
-					},
-					fOnAppLoad : function() {
-						//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-						oEditors.getById["ir1"].exec("PASTE_HTML",
-								[ "내용을 입력하여 주세요" ]);
-					},
-					fCreator : "createSEditor2"
-				});
+<script id="smartEditor" type="text/javascript"> 
+	var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+	    oAppRef: oEditors,
+	    elPlaceHolder: "ir1",  //textarea ID 입력
+	    sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",  //martEditor2Skin.html 경로 입력
+	    fCreator: "createSEditor2",
+	    htParams : { 
+	    	// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
+	        bUseToolbar : true, 
+		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
+		bUseVerticalResizer : false, 
+		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
+		bUseModeChanger : false 
+	    }
 	});
 </script>
 <script type="text/javascript">
@@ -86,8 +89,4 @@ $(function(){
 	})
 </script>
 
-
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js"
-	charset="utf-8"></script>
 </html>
