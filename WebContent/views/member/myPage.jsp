@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -58,16 +59,21 @@
 	
 				</div> -->
 			
-				<div class="topList" align="center">
+				<div class="content" align="center">
 				<br>
-				
-		
+
+		 		
 				<div id="thumbList">
 		
 				</div>
 		
 			</div>
 			<script>
+			$(function(){
+				$("#myInfo").click(function(){
+					$(".content")
+				})
+			})
 			$(function(){
 				$("#myInfo").click(function(){
 					$(".topList").attr("")

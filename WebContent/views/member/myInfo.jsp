@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+
  <%
 	Member m = (Member)request.getAttribute("loginUser");
 	String userId = m.getUserId(); //loginUser 세션에 담겨있는 유저 정보들
@@ -29,6 +30,7 @@
 	}
 	
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
