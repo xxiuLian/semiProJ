@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Insert title here</title>
+<title>관리자 페이지</title>
 <link href="css/adminPageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -62,6 +62,8 @@
 									class="nav-link" href="layout-sidenav-light.html">문의</a>
 							</nav>
 						</div>
+					</div>
+				</div>
 			</nav>
 		</div>
 		<div id="layoutSidenav_content">
@@ -128,11 +130,9 @@
 														<td>탈퇴</td>
 													</c:otherwise>
 												</c:choose>
-												<td>
-													<jsp:forward page="myInfoView.jsp">
+												<td><jsp:forward page="myInfoView.jsp">
 														<jsp:param value="${m}" name="member" />
-													</jsp:forward>
-												</td>
+													</jsp:forward></td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>

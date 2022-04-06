@@ -32,7 +32,6 @@ public class AdminPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Member> list = new MemberService().selectAllMember();
-		System.out.println("list : " + list);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/admin/adminPage.jsp").forward(request, response);
 	}
