@@ -368,28 +368,28 @@ public class QnaDao {
 		return result;
 	}
 
-	public int insertNewAttachment(Connection conn, Attachment at) {
+	public int insertNewAttachment(Connection conn, Attachment at, Qna q) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
-		// insertNewAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_FNO.NEXTVAL, ?, ?, ?,
-		// ?, SYSDATE, 1, DEFAULT)
+		// insertNewAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?,
+		// SYSDATE, DEFAULT, ?, 'QNA')
 		String sql = prop.getProperty("insertNewAttachment");
 
 		try {
 //			FILE_NO	NUMBER
-//			REF_BNO	NUMBER 1
-//			ORIGIN_NAME	VARCHAR2(255 BYTE) 2
-//			CHANGE_NAME	VARCHAR2(255 BYTE) 3
-//			FILE_PATH	VARCHAR2(1000 BYTE) 4
+//			ORIGIN_NAME	VARCHAR2(255 BYTE) 1
+//			CHANGE_NAME	VARCHAR2(255 BYTE) 2
+//			FILE_PATH	VARCHAR2(1000 BYTE) 3
 //			UPLOAD_DATE	DATE
-//			FILE_LEVEL	NUMBER
 //			STATUS	VARCHAR2(1 BYTE)
+//			B_NO	NUMBER 4
+//			TYPE	VARCHAR2(50 BYTE)
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, at.getRefBoardNo());
-			pstmt.setString(2, at.getOriginName());
-			pstmt.setString(3, at.getChangeName());
-			pstmt.setString(4, at.getFilePath());
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, q.getQnaNo());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

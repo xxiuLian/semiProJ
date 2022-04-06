@@ -123,7 +123,7 @@ public class QnaService {
 			if(at.getFileNo() != 0) {
 				result2 = new QnaDao().updateAttachment(conn, at);
 			}else {
-				result2 = new QnaDao().insertNewAttachment(conn, at);
+				result2 = new QnaDao().insertNewAttachment(conn, at, q);
 			}
 		}
 		

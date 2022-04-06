@@ -41,7 +41,7 @@ public class QnaUpdateServlet extends HttpServlet {
 
 			String resources = request.getSession().getServletContext().getRealPath("/resources");
 
-			String savePath = resources + "\\board_upfiles\\";
+			String savePath = resources + "\\qna_board_upfiles\\";
 
 			System.out.println("savePath : " + savePath);
 
