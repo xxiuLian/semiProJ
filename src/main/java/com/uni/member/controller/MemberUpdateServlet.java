@@ -2,7 +2,6 @@ package com.uni.member.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +12,16 @@ import com.uni.member.model.dto.Member;
 import com.uni.member.model.service.MemberService;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class MemberUpdateServlet
  */
-@WebServlet("/loginMember.do")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/updateMember.do")
+public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public MemberUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,23 +30,26 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//loginForm.jsp에서 값 받아오기
+		String userName = request.getParameter("userName");
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		String originPwd = (String)request.getAttribute("originPwd");
+		String phone = request.getParameter("phone");
+		String account = request.getParameter("account");
+		int post = Integer.parseInt(request.getParameter("post"));
+		String address1 = request.getParameter("address1");
+		String address2 = request.getParameter("address2");
+		String email = request.getParameter("email");
+		String bank = request.getParameter("bank");
 		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		System.out.println(loginUser);
+		Member updateMem = new MemberService().updateMember(new Member(userId, userPwd, userName, phone, email, account, bank, post, address1, address2));
 		
-		if(loginUser != null) {//유저가 있으면 session값 전달
-			request.setAttribute("msg", "로그인 완료");
-			request.getSession().setAttribute("loginUser", loginUser);
-			request.getSession().setAttribute("originPwd", originPwd);
+		if(updateMem != null) {
+			request.getSession().setAttribute("msg", "회원정보를 수정하였습니다.");
+			request.getSession().setAttribute("loginUser", updateMem);
 			response.sendRedirect(request.getContextPath());
 		}else {
-			request.setAttribute("msg", "로그인 실패하였습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
+			request.setAttribute("msg", "회원정보 수정 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
 	}
 

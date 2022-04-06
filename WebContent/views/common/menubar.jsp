@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
    Member loginUser = (Member)session.getAttribute("loginUser");
+	String message = (String)session.getAttribute("msg");
    String contextPath = request.getContextPath();
 %>
 <c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
