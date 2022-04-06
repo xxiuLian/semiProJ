@@ -41,4 +41,62 @@ public class MemberService {
 		return member;
 	}
 
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().idCheck(conn, userId);
+		
+		close(conn);
+		return result;
+	}
+
+	public Member updateMember(Member m) {
+		Connection conn = getConnection();
+		
+		Member updateMember = null;
+		
+		int result = new MemberDao().updateMember(conn, m);
+		
+		if(result > 0) {
+			commit(conn);
+			updateMember = new MemberDao().selectMember(conn, m.getUserId());
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateMember;
+	}
+
+	public int deleteMember(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().deleteMember(conn, userId);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public Member updatePwd(String userId, String userPwd, String newPwd) {
+		Connection conn = getConnection();
+		
+		Member updateMem = null;
+		
+		int result = new MemberDao().updatePwd(conn, userId, userPwd, newPwd );
+		
+		if(result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, userId);
+			//비번 수정이 잘 완료 됐다면 dao의 selectMember(조회)를 통해 수정된 정보가 마이페이지에서 보여지기
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateMem;
+	}
+
 }
