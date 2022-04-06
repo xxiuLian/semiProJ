@@ -41,10 +41,12 @@ public class TgbInsertServlet extends HttpServlet {
 		
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
+			
 			int maxSize = 10 * 1024*1024;
 			
 			String resources = request.getSession().getServletContext().getRealPath("/assets");
 			String savePath = resources + "\\img_upfile\\";
+			System.out.println(resources);
 			
 			System.out.println("savePath : "+ savePath);
 			
@@ -60,6 +62,12 @@ public class TgbInsertServlet extends HttpServlet {
 			int price = Integer.parseInt(multiRequest.getParameter("price"));
 				
 			System.out.println("title : "+title);
+			System.out.println("writer : "+writer);
+			System.out.println("content : "+content);
+			System.out.println("guide : "+guide);
+			System.out.println("category : "+category);
+			System.out.println("trm : "+trm);
+			
 		
 			
 			
@@ -78,6 +86,7 @@ public class TgbInsertServlet extends HttpServlet {
 					String originName = multiRequest.getOriginalFileName(name);
 					String changeName = multiRequest.getFilesystemName(name);
 					System.out.println(originName);
+					System.out.println("i :"+i);
 					
 					Attachment at = new Attachment();
 					at.setFilePath(savePath);

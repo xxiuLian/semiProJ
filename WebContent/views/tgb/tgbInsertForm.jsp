@@ -26,80 +26,100 @@
     <div>제목 : <input type="text" name="title"></div>
     <div>공구 기간 : <input type="date" name="term"></div>
     <div>공구 가격 : <input type="number" name="price" step="1000"></div>
+    <button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button>
+
+ 
     <div id="contentArea" contenteditable="true"></div>
-    <div id="guidArea" contenteditable="true"></div>
+    <div id="guidArea" contenteditable="true" hidden></div>
 
 </div>
-<input type="file" id="inputFile" name="file" multiple>
+
+<button type="button" id="fileinput">이미지 삽입</button>
 <input type="text" name="writer" value="<%=loginUser.getUserNo() %>" hidden><!--writer_NO-->
-<textarea name="content" hidden></textarea>
-<textarea name="guide" hidden></textarea>
-<button id="btn1">작성완료</button>
-</form>
+<textarea id="ctnhtml" name="content" hidden></textarea>
+<textarea id="gidhtml" name="guide" hidden></textarea>
+<button id="btn1" onsubmit="fmdata()">작성완료</button>
+
+<div id = "inputFileArea" hidden>
+    <input type="file" class="inputFile" name="file1" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file2" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file3" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file4" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file5" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file6" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file7" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file8" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file9" onchange="loadImg(event)">
+    <input type="file" class="inputFile" name="file10" onchange="loadImg(event)">
+</div>
+
+
+</form> 
+
+
 <script>
+    function fmdata(){
+        $('#contentArea').children('img').attr("src","");
 
-    $(function(){
-        $('#btn1').click(function(){
+        $('#gidhtml').val($('#guidArea').html());
+        $('#ctnhtml').val($('#contentArea').html());
 
-            $.ajax({
-                        type: "POST",
-                        enctype: 'multipart/form-data',
-                        url:'/tgbInsertServlet.do',
-                        data: FormData,
-                        processData:false,
-                        contentType: false,
-                        cache: false,
-                        success:function(result){
-
-                        },
-                        error:function(e){
-
-                        }
-                    })
-
-        })
-    })    
-
-
-    
-    var i = 0;
-
-    $(document).ready(function(){
-        $('#inputFile').on("change", fileInputArea)
-    });
-
-    function fileInputArea(event){
-        let fileInputControl = event.target;
-        let files = Array.from(fileInputControl.files);
-
-        if(i<=10){
-
-            files.forEach((file, index) => {
-                FormData.append("file"+i, file);
-                i++;
-
-                var reader = new FileReader();
-                reader.onload = function(){
-                    var dataURL = reader.result;
-                    $('#contentArea').append("<img src="+dataURL+">");
-
-                }
-                reader.readAsDataURL(file);
-
-            })
-            
-
-           
-        }else{
-            alert("사진은 10장까지 삽입이 가능합니다.");
-        }
-
-
-         
+        return true;
 
     }
 
+    $('#ctnbtn').click(function(){
+        $('#gidhtml').val($('#guidArea').html());
 
+        $('#contentArea').attr("hidden", false);
+        $("#guidArea").attr("hidden", true);
+        $('#ctnbtn').attr("disabled", true);
+        $("#gidbtn").attr("disabled", false);
+
+    })
+    $('#gidbtn').click(function(){
+        $('#ctnhtml').val($('#contentArea').html());
+        
+        $('#guidArea').attr("hidden", false);
+        $("#contentArea").attr("hidden", true);
+        $("#gidbtn").attr("disabled", true);
+        $('#ctnbtn').attr("disabled", false);
+        
+    })  
+    var i = 0;
+   
+
+    $('#fileinput').on("click", function(){
+    if(i<10){
+        $('#inputFileArea').children().eq(i).click();
+        i++;
+    }else{
+        alert("사진은 10이하 삽입이 가능합니다.")
+           
+        }
+    });
+
+
+
+    function loadImg(event){
+        
+        let fileInputControl = event.target;
+        let files = Array.from(fileInputControl.files);
+
+             files.forEach((file, index) => {
+                 
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            var dataURL = reader.result;
+                            $('#contentArea').append("<img id= file"+i+" src="+dataURL+">");
+
+                        }
+                        reader.readAsDataURL(file);
+            })    
+    }
+     
+
+    
 </script>
 
 
