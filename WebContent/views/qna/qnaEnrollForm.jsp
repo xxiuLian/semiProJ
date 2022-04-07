@@ -21,9 +21,7 @@
 		<h2 align="center">문의게시판 작성하기</h2>
 		<br>
 		<div class="container" role="main">
-			<form id="insertForm" action="${contextPath}/insertQna.do"
-				method="post" enctype="multipart/form-data">
-
+			<form id="insertForm" action="${contextPath}/insertQna.do" method="post">
 				<div class="mb-3">
 					<select name="category" id="boardCategory">
 						<option value="000">카테고리 선택</option>
