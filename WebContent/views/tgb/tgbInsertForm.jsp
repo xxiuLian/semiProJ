@@ -25,20 +25,38 @@ td{
 	padding-left: 10px;
 }
 .outer{
-		width:800PX;
+		width:800px;
 		height:300px;
 		color:black;
 		margin:auto;
 		margin-top:50px;
 		text-align : center;
+		
 	}
+#titleImg{
+	width:300px;
+	height:400px;
+	border: 0.2px solid black;
+	overflow:hidden;
+	margin : 0 auto;
+	display:inline-block;
+	float : left;
+}
+#thumb{
+	max-width:100%;
+	max-height: 100%;
+	object-fit:cover;
+}
 .option{
-	margin : 30px;
+	width:350px;
+	height:400px;
+	margin : 10px;
+	display:inline-block;
 }
 .textarea{
 	width:766px; 
 	height:412px;
-	overflow : scroll;
+	overflow-y : scroll;
 	text-align : left;
 	border : 1px solid black;
 	padding : 30px;
@@ -59,7 +77,7 @@ td{
 	height:80px;
 	border : 1px solid rgb(110, 110, 110);
 	margin-top: 20px;
-	overflow : scroll;
+	overflow-y : scroll;
 }
 #fileinput{
 	text-align: left;
@@ -80,9 +98,10 @@ td{
 <h2>공동구매 등록</h2>
 <hr>
 	<form action="<%= contextPath %>/tgbInsertServlet.do" method="post" id="frm" enctype="multipart/form-data"> 
-		
-		
+		<div id="titleImg">대표 이미지<img id="thumb"></div>
+			
 		<div class="option">
+		<input type="file" id="thumbImg" name="file0" onchange="loadThumbImg(event)" hidden>
 			<table>
 				<tr>
 					<td class="tdfirst">카테고리  </td>
@@ -127,14 +146,14 @@ td{
 
 		<div class="btns"><button type="button" id="fileinput">이미지 삽입</button></div>
 		
-		<div id="uploaded"></div>
+		<div id="uploaded"></div><button type="button" onclick="deleteImg();">선택파일 삭제</button>
 		
 		<input type="hidden" name="writer" value=<%=loginUser.getUserNo() %> ><!--writer_NO-->
 		<textarea id="ctnhtml" name="content" hidden></textarea>
 		<textarea id="gidhtml" name="guide" hidden></textarea>
 		<button id="btn1" type="submit">작성완료</button>
 		
-		<div id = "inputFileArea" hidden>
+		<div id = "inputFileArea" >
 			<input type="file" class="inputFile" name="file1" onchange="loadImg(event)">
 			<input type="file" class="inputFile" name="file2" onchange="loadImg(event)">
 			<input type="file" class="inputFile" name="file3" onchange="loadImg(event)">
@@ -149,7 +168,31 @@ td{
 		
 	</form>
 	<script>
-		$('#btn1').click(function(){
+	$(function(){
+		$('#titleImg').click(function(){
+			$("#thumbImg").click();
+		})
+	});
+	
+	function loadThumbImg(event){
+
+        let fileInputControl = event.target;
+        let files = Array.from(fileInputControl.files);
+		//console.log(files);
+
+             files.forEach((file, index) => {
+                 
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            var dataURL = reader.result;
+                            $('#thumb').attr("src", dataURL);
+
+                        }
+                        reader.readAsDataURL(file);
+            })    
+	};
+	
+		$('#btn1').click(function(){// submit
 		$('#contentArea').children('img').attr("src","");
 		var a =  $('#contentArea').html();
 		
@@ -170,9 +213,9 @@ td{
 	        $('#contentArea').attr("hidden", false);
 	        $("#guidArea").attr("hidden", true);
 	        $('#ctnbtn').attr("disabled", true);
-			$('#ctnbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
+			$('#ctnbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
 	        $("#gidbtn").attr("disabled", false);
-			$('#gidbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
+			$('#gidbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
 
 	    })
 	    $('#gidbtn').click(function(){
@@ -181,15 +224,15 @@ td{
 	        $('#guidArea').attr("hidden", false);
 	        $("#contentArea").attr("hidden", true);
 	        $("#gidbtn").attr("disabled", true);
-			$('#gidbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
+			$('#gidbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
 	        $('#ctnbtn').attr("disabled", false);
-			$('#ctnbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
+			$('#ctnbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
 
 	        
 	    })  
 
 	var i = 0;
-   
+		
 
     $('#fileinput').on("click", function(){
     if(i<10){
@@ -214,12 +257,33 @@ td{
                         reader.onload = function(){
                             var dataURL = reader.result;
                             $('#contentArea').append("<img id= file"+i+" src="+dataURL+">");
+                            $('#uploaded').append("<div><input type=checkbox class=uploadfile>"+file.name+"</div>");
 
                         }
                         reader.readAsDataURL(file);
             })    
     }
      
+    
+    function deleteImg(){// 배열 TRUE FALSE 로 파일 입력 수정 중간을 지우고 나중에 다시 삽입할때 밀린다. 
+    	
+    	var uploadFile = document.getElementsByClassName('uploadfile');
+    	
+    	for(var j = 0; j<uploadFile.length; j++){
+    		
+			if($(uploadFile[j]).is(":checked")){
+				$(uploadFile[j]).parent().remove();
+				
+				var filename = "file"+(j+1);
+				console.log($('input[name='+filename+']').val());
+				$('input[name='+filename+']').val("");
+				i--;
+			}
+			}
+
+		};
+    	
+    
 	</script>
 </div>
 <script>
