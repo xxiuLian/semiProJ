@@ -276,4 +276,14 @@ public class TgbDao {
 		return list;
 	}
 
+	public int deleteTgb(Connection conn, int bno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int deleteAttachment(Connection conn, int bno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

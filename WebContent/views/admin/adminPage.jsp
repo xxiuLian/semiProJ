@@ -88,7 +88,7 @@
 						<table class="listArea" align="center">
 							<thead>
 								<tr>
-									<th width="100"></th>
+									<th width="100"><button type="reset">전체취소</button></th>
 									<th width="100">회원번호</th>
 									<th width="100">아이디</th>
 									<th width="200">전화번호</th>
@@ -138,7 +138,7 @@
 						</table>
 						<br>
 						<div class="btns" align="center">
-							<button type="reset">취소하기</button>
+							
 							<button type="submit">해당 회원탈퇴</button>
 						</div>
 					</form>
