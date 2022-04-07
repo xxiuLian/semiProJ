@@ -77,7 +77,7 @@ public class Tgbinsert extends HttpServlet {
 					
 			ArrayList<Attachment> fileList = new ArrayList<>();
 			
-			for(int i = 1; i<=10; i++) {
+			for(int i = 0; i<=10; i++) {
 				
 				String name = "file"+i;
 				
