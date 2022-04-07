@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
@@ -109,12 +111,20 @@ public class QnaListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-	
+		String category = request.getParameter("category");
 		ArrayList<Qna> list = new QnaService().selectList(pi);
-		
+		ArrayList<Qna> data = new QnaService().categoryList(category);
+	
+	    request.setAttribute("data", data); 
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		String arr = gson.toJson(data);
+		
+		request.setAttribute("arr", arr);
+		System.out.println("arr        " + arr);
 		request.getRequestDispatcher("views/qna/qnaListView.jsp").forward(request, response);
 	}
 
