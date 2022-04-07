@@ -23,7 +23,7 @@
 	 	if(msg != "null"){//msg가 null 아닐 경우 함수가 실행된다.
 	 		alert(msg);
 	 		<% session.removeAttribute("msg");%>
-	 	}
+	 	} 
 	 
 	 })
 </script>
