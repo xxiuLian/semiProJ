@@ -4,7 +4,18 @@
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
 <% String msg = (String)session.getAttribute("msg"); %>
-
+<!-- 네이버 -->
+<%
+    String clientId = "ZncfIzzOzACjfv58Qta_";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:8070/valueSa/naverLogin.do", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    apiURL += "&client_id=" + clientId;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&state=" + state;
+    session.setAttribute("state", state);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +23,9 @@
 <title>Insert title here</title>
 <!-- 네이버 -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<!--<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>  -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- 카카오 -->
-
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 <script type="text/javascript">
@@ -60,9 +71,18 @@
 			<div class ="btns" align="center">
 				
 				<button id = "loginBtn" type="submit">로그인</button>
-			    <button id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button>
+				<button id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button><br>
+				<!--  <a href="<%=request.getContextPath()%>/findId.do">아이디 찾아</a>
+				<a href="<%=request.getContextPath()%>/findPwd.do">비밀번호 찾아</a>
+				<button id = "findPwd" type="button" onclick="findPwd();">비밀번호 찾기</button>-->
+				<button id = "findId" type="button" onclick="findId();">아이디 찾기</button>
+				 <a href="<%=request.getContextPath()%>/findId.do">아이디 찾아</a>
+				
+			    
 			</div>
 			<div style="height: 50px;margin-top: 1%; " id="naver_id_login"></div>
+			<!-- 네이버 로그인 버튼 노출영역 -->
+			<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 			<!-- 카카오 로그인 버튼 노출 영역 -->
 			<a href="javascript:kakaoLogin();"><img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="height:40px;width:auto;"></a>
 	  	  	<ul>
@@ -80,21 +100,32 @@
 	</li>
 </ul>
 
-<!-- 네이버 스크립트 -->
-<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-<%
-		    String clientId = "ZncfIzzOzACjfv58Qta_";//애플리케이션 클라이언트 아이디값";
-		    String redirectURI = URLEncoder.encode("http://localhost:8070/valueSa/naverLogin.do", "UTF-8");
-		    SecureRandom random = new SecureRandom();
-		    String state = new BigInteger(130, random).toString();
-		    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-		    apiURL += "&client_id=" + clientId;
-		    apiURL += "&redirect_uri=" + redirectURI;
-		    apiURL += "&state=" + state;
-		    session.setAttribute("state", state);
-		 %>
-<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+
+		</form>
+		<% }else{ %> 
+			<div id = "userInfo">
+				<b style = "color:black;"><%=loginUser.getUserName() %> 님 </b> 의 방문을 환영합니다.
+				<br><br>
+				<div class ="btns" align="center">
+					<a href = "<%= contextPath %>/mypageMember.do">마이페이지</a>
+					<a href = "<%= contextPath %>/logoutMember.do">로그아웃</a>
+				</div>
+			</div>
+			
+		<% } %>
+		</div>
 		<script>
+			function enrollPage(){
+				location.href="<%=request.getContextPath()%>/enroll.do";
+			}
+			function findId(){
+				console.log("findId")
+				location.href="<%=request.getContextPath()%>/findId.do";
+			}
+			function findPwd(){
+				location.href="<%=request.getContextPath()%>/findPwd.do";
+			}
+	
 			var testPopUp;
 			function openPopUp() {
 			    testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
@@ -110,14 +141,9 @@
 					}, 1000);
 			}
 		</script>
-	  <!-- 네이버 로그인 버튼 노출 영역 -->
-	  <script type="text/javascript">
-
-		  
-		  
-	  	<!-- 카카오 로그인 버튼 노출 영역 -->
-
-
+	<script type="text/javascript">
+  
+	<!-- 카카오 로그인 버튼 노출 영역 -->
 	Kakao.init('9fb8871864e8f093d41c5c8020df9c37'); //발급받은 키 중 javascript키를 사용해준다.
 	Kakao.isInitialized();
 	console.log(Kakao.isInitialized()); // sdk초기화여부판단
@@ -157,24 +183,5 @@
 	    }
 	  }  
 	</script>
-
-		</form>
-		<% }else{ %> 
-			<div id = "userInfo">
-				<b style = "color:black;"><%=loginUser.getUserName() %> 님 </b> 의 방문을 환영합니다.
-				<br><br>
-				<div class ="btns" align="center">
-					<a href = "<%=request.getContextPath() %>/mypageMember.do">마이페이지</a>
-					<a href = "<%=request.getContextPath() %>/logoutMember.do">로그아웃</a>
-				</div>
-			</div>
-			
-		<% } %>
-		</div>
-		<script>
-			function enrollPage(){
-				location.href="<%=request.getContextPath()%>/enroll.do";
-			}
-		</script>
 </body>
 </html>
