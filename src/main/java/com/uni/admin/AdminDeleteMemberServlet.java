@@ -1,16 +1,20 @@
 package com.uni.admin;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.member.model.service.MemberService;
+
 /**
  * Servlet implementation class AdminDeleteMemberServlet
  */
-@WebServlet("/AdminDeleteMemberServlet")
+@WebServlet("/deleteMembers.do")
 public class AdminDeleteMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,8 +30,21 @@ public class AdminDeleteMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String[] strUserNo = request.getParameterValues("memberChecked");
+
+		//String배열을 int 배열로 바로 변환
+		int[] userNo = Arrays.stream(strUserNo).mapToInt(Integer::parseInt).toArray();
+		
+		int result = new MemberService().deleteMembers(userNo);
+		
+		if(result > 0) {
+			request.setAttribute("msg", "회원 탈퇴 성공");
+			response.sendRedirect("admin.do");
+		}else {
+			request.setAttribute("msg", "회원 탈퇴 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**
