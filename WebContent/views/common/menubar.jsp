@@ -16,6 +16,17 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  <link href="css/styles.css" rel="stylesheet" />
+ <script type="text/javascript">
+
+	 $(function(){
+		 let msg = "<%=message%>";
+	 	if(msg != "null"){//msg가 null 아닐 경우 함수가 실행된다.
+	 		alert(msg);
+	 		<% session.removeAttribute("msg");%>
+	 	} 
+	 
+	 })
+</script>
 </head>
 <body>
 

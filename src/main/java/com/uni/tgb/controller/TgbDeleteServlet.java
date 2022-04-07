@@ -1,7 +1,6 @@
-package com.uni.admin;
+package com.uni.tgb.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.member.model.service.MemberService;
+import com.uni.tgb.model.service.TgbService;
 
 /**
- * Servlet implementation class AdminDeleteMemberServlet
+ * Servlet implementation class TgbDeleteServlet
  */
-@WebServlet("/deleteMembers.do")
-public class AdminDeleteMemberServlet extends HttpServlet {
+@WebServlet("/deleteTgb.do")
+public class TgbDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminDeleteMemberServlet() {
+    public TgbDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,19 +29,22 @@ public class AdminDeleteMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] strUserNo = request.getParameterValues("memberChecked");
-
-		//String배열을 int 배열로 바로 변환
-		int[] userNo = Arrays.stream(strUserNo).mapToInt(Integer::parseInt).toArray();
 		
-		int result = new MemberService().deleteMembers(userNo);
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		if(result > 0) {
-			request.setAttribute("msg", "회원 탈퇴 성공");
-			response.sendRedirect("admin.do");
+		int result1 = new TgbService().deleteTgb(bno);
+		int result2 = new TgbService().deleteAttachment(bno);
+		
+		if(result1*result2 > 0) {
+			
+			
+			
+		}else if(result1>0 &&result2 < 0 ) {
+			
+		}else if(result1 < 0 && result2>0) {
+			
 		}else {
-			request.setAttribute("msg", "회원 탈퇴 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}
 		
 	}

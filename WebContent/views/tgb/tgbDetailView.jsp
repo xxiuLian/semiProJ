@@ -77,11 +77,20 @@
 		</table>
 		
 		<button type="button" onclick="tgbUpdateForm(<%= t.getTgbNo()%>)">수정하기</button>
-		<button>삭제하기</button>
+		<button type="button" onclick= "tgbDelete(<%= t.getTgbNo()%>)">삭제하기</button>
 
 		<script>
 			function tgbUpdateForm(bno){
 				location.href = "<%=request.getContextPath()%>/updateForm.do?bno="+bno;
+			}
+			
+			function tgbDelete(bno){
+				var a = confirm("정말 삭제하시겠습니까?");
+				
+				if(a){
+					location.href = "<%=request.getContextPath()%>/deleteTgb.do?bno="+bno;
+				}
+				
 			}
 
 		</script>
