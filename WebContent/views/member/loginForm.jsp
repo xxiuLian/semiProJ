@@ -82,7 +82,18 @@
 
 <!-- 네이버 스크립트 -->
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-
+<%
+		    String clientId = "ZncfIzzOzACjfv58Qta_";//애플리케이션 클라이언트 아이디값";
+		    String redirectURI = URLEncoder.encode("http://localhost:8070/valueSa/naverLogin.do", "UTF-8");
+		    SecureRandom random = new SecureRandom();
+		    String state = new BigInteger(130, random).toString();
+		    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+		    apiURL += "&client_id=" + clientId;
+		    apiURL += "&redirect_uri=" + redirectURI;
+		    apiURL += "&state=" + state;
+		    session.setAttribute("state", state);
+		 %>
+<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 		<script>
 			var testPopUp;
 			function openPopUp() {
@@ -101,19 +112,11 @@
 		</script>
 	  <!-- 네이버 로그인 버튼 노출 영역 -->
 	  <script type="text/javascript">
-		var clientId = "ZncfIzzOzACjfv58Qta_";
-		var callbackUrl = "http://localhost:8070/valueSa/naverLogin.do";
-		var naver_id_login = new naver_id_login(clientId, callbackUrl);
-		var state = naver_id_login.getUniqState();
-		naver_id_login.setButton("green", 3, 40);
-		naver_id_login.setDomain("localhost:8070/valueSa");
-		naver_id_login.setState(state);
-		naver_id_login.setPopup();
-		naver_id_login.init_naver_id_login();
 
+		  
+		  
 	  	<!-- 카카오 로그인 버튼 노출 영역 -->
 
-	<!-- 카카오 스크립트 -->
 
 	Kakao.init('9fb8871864e8f093d41c5c8020df9c37'); //발급받은 키 중 javascript키를 사용해준다.
 	Kakao.isInitialized();
