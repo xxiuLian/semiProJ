@@ -27,13 +27,11 @@
 	.outer{
 		width:1000px;
 		height:500px;
-		background:black;
-		color:white;
 		margin:auto;
 		margin-top:50px;
 	}
 	.listArea{
-		border:1px solid white;
+		border:1px solid black;
 		text-align:center;
 	}
 	.listArea>tbody>tr:hover{
@@ -48,9 +46,9 @@
 		<br>
 		
 		<h2 align="center">문의 게시판</h2>
-		<c:out value="<p>${sessionScope.contextPath}</p>" escapeXml="false"><br></c:out>
+		<%-- <c:out value="<p>${sessionScope.contextPath}</p>" escapeXml="false"><br></c:out>
 		<c:out value="<p>${sessionScope.loginUser}</p>" escapeXml="false"><br></c:out>
-		<c:out value="<p>${sessionScope.msg}</p>" escapeXml="false"><br></c:out>
+		<c:out value="<p>${sessionScope.msg}</p>" escapeXml="false"><br></c:out>--%>
 		<br>
 		<table class="listArea" align="center">
 			<thead>
