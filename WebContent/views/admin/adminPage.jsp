@@ -178,8 +178,7 @@
 	if(!${empty list}){
 		$(function(){
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
-				
-				var userNo = $(".listArea>tbody>tr").children().eq(1).text();
+				var userNo = $(this).parent().children().eq(1).text();
 				console.log(userNo)
 				window.open("${contextPath}/memberView.do?userNo="+userNo, "정보조회","width=700, height=600")
 			})
