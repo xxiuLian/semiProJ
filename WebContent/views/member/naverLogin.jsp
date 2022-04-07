@@ -9,12 +9,13 @@
     <title>네이버로그인</title>
   </head>
   <body>
+  <form id="naverLogin" action="<%=request.getContextPath() %>/navernextLogin.do" method="post" onsubmit="return joinValidate();">
   <%
     String clientId = "ZncfIzzOzACjfv58Qta_";//애플리케이션 클라이언트 아이디값";
     String clientSecret = "2flkt6Xepj";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");
     String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://localhost:8070/valueSa/naverLogin.do", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:8070/valueSa", "UTF-8");
     String apiURL;
     apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
     apiURL += "client_id=" + clientId;
@@ -50,5 +51,6 @@
       System.out.println(e);
     }
   %>
+  </form>
   </body>
 </html>

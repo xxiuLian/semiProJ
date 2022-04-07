@@ -15,13 +15,13 @@ import com.uni.member.model.service.MemberService;
  * Servlet implementation class AdminDeleteMemberServlet
  */
 @WebServlet("/deleteMembers.do")
-public class AdminDeleteMemberServlet extends HttpServlet {
+public class MemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminDeleteMemberServlet() {
+    public MemberDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
