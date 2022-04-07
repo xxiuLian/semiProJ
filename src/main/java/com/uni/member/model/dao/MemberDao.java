@@ -314,7 +314,6 @@ public class MemberDao {
 							   rset.getDate("MODIFY_DATE"),
 							   rset.getString("STATUS")
 							   );
-					
 					list.add(m);
 				}
 				
@@ -327,6 +326,31 @@ public class MemberDao {
 			}
 		 
 		return list;
+	}
+
+	public int deleteMembers(Connection conn, int[] userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//deleteMembers=UPDATE MEMBER SET STATUS='N' WHERE USER_NO=?
+		String sql = prop.getProperty("deleteMembers");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(userNo != null) {
+				for(int i = 0; i < userNo.length; i++) {
+					System.out.println("userNo[i] : "+userNo[i]);
+					pstmt.setInt(1, userNo[i]);
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+			System.out.println("회원탈퇴 result : " + result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

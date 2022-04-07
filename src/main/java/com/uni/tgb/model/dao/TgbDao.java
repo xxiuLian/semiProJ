@@ -251,9 +251,16 @@ public class TgbDao {
 				a.setOriginName(rset.getString("ORIGIN_NAME"));
 				a.setChangeName(rset.getString("CHANGE_NAME"));
 				a.setFilePath(rset.getString("FILE_PATH"));
-				a.setFileNo(rset.getInt("FILE_NO"));
+				
+				System.out.println("a 투스트링 : "+a.toString());
 				
 				list.add(a);
+				int i = 0;
+				for(Attachment b : list) {
+					System.out.println(i);
+					i++;
+					System.out.println("b" + b.getOriginName());
+				}
 				
 			}
 			
@@ -269,32 +276,14 @@ public class TgbDao {
 		return list;
 	}
 
-	public int deleteAttachment(Connection conn, String[] fno) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		//deleteAttachment=UPDATE ATTACHMENT SET STATUS=N WHERE FILE_NO=?
-		String sql = prop.getProperty("deleteAttachment");
-		System.out.println("다오에서 fno 0qjs"+fno[0]);
-		
-			
-			try {
-				
-				for(String no : fno) {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, no);
-				
-				result += pstmt.executeUpdate();
-				
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-			close(pstmt);
-		}
-	
-		return result;
+	public int deleteTgb(Connection conn, int bno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int deleteAttachment(Connection conn, int bno) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

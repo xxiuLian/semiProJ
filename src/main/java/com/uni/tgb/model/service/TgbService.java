@@ -88,19 +88,33 @@ public class TgbService {
 		return list;
 	}
 
-	public int deleteAttachment(String[] fno) {
+	public int deleteTgb(int bno) {
 		Connection conn = getConnection();
 		
-		int result = new TgbDao().deleteAttachment(conn, fno);
-		System.out.println("서비스에서 result : "+result);
+		int result = new TgbDao().deleteTgb(conn, bno);
+		
 		if(result >0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
+		return result;
+	}
+
+	public int deleteAttachment(int bno) {
+		Connection conn = getConnection();
+		
+		int result = new TgbDao().deleteAttachment(conn, bno);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		
 		return result;
+	
 	}
 
 }

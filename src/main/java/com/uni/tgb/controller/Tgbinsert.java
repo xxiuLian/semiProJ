@@ -20,16 +20,16 @@ import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 
 /**
- * Servlet implementation class TgbEnrollServlet
+ * Servlet implementation class Tgbinsert
  */
 @WebServlet("/tgbInsertServlet.do")
-public class TgbInsertServlet extends HttpServlet {
+public class Tgbinsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TgbInsertServlet() {
+    public Tgbinsert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +38,6 @@ public class TgbInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
@@ -119,7 +118,6 @@ public class TgbInsertServlet extends HttpServlet {
 		}
 		
 		}
-		
 	}
 
 	/**

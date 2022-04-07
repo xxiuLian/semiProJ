@@ -32,16 +32,40 @@ public class TGBBoard_service {
 
 	public TgbBoard_dto selectTgbBoard(int bno) {
 		Connection conn = getConnection();
-		TgbBoard_dto b = null;
-		//조회수
-		//int result
+
+		int result = new TgbBoard_dao().increaseCount(conn, bno);
 		
-		b = new TgbBoard_dao().selectBoard(conn, bno);
+		TgbBoard_dto b = null;
+
+		//조회수증가
+		if(result > 0 ) {
+			//DB자체를 바꾸는 거니깐 commit 해주네.
+			commit(conn);
+			b = new TgbBoard_dao().selectBoard(conn, bno);
+		}else {
+			rollback(conn);
+		}
 		
 		close(conn);
 		
 		return b;
 	}
-	
+
+	public int insertTgbBoard(TgbBoard_dto b) {
+		Connection conn = getConnection();
+		
+		int result1 = new TgbBoard_dao().insertTgbBoard(conn, b);
+		
+		if(result1 > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1;
+	}
+
 	
 }

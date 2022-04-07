@@ -100,6 +100,9 @@
 
 		<button onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%= currentPage+1 %>'">&gt;</button>
 	</div>
+	<div>
+		<button onclick="location.href='EnrollTgbBoard.do'">작성하기</button>
+	</div>
 	<script>
 	<%if(!list.isEmpty()){%>
 		$(function(){

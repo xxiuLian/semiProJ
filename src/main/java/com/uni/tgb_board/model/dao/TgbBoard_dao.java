@@ -32,7 +32,28 @@ public class TgbBoard_dao {
 		}
 	}
 	
-	
+
+	//게시판 조회수 증가
+	public int increaseCount(Connection conn, int bno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("increaseCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;	
+	}
+
 	
 	//페이지별 게시글 
 	public ArrayList<TgbBoard_dto> getBoardList(Connection conn, int currentPage, int listPageCount){
@@ -171,6 +192,41 @@ public class TgbBoard_dao {
 		}
 		
 		return b;
+	}
+
+
+	public int insertTgbBoard(Connection conn, TgbBoard_dto b) {
+		int result = 0 ;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTgbBoard");
+		
+		int category = Integer.parseInt(b.getTgbBoardCategory());
+		String title = b.getTgbBoardTitle();
+		String content = b.getTgbBoardContent();
+		int writer = Integer.parseInt(b.getTgbBoardWriter());
+		
+		System.out.println(category);
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println(writer);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, category);
+			pstmt.setInt(2, writer);
+			pstmt.setString(3, title);
+			pstmt.setString(4, content);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 	
 	

@@ -16,19 +16,31 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  <link href="css/styles.css" rel="stylesheet" />
+ <script type="text/javascript">
+
+	 $(function(){
+		 let msg = "<%=message%>";
+	 	if(msg != "null"){//msg가 null 아닐 경우 함수가 실행된다.
+	 		alert(msg);
+	 		<% session.removeAttribute("msg");%>
+	 	}
+	 
+	 })
+</script>
 </head>
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="mainNav" style="background-color: #CF3D82;">
 		<div class="container">
-			<a class="navbar-brand" href="#page-top"><img
-				src="assets/img/navbar-logo.svg" alt="..." /></a>
+			<a class="navbar-brand" href=""><img
+				src="assets/img/navbar-logo.svg" alt="..."/></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
 				aria-controls="navbarResponsive" aria-expanded="false"
 				aria-label="Toggle navigation">
 				Menu <i class="fas fa-bars ms-1"></i>
 			</button>
+
 			<% if(loginUser == null){ %>
 			 <form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">

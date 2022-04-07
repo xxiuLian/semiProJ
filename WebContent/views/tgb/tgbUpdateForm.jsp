@@ -4,6 +4,8 @@
 	Tgb t = (Tgb)request.getAttribute("t");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
 
+	System.out.println(t.getTgbContent()+"이거");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -25,181 +27,105 @@
 	#insertForm>table{
 		border:1px solid white;
 	}
-	/*#insertForm input, #insertForm textarea{
+	#insertForm input, #insertForm textarea{
 		width:100%;
 		box-sizing:border-box;
-	}*/
+	}
 	#insertForm img{
 		border:1px dashed darkgray;
 	}
-	#contentArea, #guidArea{
-        border: 1px solid black;
-        width: 800px;
-        height: 500px;
-    }
 </style>
 </head>
 
 <body>
 	
 	<div class="outer">
-	
-		<form method="post" id="updateForm" action="updateTgb.do" enctype="multipart/form-data">
-
-			<%-- <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">--%> 
+		<br>
+		<h2 align="center">사진 게시판 작성하기</h2>
+		<br>
+		
+		
+		<form id="insertForm" action="insertThumb.do" method="post" enctype="multipart/form-data">
+			<%-- <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">--%>
 			<table align="center">
 				<tr>
-					<td>
-						카테고리 : 
-					</td>
-					<td> 
-						<select name="category">
-							<option value="1">식품</option>
-							<option value="2">의류</option>
-						</select>
-							
-					</td>
 					<th width="100">제목</th>
 					<td colspan="3"><input type="text" name="title" value="<%= t.getTgbTitle()%>"></td>
 				</tr>
 				<tr>
-					<td>공구 기간 : <input type="date" name="term"></td>
-					<td>공구 가격 : <input type="number" name="price" step="1000"></td>
+					<th>내용</th>
+					<td colspan="3"><textarea name="content" rows="5" style="resize:none;" ><%=t.getTgbContent()%></textarea>
+				</tr>
+				<tr>
+					<th>대표이미지</th>
+					<td colspan="3">
+						<img id="titleImg" width="150" height="120" src="<%=request.getContextPath()%>/assets/img_upfile/<%=list.get(0).getChangeName()%>">
+					</td>
+				</tr>
+				<tr>
+				<% for(int i=1; i<list.size(); i++){ %>
+					<th>내용이미지</th>
+					<td>
+						<img id="contentImg<%=i%>" width="150" height="120" src="<%=request.getContextPath()%>/assets/img_upfile/<%=list.get(i).getChangeName()%>">
+					</td>
+					
+				<% } %>
 				</tr>
 			</table>
-			<button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button>
-
-			<div id="contentArea" contenteditable="true"><%=t.getTgbContent()%></div>
-			<div id="guidArea" contenteditable="true" hidden><%=t.getTgbGuide() %></div>
+			<div id="fileArea" hidden>
+			    <input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
+			    <input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
+			    <input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
+			</div>
+						 
 			
-			<textarea id="ctnhtml" name="content" hidden></textarea>
-			<textarea id="gidhtml" name="guide" hidden></textarea>	
-			<input type="text" name="tgbNo" value=<%=t.getTgbWriter() %> hidden>
-		
 			<br>
-
-			<div id = "inputFileArea" hidden>
-				<input type="file" class="inputFile" name="file1" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file2" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file3" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file4" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file5" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file6" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file7" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file8" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file9" onchange="loadImg(event)">
-				<input type="file" class="inputFile" name="file10" onchange="loadImg(event)">
-			</div>
-		<!--  이미지 첨부 표시-->
-			<div id="originFile">
-				<% for(Attachment at : list){ %>
-				<div><input type="checkbox" class="ckoldFile" value=<%=at.getFileNo() %>><%=at.getOriginName()  %></div>
-				
-				<% } %>
 			
-			</div>	
 			<div class="btns" align="center">
-				<button id="btn1" onsubmit="fmdata()">수정 완료하기</button>
+		
+				<button type="submit">수정 완료하기</button>
 			</div>
-			<input type="text" id="deletefile" name="deletefile" style="display:none"><!-- 지우고싶은 파일을 여기에 저장해준다. -->
 		</form>
-			<button type="button" onclick="deleteImg()">선택파일 삭제</button>
-			<button type="button" id="fileinput">이미지 삽입</button>
-				
+		
 	</div>
 	
 	<script>
-	var atCnt = <%=list.size()%>//현재 파일 목록에 있는 파일 수
-	var deletefile;
+	$(function(){
+		$("#fileArea").hide();
+		
+		$("#titleImg").click(function(){
+			$("#file1").click();
+		});
+		
+		$("#contentImg1").click(function(){
+			$("#file2").click();
+		});
+		
+		$("#contentImg2").click(function(){
+			$("#file3").click();
+		});
+		
+		$("#contentImg3").click(function(){
+			$("#file4").click();
+		});
+		
+	});
+	function loadImg(inputFile, num){
+		if(inputFile.files.length == 1){//length? 
+			var reader = new FileReader();//파일 읽어 들일 객체 생성
+			reader.readAsDataURL(inputFile.files[0]);//파일 읽어 들이는 메소드 
+			//https://developer.mozilla.org/ko/docs/Web/API/FileReader
+			reader.onload = function(e){//파일 읽기가 다 완료되면 실행
+				switch(num){
+				case 1 : $("#titleImg").attr("src", e.target.result); break;//공부
+				case 2 : $("#contentImg1").attr("src", e.target.result); break;
+				case 3 : $("#contentImg2").attr("src", e.target.result); break;
+				case 4 : $("#contentImg3").attr("src", e.target.result); break;
+				}
+			}
+		}
+	}
 	
-	function fmdata(){
-        $('#contentArea').children('img').attr("src","");
-
-        $('#gidhtml').val($('#guidArea').html());
-        $('#ctnhtml').val($('#contentArea').html());
-        
-        $('#deletefile').val(deletefile);// delete 할때 값이 들어가는거 콘솔로 다 확인함
-        console.log($('#deletefile').val());
-
-        return false;
-
-    }
-
-    $('#ctnbtn').click(function(){
-        $('#gidhtml').val($('#guidArea').html());
-
-        $('#contentArea').attr("hidden", false);
-        $("#guidArea").attr("hidden", true);
-        $('#ctnbtn').attr("disabled", true);
-        $("#gidbtn").attr("disabled", false);
-
-    })
-    $('#gidbtn').click(function(){
-        $('#ctnhtml').val($('#contentArea').html());
-        
-        $('#guidArea').attr("hidden", false);
-        $("#contentArea").attr("hidden", true);
-        $("#gidbtn").attr("disabled", true);
-        $('#ctnbtn').attr("disabled", false);
-        
-    });
-
-	function deleteImg(){
-		
-		var ckoldFile = document.getElementsByClassName("ckoldFile");
-		var cknewFile = document.getElementsByClassName("cknewfile");
-
-		for(var i = 0; i<ckoldFile.length; i++){
-			if($(ckoldFile[i]).is(":checked")){
-				deletefile =","+$(ckoldFile[i]).val();
-				console.log(deletefile)//콘솔에 deletefile value 받은거 출력
-				$(ckoldFile[i]).parent().remove();//style disply:non
-				atCnt--;
-			}
-
-		}
-		
-		for(var i = 0; i<cknewFile.length; i++){//새로 추가한 파일
-			if($(cknewFile[i]).is(":checked")){
-				$(cknewFile[i]).parent().remove();// 화면의 첨부파일 목록에서 없애주고
-				
-				var filename = "file"+atCnt;
-				$(input[name=filename]).val("");// 해당 파일INPUT의 value만 지워준다. 
-				atCnt--;
-			}
-
-		}
-
-		
-	};
-    
-    $('#fileinput').click(function(){
-    	if(atCnt<10){
-    		 $('#inputFileArea').children().eq(atCnt).click();
-    		 atCnt++; // 파일 추가할때마다 목록 갯수 하나씩 늘림
-    	}else{
-    		alert("사진은 10이하 삽입이 가능합니다.")
-    	}
-    });
-    
-
-	function loadImg(event){
-        
-        let fileInputControl = event.target;
-        let files = Array.from(fileInputControl.files);
-
-             files.forEach((file, index) => {
-               
-                        var reader = new FileReader();
-                        reader.onload = function(){
-                            var dataURL = reader.result;
-                            $('#contentArea').append("<img id= file"+atCnt+" src="+dataURL+">");
-                            $('#originFile').append("<div><input type=checkbox class=cknewfile>"+file.name+"</div>");
-
-                        }
-                        reader.readAsDataURL(file);
-            })    
-    }
 	
 	</script>
 

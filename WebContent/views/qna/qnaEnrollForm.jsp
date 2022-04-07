@@ -16,7 +16,7 @@
 		<h2 align="center">문의게시판 작성하기</h2>
 		<br>
 		
-		<form id="insertForm" action="<%= contextPath %>/insertQna.do" method="post" enctype="multipart/form-data">
+		<form id="insertForm" action="${contextPath}/insertQna.do" method="post" enctype="multipart/form-data">
 			<table align="center">
 				<tr>
 					<th width="100">분야</th>
