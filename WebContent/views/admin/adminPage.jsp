@@ -12,6 +12,18 @@
 <link href="css/adminPageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
+<style type="text/css">
+.listArea {
+	border: 1px solid black;
+	text-align: center;
+}
+
+.listArea>tbody>tr:hover {
+	background: darkgrey;
+	cursor: pointer
+}
+</style>	
+	
 </head>
 <body>
 	<%@ include file="../../views/common/menubar.jsp"%>
@@ -165,8 +177,9 @@
 	<script>
 	if(!${empty list}){
 		$(function(){
-			$(".listArea>tbody>tr").click(function(){
-				var userNo = $(this).children().eq(1).text();
+			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
+				
+				var userNo = $(".listArea>tbody>tr").children().eq(1).text();
 				console.log(userNo)
 				window.open("${contextPath}/memberView.do?userNo="+userNo, "정보조회","width=700, height=600")
 			})
