@@ -11,7 +11,7 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<title>Insert title here</title>
+<title>문의 글 수정</title>
 <style>
 #deleteBtn {
 	color: gray;
@@ -38,13 +38,13 @@
 				<div class="mb-3">
 					<select name="category" id="boardCategory">
 						<option value="000">카테고리 선택</option>
-						<option value="10">공통</option>
-						<option value="20">회원</option>
-						<option value="30">주문/결제</option>
-						<option value="40">배송</option>
-						<option value="50">취소/반품/교환</option>
-						<option value="60">이벤트</option>
-						<option value="70">기타</option>
+						<option value="10" <c:if test ="${q.category eq '공통'}">selected</c:if>>공통</option>
+						<option value="20" <c:if test ="${q.category eq '회원'}">selected</c:if>>회원</option>
+						<option value="30" <c:if test ="${q.category eq '주문/결제'}">selected</c:if>>주문/결제</option>
+						<option value="40" <c:if test ="${q.category eq '배송'}">selected</c:if>>배송</option>
+						<option value="50" <c:if test ="${q.category eq '취소/반품/교환'}">selected</c:if>>취소/반품/교환</option>
+						<option value="60" <c:if test ="${q.category eq '이벤트'}">selected</c:if>>이벤트</option>
+						<option value="70" <c:if test ="${q.category eq '기타'}">selected</c:if>>기타</option>
 					</select>
 				</div>
 

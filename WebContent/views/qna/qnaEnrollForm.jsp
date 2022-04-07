@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문의 글 작성</title>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
@@ -46,7 +46,7 @@
 
 				<div id="se2_sample" style="margin: 10px 0;">
 					<button type="button" id="save">등록</button>
-					<button type="reset">취소</button>
+					<button type="button" id="goBack">취소</button>
 					
 				</div>
 			</form>
@@ -84,8 +84,10 @@
 		
 		var contentVal = $("#ir1").val();
 		console.log(contentVal);
-		contentVal = contentVal.replace(/<p><br><\/p>/gi, "<br>");
-		contentVal = contentVal.replace(/<\/p><p>/gi, "<br>")
+		//contentVal = contentVal.replace(/<p>/gi,"");
+		//contentVal = contentVal.replace(/<\/p>/gi,"<br>");
+		//contentVal = contentVal.replace(/<p><br><\/p>/gi,"<br>");
+		//contentVal = contentVal.replace(/<\/p><p>/gi, "<br>");
 		if(contentVal == "" || contentVal == "<p>&nbsp;</p>"){
 			alert("글 내용을 입력해주세요");
 			return;
