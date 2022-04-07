@@ -9,19 +9,8 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script>
-
-function save(){
-	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);  
-    		//스마트 에디터 값을 텍스트컨텐츠로 전달
-	var content = document.getElementById("smartEditor").value;
-	alert(document.getElementById("ir1").value); 
-    		// 값을 불러올 땐 document.get으로 받아오기
-	return; 
-}
-
-</script>
+<script type="text/javascript"
+	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
@@ -32,19 +21,17 @@ function save(){
 		<h2 align="center">문의게시판 작성하기</h2>
 		<br>
 		<div class="container" role="main">
-			<form id="insertForm" action="${contextPath}/insertQna.do"
-				method="post" enctype="multipart/form-data">
-
+			<form id="insertForm" action="${contextPath}/insertQna.do" method="post">
 				<div class="mb-3">
 					<select name="category" id="boardCategory">
 						<option value="000">카테고리 선택</option>
 						<option value="10">공통</option>
-						<option value="20">JAVASCRIPT</option>
-						<option value="30">SPRING</option>
-						<option value="40">HTML/CSS</option>
-						<option value="50">ALGORISM</option>
-						<option value="60">GIT</option>
-						<option value="70">시사</option>
+						<option value="20">회원</option>
+						<option value="30">주문/결제</option>
+						<option value="40">배송</option>
+						<option value="50">취소/반품/교환</option>
+						<option value="60">이벤트</option>
+						<option value="70">기타</option>
 					</select>
 				</div>
 				<br>
@@ -58,35 +45,56 @@ function save(){
 				</div>
 
 				<div id="se2_sample" style="margin: 10px 0;">
-					<input type="button" onclick="save();" value="본문 내용 가져오기">
-					<button type="submit" id="save">등록</button>
+					<button type="button" id="save">등록</button>
 					<button type="reset">취소</button>
+					
 				</div>
 			</form>
 		</div>
+	</div>
 </body>
 <script id="smartEditor" type="text/javascript"> 
-	var oEditors = [];
-	nhn.husky.EZCreator.createInIFrame({
-	    oAppRef: oEditors,
-	    elPlaceHolder: "ir1",  //textarea ID 입력
-	    sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",  //martEditor2Skin.html 경로 입력
-	    fCreator: "createSEditor2",
-	    htParams : { 
-	    	// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
-	        bUseToolbar : true, 
-		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
-		bUseVerticalResizer : false, 
-		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
-		bUseModeChanger : false 
-	    }
-	});
-</script>
-<script>
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+		    oAppRef: oEditors,
+		    elPlaceHolder: "ir1",  //textarea ID 입력
+		    sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html", //martEditor2Skin.html 경로 입력
+					fCreator : "createSEditor2",
+					htParams : {
+						// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
+						bUseToolbar : true,
+						// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
+						bUseVerticalResizer : true,
+						// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
+						bUseModeChanger : true
+					}
+				});
+		
 	$("#save").click(function() {
 		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-		$("frm#").submit();
+		
+		if($("#boardCategory").val() == 000){
+			alert("카테고리를 선택해주세요");
+			return;
+		}
+		if($("#boardTitle").val() == ""){
+			alert("제목을 입력해주세요");
+			return;
+		}
+		
+		var contentVal = $("#ir1").val();
+		console.log(contentVal);
+		contentVal = contentVal.replace(/<p><br><\/p>/gi, "<br>");
+		contentVal = contentVal.replace(/<\/p><p>/gi, "<br>")
+		if(contentVal == "" || contentVal == "<p>&nbsp;</p>"){
+			alert("글 내용을 입력해주세요");
+			return;
+		}
+		
+		
+		$("#insertForm").submit();
 	})
+	
 </script>
 
 </html>
