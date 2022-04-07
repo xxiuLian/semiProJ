@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문의 글 조회</title>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
