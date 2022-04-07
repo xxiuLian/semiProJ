@@ -11,18 +11,6 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script>
-
-function save(){
-	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);  
-    		//스마트 에디터 값을 텍스트컨텐츠로 전달
-	var content = document.getElementById("smartEditor").value;
-	alert(document.getElementById("ir1").value); 
-    		// 값을 불러올 땐 document.get으로 받아오기
-	return; 
-}
-
-</script>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
@@ -108,8 +96,6 @@ function save(){
 		
 		$("#insertForm").submit();
 	})
-	
-	
 	
 </script>
 
