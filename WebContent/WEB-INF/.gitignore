@@ -19,6 +19,7 @@ local.properties
 .classpath
 .img_upfile/
 
+**/resources/
 # External tool builders
 .externalToolBuilders/
 

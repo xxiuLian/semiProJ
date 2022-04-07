@@ -2,6 +2,7 @@ package com.uni.qna.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,6 +38,8 @@ public class QnaInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Attachment at = (Attachment) request.getAttribute("at");
+		System.out.println("넘겨준at : " + at);
 		if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 * 1024; // 10MB
 			
@@ -49,7 +52,11 @@ public class QnaInsertServlet extends HttpServlet {
 			String category = multiRequest.getParameter("category");
 			String title = multiRequest.getParameter("title");
 			String content = multiRequest.getParameter("content");
-			
+			String[] contents = multiRequest.getParameterValues("content");
+			System.out.println(category);
+			System.out.println("제목 : " + title);
+			System.out.println("내용 : " + content);
+			System.out.println("콘텐츠들 " + Arrays.toString(contents));
 			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 			
 			Qna q = new Qna();
@@ -57,7 +64,7 @@ public class QnaInsertServlet extends HttpServlet {
 			q.setQnaTitle(title);
 			q.setQnaContent(content);
 			q.setQnaWriter(String.valueOf(userNo));
-			Attachment at = null;
+		
 			if(multiRequest.getOriginalFileName("upfile") != null) {
 				String originName = multiRequest.getOriginalFileName("upfile");
 				String changeName = multiRequest.getFilesystemName("upfile");
