@@ -125,4 +125,13 @@ public class MemberService {
 		return result;
 	}
 
+	public Member findId(String userName, String phone) {
+		Connection conn = getConnection();
+		
+		Member mem = new MemberDao().findId(conn, userName, phone);
+	    
+		close(conn);
+		return mem;
+	}
+
 }

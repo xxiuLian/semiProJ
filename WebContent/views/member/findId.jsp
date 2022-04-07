@@ -12,7 +12,7 @@
 <body>
 <%@ include file= "../common/menubar.jsp" %>
 
-	<form name="idfindscreen" action="<%=request.getContextPath()%>/loginMember.do" method = "POST">
+	<form name="idfindscreen" method = "POST">
 			<div class = "search-title">
 				<h3>휴대폰 본인확인</h3>
 			</div>
@@ -24,14 +24,33 @@
 			</div>
 			<div class = "findPhone">
 				<label>번호</label>
-				<input type="text" onKeyup = "addHypen(this);" name="phone" class = phone placeholder = "'-'없이 입력">
+				<input type="text" name="phone" class = phone placeholder = "'-'없이 입력">
 			</div>
 			<br>
 	</section>
 	<div class ="btnSearch">
-		<input type="button" name="enter" value="찾기"  onClick="id_search()">
+		<input type="button" name="enter" value="찾기"  onClick="idSearch()">
 		<input type="button" name="cancle" value="취소" onClick="history.back()">
  	</div>
  </form>
+ <script type="text/javascript">
+ function idSearch() { 
+	 	var frm = document.idfindscreen;
+
+	 	if (frm.userName.value.length < 1) {
+		  alert("이름을 입력해주세요");
+		  return;
+		 }
+
+		 if (frm.phone.value.length != 11) {
+			  alert("핸드폰번호를 정확하게 입력해주세요");
+			  return;
+		 }
+
+	 frm.method = "post";
+	 frm.action = "<%=request.getContextPath()%>/findIdResult.do" //넘어간화면
+	 frm.submit();  
+	 }
+ </script>
 </body>
 </html>

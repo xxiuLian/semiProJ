@@ -353,4 +353,35 @@ public class MemberDao {
 		return result;
 	}
 
+	public Member findId(Connection conn, String userName, String phone) {
+		//findId=SELECT USER_ID, USER_NAME FROM MEMBER WHERE USER_NAME=? AND PHONE=?
+		Member mem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, phone);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Member(rset.getString("USER_ID"),
+								rset.getString("USER_NAME"));
+			}
+			
+			System.out.println(mem);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return mem;
+	}
+
 }

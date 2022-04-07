@@ -72,11 +72,8 @@
 				
 				<button id = "loginBtn" type="submit">로그인</button>
 				<button id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button><br>
-				<!--  <a href="<%=request.getContextPath()%>/findId.do">아이디 찾아</a>
-				<a href="<%=request.getContextPath()%>/findPwd.do">비밀번호 찾아</a>
-				<button id = "findPwd" type="button" onclick="findPwd();">비밀번호 찾기</button>-->
-				<button id = "findId" type="button" onclick="findId();">아이디 찾기</button>
-				 <a href="<%=request.getContextPath()%>/findId.do">아이디 찾아</a>
+
+				 <a href="<%=request.getContextPath()%>/findId.do">아이디 찾기</a>
 				
 			    
 			</div>
@@ -118,14 +115,6 @@
 			function enrollPage(){
 				location.href="<%=request.getContextPath()%>/enroll.do";
 			}
-			function findId(){
-				console.log("findId")
-				location.href="<%=request.getContextPath()%>/findId.do";
-			}
-			function findPwd(){
-				location.href="<%=request.getContextPath()%>/findPwd.do";
-			}
-	
 			var testPopUp;
 			function openPopUp() {
 			    testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
