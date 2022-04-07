@@ -102,10 +102,10 @@ public class TgbService {
 		return result;
 	}
 
-	public int deleteAttachment(int bno) {
+	public int deleteTgbAttachment(int bno) {
 		Connection conn = getConnection();
 		
-		int result = new TgbDao().deleteAttachment(conn, bno);
+		int result = new TgbDao().deleteTgbAttachment(conn, bno);
 		
 		if(result >0) {
 			commit(conn);

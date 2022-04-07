@@ -34,6 +34,7 @@
 </style>
 </head>
 <body>
+<%@ include file="../common/menubar.jsp" %>
 <div class="outer">
 	
 		<br>
@@ -64,6 +65,7 @@
 		
 		<table class="detail" align="center">
 			<tr>
+			
 				<% for(int i=0; i<alist.size(); i++){ %>
 				<td>
 					<div class="detailImgArea" align="center">
@@ -76,8 +78,13 @@
 			</tr>
 		</table>
 		
+		<%if(loginUser != null &&loginUser.getUserId() == t.getTgbWriter()){ %><!-- 아이디를 갖고 오자 -->
+		
 		<button type="button" onclick="tgbUpdateForm(<%= t.getTgbNo()%>)">수정하기</button>
 		<button type="button" onclick= "tgbDelete(<%= t.getTgbNo()%>)">삭제하기</button>
+		
+		<%} %>
+		<button type="button" onclick="history.back();">목록으로</button>
 
 		<script>
 			function tgbUpdateForm(bno){

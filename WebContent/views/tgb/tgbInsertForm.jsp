@@ -25,15 +25,27 @@ td{
 	padding-left: 10px;
 }
 .outer{
-		width:800PX;
+		width:800px;
 		height:300px;
 		color:black;
 		margin:auto;
 		margin-top:50px;
 		text-align : center;
+		
 	}
+.titleImg{
+	width:300px;
+	height:400px;
+	border: 0.2px solid black;
+	background-color :red;
+	display:inline-block;
+	float : left;
+}
 .option{
+	width:300px;
+	height:400px;
 	margin : 30px;
+	display:inline-block;
 }
 .textarea{
 	width:766px; 
@@ -80,7 +92,7 @@ td{
 <h2>공동구매 등록</h2>
 <hr>
 	<form action="<%= contextPath %>/tgbInsertServlet.do" method="post" id="frm" enctype="multipart/form-data"> 
-		
+		<div class="titleImg">대표 이미지</div>
 		
 		<div class="option">
 			<table>
@@ -170,9 +182,9 @@ td{
 	        $('#contentArea').attr("hidden", false);
 	        $("#guidArea").attr("hidden", true);
 	        $('#ctnbtn').attr("disabled", true);
-			$('#ctnbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
+			$('#ctnbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
 	        $("#gidbtn").attr("disabled", false);
-			$('#gidbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
+			$('#gidbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
 
 	    })
 	    $('#gidbtn').click(function(){
@@ -181,9 +193,9 @@ td{
 	        $('#guidArea').attr("hidden", false);
 	        $("#contentArea").attr("hidden", true);
 	        $("#gidbtn").attr("disabled", true);
-			$('#gidbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
+			$('#gidbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
 	        $('#ctnbtn').attr("disabled", false);
-			$('#ctnbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
+			$('#ctnbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
 
 	        
 	    })  
