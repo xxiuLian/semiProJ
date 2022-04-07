@@ -162,6 +162,17 @@
 			</footer>
 		</div>
 	</div>
+	<script>
+	if(!${empty list}){
+		$(function(){
+			$(".listArea>tbody>tr").click(function(){
+				var userNo = $(this).children().eq(1).text();
+				console.log(userNo)
+				window.open("${contextPath}/memberView.do?userNo="+userNo, "정보조회","width=700, height=600")
+			})
+		})
+	}
+	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>

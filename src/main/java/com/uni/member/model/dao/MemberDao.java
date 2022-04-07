@@ -353,4 +353,46 @@ public class MemberDao {
 		return result;
 	}
 
+	public Member selectMember(Connection conn, int userNo) {
+		//adminSelectMember=SELECT * FROM MEMBER WHERE USER_NO=?
+		Member member = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("adminSelectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				member = new Member(rset.getInt("USER_NO"),
+						   rset.getString("USER_ID"),
+						   rset.getString("USER_PWD"),
+						   rset.getString("USER_NAME"),
+						   rset.getString("PHONE"),
+						   rset.getString("EMAIL"),
+						   rset.getString("ACCOUNT"),
+						   rset.getString("BANK"),
+						   rset.getInt("POST"),
+						   rset.getString("ADDRESS1"),
+						   rset.getString("ADDRESS2"),
+						   rset.getDate("ENROLL_DATE"),
+						   rset.getDate("MODIFY_DATE"),
+						   rset.getString("STATUS")
+						   );
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return member;
+	}
+
 }

@@ -125,4 +125,13 @@ public class MemberService {
 		return result;
 	}
 
+	public Member selectMember(int userNo) {
+		Connection conn = getConnection();
+		Member member = new MemberDao().selectMember(conn, userNo);
+		
+		close(conn);
+		
+		return member;
+	}
+
 }
