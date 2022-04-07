@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/smarteditor/js/service/HuskyEZCreator.js"
+	src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
@@ -82,10 +82,10 @@ function save(){
 	    }
 	});
 </script>
-<script type="text/javascript">
+<script>
 	$("#save").click(function() {
 		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-		$("#frm").submit();
+		$("frm#").submit();
 	})
 </script>
 
