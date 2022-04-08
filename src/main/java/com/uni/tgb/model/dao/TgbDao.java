@@ -372,4 +372,57 @@ public class TgbDao {
 		return list;
 	}
 
+	public int deleteTgb(Connection conn, int[] bno) {
+		//deleteTgb=UPDATE TGB SET STATUS='N'WHERE TGB_NO=?
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteTgb");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			if(bno != null) {
+				for(int i = 0; i < bno.length; i++) {
+					pstmt.setInt(1, bno[i]);
+					result += pstmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteTgbAttachment(Connection conn, int[] bno) {
+		//deleteTgbAttachment=UPDATE ATTACHMENT SET STATUS='N'WHERE B_NO=? AND TYPE LIKE 'TGB'
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteTgbAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(bno != null) {
+				for(int i = 0; i < bno.length; i++) {
+					pstmt.setInt(1, bno[i]);
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
