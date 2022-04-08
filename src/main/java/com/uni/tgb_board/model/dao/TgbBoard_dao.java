@@ -396,7 +396,7 @@ public class TgbBoard_dao {
 		
 		System.out.println("===========test====================================");
 		Attachment at = null;
-
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -410,10 +410,10 @@ public class TgbBoard_dao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bno);
-
+			
 			rset = pstmt.executeQuery();
 			
-			
+
 			if (rset.next()) {
 				at = new Attachment();
 				at.setFileNo(rset.getInt("FILE_NO"));
@@ -421,7 +421,6 @@ public class TgbBoard_dao {
 				at.setChangeName(rset.getString("CHANGE_NAME"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -433,10 +432,10 @@ public class TgbBoard_dao {
 		return at;
 	}
 
-
-
-
 	
-
-
+	
+	
+	
+	
+	
 }
