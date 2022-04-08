@@ -251,16 +251,9 @@ public class TgbDao {
 				a.setOriginName(rset.getString("ORIGIN_NAME"));
 				a.setChangeName(rset.getString("CHANGE_NAME"));
 				a.setFilePath(rset.getString("FILE_PATH"));
-				
-				System.out.println("a 투스트링 : "+a.toString());
+				a.setFileNo(rset.getInt("FILE_NO"));
 				
 				list.add(a);
-				int i = 0;
-				for(Attachment b : list) {
-					System.out.println(i);
-					i++;
-					System.out.println("b" + b.getOriginName());
-				}
 				
 			}
 			

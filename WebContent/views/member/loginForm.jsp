@@ -21,10 +21,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- 네이버 -->
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<!--<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>  -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<style>
+.loginArea{border: 2px solid cornflowerblue; margin: 0 auto; padding: 20px; width: 500px; height: 500px; position: relative;}
+</style>
 <!-- 카카오 -->
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
@@ -80,7 +79,8 @@
 			</div>
 			<div style="height: 50px;margin-top: 1%; " id="naver_id_login"></div>
 			<!-- 네이버 로그인 버튼 노출영역 -->
-			<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+			<a href="<%=apiURL%>"><img height="40" src="https://www.xpressengine.com/files/attach/images//697/974/022/830561d2c908882a1acf11869868dce6.PNG"></a>
+			<br>
 			<!-- 카카오 로그인 버튼 노출 영역 -->
 			<a href="javascript:kakaoLogin();"><img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="height:40px;width:auto;"></a>
 	  	  	<ul>
@@ -90,13 +90,7 @@
 	      </a>
 		</li>
 	</ul>
-	<ul>
-	<li onclick="naverLogout(); return false;">
-      <a href="javascript:void(0)">
-          <span>네이버 로그아웃</span>
-      </a>
-	</li>
-</ul>
+
 
 
 		</form>
@@ -116,20 +110,7 @@
 			function enrollPage(){
 				location.href="<%=request.getContextPath()%>/enroll.do";
 			}
-			var testPopUp;
-			function openPopUp() {
-			    testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
-			}
-			function closePopUp(){
-			    testPopUp.close();
-			}
 			
-			function naverLogout() {
-				openPopUp();
-				setTimeout(function() {
-					closePopUp();
-					}, 1000);
-			}
 		</script>
 	<script type="text/javascript">
   
@@ -144,8 +125,10 @@
 	        Kakao.API.request({
 	          url: '/v2/user/me',
 	          success: function (response) {
-	                console.log(response),
-	                location.href="http://localhost:8070/valueSa"
+	                console.log(response)
+	                console.log(response.kakao_account['email']) 
+	                console.log(response.id)
+	                console.log(response.kakao_profile['nickname'])	
 	         },
 	          fail: function (error) {
 	            console.log(error)
