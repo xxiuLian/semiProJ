@@ -352,7 +352,7 @@ public class MemberDao {
 		}
 		return result;
 	}
-
+	
 	public Member selectMember(Connection conn, int userNo) {
 		//adminSelectMember=SELECT * FROM MEMBER WHERE USER_NO=?
 		Member member = null;
@@ -393,6 +393,106 @@ public class MemberDao {
 		}
 		
 		return member;
+
+	}
+
+	public Member findId(Connection conn, String userName, String phone) {
+		//findId=SELECT USER_ID, USER_NAME FROM MEMBER WHERE USER_NAME=? AND PHONE=?
+		Member mem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, phone);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Member(rset.getString("USER_ID"),
+								rset.getString("USER_NAME"));
+			}
+			
+			System.out.println(mem);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return mem;
+	}
+
+	public Member findPwd(Connection conn, String userId, String userName, String phone) {
+		//findPwd=SELECT * FROM MEMBER WHERE USER_ID=? AND USER_NAME=? AND PHONE=?
+		Member mem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userName);
+			pstmt.setString(3, phone);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Member(rset.getInt("USER_NO"),
+						   rset.getString("USER_ID"),
+						   rset.getString("USER_PWD"),
+						   rset.getString("USER_NAME"),
+						   rset.getString("PHONE"),
+						   rset.getString("EMAIL"),
+						   rset.getString("ACCOUNT"),
+						   rset.getString("BANK"),
+						   rset.getInt("POST"),
+						   rset.getString("ADDRESS1"),
+						   rset.getString("ADDRESS2"),
+						   rset.getDate("ENROLL_DATE"),
+						   rset.getDate("MODIFY_DATE"),
+						   rset.getString("STATUS")
+						   );
+			}
+			
+			System.out.println(mem);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return mem;
+	}
+
+	public int findPwdUpdate(Connection conn, String userId, String newPwd) {
+		//findPwdUpdate=UPDATE MEMBER SET USER_PWD=?, MODIFY_DATE=SYSDATE WHERE USER_ID=?
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("findPwdUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
