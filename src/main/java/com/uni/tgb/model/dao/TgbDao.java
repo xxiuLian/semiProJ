@@ -291,25 +291,31 @@ public class TgbDao {
 		return result;
 	}
 
-	public int deleteTgbAttachment(Connection conn, int bno) {
-		//deleteTgbAttachment=UPDATE ATTACHMENT SET STATUS='N'WHERE B_NO=? AND TYPE LIKE 'TGB'
-		
+	public int deleteAttachment(Connection conn, String[] fno) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteTgbAttachment");
+		//deleteAttachment=UPDATE ATTACHMENT SET STATUS=N WHERE FILE_NO=?
+		String sql = prop.getProperty("deleteAttachment");
+		System.out.println("다오에서 fno 0qjs"+fno[0]);
 		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, bno);
 			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
+			try {
+				
+				for(String no : fno) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, no);
+				
+				result += pstmt.executeUpdate();
+				
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
 			close(pstmt);
 		}
-		
+	
 		return result;
 	}
 
