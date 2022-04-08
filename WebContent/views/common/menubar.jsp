@@ -42,7 +42,7 @@
 			</button>
 
 			<% if(loginUser == null){ %>
-			 <form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
+			 <form action="searchTgb.do"><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
 					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공지</a></li>
@@ -56,7 +56,7 @@
 					<li class="nav-item"><a class="nav-link" href="category.do">카테고리</a></li>
 					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
 				</ul>
-			</div>
+			</div> 
 			<% }else{ %>
 				<form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
 				<div class="collapse navbar-collapse" id="navbarResponsive">
