@@ -394,7 +394,7 @@ public class TgbBoard_dao {
 
 	public Attachment selectAttachment(Connection conn, int bno) {
 		
-		System.out.println("===============================================");
+		System.out.println("===========test====================================");
 		Attachment at = null;
 
 		PreparedStatement pstmt = null;
