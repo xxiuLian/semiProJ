@@ -9,9 +9,21 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>관리자 페이지</title>
-<link href="css/adminPageStyles.css" rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
-	crossorigin="anonymous"></script>
+
+<link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
+<style type="text/css">
+.listArea {
+	border: 1px solid black;
+	text-align: center;
+}
+
+.listArea>tbody>tr:hover {
+	background: darkgrey;
+	cursor: pointer
+}
+</style>	
+	
 </head>
 <body>
 	<%@ include file="../../views/common/menubar.jsp"%>
@@ -22,23 +34,23 @@
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">회원</div>
-						<a class="nav-link" href="adminMember.html">
+						<a class="nav-link" href="adminMember.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 전체 회원
 						</a>
 						<div class="sb-sidenav-menu-heading">상품</div>
-						<a class="nav-link" href="adminTGB.html">
+						<a class="nav-link" href="adminTGB.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 상품
 						</a>
 						<div class="sb-sidenav-menu-heading">게시판</div>
-						<a class="nav-link" href="adminQna.html">
+						<a class="nav-link" href="adminQnaList.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 문의
-						</a> <a class="nav-link" href="adminBoard.html">
+						</a> <a class="nav-link" href="adminBoard.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 커뮤니티
@@ -88,7 +100,7 @@
 						<table class="listArea" align="center">
 							<thead>
 								<tr>
-									<th width="100"></th>
+									<th width="100"><button type="reset">전체취소</button></th>
 									<th width="100">회원번호</th>
 									<th width="100">아이디</th>
 									<th width="200">전화번호</th>
@@ -101,7 +113,7 @@
 								<c:choose>
 									<c:when test="${empty list}">
 										<tr>
-											<td colspan="6">조회된 리스트가 없습니다.</td>
+											<td colspan="7">조회된 리스트가 없습니다.</td>
 										</tr>
 									</c:when>
 									<c:otherwise>
@@ -138,16 +150,13 @@
 						</table>
 						<br>
 						<div class="btns" align="center">
-							<button type="reset">취소하기</button>
-							<button type="submit">해당 회원탈퇴</button>
+							<c:if test="${!empty list}">
+								<button type="submit">해당 회원탈퇴</button>
+							</c:if>
 						</div>
 					</form>
 				</div>
 			</main>
-
-
-
-
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid px-4">
 					<div
@@ -162,6 +171,17 @@
 			</footer>
 		</div>
 	</div>
+	<script>
+	if(!${empty list}){
+		$(function(){
+			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
+				var userNo = $(this).parent().children().eq(1).text();
+				console.log(userNo)
+				window.open("${contextPath}/memberView.do?userNo="+userNo, "정보조회","width=700, height=600")
+			})
+		})
+	}
+	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>

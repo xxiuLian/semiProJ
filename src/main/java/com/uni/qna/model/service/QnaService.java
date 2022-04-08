@@ -1,9 +1,6 @@
 package com.uni.qna.model.service;
 
-import static com.uni.common.JDBCTemplate.close;
-import static com.uni.common.JDBCTemplate.commit;
-import static com.uni.common.JDBCTemplate.getConnection;
-import static com.uni.common.JDBCTemplate.rollback;
+import static com.uni.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -84,24 +81,19 @@ public class QnaService {
 		return result1 * result2;
 	}
 
-	public int insertQna(Qna q, Attachment at) {
+	public int insertQna(Qna q) {
 		Connection conn = getConnection();
-		int result1 = new QnaDao().insertQna(conn, q);
+		int result = new QnaDao().insertQna(conn, q);
 		
-		int result2 = 1;
 		
-		if(at != null) {
-			result2 = new QnaDao().insertAttachment(conn, at, q);
-		}
-		
-		if(result1 * result2 > 0) {
+		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
 		
-		return result1 * result2;
+		return result;
 		
 	}
 
@@ -161,6 +153,32 @@ public class QnaService {
 		close(conn);
 		
 		return reply;
+	}
+
+	public ArrayList<Qna> categoryList(int category) {
+		Connection conn = getConnection();
+		
+		ArrayList<Qna> list = new QnaDao().categoryList(conn, category);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int deleteQnas(int[] qno) {
+		Connection conn = getConnection();
+		
+		int result = new QnaDao().deleteQnas(conn, qno);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 
 }

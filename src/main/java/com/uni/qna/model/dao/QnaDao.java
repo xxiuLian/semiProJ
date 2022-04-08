@@ -33,10 +33,10 @@ public class QnaDao {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<Qna> selectList(Connection conn, PageInfo pi) {
 		ArrayList<Qna> list = new ArrayList<Qna>();
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 //		selectQnaList=
@@ -49,8 +49,7 @@ public class QnaDao {
 //				ORDER BY QNA_NO DESC) A) 
 //				WHERE RNUM BETWEEN ? AND ?
 		String sql = prop.getProperty("selectQnaList");
-		
-		
+
 //		board 게시글 currentPage = 1 startRow = 1 endRow = 10; currentPage = 2 
 //		startRow = 11 endRow = 20; currentPage = 3 startRow = 21 endRow = 30;
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
@@ -60,10 +59,10 @@ public class QnaDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
+
 			rset = pstmt.executeQuery();
-			//QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
-			while(rset.next()) {
+			// QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
+			while (rset.next()) {
 				Qna q = new Qna();
 				q.setQnaNo(rset.getInt("QNA_NO"));
 				q.setCategory(rset.getString("QNA_CATEGORY_NAME"));
@@ -71,11 +70,11 @@ public class QnaDao {
 				q.setQnaWriter(rset.getString("USER_ID"));
 				q.setCount(rset.getInt("COUNT"));
 				q.setCreateDate(rset.getDate("CREATE_DATE"));
-				
-				if(rset.getString("QNA_REPLY") != null) {
+
+				if (rset.getString("QNA_REPLY") != null) {
 					q.setQnaReply(rset.getString("QNA_REPLY"));
 				}
-				
+
 				list.add(q);
 			}
 		} catch (SQLException e) {
@@ -90,21 +89,21 @@ public class QnaDao {
 
 	public int getListCount(Connection conn) {
 		int listCount = 0;
-		
+
 		Statement stmt = null;
 		ResultSet rset = null;
-		
-		//getListCount=SELECT COUNT(*) FROM QNA_BOARD WHERE STATUS='Y'
+
+		// getListCount=SELECT COUNT(*) FROM QNA_BOARD WHERE STATUS='Y'
 		String sql = prop.getProperty("getListCount");
-		
+
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
-			
+
 			if (rset.next()) {
 				listCount = rset.getInt(1);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,8 +111,7 @@ public class QnaDao {
 			close(rset);
 			close(stmt);
 		}
-	
-		
+
 		return listCount;
 	}
 
@@ -145,8 +143,9 @@ public class QnaDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		
-		//selectQna=SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, QNA_CONTENT, USER_ID, COUNT, CREATE_DATE FROM QNA_BOARD B JOIN MEMBER ON(QNA_WRITER = USER_NO) LEFT JOIN QNA_CATEGORY USING(QNA_CATEGORY_NO) WHERE B.STATUS = 'Y' AND QNA_NO=?
+		// selectQna=SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, QNA_CONTENT, USER_ID,
+		// COUNT, CREATE_DATE FROM QNA_BOARD B JOIN MEMBER ON(QNA_WRITER = USER_NO) LEFT
+		// JOIN QNA_CATEGORY USING(QNA_CATEGORY_NO) WHERE B.STATUS = 'Y' AND QNA_NO=?
 		String sql = prop.getProperty("selectQna");
 
 		try {
@@ -154,7 +153,8 @@ public class QnaDao {
 			pstmt.setInt(1, qno);
 
 			rset = pstmt.executeQuery();
-			//QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, QNA_CONTENT, USER_ID, COUNT, CREATE_DATE
+			// QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, QNA_CONTENT, USER_ID, COUNT,
+			// CREATE_DATE
 			if (rset.next()) {
 				q = new Qna();
 				q.setQnaNo(rset.getInt("QNA_NO"));
@@ -179,8 +179,8 @@ public class QnaDao {
 	public int deleteQna(Connection conn, int qno) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
-		//deleteQna=UPDATE QNA_BOARD SET STATUS='N' WHERE QNA_NO=?
+
+		// deleteQna=UPDATE QNA_BOARD SET STATUS='N' WHERE QNA_NO=?
 		String sql = prop.getProperty("deleteQna");
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -202,7 +202,7 @@ public class QnaDao {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
 		// WHERE B_NO=? AND STATUS='Y' AND TYPE='QNA'
 		String sql = prop.getProperty("selectAttachment");
@@ -235,7 +235,7 @@ public class QnaDao {
 
 		PreparedStatement pstmt = null;
 
-		//deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE B_NO=?
+		// deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE B_NO=?
 		String sql = prop.getProperty("deleteAttachment");
 		System.out.println("deleteAttachment : " + sql);
 		try {
@@ -288,7 +288,8 @@ public class QnaDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
-		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_QNO.CURRVAL, 'QNA')
+		// insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?,
+		// SYSDATE, DEFAULT, SEQ_QNO.CURRVAL, 'QNA')
 		String sql = prop.getProperty("insertAttachment");
 //		FILE_NO	NUMBER
 //		ORIGIN_NAME	VARCHAR2(255 BYTE) 1
@@ -405,43 +406,45 @@ public class QnaDao {
 	public int insertReply(Connection conn, Qna q) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
-		//insertQnaReply=UPDATE QNA_BOARD SET QNA_REPLY=?, REPLY_DATE=SYSDATE WHERE QNA_NO=?
+
+		// insertQnaReply=UPDATE QNA_BOARD SET QNA_REPLY=?, REPLY_DATE=SYSDATE WHERE
+		// QNA_NO=?
 		String sql = prop.getProperty("insertQnaReply");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, q.getQnaReply());
 			pstmt.setInt(2, q.getQnaNo());
-			
+
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
 
 	public Qna selectRList(Connection conn, int qId) {
 		Qna reply = null;
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		//selectQnaReply=SELECT QNA_REPLY, REPLY_DATE FROM QNA_BOARD WHERE QNA_NO=? AND STATUS = 'Y'
+
+		// selectQnaReply=SELECT QNA_REPLY, REPLY_DATE FROM QNA_BOARD WHERE QNA_NO=? AND
+		// STATUS = 'Y'
 		String sql = prop.getProperty("selectQnaReply");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, qId);
-			
+
 			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
+
+			if (rset.next()) {
 				reply = new Qna();
 				reply.setQnaReply(rset.getString("QNA_REPLY"));
 				reply.setReplyDate(rset.getDate("REPLY_DATE"));
@@ -453,8 +456,73 @@ public class QnaDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return reply;
 	}
 
+	public ArrayList<Qna> categoryList(Connection conn, int category) {
+		ArrayList<Qna> list = new ArrayList<Qna>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		// selectCategoryList=SELECT * FROM (SELECT ROWNUM RNUM, A.*
+		// FROM (SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT,
+		// CREATE_DATE, QNA_REPLY FROM QNA_BOARD Q JOIN QNA_CATEGORY
+		// USING(QNA_CATEGORY_NO) JOIN MEMBER ON (QNA_WRITER=USER_NO)
+		// WHERE Q.STATUS='Y' AND QNA_CATEGORY_NO=? ORDER BY QNA_NO DESC) A)
+		
+		String sql = prop.getProperty("selectCategoryList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, category);
+			
+			rset = pstmt.executeQuery();
+			// QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
+			while (rset.next()) {
+				Qna q = new Qna();
+				q.setQnaNo(rset.getInt("QNA_NO"));
+				q.setCategory(rset.getString("QNA_CATEGORY_NAME"));
+				q.setQnaTitle(rset.getString("QNA_TITLE"));
+				q.setQnaWriter(rset.getString("USER_ID"));
+				q.setCount(rset.getInt("COUNT"));
+				q.setCreateDate(rset.getDate("CREATE_DATE"));
+				if (rset.getString("QNA_REPLY") != null) {
+					q.setQnaReply(rset.getString("QNA_REPLY"));
+				}
+				
+				list.add(q);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int deleteQnas(Connection conn, int[] qno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//deleteQnas=UPDATE QNA_BOARD SET STATUS='N' WHERE QNA_NO=?
+		String sql = prop.getProperty("deleteQnas");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(qno != null) {
+				for(int i = 0; i < qno.length; i++) {
+					pstmt.setInt(1, qno[i]);
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

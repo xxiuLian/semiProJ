@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문의 글 조회</title>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
@@ -37,19 +37,6 @@
 					<p>${q.qnaContent}</p>
 				</td>
 			</tr>
-			<tr>
-				<th>첨부파일</th>
-				<td colspan="3">
-					<c:choose>
-						<c:when test="${at != null}">
-							<a download="${at.originName}" href="${contextPath}/resources/qna_board_upfiles/${at.changeName}">${at.originName}</a>	
-						</c:when>
-						<c:otherwise>
-							첨부파일이 없습니다.
-						</c:otherwise>
-					</c:choose>
-				</td> 
-			</tr>
 		</table>
 		<br>
 		
@@ -79,17 +66,6 @@
 		</script>
 	</div>
 	
-	<div class="replyArea">
-		<!-- 댓글 작성하는 div -->
-		<table border="1" align="center">
-			<tr>
-				<c:if test="${sessionScope.loginUser.userId == 'admin'}">
-					<th>답변작성</th>
-						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-						<td><button id="addReply">답변등록</button></td>
-				</c:if>
-			</tr>
-		</table>
 		<!-- 댓글 리스트들 보여주는 div -->
 		<div id="replyListArea">
 			<table id="replyList" border="1" align="center">
@@ -110,6 +86,17 @@
 				</tr> -->
 			</table>
 		</div>
+		<div class="replyArea">
+		<!-- 댓글 작성하는 div -->
+		<table border="1" align="center">
+			<tr>
+				<c:if test="${sessionScope.loginUser.userId == 'admin'}">
+					<th>답변작성</th>
+						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
+						<td><button id="addReply">답변등록</button></td>
+				</c:if>
+			</tr>
+		</table>
 	</div>
 	<script>
 	$(function(){

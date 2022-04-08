@@ -20,16 +20,16 @@ import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 
 /**
- * Servlet implementation class TgbEnrollServlet
+ * Servlet implementation class Tgbinsert
  */
 @WebServlet("/tgbInsertServlet.do")
-public class TgbInsertServlet extends HttpServlet {
+public class Tgbinsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TgbInsertServlet() {
+    public Tgbinsert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,17 +39,18 @@ public class TgbInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
+			
 			int maxSize = 10 * 1024*1024;
 			
 			String resources = request.getSession().getServletContext().getRealPath("/assets");
 			String savePath = resources + "\\img_upfile\\";
+			System.out.println(resources);
 			
 			System.out.println("savePath : "+ savePath);
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			//INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_TGB.CURRVAL, ?)
+			
 			
 			String writer = multiRequest.getParameter("writer");
 			String title = multiRequest.getParameter("title");
@@ -57,10 +58,18 @@ public class TgbInsertServlet extends HttpServlet {
 			String guide = multiRequest.getParameter("guide");
 			String category = multiRequest.getParameter("category");
 			String trm = multiRequest.getParameter("term");
+		
 			int price = Integer.parseInt(multiRequest.getParameter("price"));
 				
 			System.out.println("title : "+title);
+			System.out.println("writer : "+writer);
+			System.out.println("content : "+content);
+			System.out.println("guide : "+guide);
+			System.out.println("category : "+category);
+			System.out.println("trm : "+trm);
+			
 		
+			
 			
 			Date term = Date.valueOf(trm);//String term을 Date로 변환
 			
@@ -69,13 +78,15 @@ public class TgbInsertServlet extends HttpServlet {
 					
 			ArrayList<Attachment> fileList = new ArrayList<>();
 			
-			for(int i = 1; i<=3; i++) {
+			for(int i = 0; i<=10; i++) {
 				
 				String name = "file"+i;
 				
 				if(multiRequest.getOriginalFileName(name) != null) {
 					String originName = multiRequest.getOriginalFileName(name);
 					String changeName = multiRequest.getFilesystemName(name);
+					System.out.println(originName);
+					System.out.println("i :"+i);
 					
 					Attachment at = new Attachment();
 					at.setFilePath(savePath);
@@ -87,6 +98,8 @@ public class TgbInsertServlet extends HttpServlet {
 				}
 				
 			}
+			
+			
 		
 		int result = new TgbService().insertTgb(t, fileList);
 		System.out.println("result : "+ result);
@@ -106,7 +119,6 @@ public class TgbInsertServlet extends HttpServlet {
 		}
 		
 		}
-		
 	}
 
 	/**

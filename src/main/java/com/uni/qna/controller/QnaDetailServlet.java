@@ -37,7 +37,7 @@ public class QnaDetailServlet extends HttpServlet {
 		Attachment at = new QnaService().selectAttachment(qno);
 		
 		if(q != null) {
-			q.setQnaContent(q.getQnaContent().replaceAll("\n", "<br>"));
+			//q.setQnaContent(q.getQnaContent().replaceAll("\n", "<br>"));
 			request.setAttribute("q", q);
 			request.setAttribute("at", at); 
 			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);

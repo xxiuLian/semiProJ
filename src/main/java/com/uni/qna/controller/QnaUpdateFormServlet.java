@@ -34,11 +34,9 @@ public class QnaUpdateFormServlet extends HttpServlet {
 		int qno = Integer.parseInt(request.getParameter("qno"));
 		
 		Qna q = new QnaService().selectUpdateQna(qno);
-		Attachment at = new QnaService().selectAttachment(qno);
 		
 		if(q != null) {
 			request.setAttribute("q", q);
-			request.setAttribute("at", at);
 			request.getRequestDispatcher("views/qna/qnaUpdateForm.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "수정할 게시글을 불러오는데 실패하였습니다.");

@@ -16,6 +16,17 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  <link href="css/styles.css" rel="stylesheet" />
+ <script type="text/javascript">
+
+	 $(function(){
+		 let msg = "<%=message%>";
+	 	if(msg != "null"){//msg가 null 아닐 경우 함수가 실행된다.
+	 		alert(msg);
+	 		<% session.removeAttribute("msg");%>
+	 	} 
+	 
+	 })
+</script>
 </head>
 <body>
 
@@ -31,7 +42,7 @@
 			</button>
 
 			<% if(loginUser == null){ %>
-			 <form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
+			 <input type="text" id="search"><button type="button" onclick="searching();">검색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
 					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공지</a></li>
@@ -39,23 +50,22 @@
 					<li class="nav-item"><a class="nav-link" href="login.do">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="enroll.do">회원가입</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
-					<li class="nav-item"><a class="nav-link" href="myPage.do">마이페이지</a></li>
-					<li class="nav-item"><a class="nav-link" href="admin.do">관리자페이지</a></li>
+					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li><!--  -->
 					<li class="nav-item"><a class="nav-link" href="category.do">카테고리</a></li>
 					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
 				</ul>
-			</div>
+			</div> 
 			<% }else{ %>
-				<form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
+				<input type="text" id="search"><button type="button" onclick="searching();">검색</button></form><br><br><!-- 검색창 -->
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
 					<li class="nav-item"><a class="nav-link" href="category.do">카테고리</a></li>
 					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
-					<li class="nav-item"><a class="nav-link" href="admin.do">관리자페이지</a></li>
+					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li>
 				</ul>
@@ -71,5 +81,14 @@
 			<% } %>
 		</div>
 	</nav>
+	
+	<script>
+	function searching(){
+		var keyword = $('#search').val();
+		
+		location.href = "<%=contextPath%>/searchTgb.do?keyword="+keyword;
+		
+	}
+	</script>
 </body>
 </html>
