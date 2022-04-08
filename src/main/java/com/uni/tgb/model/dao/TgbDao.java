@@ -229,51 +229,36 @@ public class TgbDao {
 		return t;
 	}
 
-	public ArrayList<Attachment> selectAttachment(Connection conn, int bno) {
-		ArrayList<Attachment> list = new ArrayList<Attachment>();
-		
+	public Attachment selectAttachment(Connection conn, int bno) {
+		Attachment at = null;
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		//selectAttachment=SELECT * FROM ATTACHMENT WHERE B_NO = ? AND TYPE LIKE ?
-		String sql = prop.getProperty("selectAttachment");
 		
+		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
+		// WHERE B_NO=? AND STATUS='Y' AND TYPE='QNA'
+		String sql = prop.getProperty("selectTgbAttachment");
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bno);
-			pstmt.setString(2, "TGB");
-			
+
 			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				System.out.println("Dao에서 rset 담는다");
-				System.out.println(rset.getString("ORIGIN_NAME"));
-				Attachment a = new Attachment();
-				a.setOriginName(rset.getString("ORIGIN_NAME"));
-				a.setChangeName(rset.getString("CHANGE_NAME"));
-				a.setFilePath(rset.getString("FILE_PATH"));
-				
-				System.out.println("a 투스트링 : "+a.toString());
-				
-				list.add(a);
-				int i = 0;
-				for(Attachment b : list) {
-					System.out.println(i);
-					i++;
-					System.out.println("b" + b.getOriginName());
-				}
-				
+
+			if (rset.next()) {
+				at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
 			}
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
-	
-		
-		return list;
+		System.out.println("첨부파일 조회 : " + at);
+		return at;
 	}
 
 	public int deleteTgb(Connection conn, int bno) {
