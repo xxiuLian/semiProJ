@@ -460,7 +460,7 @@ public class QnaDao {
 		return reply;
 	}
 
-	public ArrayList<Qna> categoryList(Connection conn, String category) {
+	public ArrayList<Qna> categoryList(Connection conn, int category) {
 		ArrayList<Qna> list = new ArrayList<Qna>();
 
 		PreparedStatement pstmt = null;
@@ -469,13 +469,13 @@ public class QnaDao {
 		// FROM (SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT,
 		// CREATE_DATE, QNA_REPLY FROM QNA_BOARD Q JOIN QNA_CATEGORY
 		// USING(QNA_CATEGORY_NO) JOIN MEMBER ON (QNA_WRITER=USER_NO)
-		// WHERE Q.STATUS='Y' AND QNA_CATEGORY_NAME=? ORDER BY QNA_NO DESC) A)
+		// WHERE Q.STATUS='Y' AND QNA_CATEGORY_NO=? ORDER BY QNA_NO DESC) A)
 		
 		String sql = prop.getProperty("selectCategoryList");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, category);
+			pstmt.setInt(1, category);
 			
 			rset = pstmt.executeQuery();
 			// QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY

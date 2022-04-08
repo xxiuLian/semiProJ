@@ -37,6 +37,7 @@
 	<div class="outer">
 		<br>
 		<div class="mb-3">
+		<form id="listForm" action="${contextPath}/qnaList.do" method="post">
 			<select name="category" id="boardCategory">
 				<option value="000">카테고리 선택</option>
 				<option value="10">공통</option>
@@ -47,6 +48,7 @@
 				<option value="60">이벤트</option>
 				<option value="70">기타</option>
 			</select>
+			</form>
 		</div>
 		<h2 align="center">문의 게시판</h2>
 		<%-- <c:out value="<p>${sessionScope.contextPath}</p>" escapeXml="false"><br></c:out>
@@ -168,53 +170,42 @@
 		})
 	}
 </script>
-<
+
 </body>
 <script type="text/javascript">
 $(function(){
 	$("#boardCategory").change(function(){
+		$("#listForm").submit();
 	 	var selected = $("option:selected").text();
-	 	
- 		$.ajax({
-	 		url : "qnaList.do",
-	 		
-	 		data:{
-	 			category:selected
-	 		},
-	 		
-	 		type:"get",
-	 		
-	 		success:function(list){
-	 			var table = $("#tbody");
-	 			table.html("");
-	 			
-	 			if(list == null){
-	 				table.html("<tr><td>조회된 리스트가 없습니다.</td></tr>")
-	 				table.children("tr").children("td").attr("colspan","7")
-	 			}else {
-	 				for(var i = 0; i < list.length; i++){
-	 					if(selected == list[i].category){
-	 						table.append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>")
-	 						table.children("tr").eq(i).children("td").eq(0).text(list[i].qnaNo)
-	 						table.children("tr").eq(i).children("td").eq(1).text(list[i].category)
-	 						table.children("tr").eq(i).children("td").eq(2).text(list[i].qnaTitle)
-	 						table.children("tr").eq(i).children("td").eq(3).text(list[i].qnaWriter)
-	 						table.children("tr").eq(i).children("td").eq(4).text(list[i].count)
-	 						table.children("tr").eq(i).children("td").eq(5).text(list[i].createDate)
-	 						if(list[i].qnaReply != null){
-	 							table.children("tr").eq(i).children("td").eq(6).text('답변 완료')
-	 						}else{
-	 							table.children("tr").eq(i).children("td").eq(6).text('답변 대기중')
-	 						}
-	 					}
-	 					
-	 				}
-	 			}
-	 		},
-			error:function(e){
-				console.log("ajax 통신 실패")
+	 	var list = ${arr}
+	 	console.log(list)
+	 	var table = $("#tbody");
+		table.html("");
+			
+			if(list == null){
+				table.html("<tr><td>조회된 리스트가 없습니다.</td></tr>")
+				table.children("tr").children("td").attr("colspan","7")
+			}else {
+				for(var i = 0; i < list.length; i++){
+					if(selected == list[i].category){
+						table.append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>")
+						table.children("tr").eq(i).children("td").eq(0).text(list[i].qnaNo)
+						table.children("tr").eq(i).children("td").eq(1).text(list[i].category)
+						table.children("tr").eq(i).children("td").eq(2).text(list[i].qnaTitle)
+						table.children("tr").eq(i).children("td").eq(3).text(list[i].qnaWriter)
+						table.children("tr").eq(i).children("td").eq(4).text(list[i].count)
+						table.children("tr").eq(i).children("td").eq(5).text(list[i].createDate)
+						if(list[i].qnaReply != null){
+							table.children("tr").eq(i).children("td").eq(6).text('답변 완료')
+						}else{
+							table.children("tr").eq(i).children("td").eq(6).text('답변 대기중')
+						}
+					}
+					
+				}
 			}
-	 	})
+	 	
+	 	
 		})
  	})
  	

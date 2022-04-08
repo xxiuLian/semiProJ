@@ -34,7 +34,7 @@ public class QnaListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		//페이징처리
 		
 		int listCount; 	 //총 게시글 개수
@@ -111,11 +111,12 @@ public class QnaListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-		String category = request.getParameter("category");
+		int category = Integer.parseInt(request.getParameter("category"));
 		ArrayList<Qna> list = new QnaService().selectList(pi);
 		ArrayList<Qna> data = new QnaService().categoryList(category);
-	
-	    request.setAttribute("data", data); 
+		System.out.println("category ===" + category);
+		System.out.println("data ==== " + data);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		

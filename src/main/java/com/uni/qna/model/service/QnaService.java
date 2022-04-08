@@ -158,7 +158,7 @@ public class QnaService {
 		return reply;
 	}
 
-	public ArrayList<Qna> categoryList(String category) {
+	public ArrayList<Qna> categoryList(int category) {
 		Connection conn = getConnection();
 		
 		ArrayList<Qna> list = new QnaDao().categoryList(conn, category);
