@@ -394,6 +394,7 @@ public class TgbBoard_dao {
 
 	public Attachment selectAttachment(Connection conn, int bno) {
 		
+		System.out.println("===============================================");
 		Attachment at = null;
 
 		PreparedStatement pstmt = null;
@@ -401,16 +402,18 @@ public class TgbBoard_dao {
 		
 		System.out.println("bno : " + bno);
 		
-		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
-		// WHERE B_NO=? AND STATUS='Y' AND TYPE='QNA'
 		String sql = prop.getProperty("selectTgbAttachment");
+		
+		System.out.println("sql : " + sql);
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bno);
 
 			rset = pstmt.executeQuery();
-
+			
+			
 			if (rset.next()) {
 				at = new Attachment();
 				at.setFileNo(rset.getInt("FILE_NO"));
@@ -424,7 +427,7 @@ public class TgbBoard_dao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("첨부파일 조회 : " + at);
+		System.out.println("첨부파일 조회2 : " + at);
 		return at;
 	}
 
