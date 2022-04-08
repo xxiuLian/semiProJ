@@ -79,7 +79,7 @@
 			</div>
 			<div style="height: 50px;margin-top: 1%; " id="naver_id_login"></div>
 			<!-- 네이버 로그인 버튼 노출영역 -->
-			<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+			<a href="<%=apiURL%>"><img height="40" src="https://www.xpressengine.com/files/attach/images//697/974/022/830561d2c908882a1acf11869868dce6.PNG"></a>
 			<br>
 			<!-- 카카오 로그인 버튼 노출 영역 -->
 			<a href="javascript:kakaoLogin();"><img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="height:40px;width:auto;"></a>
@@ -125,8 +125,10 @@
 	        Kakao.API.request({
 	          url: '/v2/user/me',
 	          success: function (response) {
-	                console.log(response),
-	                location.href="http://localhost:8070/valueSa"
+	                console.log(response)
+	                console.log(response.kakao_account['email']) 
+	                console.log(response.id)
+	                console.log(response.kakao_profile['nickname'])	
 	         },
 	          fail: function (error) {
 	            console.log(error)

@@ -427,7 +427,9 @@ public class TgbBoard_dao {
 			close(rset);
 			close(pstmt);
 		}
+
 		System.out.println("첨부파일 조회2 : " + at);
+
 		return at;
 	}
 

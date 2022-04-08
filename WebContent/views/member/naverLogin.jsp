@@ -46,13 +46,17 @@
 			function closePopUp(){
 			    testPopUp.close();
 			}
-			
+			function goMain() {
+				location.href="http://localhost:8070/valueSa";
+			}
 			function naverLogout() {
 				openPopUp();
+				
 				setTimeout(function() {
 					closePopUp();
+					goMain();
 					}, 1000);
-				location.href="http://localhost:8070/valueSa";
+					
 			}
 		</script>
 
