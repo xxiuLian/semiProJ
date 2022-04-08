@@ -117,4 +117,14 @@ public class TgbService {
 	
 	}
 
+	public ArrayList<Tgb> searchTgb(PageInfo pi, String keyword) {
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> list = new TgbDao().searchTgb(conn, pi, keyword);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.common.PageInfo;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 
@@ -32,27 +33,54 @@ public class TgbSearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
-		System.out.println(keyword);
+		System.out.println("검색 키워드 : "+keyword);
 		
-		//ArrayList<Tgb> list = new TgbService().searchTgb();//비교할 데이터를 담아옴
+		//페이징처리
+				int listCount; //총 게시글 수
+				int currentPage;// 현제 페이지
+				int startPage;// 시작 페이지 
+				int endPage;// 끝 페이지
+				
+				int maxPage; // 가장 마지막 페이지
+				int pageLimit; // 한 페이지 하단에 보여질 페이지 최대 갯수
+				int boardLimit; // 한페이지에 보여질 게시글 최대 갯수
+
+				listCount = new TgbService().getlistCount();
+				System.out.println("tgb의 listCount : "+listCount);
+				
+				currentPage = 1;
+				
+				if(request.getParameter("currentPage") != null) {
+					currentPage = Integer.parseInt(request.getParameter("currentPage"));
+				}
+				
+				pageLimit = 10;
+				boardLimit = 20;
+				
+				maxPage = (int)Math.ceil((double)listCount/boardLimit);
+				
+				startPage = (currentPage -1)/pageLimit*pageLimit +1;
+				
+				endPage = startPage+pageLimit-1;
+				
+				if(maxPage < endPage) {
+					endPage = maxPage;
+				}
+		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
+		ArrayList<Tgb> list = new TgbService().searchTgb(pi, keyword);
 		
-//		ArrayList<Tgb> result = new ArrayList<Tgb>();//비교한 결과 데이터를 담음
-//		
-//		for(Tgb t : list) {
-//			
-//			if(t.getTgbTitle().contains(search)) {
-//				result.add(t);
-//			}else if(t.getTgbContent().contains(search)) {
-//				result.add(t);
-//			}else if(t.getTgbGuide().contains(search)) {
-//				result.add(t);
-//			}
-//			
-//			
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
+		
+		request.getRequestDispatcher("views/tgb/tgbListView.jsp").forward(request, response);
+		
+//		if(list != null) {
+//		request.setAttribute("result", list);
+//		request.getRequestDispatcher("views/tgb/tgbListView.jsp").forward(request, response);
+//		}else {
+//			request.setAttribute("resultmessage", keyword +"로 검색된 결과가 없습니다.");
+//			request.getRequestDispatcher("views/tgb/tgbListView.jsp").forward(request, response);
 //		}
-//		
-//		request.setAttribute("result", result);
-//		
 		
 		
 		

@@ -85,7 +85,6 @@
 	<script>
 	function searching(){
 		var keyword = $('#search').val();
-		alert(keyword);
 		
 		location.href = "<%=contextPath%>/searchTgb.do?keyword="+keyword;
 		
