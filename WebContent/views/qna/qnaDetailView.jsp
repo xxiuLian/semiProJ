@@ -65,17 +65,6 @@
 		</script>
 	</div>
 	
-	<div class="replyArea">
-		<!-- 댓글 작성하는 div -->
-		<table border="1" align="center">
-			<tr>
-				<c:if test="${sessionScope.loginUser.userId == 'admin'}">
-					<th>답변작성</th>
-						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-						<td><button id="addReply">답변등록</button></td>
-				</c:if>
-			</tr>
-		</table>
 		<!-- 댓글 리스트들 보여주는 div -->
 		<div id="replyListArea">
 			<table id="replyList" border="1" align="center">
@@ -96,6 +85,17 @@
 				</tr> -->
 			</table>
 		</div>
+		<div class="replyArea">
+		<!-- 댓글 작성하는 div -->
+		<table border="1" align="center">
+			<tr>
+				<c:if test="${sessionScope.loginUser.userId == 'admin'}">
+					<th>답변작성</th>
+						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
+						<td><button id="addReply">답변등록</button></td>
+				</c:if>
+			</tr>
+		</table>
 	</div>
 	<script>
 	$(function(){

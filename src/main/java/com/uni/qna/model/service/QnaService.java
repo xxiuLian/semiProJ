@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
-import com.uni.qna.model.dao.QnaDao;
+	import com.uni.qna.model.dao.QnaDao;
 import com.uni.qna.model.dto.Qna;
 
 public class QnaService {
@@ -156,6 +156,16 @@ public class QnaService {
 		close(conn);
 		
 		return reply;
+	}
+
+	public ArrayList<Qna> categoryList(int category) {
+		Connection conn = getConnection();
+		
+		ArrayList<Qna> list = new QnaDao().categoryList(conn, category);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

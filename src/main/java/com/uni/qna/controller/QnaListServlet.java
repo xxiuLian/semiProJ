@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
@@ -32,7 +34,7 @@ public class QnaListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		//페이징처리
 		
 		int listCount; 	 //총 게시글 개수
@@ -109,8 +111,25 @@ public class QnaListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-	
+		
+		
+		if (request.getParameter("category") != null && !request.getParameter("category").equals("000")){
+			int category = Integer.parseInt(request.getParameter("category"));
+
+			ArrayList<Qna> data = new QnaService().categoryList(category);
+			System.out.println("category ===" + category);
+			System.out.println("data ==== " + data);
+			response.setContentType("application/json; charset=utf-8");
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			String arr = gson.toJson(data);
+			System.out.println("arr===="+arr);
+			gson.toJson(data, response.getWriter());
+		}
+		
+		
+		
 		ArrayList<Qna> list = new QnaService().selectList(pi);
+		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);

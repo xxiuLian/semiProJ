@@ -65,7 +65,7 @@
 					<th width="150">답변상태</th>
 				</tr>
 			<thead>
-			<tbody>
+			<tbody id="tbody">
 				<c:choose>
 					<c:when test="${empty list}">
 						<tr>
@@ -96,8 +96,7 @@
 			</tbody>
 		</table>
 
-		<br>
-		<br>
+		<br> <br>
 
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
@@ -148,8 +147,7 @@
 				onclick="location.href='${contextPath}/qnaList.do?currentPage=${maxPage}'">
 				&gt;&gt;</button>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 
 		<div align="center">
 
@@ -161,14 +159,64 @@
 
 	</div>
 	<script>
-		if(!${empty list}){
-			$(function(){
-				$(".listArea>tbody>tr").click(function(){
-					var qno = $(this).children().eq(0).text();
-					location.href = "${contextPath}/detailQna.do?qno="+qno;
-				})
+	if(!${empty list}){
+		$(function(){
+			$(".listArea>tbody>tr").click(function(){
+				var qno = $(this).children().eq(0).text();
+				location.href = "${contextPath}/detailQna.do?qno="+qno;
 			})
-		}
-	</script>
+		})
+	}
+</script>
+
 </body>
+<script type="text/javascript">
+$(function(){
+	$("#boardCategory").change(function(){
+	 	var selected = $("option:selected").val();
+	 	$.ajax({
+			url : "qnaList.do",
+			data:{
+				category:selected
+			},
+			type:"get",
+			
+			success:function(list){
+				
+			 	console.log(list)
+			 	
+			 	var table = $("#tbody");
+				table.html("");
+					
+					if(list.length == 0){
+						table.html("<tr><td>조회된 리스트가 없습니다.</td></tr>")
+						table.children("tr").children("td").attr("colspan","7")
+					}else {
+						for(var i = 0; i < list.length; i++){
+							if(selected == list[i].category){
+								table.append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>")
+								table.children("tr").eq(i).children("td").eq(0).text(list[i].qnaNo)
+								table.children("tr").eq(i).children("td").eq(1).text(list[i].category)
+								table.children("tr").eq(i).children("td").eq(2).text(list[i].qnaTitle)
+								table.children("tr").eq(i).children("td").eq(3).text(list[i].qnaWriter)
+								table.children("tr").eq(i).children("td").eq(4).text(list[i].count)
+								table.children("tr").eq(i).children("td").eq(5).text(list[i].createDate)
+								if(list[i].qnaReply != null){
+									table.children("tr").eq(i).children("td").eq(6).text('답변 완료')
+								}else{
+									table.children("tr").eq(i).children("td").eq(6).text('답변 대기중')
+								}
+							}
+							
+						}
+					}
+				
+			},
+			error:function(e){
+				console.log("Ajax통신실패")
+			}
+		})
+	})
+})
+</script>
 </html>
