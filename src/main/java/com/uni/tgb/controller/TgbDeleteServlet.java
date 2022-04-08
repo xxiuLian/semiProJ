@@ -32,8 +32,8 @@ public class TgbDeleteServlet extends HttpServlet {
 		
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		int result1 = new TgbService().deleteTgb(bno);
-		int result2 = new TgbService().deleteTgbAttachment(bno);
+		int result1 = new TgbService().deleteTgb(bno);// 해당 번호 글을 삭제하는 메소드
+		int result2 = new TgbService().deleteTgbAttachment(bno);//해당 글의 첨부파일을 삭제하는 메소드
 		
 		if(result1*result2 > 0) {
 			request.getSession().setAttribute("msg", "글이 삭제되었습니다.");

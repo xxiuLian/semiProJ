@@ -22,7 +22,7 @@ import com.uni.tgb.model.service.TgbService;
 /**
  * Servlet implementation class TgbUpdateServlet
  */
-@WebServlet("/updateTgb.do")
+@WebServlet("/updateTgb.do")// 공구 글 수정하는 서블릿
 public class TgbUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -51,15 +51,15 @@ public class TgbUpdateServlet extends HttpServlet {
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
 			System.out.println("넘어옴");
-			String  fno = multiRequest.getParameter("deletefile");
+			String  fno = multiRequest.getParameter("deletefile");//deletefile로 지울 파일을 string으로 연결해서 가져오고
 			int result = 0;
 			System.out.println("fno"+fno);
-			String[] farr= fno.split(",");
+			String[] farr= fno.split(",");//","을 기준으로 나눠서 배열로 만들고
 			
 			if(farr != null) {
 				System.out.println("빼빼 :"+farr[0]);
 				
-				result = new TgbService().deleteAttachment(farr);  
+				result = new TgbService().updateAttachment(farr);  // 그 배열을 가져가서 파일을 지움 
 				
 				if(result >0) {
 					System.out.println("첨부파일 삭제 성공");

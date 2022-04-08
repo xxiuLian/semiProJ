@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class TgbEnrollFormServlet
  */
-@WebServlet("/tgbInsert.do")
+@WebServlet("/tgbInsert.do")// 공구 글 동록 jsp로 이동하는 서블릿
 public class TgbInsertFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
