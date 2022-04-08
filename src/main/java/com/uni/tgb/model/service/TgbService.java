@@ -79,6 +79,16 @@ public class TgbService {
 		return t;
 		
 	}
+	
+	public ArrayList<Attachment> updateFormAttachment(int bno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> list = new TgbDao().selectAttachment(conn, bno);
+		
+		close(conn);
+		
+		return list;
+	}
 
 	public TgbBoard_dto selectUpdateTgb(int bno) {
 		Connection conn = getConnection();
@@ -102,19 +112,19 @@ public class TgbService {
 		return result;
 	}
 
-	public int deleteTgbAttachment(int bno) {
+	public int deleteAttachment(String[] fno) {
 		Connection conn = getConnection();
 		
-		int result = new TgbDao().deleteTgbAttachment(conn, bno);
-		
+		int result = new TgbDao().deleteAttachment(conn, fno);
+		System.out.println("서비스에서 result : "+result);
 		if(result >0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
+		
 		return result;
-	
 	}
 
 	public ArrayList<Tgb> searchTgb(PageInfo pi, String keyword) {
