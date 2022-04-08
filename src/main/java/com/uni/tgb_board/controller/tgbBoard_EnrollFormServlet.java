@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class tgbBoard_insertServlet
  */
 @WebServlet("/EnrollTgbBoard.do")
-public class tgbBoard_EnrollServlet extends HttpServlet {
+public class tgbBoard_EnrollFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tgbBoard_EnrollServlet() {
+    public tgbBoard_EnrollFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

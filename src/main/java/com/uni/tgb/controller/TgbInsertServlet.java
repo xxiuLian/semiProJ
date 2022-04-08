@@ -49,7 +49,7 @@ public class TgbInsertServlet extends HttpServlet {
 			System.out.println("savePath : "+ savePath);
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
+			//INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_TGB.CURRVAL, ?)
 			
 			String writer = multiRequest.getParameter("writer");
 			String title = multiRequest.getParameter("title");
@@ -61,7 +61,6 @@ public class TgbInsertServlet extends HttpServlet {
 				
 			System.out.println("title : "+title);
 		
-			
 			
 			Date term = Date.valueOf(trm);//String term을 Date로 변환
 			
@@ -88,8 +87,6 @@ public class TgbInsertServlet extends HttpServlet {
 				}
 				
 			}
-			
-			
 		
 		int result = new TgbService().insertTgb(t, fileList);
 		System.out.println("result : "+ result);

@@ -13,6 +13,8 @@ import java.util.Properties;
 
 import static com.uni.common.JDBCTemplate.*;
 
+import com.uni.common.Attachment;
+import com.uni.qna.model.dto.Qna;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 
 
@@ -205,11 +207,6 @@ public class TgbBoard_dao {
 		String content = b.getTgbBoardContent();
 		int writer = Integer.parseInt(b.getTgbBoardWriter());
 		
-		System.out.println(category);
-		System.out.println(title);
-		System.out.println(content);
-		System.out.println(writer);
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -228,8 +225,186 @@ public class TgbBoard_dao {
 
 		return result;
 	}
+
+	public int insertTgbAttachment(Connection conn, Attachment at) {
+		
+		System.out.println("5 : " + at.getFilePath());
+		System.out.println("6 : " + at.getOriginName());
+		System.out.println("7 : " + at.getChangeName());
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTgbBoardAttachment");
+	
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+		return result;
+	}
 	
 	
+	public Attachment selectTgbAttachment(Connection conn, int bno) {
+		//selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT WHERE REF_BNO=? AND STATUS='Y'
+		Attachment at = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectTgbAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));	
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return at;
+	}
 	
+	public int updateTgbBoard(Connection conn, TgbBoard_dto b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("updatetgbBoard");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(b.getTgbBoardCategory()));
+			pstmt.setString(2, b.getTgbBoardTitle());
+			pstmt.setString(3, b.getTgbBoardContent());
+			pstmt.setInt(4, b.getTgbBoardNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 	
+	public int updateTgbAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		// updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?,
+		// FILE_PATH=? WHERE FILE_NO=?
+		String sql = prop.getProperty("updateTgbAttachment");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getChangeName());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	public int insertTgbNewAttachment(Connection conn, Attachment at, TgbBoard_dto b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+
+		String sql = prop.getProperty("insertTgbNewAttachment");
+
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, b.getTgbBoardNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	public int deletetgbBoard(Connection conn, int bno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deletetgbBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int deleteTgbAttachment(Connection conn, int bno) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteTgbAttachment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
+
+
+	
+
+
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.common.Attachment;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 import com.uni.tgb_board.model.service.TGBBoard_service;
 
@@ -32,8 +33,10 @@ public class tgbBoard_detailServlet extends HttpServlet {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
 		TgbBoard_dto b = new TGBBoard_service().selectTgbBoard(bno);
-
+		Attachment at = new TGBBoard_service().selectAttachment(bno);
+		
 		request.setAttribute("b", b);
+		request.setAttribute("at", at);
 		request.getRequestDispatcher("views/tgbBoard/tgbBoardDetailView.jsp").forward(request, response);
 	}
 

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.uni.common.Attachment;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
-import com.uni.tgb_board.model.service.BoardService;
 
 /**
  * Servlet implementation class QnaUpdateFormServlet

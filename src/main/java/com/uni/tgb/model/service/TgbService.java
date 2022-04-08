@@ -7,8 +7,13 @@ import java.util.ArrayList;
 
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
+import com.uni.qna.model.dao.QnaDao;
+import com.uni.qna.model.dto.Qna;
 import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
+import com.uni.tgb_board.model.dao.TgbBoard_dao;
+import com.uni.tgb_board.model.dto.TgbBoard_dto;
+import com.uni.tgb_board.model.service.TGBBoard_service;
 
 public class TgbService {
 
@@ -58,14 +63,13 @@ public class TgbService {
 		return t;
 	}
 
-	public ArrayList<Attachment> selectAttachment(int bno) {
+	public Attachment selectAttachment(int bno) {
 		Connection conn = getConnection();
 		
-		ArrayList<Attachment> list = new TgbDao().selectAttachment(conn, bno);
-		
+		Attachment at = new TgbDao().selectAttachment(conn, bno);
 		close(conn);
 		
-		return list;
+		return at;
 	}
 
 	public Tgb updateFormTgb(int bno) {
@@ -78,14 +82,13 @@ public class TgbService {
 		
 	}
 
-	public ArrayList<Attachment> updateFormAttachment(int bno) {
+	public TgbBoard_dto selectUpdateTgb(int bno) {
 		Connection conn = getConnection();
-		
-		ArrayList<Attachment> list = new TgbDao().selectAttachment(conn, bno);
-		
+		TgbBoard_dto b = new TgbBoard_dao().selectBoard(conn, bno);
 		close(conn);
-		
-		return list;
+		return b;
 	}
+
+	
 
 }
