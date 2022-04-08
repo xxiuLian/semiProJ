@@ -320,4 +320,56 @@ public class TgbDao {
 		return result;
 	}
 
+	public ArrayList<Tgb> searchTgb(Connection conn, PageInfo pi, String keyword) {
+		ArrayList<Tgb> list = new ArrayList<>();
+		String k = "%"+keyword+"%";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int startRow = (pi.getCurrentPage() -1)*pi.getBoardLimit()+1;
+		int endRow = startRow+pi.getBoardLimit() -1;
+		//searchTgb=SELECT * FROM ( SELECT ROWNUM RNUM, A.* FROM(SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, USER_ID, TGB_COUNT, \
+//		TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME FROM TGB JOIN MEMBER ON TGB_WRITER=USER_NO LEFT JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) \
+//		LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE TYPE LIKE 'TGB' \
+//		#AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO WHERE  TGB.STATUS = 'Y' AND TGB_TITLE LIKE ? OR TGB_CONTENT LIKE ? \
+//		OR TGB_GUIDE LIKE '?  ORDER BY TGB_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
+		String sql = prop.getProperty("searchTgb");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, k);
+			pstmt.setString(2, k);
+			pstmt.setString(3, k);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Tgb(rset.getInt("TGB_NO"),
+						rset.getString("TGB_CATEGORY_NAME"),
+						rset.getString("TGB_TITLE"), 
+						rset.getString("USER_ID"), 
+						rset.getInt("TGB_COUNT"), 
+						rset.getDate("TGB_TERM"), 
+						rset.getInt("TGB_PRICE"), 
+						rset.getDate("CREATE_DATE"),
+						rset.getString("CHANGE_NAME")));
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		return list;
+	}
+
 }
