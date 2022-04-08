@@ -16,7 +16,7 @@ import com.uni.tgb.model.service.TgbService;
 /**
  * Servlet implementation class TgbSearchServlet
  */
-@WebServlet("/searchTgb.do")
+@WebServlet("/searchTgb.do")// 공구 제목, 컨텐츠, 가이드 등록함<- 페이징 검사 안해봤음
 public class TgbSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,7 +45,7 @@ public class TgbSearchServlet extends HttpServlet {
 				int pageLimit; // 한 페이지 하단에 보여질 페이지 최대 갯수
 				int boardLimit; // 한페이지에 보여질 게시글 최대 갯수
 
-				listCount = new TgbService().getlistCount();
+				listCount = new TgbService().getlistCount();//전체 글 수 가져오는 메소드 -> 없어도 됨
 				System.out.println("tgb의 listCount : "+listCount);
 				
 				currentPage = 1;
@@ -67,7 +67,7 @@ public class TgbSearchServlet extends HttpServlet {
 					endPage = maxPage;
 				}
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-		ArrayList<Tgb> list = new TgbService().searchTgb(pi, keyword);
+		ArrayList<Tgb> list = new TgbService().searchTgb(pi, keyword);// 현재 페이지와 키워드를 가지고 검색하는 메소드
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);

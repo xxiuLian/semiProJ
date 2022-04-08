@@ -16,7 +16,7 @@ import com.uni.tgb.model.service.TgbService;
 /**
  * Servlet implementation class test
  */
-@WebServlet("/tgbList.do")
+@WebServlet("/tgbList.do")//공구 글 전체 목록 불러옴
 public class TgbListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,7 +42,7 @@ public class TgbListServlet extends HttpServlet {
 		int pageLimit; // 한 페이지 하단에 보여질 페이지 최대 갯수
 		int boardLimit; // 한페이지에 보여질 게시글 최대 갯수
 
-		listCount = new TgbService().getlistCount();
+		listCount = new TgbService().getlistCount();//status y인 전체 글 갯수 불러오는 메소드
 		System.out.println("tgb의 listCount : "+listCount);
 		
 		currentPage = 1;
@@ -65,7 +65,7 @@ public class TgbListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-		ArrayList<Tgb> list = new TgbService().selectList(pi);
+		ArrayList<Tgb> list = new TgbService().selectList(pi);// 현재 페이지 공구 글 불러오는 메소드 (메인에서는 1페이지)
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
