@@ -424,7 +424,7 @@ public class TgbBoard_dao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("첨부파일 조회 : " + at);
+		//System.out.println("첨부파일 조회 : " + at);
 		return at;
 	}
 
