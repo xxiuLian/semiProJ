@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.uni.common.Attachment;
+import com.uni.tgb.model.service.TgbService;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
-import com.uni.tgb_board.model.service.TGBBoard_service;
 
 /**
- * Servlet implementation class tgbBoard_detailServlet
+ * Servlet implementation class tgbBoard_updateFormServlet
  */
-@WebServlet("/tgbBoardDetail.do")
-public class tgbBoard_detailServlet extends HttpServlet {
+@WebServlet("/tgbBoardUpdateForm.do")
+public class tgbBoard_updateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tgbBoard_detailServlet() {
+    public tgbBoard_updateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +32,17 @@ public class tgbBoard_detailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		TgbBoard_dto b = new TGBBoard_service().selectTgbBoard(bno);
-		Attachment at = new TGBBoard_service().selectAttachment(bno);
+		TgbBoard_dto b = new TgbService().selectUpdateTgb(bno);
+		Attachment at = new TgbService().selectAttachment(bno);
 		
-		request.setAttribute("b", b);
-		request.setAttribute("at", at);
-		request.getRequestDispatcher("views/tgbBoard/tgbBoardDetailView.jsp").forward(request, response);
+		if(b != null) {
+			request.setAttribute("b", b);
+			request.setAttribute("at", at);
+			request.getRequestDispatcher("views/tgbBoard/tgbBoardUpdateForm.jsp").forward(request, response);
+		}else {
+			request.setAttribute("msg", "수정할 게시글을 불러오는데 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

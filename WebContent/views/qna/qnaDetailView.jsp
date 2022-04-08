@@ -52,6 +52,7 @@
 		<form action="" id="postForm" method="post">
 			<input type="hidden" name="qno" value="${q.qnaNo}">
 		</form>
+		
 		<script>
 			function updateForm(){
 				$("#postForm").attr("action", "${contextPath}/updateFormQna.do");

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<!-- enctype="multipart/form-data"  -->
-	<form id="insertForm" action="<%= request.getContextPath()%>/insertTgbBoard.do" method="post" >
+	<form id="insertForm" action="<%= request.getContextPath()%>/insertTgbBoard.do" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th width="100">카테고리</th>
@@ -28,6 +28,10 @@
 				<th>내용</th>
 				<!-- style="resize:none; -->
 				<td><textarea row="15" name="content"></textarea></td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td><input type="file" name="upfile"></td>
 			</tr>
 		</table>
 		
