@@ -8,8 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>관리자 페이지</title>
-
+<title>Insert title here</title>
 <link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
 <style type="text/css">
@@ -22,8 +21,8 @@
 	background: darkgrey;
 	cursor: pointer
 }
-</style>	
-	
+</style>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
 <body>
 	<%@ include file="../../views/common/menubar.jsp"%>
@@ -61,7 +60,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> 선택
+							</div> 카테고리
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
@@ -71,7 +70,7 @@
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link" href="layout-static.html">상품</a> <a
 									class="nav-link" href="layout-sidenav-light.html">커뮤니티</a> <a
-									class="nav-link" href="manageQnaCategory.do">문의</a>
+									class="nav-link" href="layout-sidenav-light.html">문의</a>
 							</nav>
 						</div>
 					</div>
@@ -81,7 +80,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">전체 회원 관리</h1>
+					<h1 class="mt-4">카테고리 관리</h1>
 					<div class="card mb-4">
 						<div class="card-body">
 							This page is an example of using the light side navigation
@@ -95,53 +94,30 @@
 						</div>
 					</div>
 					<br>
-					<form id="deleteMember" action="${contextPath}/deleteMembers.do"
+					<form id="deleteCategory" action="${contextPath}/deleteCategory.do"
 						method="post">
+
 						<table class="listArea" align="center">
 							<thead>
 								<tr>
 									<th width="100"><button type="reset">전체취소</button></th>
-									<th width="100">회원번호</th>
-									<th width="100">아이디</th>
-									<th width="200">전화번호</th>
-									<th width="100">이메일</th>
-									<th width="100">가입일</th>
-									<th width="150">탈퇴여부</th>
+									<th width="300">카테고리 번호</th>
+									<th width="300">카테고리명</th>
 								</tr>
 							<thead>
-							<tbody>
+							<tbody id="tbody">
 								<c:choose>
-									<c:when test="${empty list}">
+									<c:when test="${empty category}">
 										<tr>
 											<td colspan="7">조회된 리스트가 없습니다.</td>
 										</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="m" items="${list}">
+										<c:forEach var="c" items="${category}">
 											<tr>
-												<c:choose>
-													<c:when test="${m.status eq 'Y'}">
-														<td><input type="checkbox" id="memberChecked"
-															name="memberChecked" value="${m.userNo}"></td>
-													</c:when>
-													<c:otherwise>
-														<td><input type="checkbox" disabled></td>
-													</c:otherwise>
-												</c:choose>
-
-												<td>${m.userNo}</td>
-												<td>${m.userId}</td>
-												<td>${m.phone}</td>
-												<td>${m.email}</td>
-												<td>${m.enrollDate}</td>
-												<c:choose>
-													<c:when test="${m.status eq 'Y'}">
-														<td>미탈퇴</td>
-													</c:when>
-													<c:otherwise>
-														<td>탈퇴</td>
-													</c:otherwise>
-												</c:choose>
+												<td><input type="checkbox" id="categoryChecked" name="categoryChecked" value="${c.categoryNo}"></td>
+												<td>${c.categoryNo}</td>
+												<td>${c.categoryName}</td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>
@@ -150,11 +126,13 @@
 						</table>
 						<br>
 						<div class="btns" align="center">
-							<c:if test="${!empty list}">
-								<button type="submit">해당 회원탈퇴</button>
+							<c:if test="${!empty category}">
+								<button type="submit">선택 카테고리 삭제</button>
 							</c:if>
 						</div>
-					</form>
+						</form>
+						<br> <br>
+
 				</div>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
@@ -171,20 +149,20 @@
 			</footer>
 		</div>
 	</div>
-	<script>
-	if(!${empty list}){
+</body>
+<script>
+	if(!${empty category}){
 		$(function(){
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
-				var userNo = $(this).parent().children().eq(1).text();
-				console.log(userNo)
-				window.open("${contextPath}/memberView.do?userNo="+userNo, "정보조회","width=700, height=600")
+				var cno = $(this).parent().children().eq(1).text();
+				console.log(cno)
+				window.open("${contextPath}/updateCategory.do?cno="+cno, "문의글조회", "width=1000, height=600")
 			})
 		})
 	}
-	</script>
-	<script
+</script>
+<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-</body>
+<script src="js/scripts.js"></script>
 </html>

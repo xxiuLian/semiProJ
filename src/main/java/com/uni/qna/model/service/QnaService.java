@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.uni.common.Attachment;
+import com.uni.common.Category;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dao.QnaDao;
 import com.uni.qna.model.dto.Qna;
@@ -179,6 +180,16 @@ public class QnaService {
 		close(conn);
 		
 		return result;
+	}
+
+	public ArrayList<Category> selectCategory() {
+		Connection conn = getConnection();
+		
+		ArrayList<Category> category = new QnaDao().selectCategory(conn);
+		
+		close(conn);
+		
+		return category;
 	}
 
 }
