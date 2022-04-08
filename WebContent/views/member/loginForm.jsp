@@ -74,6 +74,7 @@
 				<button id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button><br>
 
 				 <a href="<%=request.getContextPath()%>/findId.do">아이디 찾기</a>
+				 <a href="<%=request.getContextPath()%>/findPwd.do">비밀번호 찾기</a>
 				
 			    
 			</div>

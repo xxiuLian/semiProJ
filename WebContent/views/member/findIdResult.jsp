@@ -14,7 +14,7 @@
 <style>
     h1{text-align: center;}
     .div1{border: 2px solid cornflowerblue; margin: 0 auto; padding: 20px; width: 400px; height: 300px; position: relative;}
-    .button1{border: none; padding: 20px; top: 150px; left: 80px; position: absolute;}
+    .button1{border: none; padding: 20px; top: 150px; left: 100px; position: absolute;}
 	b{font-size:20px;}
     </style>
 </head>
@@ -25,7 +25,7 @@
         <div>
         <b><%=userName %>님</b>의<br>
         아이디는 <b><%= userId %></b>입니다.<br>
-        <button class="button1" onclick= "location.href='<%= request.getContextPath()%>'">메인으로</button>
+        <button class="button1" onclick= "history.go(-2)">로그인 화면으로 돌아가기</button>
         </div>
     </div>
 </body>
