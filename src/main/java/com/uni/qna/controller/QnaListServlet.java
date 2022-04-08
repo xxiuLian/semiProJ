@@ -122,9 +122,8 @@ public class QnaListServlet extends HttpServlet {
 			response.setContentType("application/json; charset=utf-8");
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			String arr = gson.toJson(data);
-			
-			request.setAttribute("arr", arr);
-			System.out.println("arr        " + arr);
+			System.out.println("arr===="+arr);
+			gson.toJson(arr, response.getWriter());
 		}
 		
 		
