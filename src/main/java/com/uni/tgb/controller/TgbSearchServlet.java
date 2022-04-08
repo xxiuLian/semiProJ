@@ -31,11 +31,28 @@ public class TgbSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String search = request.getParameter("search");
+		String keyword = request.getParameter("keyword");
+		System.out.println(keyword);
 		
-		ArrayList<Tgb> list = new TgbService().searchTgb();//비교할 데이터를 담아옴
+		//ArrayList<Tgb> list = new TgbService().searchTgb();//비교할 데이터를 담아옴
 		
-		ArrayList<Tgb> result = new ArrayList<Tgb>();//비교한 결과 데이터를 담음
+//		ArrayList<Tgb> result = new ArrayList<Tgb>();//비교한 결과 데이터를 담음
+//		
+//		for(Tgb t : list) {
+//			
+//			if(t.getTgbTitle().contains(search)) {
+//				result.add(t);
+//			}else if(t.getTgbContent().contains(search)) {
+//				result.add(t);
+//			}else if(t.getTgbGuide().contains(search)) {
+//				result.add(t);
+//			}
+//			
+//			
+//		}
+//		
+//		request.setAttribute("result", result);
+//		
 		
 		
 		
