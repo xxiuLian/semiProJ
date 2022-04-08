@@ -1,16 +1,13 @@
 package com.uni.qna.model.service;
 
-import static com.uni.common.JDBCTemplate.close;
-import static com.uni.common.JDBCTemplate.commit;
-import static com.uni.common.JDBCTemplate.getConnection;
-import static com.uni.common.JDBCTemplate.rollback;
+import static com.uni.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
-	import com.uni.qna.model.dao.QnaDao;
+import com.uni.qna.model.dao.QnaDao;
 import com.uni.qna.model.dto.Qna;
 
 public class QnaService {
@@ -166,6 +163,22 @@ public class QnaService {
 		close(conn);
 		
 		return list;
+	}
+
+	public int deleteQnas(int[] qno) {
+		Connection conn = getConnection();
+		
+		int result = new QnaDao().deleteQnas(conn, qno);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 
 }

@@ -1,6 +1,7 @@
-package com.uni.qna.controller;
+package com.uni.admin;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,21 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
-import com.uni.qna.model.dto.Qna;
-import com.uni.qna.model.service.QnaService;
+import com.uni.tgb.model.service.TgbService;
 
 /**
- * Servlet implementation class QnaUpdateFormServlet
+ * Servlet implementation class TgbAdminDeleteServlet
  */
-@WebServlet("/updateFormQna.do")
-public class QnaUpdateFormServlet extends HttpServlet {
+@WebServlet("/deleteTGBs.do")
+public class TgbAdminDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaUpdateFormServlet() {
+    public TgbAdminDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,15 +30,24 @@ public class QnaUpdateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int qno = Integer.parseInt(request.getParameter("qno"));
+		String[] strBnoNo = request.getParameterValues("TGBChecked");
+
+		//String배열을 int 배열로 바로 변환
+		int[] bno = Arrays.stream(strBnoNo).mapToInt(Integer::parseInt).toArray();
 		
-		Qna q = new QnaService().selectUpdateQna(qno);
+		int result1 = new TgbService().deleteTgbs(bno);
+		int result2 = new TgbService().deleteTgbAttachments(bno);
 		
-		if(q != null) {
-			request.setAttribute("q", q);
-			request.getRequestDispatcher("views/qna/qnaUpdateForm.jsp").forward(request, response);
+		if(result1*result2 > 0) {
+			request.getSession().setAttribute("msg", "글이 삭제되었습니다.");
+			response.sendRedirect("adminTGB.do");
+			
+		}else if(result1>0 &&result2 < 0 ) {
+			request.setAttribute("msg", "글이 완전히 삭제되지 않았습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}else {
-			request.setAttribute("msg", "수정할 게시글을 불러오는데 실패하였습니다.");
+			request.setAttribute("msg", "글이 삭제되지 않았습니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

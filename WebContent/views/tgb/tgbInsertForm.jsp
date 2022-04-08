@@ -168,7 +168,24 @@ td{
 		</div>
 		
 	</form>
-	<%] %>
+	<%}else{ %>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var cm = confirm("로그인을 먼저 해야 합니다. 로그인을 하시겠습니까?");
+		
+		if(cm){
+			location.href="<%=contextPath%>/login.do";
+		}else{
+			location.href="<%=contextPath%>";
+		}
+		
+	})	
+	</script>
+	
+	
+	<%} %>
+	
+	
 	<script>
 	$(function(){
 		$('#titleImg').click(function(){

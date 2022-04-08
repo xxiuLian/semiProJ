@@ -158,33 +158,25 @@
 		</div>
 
 	</div>
-	<script>
-	if(!${empty list}){
-		$(function(){
-			$(".listArea>tbody>tr").click(function(){
-				var qno = $(this).children().eq(0).text();
-				location.href = "${contextPath}/detailQna.do?qno="+qno;
-			})
-		})
-	}
-</script>
+
 
 </body>
 <script type="text/javascript">
 $(function(){
 	$("#boardCategory").change(function(){
 	 	var selected = $("option:selected").val();
+	 	var category = $("option:selected").text();
 	 	$.ajax({
-			url : "qnaList.do",
+			url : "qnaCategoryList.do",
 			data:{
 				category:selected
 			},
 			type:"get",
 			
 			success:function(list){
-				
+				console.log(category)
 			 	console.log(list)
-			 	
+			 	console.log(list[0].category)
 			 	var table = $("#tbody");
 				table.html("");
 					
@@ -193,7 +185,7 @@ $(function(){
 						table.children("tr").children("td").attr("colspan","7")
 					}else {
 						for(var i = 0; i < list.length; i++){
-							if(selected == list[i].category){
+							if(category == list[i].category){
 								table.append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>")
 								table.children("tr").eq(i).children("td").eq(0).text(list[i].qnaNo)
 								table.children("tr").eq(i).children("td").eq(1).text(list[i].category)
@@ -210,7 +202,6 @@ $(function(){
 							
 						}
 					}
-				
 			},
 			error:function(e){
 				console.log("Ajax통신실패")
@@ -218,5 +209,15 @@ $(function(){
 		})
 	})
 })
+</script>
+<script>
+	if(!${empty list}){
+		$(function(){
+			$(".listArea>tbody>tr").click(function(){
+				var qno = $(this).children().eq(0).text();
+				location.href = "${contextPath}/detailQna.do?qno="+qno;
+			})
+		})
+	}
 </script>
 </html>
