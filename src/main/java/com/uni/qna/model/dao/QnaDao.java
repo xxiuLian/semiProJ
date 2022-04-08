@@ -487,11 +487,10 @@ public class QnaDao {
 				q.setQnaWriter(rset.getString("USER_ID"));
 				q.setCount(rset.getInt("COUNT"));
 				q.setCreateDate(rset.getDate("CREATE_DATE"));
-
 				if (rset.getString("QNA_REPLY") != null) {
 					q.setQnaReply(rset.getString("QNA_REPLY"));
 				}
-
+				
 				list.add(q);
 			}
 		} catch (SQLException e) {
@@ -502,5 +501,29 @@ public class QnaDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int deleteQnas(Connection conn, int[] qno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//deleteQnas=UPDATE QNA_BOARD SET STATUS='N' WHERE QNA_NO=?
+		String sql = prop.getProperty("deleteQnas");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(qno != null) {
+				for(int i = 0; i < qno.length; i++) {
+					System.out.println("userNo[i] : "+qno[i]);
+					pstmt.setInt(1, qno[i]);
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

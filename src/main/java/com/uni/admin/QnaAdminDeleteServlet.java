@@ -1,6 +1,7 @@
-package com.uni.qna.controller;
+package com.uni.admin;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,21 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
-import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class QnaUpdateFormServlet
+ * Servlet implementation class QnaAdminDeleteServlet
  */
-@WebServlet("/updateFormQna.do")
-public class QnaUpdateFormServlet extends HttpServlet {
+@WebServlet("/deleteQnas.do")
+public class QnaAdminDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaUpdateFormServlet() {
+    public QnaAdminDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,17 +30,21 @@ public class QnaUpdateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int qno = Integer.parseInt(request.getParameter("qno"));
+		String[] strQnaNo = request.getParameterValues("qnaChecked");
+
+		//String배열을 int 배열로 바로 변환
+		int[] qno = Arrays.stream(strQnaNo).mapToInt(Integer::parseInt).toArray();
 		
-		Qna q = new QnaService().selectUpdateQna(qno);
+		int result = new QnaService().deleteQnas(qno);
 		
-		if(q != null) {
-			request.setAttribute("q", q);
-			request.getRequestDispatcher("views/qna/qnaUpdateForm.jsp").forward(request, response);
+		if(result > 0) {
+			request.setAttribute("msg", "문의게시글 삭제 성공");
+			response.sendRedirect("adminQnaList.do");
 		}else {
-			request.setAttribute("msg", "수정할 게시글을 불러오는데 실패하였습니다.");
+			request.setAttribute("msg", "문의게시글 삭제 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**

@@ -8,10 +8,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>관리자 페이지</title>
-<link href="css/adminPageStyles.css" rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
-	crossorigin="anonymous"></script>
+<title>Insert title here</title>
+<link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
 <style type="text/css">
 .listArea {
 	border: 1px solid black;
@@ -22,8 +21,14 @@
 	background: darkgrey;
 	cursor: pointer
 }
-</style>	
-	
+</style>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="listCount" value="${pi.listCount}" scope="request" />
+<c:set var="currentPage" value="${pi.currentPage}" scope="request" />
+<c:set var="maxPage" value="${pi.maxPage}" scope="request" />
+<c:set var="startPage" value="${pi.startPage}" scope="request" />
+<c:set var="endPage" value="${pi.endPage}" scope="request" />
+
 </head>
 <body>
 	<%@ include file="../../views/common/menubar.jsp"%>
@@ -34,23 +39,23 @@
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">회원</div>
-						<a class="nav-link" href="adminMember.html">
+						<a class="nav-link" href="adminMember.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 전체 회원
 						</a>
 						<div class="sb-sidenav-menu-heading">상품</div>
-						<a class="nav-link" href="adminTGB.html">
+						<a class="nav-link" href="adminTGB.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 상품
 						</a>
 						<div class="sb-sidenav-menu-heading">게시판</div>
-						<a class="nav-link" href="adminQna.html">
+						<a class="nav-link" href="adminQnaList.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 문의
-						</a> <a class="nav-link" href="adminBoard.html">
+						</a> <a class="nav-link" href="adminBoard.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 커뮤니티
@@ -81,7 +86,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">전체 회원 관리</h1>
+					<h1 class="mt-4">문의 게시판 관리</h1>
 					<div class="card mb-4">
 						<div class="card-body">
 							This page is an example of using the light side navigation
@@ -95,51 +100,46 @@
 						</div>
 					</div>
 					<br>
-					<form id="deleteMember" action="${contextPath}/deleteMembers.do"
+					<form id="deleteQna" action="${contextPath}/deleteQnas.do"
 						method="post">
+
 						<table class="listArea" align="center">
 							<thead>
 								<tr>
 									<th width="100"><button type="reset">전체취소</button></th>
-									<th width="100">회원번호</th>
-									<th width="100">아이디</th>
-									<th width="200">전화번호</th>
-									<th width="100">이메일</th>
-									<th width="100">가입일</th>
-									<th width="150">탈퇴여부</th>
+									<th width="100">글번호</th>
+									<th width="100">카테고리</th>
+									<th width="300">글제목</th>
+									<th width="100">작성자</th>
+									<th width="100">조회수</th>
+									<th width="150">작성일</th>
+									<th width="150">답변상태</th>
 								</tr>
 							<thead>
-							<tbody>
+							<tbody id="tbody">
 								<c:choose>
 									<c:when test="${empty list}">
 										<tr>
-											<td colspan="6">조회된 리스트가 없습니다.</td>
+											<td colspan="7">조회된 리스트가 없습니다.</td>
 										</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="m" items="${list}">
+										<c:forEach var="q" items="${list}">
 											<tr>
+												<td><input type="checkbox" id="qnaChecked" name="qnaChecked" value="${q.qnaNo}"></td>
+											
+												<td>${q.qnaNo}</td>
+												<td>${q.category}</td>
+												<td>${q.qnaTitle}</td>
+												<td>${q.qnaWriter}</td>
+												<td>${q.count}</td>
+												<td>${q.createDate}</td>
 												<c:choose>
-													<c:when test="${m.status eq 'Y'}">
-														<td><input type="checkbox" id="memberChecked"
-															name="memberChecked" value="${m.userNo}"></td>
+													<c:when test="${q.qnaReply != null}">
+														<td>답변 완료</td>
 													</c:when>
 													<c:otherwise>
-														<td><input type="checkbox" disabled></td>
-													</c:otherwise>
-												</c:choose>
-
-												<td>${m.userNo}</td>
-												<td>${m.userId}</td>
-												<td>${m.phone}</td>
-												<td>${m.email}</td>
-												<td>${m.enrollDate}</td>
-												<c:choose>
-													<c:when test="${m.status eq 'Y'}">
-														<td>미탈퇴</td>
-													</c:when>
-													<c:otherwise>
-														<td>탈퇴</td>
+														<td>답변 대기중</td>
 													</c:otherwise>
 												</c:choose>
 											</tr>
@@ -151,9 +151,65 @@
 						<br>
 						<div class="btns" align="center">
 							
-							<button type="submit">해당 회원탈퇴</button>
+							<button type="submit">선택 게시글 삭제</button>
 						</div>
-					</form>
+						</form>
+						<br> <br>
+
+						<!-- 페이징바 만들기 -->
+						<div class="pagingArea" align="center">
+							<!-- 맨 처음으로 (<<) -->
+							<button
+								onclick="location.href='${contextPath}/adminQnaList.do?currentPage=1'">
+								&lt;&lt;</button>
+
+							<!-- 이전페이지로(<) -->
+							<c:choose>
+								<c:when test="${currentPage eq 1}">
+									<button disabled>&lt;</button>
+								</c:when>
+								<c:otherwise>
+									<button
+										onclick="location.href='${contextPath}/adminQnaList.do?currentPage=${currentPage - 1}&amdin=admin'">
+										&lt;</button>
+								</c:otherwise>
+							</c:choose>
+							<!-- 페이지 목록 -->
+							<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
+								<c:choose>
+									<c:when test="${p eq currentPage}">
+										<button disabled>${p}</button>
+									</c:when>
+									<c:otherwise>
+										<button
+											onclick="location.href='${contextPath}/adminQnaList.do?currentPage=${p}'">
+											${p}</button>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+
+							<!-- 다음페이지로(>) -->
+							<c:choose>
+								<c:when test="${currentPage eq maxPage}">
+									<button disabled>&gt;</button>
+								</c:when>
+								<c:otherwise>
+									<button
+										onclick="location.href='${contextPath}/adminQnaList.do?currentPage=${currentPage + 1}'">
+										&gt;</button>
+								</c:otherwise>
+							</c:choose>
+
+							<!-- 맨 끝으로 (>>) -->
+							<button
+								onclick="location.href='${contextPath}/adminQnaList.do?currentPage=${maxPage}'">
+								&gt;&gt;</button>
+						</div>
+						<br> <br>
+
+
+
+					
 				</div>
 			</main>
 
@@ -174,20 +230,19 @@
 			</footer>
 		</div>
 	</div>
-	<script>
+</body>
+<script>
 	if(!${empty list}){
 		$(function(){
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
-				var userNo = $(this).parent().children().eq(1).text();
-				console.log(userNo)
-				window.open("${contextPath}/memberView.do?userNo="+userNo, "정보조회","width=700, height=600")
+				var qno = $(this).parent().children().eq(1).text();
+				window.open("${contextPath}/detailQna.do?qno="+qno, "문의글조회", "width=1000, height=600")
 			})
 		})
 	}
-	</script>
-	<script
+</script>
+<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-</body>
+<script src="js/scripts.js"></script>
 </html>
