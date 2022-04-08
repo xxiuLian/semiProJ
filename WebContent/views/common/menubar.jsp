@@ -56,7 +56,7 @@
 					<li class="nav-item"><a class="nav-link" href="category.do">카테고리</a></li>
 					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
 				</ul>
-			</div>
+			</div> 
 			<% }else{ %>
 				<form action=""><input type="text" name="search"><button type="submit">검색</button></form><br><br><!-- 검색창 -->
 				<div class="collapse navbar-collapse" id="navbarResponsive">
