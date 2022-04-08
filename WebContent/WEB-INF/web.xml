@@ -28,6 +28,7 @@
 		<url-pattern>/loginMember.do</url-pattern>
 		<url-pattern>/insertMember.do</url-pattern>   <!-- 암호화가 되야하는 것(=비밀번호) 서블릿 주소 : 1.로그인 2.회원가입 2.비밀번호변경 -->
 		<url-pattern>/updatePwdMember.do</url-pattern>
+		<url-pattern>/findPwdUpdate.do</url-pattern>
 	</filter-mapping>
 	
 </web-app>

@@ -1,25 +1,23 @@
 package com.uni.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
- * Servlet implementation class FindIdServlet
+ * Servlet implementation class FindPwdServlet
  */
-@WebServlet("/findId.do")
-public class FindIdServlet extends HttpServlet {
+@WebServlet("/findPwd.do")
+public class FindPwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindIdServlet() {
+    public FindPwdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +26,7 @@ public class FindIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/member/findId.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("views/member/findPwd.jsp").forward(request, response);
 	}
 
 	/**
