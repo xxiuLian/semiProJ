@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.uni.common.Attachment;
+import com.uni.common.Category;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 
@@ -524,5 +525,29 @@ public class QnaDao {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public ArrayList<Category> selectCategory(Connection conn) {
+		ArrayList<Category> category = new ArrayList<Category>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//selectCategory=SELECT * FROM QNA_CATEGORY
+		String sql = prop.getProperty("selectCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Category c = new Category(rset.getInt("QNA_CATEGORY_NO"), rset.getString("QNA_CATEGORY_NAME"));
+				
+				category.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return category;
 	}
 }
