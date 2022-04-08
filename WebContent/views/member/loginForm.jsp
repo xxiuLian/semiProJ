@@ -21,6 +21,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.loginArea{border: 2px solid cornflowerblue; margin: 0 auto; padding: 20px; width: 500px; height: 500px; position: relative;}
+</style>
 <!-- 네이버 -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <!--<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>  -->
