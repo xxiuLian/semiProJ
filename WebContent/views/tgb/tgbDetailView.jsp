@@ -54,7 +54,8 @@ td{
 	display:inline-block;
 }
 .textarea{
-
+	overflow: hidden;
+	height : auto;
 	text-align : left;
 	border : 1px solid black;
 	padding : 30px;
@@ -69,9 +70,6 @@ td{
 #gidbtn{
 	background-color: rgb(190, 190, 190);
 	color: rgb(199, 197, 197);
-}
-#contentArea{
-	height:50px;
 }
 
 .detail td{
@@ -91,7 +89,7 @@ td{
 		<br>
 		<h2 align="center">공구 등록 글 상세 보기</h2>
 		<br>
-		<div id="titleImg">대표 이미지<img id="thumb"></div>
+		<div id="titleImg">대표 이미지<img id="thumb" src="<%=contextPath%>/assets/img_upfile/<%=alist.get(0).getChangeName()%>"></div>
 	
 		
 		<table class="option">
@@ -127,20 +125,6 @@ td{
     	<div id="guidArea" class="textarea" hidden><%=t.getTgbGuide() %></div>
 	
 		
-		<table class="detail" align="center">
-			<tr>
-			
-				<% for(int i=0; i<alist.size(); i++){ %>
-				<td>
-					<div class="detailImgArea" align="center">
-						<img width="200px" height="150px" src="<%=request.getContextPath()%>/assets/img_upfile/<%=alist.get(i).getChangeName()%>"><br>
-						<a download="<%=alist.get(i).getOriginName() %>" href="<%= request.getContextPath() %>/assets/img_upfile/<%=alist.get(i).getChangeName()%>">다운로드</a>
-						
-					</div>
-				</td>
-				<% } %>
-			</tr>
-		</table>
 		
 		<%if(loginUser != null &&loginUser.getUserId() == t.getTgbWriter()){ %><!-- 아이디를 갖고 오자 -->
 		
@@ -153,10 +137,21 @@ td{
 		<script>
 		
 			$(document).ready(function(){
-				alert("되냐")
 				
+				console.log('되냐');
 				
+				var num= 0;
+				
+				<%for(int i = 1; i < alist.size() ;i++){%>
+					
+					$('#contentArea').children('img').eq(num).attr("src","<%=request.getContextPath()%>/assets/img_upfile/<%=alist.get(i).getChangeName()%>");
+				num++;
+				<%};%>
+				
+		
 			});
+			
+			
 			function tgbUpdateForm(bno){
 				location.href = "<%=request.getContextPath()%>/updateForm.do?bno="+bno;
 			}
