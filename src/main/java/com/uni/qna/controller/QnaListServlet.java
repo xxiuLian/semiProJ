@@ -123,7 +123,7 @@ public class QnaListServlet extends HttpServlet {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			String arr = gson.toJson(data);
 			System.out.println("arr===="+arr);
-			gson.toJson(arr, response.getWriter());
+			gson.toJson(data, response.getWriter());
 		}
 		
 		

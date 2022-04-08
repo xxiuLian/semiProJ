@@ -184,6 +184,7 @@ $(function(){
 			success:function(list){
 				
 			 	console.log(list)
+			 	
 			 	var table = $("#tbody");
 				table.html("");
 					
