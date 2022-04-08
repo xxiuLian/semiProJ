@@ -75,7 +75,9 @@ public class TGBBoard_service {
 	
 	public Attachment selectAttachment(int bno) {
 		Connection conn = getConnection();
+		
 		Attachment at = new TgbBoard_dao().selectTgbAttachment(conn, bno);
+		
 		close(conn);
 		return at;
 	}
