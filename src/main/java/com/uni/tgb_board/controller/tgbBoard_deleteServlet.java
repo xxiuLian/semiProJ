@@ -12,7 +12,7 @@ import com.uni.tgb_board.model.service.TGBBoard_service;
 /**
  * Servlet implementation class tgbBoard_deleteServlet
  */
-@WebServlet("/tgbBoardDelete")
+@WebServlet("/tgbBoardDelete.do")
 public class tgbBoard_deleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

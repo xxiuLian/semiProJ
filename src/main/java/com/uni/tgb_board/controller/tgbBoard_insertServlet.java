@@ -70,7 +70,6 @@ public class tgbBoard_insertServlet extends HttpServlet {
 			Attachment at = null;
 			
 			if(multiRequest.getOriginalFileName("upfile") != null){
-				System.out.println("됨");
 				
 				String originName = multiRequest.getOriginalFileName("upfile");
 				String changeName = multiRequest.getFilesystemName("upfile");
@@ -79,10 +78,6 @@ public class tgbBoard_insertServlet extends HttpServlet {
 				at.setFilePath(savePath);
 				at.setOriginName(originName);
 				at.setChangeName(changeName);
-				
-				System.out.println("1 : " + at.getFilePath());
-				System.out.println("2 : " + at.getOriginName());
-				System.out.println("3 : " + at.getChangeName());
 			
 			}
 			

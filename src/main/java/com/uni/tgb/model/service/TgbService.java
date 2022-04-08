@@ -7,13 +7,10 @@ import java.util.ArrayList;
 
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
-import com.uni.qna.model.dao.QnaDao;
-import com.uni.qna.model.dto.Qna;
 import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb_board.model.dao.TgbBoard_dao;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
-import com.uni.tgb_board.model.service.TGBBoard_service;
 
 public class TgbService {
 
@@ -66,7 +63,7 @@ public class TgbService {
 	public Attachment selectAttachment(int bno) {
 		Connection conn = getConnection();
 		
-		Attachment at = new TgbDao().selectAttachment(conn, bno);
+		Attachment at = new TgbBoard_dao().selectAttachment(conn, bno);
 		close(conn);
 		
 		return at;

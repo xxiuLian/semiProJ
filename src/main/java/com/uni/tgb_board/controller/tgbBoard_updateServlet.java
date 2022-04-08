@@ -13,8 +13,6 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.uni.common.Attachment;
 import com.uni.common.MyFileRenamePolicy;
-import com.uni.qna.model.dto.Qna;
-import com.uni.qna.model.service.QnaService;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 import com.uni.tgb_board.model.service.TGBBoard_service;
 
@@ -38,6 +36,7 @@ public class tgbBoard_updateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 10 * 1024 * 1024; 
 
@@ -48,14 +47,16 @@ public class tgbBoard_updateServlet extends HttpServlet {
 			System.out.println("savePath : " + savePath);
 
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
+
 			int bno = Integer.parseInt(multiRequest.getParameter("bno"));
+			
 			
 			TgbBoard_dto b = new TgbBoard_dto();
 			b.setTgbBoardTitle(multiRequest.getParameter("title"));
 			b.setTgbBoardContent(multiRequest.getParameter("content"));
 			b.setTgbBoardCategory(multiRequest.getParameter("category"));
 			b.setTgbBoardNo(bno);
+			
 			
 			Attachment at = null;
 			

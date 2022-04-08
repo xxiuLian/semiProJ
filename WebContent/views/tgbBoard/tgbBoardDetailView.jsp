@@ -1,7 +1,7 @@
-<%@page import="com.uni.tgb_board.model.dto.TgbBoard_dto"%>
+<%@ page import="com.uni.tgb_board.model.dto.TgbBoard_dto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.uni.tgb_board.model.dto.*, com.uni.common.Attachment" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8" %>
+<%@ page import="com.uni.tgb_board.model.dto.*, com.uni.common.Attachment" %>
 <%
 	TgbBoard_dto b = (TgbBoard_dto)request.getAttribute("b");
 	Attachment at = (Attachment)request.getAttribute("at");
@@ -11,8 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+
 	<%= b.getTgbBoardTitle() %>
 	<%= b.getTgbBoardContent() %>
  	<%= b.getTgbBoardCategory() %>
@@ -25,28 +27,26 @@
 			<% }else{ %>
 				첨부파일이 없습니다.
 			<% } %>
-		</td> 
+		</td>
  	</table>
+ 	
  		<div class="btns" align="center">
-			<button type="button" onclick="location.href='${contextPath}/qnaList.do?currentPage=1';">목록으로</button>
-			
-			<c:if test="${sessionScope.loginUser.userId eq q.qnaWriter}">
-				<button type="button" onclick="updateForm();">수정하기</button>
-				<button type="button" onclick="deleteQna();">삭제하기</button>
-			</c:if>	
+			<button type="button" onclick="updateForm();">수정하기</button>
+			<button type="button" onclick="deleteTgb();">삭제하기</button>
 		</div>
 		
 		<form action="" id="postForm" method="post">
-			<input type="hidden" name="qno" value="${q.qnaNo}">
+			<input type="hidden" name="bno" value="<%= b.getTgbBoardNo() %>">
 		</form>
+		
 		<script>
 			function updateForm(){
-				$("#postForm").attr("action", "${contextPath}/tgbBoardUpdate.do");
+				$("#postForm").attr("action", "<%=request.getContextPath()%>/tgbBoardUpdateForm.do");
 				$("#postForm").submit();
 			}
 			
-			function deleteQna(){
-				$("#postForm").attr("action", "${contextPath}/tgbBoardDelete.do");
+			function deleteTgb(){
+				$("#postForm").attr("action", "<%=request.getContextPath()%>/tgbBoardDelete.do");
 				$("#postForm").submit();
 			}
 		</script>

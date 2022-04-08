@@ -14,7 +14,6 @@ import java.util.Properties;
 import static com.uni.common.JDBCTemplate.*;
 
 import com.uni.common.Attachment;
-import com.uni.qna.model.dto.Qna;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 
 
@@ -151,16 +150,6 @@ public class TgbBoard_dao {
 		return listCount;
 	}
 
-
-//	B.BOARD_NO NUMBER //번호
-//	B.BOARD_TITLE VARCHAR2(100 BYTE) //제목
-//	B.BOARD_CONTENT VARCHAR2(4000 BYTE) //내용
-//	B.COUNT NUMBER //조회
-//	B.CREATE_DATE DATE//작성일
-//	M.USER_ID VARCHAR2(30 BYTE)//작성자
-//  C.BOARD_CATEGORY_NAME VARCHAR2(30 BYTE)//카테고리
-	
-
 	public TgbBoard_dto selectBoard(Connection conn, int bno) {
 		TgbBoard_dto b = null;
 		PreparedStatement pstmt = null;
@@ -291,6 +280,7 @@ public class TgbBoard_dao {
 		PreparedStatement pstmt = null;
 
 		String sql = prop.getProperty("updatetgbBoard");
+		
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -365,7 +355,7 @@ public class TgbBoard_dao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("deletetgbBoard");
+		String sql = prop.getProperty("deleteTgbBoard");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bno);
@@ -399,6 +389,43 @@ public class TgbBoard_dao {
 		}
 
 		return result;
+	}
+
+
+	public Attachment selectAttachment(Connection conn, int bno) {
+		
+		Attachment at = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		System.out.println("bno : " + bno);
+		
+		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
+		// WHERE B_NO=? AND STATUS='Y' AND TYPE='QNA'
+		String sql = prop.getProperty("selectTgbAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("첨부파일 조회 : " + at);
+		return at;
 	}
 
 
