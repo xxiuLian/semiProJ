@@ -58,6 +58,7 @@ public class Tgbinsert extends HttpServlet {
 			String guide = multiRequest.getParameter("guide");
 			String category = multiRequest.getParameter("category");
 			String trm = multiRequest.getParameter("term");
+		
 			int price = Integer.parseInt(multiRequest.getParameter("price"));
 				
 			System.out.println("title : "+title);

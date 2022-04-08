@@ -92,6 +92,7 @@ td{
 <body>
 <%@ include file="../common/menubar.jsp" %>
 
+<%if(loginUser != null){ %>
 
 <div class="outer">
 <br>
@@ -167,6 +168,7 @@ td{
 		</div>
 		
 	</form>
+	<%] %>
 	<script>
 	$(function(){
 		$('#titleImg').click(function(){
