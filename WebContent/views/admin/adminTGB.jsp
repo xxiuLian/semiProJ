@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +21,9 @@
 	background: darkgrey;
 	cursor: pointer
 }
+<%
+	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
+%>
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="listCount" value="${pi.listCount}" scope="request" />
@@ -86,7 +89,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">문의 게시판 관리</h1>
+					<h1 class="mt-4">상품 관리</h1>
 					<div class="card mb-4">
 						<div class="card-body">
 							This page is an example of using the light side navigation
@@ -100,58 +103,47 @@
 						</div>
 					</div>
 					<br>
-					<form id="deleteQna" action="${contextPath}/deleteQnas.do"
+					<form id="deleteTGB" action="${contextPath}/deleteTGBs.do"
 						method="post">
 
 						<table class="listArea" align="center">
 							<thead>
 								<tr>
 									<th width="100"><button type="reset">전체취소</button></th>
+									<th width="50">썸네일</th>
 									<th width="100">글번호</th>
-									<th width="100">카테고리</th>
-									<th width="300">글제목</th>
+									<th width="300">카테고리</th>
+									<th width="100">글제목</th>
 									<th width="100">작성자</th>
 									<th width="100">조회수</th>
 									<th width="150">작성일</th>
-									<th width="150">답변상태</th>
 								</tr>
 							<thead>
-							<tbody id="tbody">
-								<c:choose>
-									<c:when test="${empty list}">
-										<tr>
-											<td colspan="7">조회된 리스트가 없습니다.</td>
-										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="q" items="${list}">
-											<tr>
-												<td><input type="checkbox" id="qnaChecked" name="qnaChecked" value="${q.qnaNo}"></td>
-											
-												<td>${q.qnaNo}</td>
-												<td>${q.category}</td>
-												<td>${q.qnaTitle}</td>
-												<td>${q.qnaWriter}</td>
-												<td>${q.count}</td>
-												<td>${q.createDate}</td>
-												<c:choose>
-													<c:when test="${q.qnaReply != null}">
-														<td>답변 완료</td>
-													</c:when>
-													<c:otherwise>
-														<td>답변 대기중</td>
-													</c:otherwise>
-												</c:choose>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
+						  	<tbody>
+								<%if(list.isEmpty()){ %>
+								<tr>
+									<td colspan="8">조회된 리스트가 없습니다.</td>
+								</tr>
+								<%}else{ %>
+									<% for( Tgb t : list){ %>
+									<tr class="list">
+										<td><input type="checkbox" id="TGBChecked" name="TGBChecked" value="<%=t.getTgbNo()%>"></td>
+										<td><img src = <%=contextPath%>/assets/img_upfile/<%= t.getThumnail() %> width="200px" height="150px"></td>
+										<td><%= t.getTgbNo() %></td>
+										<td><%= t.getTgbCategory() %>
+										<td><%= t.getTgbTitle() %></td>
+										<td><%= t.getTgbWriter() %></td>
+										<td><%= t.getCount() %></td>
+										<td><%= t.getCreateDate() %></td>
+									</tr>
+									<%} %>
+								<%} %>
+						</tbody>
 						</table>
 						<br>
 						<div class="btns" align="center">
 							<c:if test="${!empty list}">
-								<button type="submit">선택 게시글 삭제</button>
+								<button type="submit">선택 상품 삭제</button>
 							</c:if>
 						</div>
 						</form>
@@ -161,7 +153,7 @@
 						<div class="pagingArea" align="center">
 							<!-- 맨 처음으로 (<<) -->
 							<button
-								onclick="location.href='${contextPath}/adminQnaList.do?currentPage=1'">
+								onclick="location.href='${contextPath}/adminTgbList.do?currentPage=1'">
 								&lt;&lt;</button>
 
 							<!-- 이전페이지로(<) -->
@@ -171,7 +163,7 @@
 								</c:when>
 								<c:otherwise>
 									<button
-										onclick="location.href='${contextPath}/adminQnaList.do?currentPage=${currentPage - 1}&amdin=admin'">
+										onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${currentPage - 1}&amdin=admin'">
 										&lt;</button>
 								</c:otherwise>
 							</c:choose>
@@ -183,7 +175,7 @@
 									</c:when>
 									<c:otherwise>
 										<button
-											onclick="location.href='${contextPath}/adminQnaList.do?currentPage=${p}'">
+											onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${p}'">
 											${p}</button>
 									</c:otherwise>
 								</c:choose>
@@ -196,27 +188,19 @@
 								</c:when>
 								<c:otherwise>
 									<button
-										onclick="location.href='${contextPath}/adminQnaList.do?currentPage=${currentPage + 1}'">
+										onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${currentPage + 1}'">
 										&gt;</button>
 								</c:otherwise>
 							</c:choose>
 
 							<!-- 맨 끝으로 (>>) -->
 							<button
-								onclick="location.href='${contextPath}/adminQnaList.do?currentPage=${maxPage}'">
+								onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${maxPage}'">
 								&gt;&gt;</button>
 						</div>
 						<br> <br>
-
-
-
-					
 				</div>
 			</main>
-
-
-
-
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid px-4">
 					<div
@@ -236,8 +220,9 @@
 	if(!${empty list}){
 		$(function(){
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
-				var qno = $(this).parent().children().eq(1).text();
-				window.open("${contextPath}/detailQna.do?qno="+qno, "문의글조회", "width=1000, height=600")
+				var bno = $(this).parent().children().eq(2).text();
+				console.log(bno)
+				window.open("${contextPath}/detailTgb.do?bno="+bno, "문의글조회", "width=1000, height=600")
 			})
 		})
 	}

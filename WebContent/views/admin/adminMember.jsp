@@ -150,8 +150,9 @@
 						</table>
 						<br>
 						<div class="btns" align="center">
-							
-							<button type="submit">해당 회원탈퇴</button>
+							<c:if test="${!empty list}">
+								<button type="submit">해당 회원탈퇴</button>
+							</c:if>
 						</div>
 					</form>
 				</div>

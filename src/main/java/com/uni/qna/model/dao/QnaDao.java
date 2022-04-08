@@ -514,7 +514,6 @@ public class QnaDao {
 			pstmt = conn.prepareStatement(sql);
 			if(qno != null) {
 				for(int i = 0; i < qno.length; i++) {
-					System.out.println("userNo[i] : "+qno[i]);
 					pstmt.setInt(1, qno[i]);
 					result += pstmt.executeUpdate();
 				}

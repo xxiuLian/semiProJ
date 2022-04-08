@@ -127,4 +127,32 @@ public class TgbService {
 		return list;
 	}
 
+	public int deleteTgbs(int[] bno) {
+		Connection conn = getConnection();
+		
+		int result = new TgbDao().deleteTgb(conn, bno);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int deleteTgbAttachments(int[] bno) {
+		Connection conn = getConnection();
+		
+		int result = new TgbDao().deleteTgbAttachment(conn, bno);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 }
