@@ -60,13 +60,14 @@ public class TgbService {
 		return t;
 	}
 
-	public Attachment selectAttachment(int bno) {
+	public ArrayList<Attachment> selectAttachment(int bno) {
 		Connection conn = getConnection();
 		
-		Attachment at = new TgbBoard_dao().selectAttachment(conn, bno);
+		ArrayList<Attachment> list = new TgbDao().selectAttachment(conn, bno);
+		
 		close(conn);
 		
-		return at;
+		return list;
 	}
 
 	public Tgb updateFormTgb(int bno) {
