@@ -36,7 +36,7 @@ public class TgbUpdateFormServlet extends HttpServlet {
 		int bno =Integer.parseInt(request.getParameter("bno"));
 		Tgb t = new TgbService().updateFormTgb(bno);
 		ArrayList<Attachment> list = new TgbService().updateFormAttachment(bno);
-		
+		 
 		
 		if(t != null) {
 		
