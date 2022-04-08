@@ -50,7 +50,7 @@
 					<li class="nav-item"><a class="nav-link" href="login.do">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="enroll.do">회원가입</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
-					<li class="nav-item"><a class="nav-link" href="admin.do">관리자페이지</a></li>
+					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li><!--  -->
 					<li class="nav-item"><a class="nav-link" href="category.do">카테고리</a></li>
@@ -65,7 +65,7 @@
 					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
-					<li class="nav-item"><a class="nav-link" href="admin.do">관리자페이지</a></li>
+					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li>
 				</ul>

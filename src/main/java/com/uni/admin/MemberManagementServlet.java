@@ -15,7 +15,7 @@ import com.uni.member.model.service.MemberService;
 /**
  * Servlet implementation class adminPageServlet
  */
-@WebServlet("/admin.do")
+@WebServlet("/adminMember.do")
 public class MemberManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,7 +34,7 @@ public class MemberManagementServlet extends HttpServlet {
 		ArrayList<Member> list = new MemberService().selectAllMember();
 		System.out.println("list : " + list);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/admin/adminPage.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/adminMember.jsp").forward(request, response);
 	}
 
 	/**

@@ -111,30 +111,12 @@ public class QnaListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-		
-		
-		if (request.getParameter("category") != null && !request.getParameter("category").equals("000")){
-			int category = Integer.parseInt(request.getParameter("category"));
-
-			ArrayList<Qna> data = new QnaService().categoryList(category);
-			System.out.println("category ===" + category);
-			System.out.println("data ==== " + data);
-			response.setContentType("application/json; charset=utf-8");
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			String arr = gson.toJson(data);
-			System.out.println("arr===="+arr);
-			gson.toJson(data, response.getWriter());
-		}
-		
-		
-		
 		ArrayList<Qna> list = new QnaService().selectList(pi);
-		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
+		request.getRequestDispatcher("views/qna/qnaListView.jsp").forward(request, response);	
 		
-		request.getRequestDispatcher("views/qna/qnaListView.jsp").forward(request, response);
 	}
 
 	/**
