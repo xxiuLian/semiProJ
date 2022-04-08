@@ -395,7 +395,7 @@ public class TgbBoard_dao {
 	public Attachment selectAttachment(Connection conn, int bno) {
 		
 		Attachment at = null;
-
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -408,9 +408,9 @@ public class TgbBoard_dao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bno);
-
+			
 			rset = pstmt.executeQuery();
-
+			
 			if (rset.next()) {
 				at = new Attachment();
 				at.setFileNo(rset.getInt("FILE_NO"));
@@ -428,10 +428,10 @@ public class TgbBoard_dao {
 		return at;
 	}
 
-
-
-
 	
-
-
+	
+	
+	
+	
+	
 }
