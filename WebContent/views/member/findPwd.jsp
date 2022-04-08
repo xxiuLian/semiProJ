@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+	String msg = (String)request.getAttribute("msg"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +14,16 @@
 <body>
 <%@ include file= "../common/menubar.jsp" %>
 
-	<form name="idfindscreen" method = "POST">
+	<form name="pwdfindscreen" method = "POST">
 			<div class = "search-title">
-				<h3>휴대폰 본인확인</h3>
+				<h3>본인확인</h3>
 			</div>
 		<section class = "form-search">
+			<div class = "findId">
+				<label>아이디</label>
+				<input type="text" name="userId" class ="userId" placeholder="아이디">
+			<br>
+			</div>
 			<div class = "findName">
 				<label>이름</label>
 				<input type="text" name="userName" class ="userName" placeholder="등록한 이름">
@@ -29,14 +36,18 @@
 			<br>
 	</section>
 	<div class ="btnSearch">
-		<input type="button" name="enter" value="찾기"  onClick="idSearch()">
+		<input type="button" name="enter" value="찾기"  onClick="pwdSearch()">
 		<input type="button" name="cancle" value="취소" onClick="history.back()">
  	</div>
  </form>
  <script type="text/javascript">
- function idSearch() { 
-	 	var frm = document.idfindscreen;
-
+ function pwdSearch() { 
+	 	var frm = document.pwdfindscreen;
+	 	if (frm.userId.value.length < 1) {
+			  alert("아이디를 입력해주세요");
+			  return;
+			 }
+	 	
 	 	if (frm.userName.value.length < 1) {
 		  alert("이름을 입력해주세요");
 		  return;
@@ -48,7 +59,7 @@
 		 }
 
 	 frm.method = "post";
-	 frm.action = "<%=request.getContextPath()%>/findIdResult.do" //넘어간화면
+	 frm.action = "<%=request.getContextPath()%>/findPwdResult.do" //넘어간화면
 	 frm.submit();  
 	 }
  </script>

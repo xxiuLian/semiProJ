@@ -124,7 +124,7 @@ public class MemberService {
 		
 		return result;
 	}
-
+	
 	public Member selectMember(int userNo) {
 		Connection conn = getConnection();
 		Member member = new MemberDao().selectMember(conn, userNo);
@@ -132,6 +132,39 @@ public class MemberService {
 		close(conn);
 		
 		return member;
+
+	}
+	
+	public Member findId(String userName, String phone) {
+		Connection conn = getConnection();
+		
+		Member mem = new MemberDao().findId(conn, userName, phone);
+	    
+		close(conn);
+		return mem;
+	}
+
+	public Member findPwd(String userId, String userName, String phone) {
+		Connection conn = getConnection();
+		
+		Member mem = new MemberDao().findPwd(conn, userId, userName, phone);
+	    
+		close(conn);
+		return mem;
+	}
+
+	public int findPwdUpdate(String userId, String newPwd) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().findPwdUpdate(conn, userId, newPwd );
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 }
