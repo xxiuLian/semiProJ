@@ -33,18 +33,19 @@ public class TgbDeleteServlet extends HttpServlet {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
 		int result1 = new TgbService().deleteTgb(bno);
-		int result2 = new TgbService().deleteAttachment(bno);
+		int result2 = new TgbService().deleteTgbAttachment(bno);
 		
 		if(result1*result2 > 0) {
-			
-			
+			request.getSession().setAttribute("msg", "글이 삭제되었습니다.");
+			response.sendRedirect("tgbList.do");
 			
 		}else if(result1>0 &&result2 < 0 ) {
-			
-		}else if(result1 < 0 && result2>0) {
+			request.setAttribute("msg", "글이 완전히 삭제되지 않았습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			
 		}else {
-			
+			request.setAttribute("msg", "글이 삭제되지 않았습니다");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}

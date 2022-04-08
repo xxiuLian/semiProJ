@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문의 글 조회</title>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
@@ -36,19 +36,6 @@
 				<td colspan="3">
 					<p>${q.qnaContent}</p>
 				</td>
-			</tr>
-			<tr>
-				<th>첨부파일</th>
-				<td colspan="3">
-					<c:choose>
-						<c:when test="${at != null}">
-							<a download="${at.originName}" href="${contextPath}/resources/qna_board_upfiles/${at.changeName}">${at.originName}</a>	
-						</c:when>
-						<c:otherwise>
-							첨부파일이 없습니다.
-						</c:otherwise>
-					</c:choose>
-				</td> 
 			</tr>
 		</table>
 		<br>
