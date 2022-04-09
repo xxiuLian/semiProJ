@@ -33,9 +33,11 @@ public class ReplyInsertTgbBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String content = request.getParameter("content");
 		int bno = Integer.parseInt(request.getParameter("bno"));
+	
 		
 		//임시 ★
 		int writer = 9;
+		System.out.println("test");
 		
 		TgbBoardReply r = new TgbBoardReply();
 		r.setReplyContent(content);
