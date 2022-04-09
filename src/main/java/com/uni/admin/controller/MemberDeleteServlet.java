@@ -38,8 +38,8 @@ public class MemberDeleteServlet extends HttpServlet {
 		int result = new MemberService().deleteMembers(userNo);
 		
 		if(result > 0) {
-			request.setAttribute("msg", "회원 탈퇴 성공");
-			response.sendRedirect("admin.do");
+			request.getSession().setAttribute("msg", "회원 탈퇴 성공");
+			response.sendRedirect("adminMember.do");
 		}else {
 			request.setAttribute("msg", "회원 탈퇴 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

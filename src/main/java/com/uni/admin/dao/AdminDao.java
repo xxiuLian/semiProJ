@@ -83,14 +83,17 @@ public class AdminDao {
 
 		PreparedStatement pstmt = null;
 
-		//updateQnaCategory=UPDATE QNA_CATEGORY SET QNA_CATEGORY_NAME=? WHERE QNA_CATEGORY_NO=?
+		//updateQnaCategory=UPDATE QNA_CATEGORY SET QNA_CATEGORY_NO=?, QNA_CATEGORY_NAME=? WHERE QNA_CATEGORY_NO=?
 		String sql = prop.getProperty("updateQnaCategory");
 
 		try {
-			System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+			System.out.println("바꾸는 번호 : " + c.getCategoryNo());
+			System.out.println("바꾸는 이름 : " + c.getCategoryName());
+			System.out.println("원래 번호 : " + originCno);
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, c.getCategoryName());
-			pstmt.setInt(2, c.getCategoryNo());
+			pstmt.setInt(1, c.getCategoryNo());
+			pstmt.setString(2, c.getCategoryName());
+			pstmt.setInt(3, originCno);
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -98,6 +101,52 @@ public class AdminDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+		System.out.println("리턴 전 확인");
+		return result;
+	}
+
+	public int deleteQnaCategorys(Connection conn, int[] qCaNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//deleteQnaCategorys=DELETE QNA_CATEGORY WHERE QNA_CATEGORY_NO=?
+		String sql = prop.getProperty("deleteQnaCategorys");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(qCaNo != null) {
+				for(int i = 0; i < qCaNo.length; i++) {
+					pstmt.setInt(1, qCaNo[i]);
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int insertQnaCategory(Connection conn, Category c) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//insertQnaCategory=INSERT INTO QNA_CATEGORY VALUES(?, ?)
+		String sql = prop.getProperty("insertQnaCategory");
+		
+		try {
+			System.out.println(c.getCategoryNo());
+			System.out.println(c.getCategoryName());
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, c.getCategoryNo());
+			pstmt.setString(2, c.getCategoryName());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return result;
 	}

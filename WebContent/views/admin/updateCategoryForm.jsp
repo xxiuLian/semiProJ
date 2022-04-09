@@ -25,7 +25,7 @@
 		<table>
 			<tr>
 				<td><label>카테고리 번호</label>
-				<td><input type="text" name="cno" id="cno" readonly></td>
+				<td><input type="text" name="cno" id="cno"></td>
 			</tr>
 			<tr>
 				<td><label>카테고리 이름</label></td>
@@ -45,18 +45,15 @@
 var msg="<%= msg %>";
 var sTag="<%= sTag %>";
 var originCname = "<%= originCname %>";
-$(function(){
-	if(${category.categoryNo} != null){
-		console.log('진입');
-		$("#cno").val(${category.categoryNo});
-		$("#cname").val('${category.categoryName}');
-	}
-	
-	
-})
-	
-
-	
+	$(function(){
+		if(${category.categoryNo} != null){
+			console.log('진입');
+			$("#cno").val(${category.categoryNo});
+			$("#cname").val('${category.categoryName}');
+		}
+		
+		
+	})
 		
 	function updateCategory(){
 		if($("#cno").val().trim() === "" || $("#cname").val().trim() === ""){

@@ -33,8 +33,7 @@ public class CategoryUpdateServlet extends HttpServlet {
 		int cno = Integer.parseInt(request.getParameter("cno"));
 		int originCno = Integer.parseInt(request.getParameter("originCno"));
 		String cname = request.getParameter("cname");
-		System.out.println("cnmae : " + cname);
-		request.setAttribute("originCname", cname);
+		
 		Category c = new Category(cno, cname);
 		int result = new AdminService().updateCategory(c, originCno);
 		
