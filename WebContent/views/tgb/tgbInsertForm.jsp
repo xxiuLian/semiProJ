@@ -98,7 +98,7 @@ td{
 <br>
 <h2>공동구매 등록</h2>
 <hr>
-	<form action="<%= contextPath %>/tgbInsertServlet.do" method="post" id="frm" enctype="multipart/form-data"> 
+	<form action="<%= contextPath %>/tgbInsertServlet.do" method="post" id="frm" enctype="multipart/form-data" onsubmit="return insertTgb();"> 
 		<div id="titleImg">대표 이미지<img id="thumb"></div>
 			
 		<div class="option">
@@ -115,7 +115,7 @@ td{
 				</tr>
 				<tr>
 					<td class="tdfirst"> 제목  </td>
-					<td class="tdsecond"><input type="text" name="title"></td>
+					<td class="tdsecond"><input type="text" name="title" id="titleId"></td>
 				</tr>
 				<tr>
 					<td class="tdfirst">공구 인원  </td>
@@ -127,7 +127,7 @@ td{
 				</tr>
 				<tr>
 					<td class="tdfirst">가격  </td>
-					<td class="tdsecond"><input type="number" name="price"> 원</td>
+					<td class="tdsecond"><input type="number" name="price" value="0" step ="1000" id="priceId"> 원</td>
 				</tr>
 				<tr>
 					
@@ -150,11 +150,10 @@ td{
 		<div id="uploaded"></div><button type="button" onclick="deleteImg();">선택파일 삭제</button>
 		
 		<input type="hidden" name="writer" value=<%=loginUser.getUserNo() %> ><!--writer_NO-->
-		<textarea id="ctnhtml" name="content" hidden></textarea>
-		<textarea id="gidhtml" name="guide" hidden></textarea>
-		<button id="btn1" type="submit">작성완료</button>
 		
-		<div id = "inputFileArea" >
+		<button id="btn1" type="button">작성완료</button>
+		
+		<div id = "inputFileArea" hidden>
 			<input type="file" class="inputFile" name="file1" onchange="loadImg(event)">
 			<input type="file" class="inputFile" name="file2" onchange="loadImg(event)">
 			<input type="file" class="inputFile" name="file3" onchange="loadImg(event)">
@@ -211,19 +210,54 @@ td{
             })    
 	};
 	
-		$('#btn1').click(function(){// submit
-		$('#contentArea').children('img').attr("src","");
-		var a =  $('#contentArea').html();
-		
-		alert($('input[type=hidden]').val());
-		
+	
+		$('#btn1').click(function(){// 작성완료 버튼 누르면 실행-> SUBMIT
+			$('#contentArea').children('img').attr("src","");
+			//var a =  $('#contentArea').html(); 사용 안하는 듯? 나중에 지우기
+			
+			//alert($('input[type=hidden]').val()); 작성자 유저번호 
+			
+	
+	        $('#guide').val($('#guidArea').html());
+	        $('#content').val($('#contentArea').html());
+	        
+	        $('#frm').submit();
 
-        $('#gidhtml').val($('#guidArea').html());
-        $('#ctnhtml').val($('#contentArea').html());
-
-		
 		
 		})
+		
+		
+		function insertTgb(){
+		
+			
+			if(!$('#thumbImg').val()){
+				alert("대표 이미지를 정해주세요");
+				return false;				
+				
+			};
+			
+			if($('#titleId').val().trim().length === 0 ){
+				alert("제목을 정해주세요")
+				return false;
+			};
+			
+			if($('#guide').val().trim().length === 0 ){
+				alert("내용(가이드)을 정해주세요")
+				return false;
+			};
+			
+			if($('#content').val().trim().length === 0 ){
+				alert("내용을 정해주세요")
+				return false;
+			};
+			
+			if($('#priceId').val() == 0){
+				alert("가격을 정해주세요")
+				return false;
+			};
+			
+			return true;
+		}
 
 
 		 $('#ctnbtn').click(function(){

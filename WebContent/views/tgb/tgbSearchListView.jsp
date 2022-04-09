@@ -24,67 +24,61 @@
 <link href="../../css/styles.css" rel="stylesheet" />
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+
+.listArea{
+
+	display:flex;
+}
+.list{
+	width:300px;
+	height:auto;
+	display: inline-block;
+	margin:20px;
+}
+
+</style>
 <body>
 <%@ include file="../common/menubar.jsp" %>
 
-<h2 align="center">공구 목록 조회</h2>
+<h2 align="center">공구 검색결과</h2>
 		<br>
 		
-		<table class="listArea" align="center">
-			<thead>
-				<tr>
-					<th width="100">글번호</th>
-					<th width="100">카테고리</th>
-					<th width="300">글제목</th>
-					<th width="100">작성자</th>
-					<th width="100">조회수</th>
-					<th width="150">작성일</th>
-				</tr>
-			<thead>
-			  <tbody>
+		<div class="listArea" align="center">
+			
 				<%if(list.isEmpty()){ %>
-				<tr>
-					<td colspan="8">"<%=keyword%>"로 검색된 리스트가 없습니다.</td>
-				</tr>
+				
+					<h2 >"<%=keyword%>"로 검색된 리스트가 없습니다.</h2>
+				
 				<%}else{ %>
 					<% for( Tgb t : list){ %>
 					
 					<div class="list" align = "center">
 						<input type="hidden" value="<%=t.getTgbNo() %>">
 						<img src="<%=contextPath %>/assets/img_upfile/<%=t.getThumnail()%>" width="300px" height="200px"><br>
-						<p><%=t.getTgbTitle() %></p>
-						<p><%=t.getTgb_Price() %></p>
+						<p>제목 : <%=t.getTgbTitle() %></p>
+						<p><%=t.getTgb_Price() %>원</p>
 						<%if(t.getCount() != 00){ %>
 						<p><%=t.getCount() %>명(진행도로 표시)</p>
 						<%}else{ %>
 						<p>무제한(진행도로 표시)</p>
 						<%} %>
-					<%-- <%if(t.getTgbTerm() != 00){ %>
-						<p><%=t.getCount() %>명(진행도로 표시)</p>
+					 <%if(t.getTgbTerm() != null){ %><!-- Date라 조정필요 -->
+						<p><%=t.getTgbTerm() %>일(진행도로 표시)</p>
 						<%}else{ %>
 						<p>무제한(진행도로 표시)</p>
-						<%} %>--%>	
-						
-						
-					</div>
-					<%-- <tr class="list">
-						<td><%= t.getTgbNo() %></td>
-						<td><img src = <%=contextPath%>/assets/img_upfile/<%= t.getThumnail() %> width="200px" height="150px"></td>
-						<td><%= t.getTgbCategory() %>
-						<td><%= t.getTgbTitle() %></td>
-						<td><%= t.getCount() %></td>
-						<td><%= t.getCreateDate() %></td>
-					</tr>--%>
-					<%} %>
-				<%} %>
-			</tbody>
-		</table>
+						<%} %>	
 
+					</div>
+					<%} %><!-- for문 끝 -->
+				<%} %>
+		
+		</div>
 		<script>
 			$(function(){
 				$('.list').click(function(){
-					var bno = $(this).children().eq(0).text();
-					console.log(bno)
+					var bno = $('.list').children().eq(0).val();
+					alert("[지우기]글번호:"+bno);
 					location.href="<%=contextPath%>/detailTgb.do?bno="+bno ;
  				});
 			});
@@ -92,15 +86,15 @@
 
 		<br><br>
 		<!-- 페이징바 -->
-		<div>
-			<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=1?keyword=<%=keyword%>'">&lt;&lt;</button>
-		</div>
+		<div class="paging" align="center">
+			<button onclick="location.href='<%=contextPath%>/searchTgb.do?currentPage=1&keyword=<%=keyword%>'">&lt;&lt;</button>
+		
 		<!-- 이전페이지로 -->
 		<%if(currentPage == 1) {%>
 		<button disabled>&lt;</button>
 		<%}else{ %>
 		<div>
-			<button onclick="location.href='<%=contextPath %>/tgbList.do?currentPage=<%=currentPage-1 %>?keyword=<%=keyword%>'">&lt;</button>
+			<button onclick="location.href='<%=contextPath %>/searchTgb.do?currentPage=<%=currentPage-1 %>&keyword=<%=keyword%>'">&lt;</button>
 		</div>
 		<%} %>
 		
@@ -109,7 +103,7 @@
 			<%if(i ==currentPage){ %>
 			<button disabled><%= i %></button>
 			<%}else{ %>
-				<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=<%=i%>?keyword=<%=keyword%>'"><%=i %></button>
+				<button onclick="location.href='<%=contextPath%>/searchTgb.do?currentPage=<%=i%>&keyword=<%=keyword%>'"><%=i %></button>
 			<%} %>
 		<%} %>
 		
@@ -118,12 +112,12 @@
 		<button disabled>&gt;</button>
 		<%}else{ %>
 		<div>
-			<button onclick="location.href='<%= contextPath %>/listBoard.do?currentPage=<%= currentPage+1 %>?keyword=<%=keyword%>'"> &gt; </button>
+			<button onclick="location.href='<%= contextPath %>/searchTgb.do?currentPage=<%= currentPage+1 %>&keyword=<%=keyword%>'"> &gt; </button>
 		</div>
 		<%} %>
 		
-		<button onclick="location.href='<%=contextPath%>/listBoard.do?currentPage=<%=maxPage%>?keyword=<%=keyword%>'"> &gt;&gt; </button>
+		<button onclick="location.href='<%=contextPath%>/searchTgb.do?currentPage=<%=maxPage%>&keyword=<%=keyword%>'"> &gt;&gt; </button>
 		
-		
+		</div>
 </body>
 </html>
