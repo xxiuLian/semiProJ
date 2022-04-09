@@ -20,7 +20,7 @@
 	<b>카테고리 수정</b>
 	<br>
 	
-	<form id="updateCategory" action="<%= request.getContextPath() %>/updateCategory.do" method="post">
+	<form id="updateCategory" action="<%= request.getContextPath() %>/updateCategory.do?keyword=${keyword}" method="post">
 		<input type="hidden" name="originCno" value="${category.categoryNo}">
 		<table>
 			<tr>

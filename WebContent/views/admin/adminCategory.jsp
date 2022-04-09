@@ -68,9 +68,9 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="TGBCategoryList.do">상품</a> <a
-									class="nav-link" href="BoardCategoryList.do">커뮤니티</a> <a
-									class="nav-link" href="QnaCategoryList.do">문의</a>
+								<a class="nav-link" href="categoryList.do?keyword=tgb">상품</a> <a
+									class="nav-link" href="categoryList.do?keyword=board">커뮤니티</a> <a
+									class="nav-link" href="categoryList.do?keyword=qna">문의</a>
 							</nav>
 						</div>
 					</div>
@@ -97,7 +97,7 @@
 					<div class="btns" align="right">
 						<button type="button" onclick="addCategory()">카테고리 추가</button>
 					</div>
-					<form id="deleteCategory" action="${contextPath}/deleteCategory.do"
+					<form id="deleteCategory" action="${contextPath}/deleteCategory.do?keyword=${keyword}"
 						method="post">
 
 						<table class="listArea" align="center">
@@ -130,7 +130,7 @@
 						<br>
 						<div class="btns" align="center">
 							<c:if test="${!empty category}">
-								<button type="submit">선택 카테고리 삭제</button>
+								<button type="button" onclick="deleteCategorys()">선택 카테고리 삭제</button>
 							</c:if>
 						</div>
 						</form>
@@ -154,8 +154,14 @@
 	</div>
 </body>
 <script>
+	function deleteCategorys(){
+		if(confirm("삭제하시겠습니까?")){
+			$("#deleteCategory").submit();
+		}
+	}
+	
 	function addCategory(){
-		window.open("${contextPath}/addQnaCategory.do", "카테고리 추가", "width=500, height=170 left=800, top=200" );
+		window.open("${contextPath}/addCategoryForm.do?keyword=${keyword}", "카테고리 추가", "width=500, height=170 left=800, top=200" );
 	}
 
 	if(!${empty category}){
@@ -163,7 +169,7 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var cno = $(this).parent().children().eq(1).text();
 				console.log(cno)
-				window.open("${contextPath}/selectCategory.do?cno="+cno, "카테고리 수정", "width=500, height=170 left=800, top=200" )
+				window.open("${contextPath}/selectCategory.do?keyword=${keyword}&cno="+cno, "카테고리 수정", "width=500, height=170 left=800, top=200" )
 			})
 		})
 	}
