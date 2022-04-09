@@ -1,23 +1,28 @@
 package com.uni.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.admin.dto.Category;
+import com.uni.admin.service.AdminService;
+
 /**
- * Servlet implementation class AddQnaCategoryServlet
+ * Servlet implementation class CategoryListSetvlet
  */
-@WebServlet("/addQnaCategory.do")
-public class AddQnaCategoryFormServlet extends HttpServlet {
+@WebServlet("/categoryList.do")
+public class CategoryListSetvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddQnaCategoryFormServlet() {
+    public CategoryListSetvlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +31,21 @@ public class AddQnaCategoryFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/admin/addQnaCategory.jsp").forward(request, response);
+		String keyword = request.getParameter("keyword");
+		
+		ArrayList<Category> category = new ArrayList<Category>();
+		if(keyword.equals("qna")) {
+			category = new AdminService().selectQnaCategoryList();
+			request.setAttribute("keyword", "qna");
+		}else if(keyword.equals("tgb")) {
+			category = new AdminService().selectTGBCategoryList();
+			request.setAttribute("keyword", "tgb");
+		}else if(keyword.equals("board")) {
+			category = new AdminService().selectBoardCategoryList();
+			request.setAttribute("keyword", "board");
+		}
+		request.setAttribute("category", category);
+		request.getRequestDispatcher("views/admin/adminCategory.jsp").forward(request, response);
 	}
 
 	/**

@@ -31,7 +31,18 @@ public class CategorySelectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cno = Integer.parseInt(request.getParameter("cno"));
-		Category c = new AdminService().selectQnaCategory(cno);
+		String keyword = request.getParameter("keyword");
+		Category c = null;
+		if(keyword.equals("qna")) {
+			c = new AdminService().selectQnaCategory(cno);
+			request.setAttribute("keyword", "qna");
+		}else if(keyword.equals("tgb")) {
+			c = new AdminService().selectTGBCategory(cno);
+			request.setAttribute("keyword", "tgb");
+		}else if(keyword.equals("board")) {
+			c = new AdminService().selectBoardCategory(cno);
+			request.setAttribute("keyword", "board");
+		}
 		request.setAttribute("category", c);
 		request.getRequestDispatcher("views/admin/updateCategoryForm.jsp").forward(request, response);
 	}
