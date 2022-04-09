@@ -12,7 +12,7 @@
 	<b>카테고리 추가</b>
 	<br>
 	
-	<form id="addCategory" action="<%= request.getContextPath() %>/addCategory.do" method="post">
+	<form id="addCategory" action="${contextPath}/addCategory.do?keyword=${keyword}" method="post">
 		<table>
 			<tr>
 				<td><label>카테고리 번호</label>

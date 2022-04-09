@@ -74,9 +74,9 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="TGBCategoryList.do">상품</a> <a
-									class="nav-link" href="BoardCategoryList.do">커뮤니티</a> <a
-									class="nav-link" href="QnaCategoryList.do">문의</a>
+								<a class="nav-link" href="categoryList.do?keyword=tgb">상품</a> <a
+									class="nav-link" href="categoryList.do?keyword=board">커뮤니티</a> <a
+									class="nav-link" href="categoryList.do?keyword=qna">문의</a>
 							</nav>
 						</div>
 					</div>

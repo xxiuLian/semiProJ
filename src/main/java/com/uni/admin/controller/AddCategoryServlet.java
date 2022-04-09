@@ -1,7 +1,6 @@
 package com.uni.admin.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.admin.dto.Category;
 import com.uni.admin.service.AdminService;
 
-
 /**
- * Servlet implementation class DeleteQnaCategory
+ * Servlet implementation class AddCategoryServlet
  */
-@WebServlet("/deleteCategory.do")
-public class DeleteQnaCategoryServlet extends HttpServlet {
+@WebServlet("/addCategory.do")
+public class AddCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteQnaCategoryServlet() {
+    public AddCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +30,27 @@ public class DeleteQnaCategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] QCaNos = request.getParameterValues("categoryChecked");
-
-		//String배열을 int 배열로 바로 변환
-		int[] QCaNo = Arrays.stream(QCaNos).mapToInt(Integer::parseInt).toArray();
-		
-		int result = new AdminService().deleteQnaCategorys(QCaNo);
+		int cno = Integer.parseInt(request.getParameter("cno"));
+		String cname = request.getParameter("cname");
+		String keyword = request.getParameter("keyword");
+		Category c = new Category(cno, cname);
+		int result = 0;
+		if(keyword.equals("qna")) {
+			result = new AdminService().insertQnaCategory(c);
+		}else if(keyword.equals("tgb")) {
+			result = new AdminService().insertTGBCategory(c);
+		}else if(keyword.equals("board")) {
+			result = new AdminService().insertBoardCategory(c);
+		}
 		
 		if(result > 0) {
-			request.setAttribute("msg", "카테고리 삭제 성공");
-			response.sendRedirect("QnaCategoryList.do");
+			request.setAttribute("msg", "카테고리 추가 완료");
+			request.setAttribute("sTag", "Y");
+			request.getRequestDispatcher("views/admin/close.jsp").forward(request, response);
 		}else {
-			request.setAttribute("msg", "카테고리 삭제 실패");
+			request.setAttribute("msg", "카테고리 추가 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+	}
 	}
 
 	/**
