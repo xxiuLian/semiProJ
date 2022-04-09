@@ -90,14 +90,6 @@ public class TgbService {
 		return list;
 	}
 
-	public TgbBoard_dto selectUpdateTgb(int bno) {
-		Connection conn = getConnection();
-		TgbBoard_dto b = new TgbBoard_dao().selectBoard(conn, bno);
-		close(conn);
-		return b;
-	}
-
-
 	public int deleteTgb(int bno) {//해당 번호 글을 삭제하는 메소드
 		Connection conn = getConnection();
 		

@@ -76,4 +76,14 @@ public class AdminService {
 		
 		return result;
 	}
+
+	public ArrayList<Category> selectTGBCategoryList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Category> category = new AdminDao().selectTGBCategoryList(conn);
+		
+		close(conn);
+		
+		return category;
+	}
 }
