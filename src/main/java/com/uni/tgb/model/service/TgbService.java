@@ -102,7 +102,7 @@ public class TgbService {
 		}
 		
 		close(conn);
-		return result;
+		return result; 
 	}
 	public int deleteTgbAttachment(int bno) {// 해당번호 글의 첨부파일을 삭제하는 메소드
 		Connection conn = getConnection();

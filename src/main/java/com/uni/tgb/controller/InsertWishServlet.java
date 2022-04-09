@@ -21,7 +21,7 @@ public class InsertWishServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertWishServlet() {
+    public InsertWishServlet() { 
         super();
         // TODO Auto-generated constructor stub
     }
