@@ -46,7 +46,7 @@
 							</div> 상품
 						</a>
 						<div class="sb-sidenav-menu-heading">게시판</div>
-						<a class="nav-link" href="adminQna.do">
+						<a class="nav-link" href="adminQnaList.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 문의
