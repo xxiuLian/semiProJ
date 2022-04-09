@@ -1,4 +1,4 @@
-package com.uni.admin;
+package com.uni.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Category;
-import com.uni.qna.model.service.QnaService;
+import com.uni.admin.dto.Category;
+import com.uni.admin.service.AdminService;
 
 /**
  * Servlet implementation class QnaCategoryListSetvlet
@@ -31,10 +31,10 @@ public class QnaCategoryListSetvlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Category> category = new QnaService().selectCategory();
+		ArrayList<Category> category = new AdminService().selectQnaCategoryList();
 		System.out.println("category 입니다: " + category);
 		request.setAttribute("category", category);
-		request.getRequestDispatcher("views/admin/adminCategory.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/adminQnaCategory.jsp").forward(request, response);
 	}
 
 	/**

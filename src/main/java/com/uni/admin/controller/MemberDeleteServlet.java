@@ -1,4 +1,4 @@
-package com.uni.admin;
+package com.uni.admin.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
