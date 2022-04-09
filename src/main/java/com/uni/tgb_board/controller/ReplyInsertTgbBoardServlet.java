@@ -1,27 +1,28 @@
 package com.uni.tgb_board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
-import com.uni.tgb_board.model.dto.TgbBoard_dto;
+import com.uni.tgb_board.model.dto.TgbBoardReply;
 import com.uni.tgb_board.model.service.TgbBoard_service;
 
 /**
- * Servlet implementation class tgbBoard_updateFormServlet
+ * Servlet implementation class ReplyInsertTgbBoardServlet
  */
-@WebServlet("/tgbBoardUpdateForm.do")
-public class tgbBoard_updateFormServlet extends HttpServlet {
+@WebServlet("/rTgbBoardInsert.do")
+public class ReplyInsertTgbBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tgbBoard_updateFormServlet() {
+    public ReplyInsertTgbBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,19 +31,28 @@ public class tgbBoard_updateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String content = request.getParameter("content");
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		TgbBoard_dto b = new TgbBoard_service().selectUpdateTgbBoard(bno);
-		Attachment at = new TgbBoard_service().selectAttachment(bno);
+		//임시 ★
+		int writer = 9;
 		
-		if(b != null) {
-			request.setAttribute("b", b);
-			request.setAttribute("at", at);
-			request.getRequestDispatcher("views/tgbBoard/tgbBoardUpdateForm.jsp").forward(request, response);
+		TgbBoardReply r = new TgbBoardReply();
+		r.setReplyContent(content);
+		r.setRefBoardId(bno);
+		r.setReplyWriter(String.valueOf(writer));
+		
+		int result = new TgbBoard_service().insertReply(r);
+		PrintWriter out = response.getWriter();
+		
+		if(result > 0 ) {
+			out.print("success");
 		}else {
-			request.setAttribute("msg", "tgbBoard의 게시글을 불러오는데 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			out.print("fail");
 		}
+		out.flush();
+		out.close();
+		
 	}
 
 	/**

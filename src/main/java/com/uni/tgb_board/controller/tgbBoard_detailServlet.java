@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.uni.common.Attachment;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
-import com.uni.tgb_board.model.service.TGBBoard_service;
+import com.uni.tgb_board.model.service.TgbBoard_service;
 
 /**
  * Servlet implementation class tgbBoard_detailServlet
@@ -31,9 +31,14 @@ public class tgbBoard_detailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
+		Attachment at = null;
 		
-		TgbBoard_dto b = new TGBBoard_service().selectTgbBoard(bno);
-		Attachment at = new TGBBoard_service().selectAttachment(bno);
+		TgbBoard_dto b = new TgbBoard_service().selectDetailTgbBoard(bno);
+		
+		
+		if(b.getTgbBoardDate() != null) {
+			 at = new TgbBoard_service().selectAttachment(bno);
+		}
 		
 		request.setAttribute("b", b);
 		request.setAttribute("at", at);

@@ -17,7 +17,7 @@ import com.uni.common.Attachment;
 import com.oreilly.servlet.MultipartRequest;
 import com.uni.common.MyFileRenamePolicy;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
-import com.uni.tgb_board.model.service.TGBBoard_service;
+import com.uni.tgb_board.model.service.TgbBoard_service;
 
 /**
  * Servlet implementation class tgbBoard_insertServlet
@@ -82,7 +82,7 @@ public class tgbBoard_insertServlet extends HttpServlet {
 			}
 			
 			// 게시글 등록★(파일 완성하면 b, at 로 수정해야함)
-			int result = new TGBBoard_service().insertTgbBoard(b, at);
+			int result = new TgbBoard_service().insertTgbBoard(b, at);
 
 			if (result > 0) {
 				request.getSession().setAttribute("msg", "공구 등록에 성공했습니다.");

@@ -103,7 +103,7 @@
 	</div>
 	<div>
 		<button onclick="location.href='EnrollTgbBoard.do'">작성하기</button>
-		<button type="button" onclick="location.href='<%=request.getContextPath()%>/qnaList.do?currentPage=1';">목록으로</button>
+		<button type="button" onclick="location.href='<%=request.getContextPath()%>';">페이지로</button>
 	</div>
 	<script>
 	<%if(!list.isEmpty()){%>
