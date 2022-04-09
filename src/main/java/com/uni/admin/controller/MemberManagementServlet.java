@@ -1,8 +1,8 @@
-package com.uni.admin;
+package com.uni.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +13,16 @@ import com.uni.member.model.dto.Member;
 import com.uni.member.model.service.MemberService;
 
 /**
- * Servlet implementation class MemberInfoServlet
+ * Servlet implementation class adminPageServlet
  */
-@WebServlet("/memberView.do")
-public class MemberInfoServlet extends HttpServlet {
+@WebServlet("/adminMember.do")
+public class MemberManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberInfoServlet() {
+    public MemberManagementServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +31,10 @@ public class MemberInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		
-		Member member = new MemberService().selectMember(userNo);
-		
-		RequestDispatcher view = null;
-		if(member != null) {
-			request.setAttribute("loginUser", member);
-			view = request.getRequestDispatcher("views/member/myInfo.jsp");
-		}else {
-			request.setAttribute("msg", "조회 실패하였습니다."); //조회 한 결과 해당 유저 정보가 없을때
-			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-		}
-		view.forward(request, response);
-		
-		
+		ArrayList<Member> list = new MemberService().selectAllMember();
+		System.out.println("list : " + list);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/admin/adminMember.jsp").forward(request, response);
 	}
 
 	/**

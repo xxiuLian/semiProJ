@@ -1,4 +1,4 @@
-package com.uni.tgb_board.controller;
+package com.uni.tgb.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.tgb_board.model.service.TgbBoard_service;
-
-
 /**
- * Servlet implementation class tgbBoard_deleteServlet
+ * Servlet implementation class WishListServlet
  */
-@WebServlet("/tgbBoardDelete.do")
-public class tgbBoard_deleteServlet extends HttpServlet {
+@WebServlet("/wishList.do")
+public class WishListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tgbBoard_deleteServlet() {
+    public WishListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +26,8 @@ public class tgbBoard_deleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		int result = new TgbBoard_service().deletetgbBoard(bno);
-		
-		if(result > 0) {
-			request.getSession().setAttribute("msg", "문의글 삭제 완료");
-			response.sendRedirect("tgbBoardSelect.do");
-		}else {
-			request.setAttribute("msg", "문의글 삭제 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

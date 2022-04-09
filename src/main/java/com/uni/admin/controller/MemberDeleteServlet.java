@@ -1,27 +1,27 @@
-package com.uni.tgb_board.controller;
+package com.uni.admin.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
-import com.uni.tgb_board.model.dto.TgbBoard_dto;
-import com.uni.tgb_board.model.service.TgbBoard_service;
+import com.uni.member.model.service.MemberService;
 
 /**
- * Servlet implementation class tgbBoard_updateFormServlet
+ * Servlet implementation class AdminDeleteMemberServlet
  */
-@WebServlet("/tgbBoardUpdateForm.do")
-public class tgbBoard_updateFormServlet extends HttpServlet {
+@WebServlet("/deleteMembers.do")
+public class MemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tgbBoard_updateFormServlet() {
+    public MemberDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,19 +30,21 @@ public class tgbBoard_updateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		String[] strUserNo = request.getParameterValues("memberChecked");
+
+		//String배열을 int 배열로 바로 변환
+		int[] userNo = Arrays.stream(strUserNo).mapToInt(Integer::parseInt).toArray();
 		
-		TgbBoard_dto b = new TgbBoard_service().selectUpdateTgbBoard(bno);
-		Attachment at = new TgbBoard_service().selectAttachment(bno);
+		int result = new MemberService().deleteMembers(userNo);
 		
-		if(b != null) {
-			request.setAttribute("b", b);
-			request.setAttribute("at", at);
-			request.getRequestDispatcher("views/tgbBoard/tgbBoardUpdateForm.jsp").forward(request, response);
+		if(result > 0) {
+			request.getSession().setAttribute("msg", "회원 탈퇴 성공");
+			response.sendRedirect("adminMember.do");
 		}else {
-			request.setAttribute("msg", "tgbBoard의 게시글을 불러오는데 실패하였습니다.");
+			request.setAttribute("msg", "회원 탈퇴 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**

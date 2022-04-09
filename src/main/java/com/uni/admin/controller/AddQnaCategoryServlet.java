@@ -1,7 +1,6 @@
-package com.uni.admin;
+package com.uni.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.member.model.dto.Member;
-import com.uni.member.model.service.MemberService;
+import com.uni.admin.dto.Category;
+import com.uni.admin.service.AdminService;
 
 /**
- * Servlet implementation class adminPageServlet
+ * Servlet implementation class AddQnaCategoryServlet
  */
-@WebServlet("/adminMember.do")
-public class MemberManagementServlet extends HttpServlet {
+@WebServlet("/addCategory.do")
+public class AddQnaCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberManagementServlet() {
+    public AddQnaCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,10 +30,21 @@ public class MemberManagementServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Member> list = new MemberService().selectAllMember();
-		System.out.println("list : " + list);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/admin/adminMember.jsp").forward(request, response);
+		int cno = Integer.parseInt(request.getParameter("cno"));
+		String cname = request.getParameter("cname");
+		
+		Category c = new Category(cno, cname);
+		
+		int result = new AdminService().insertQnaCategory(c);
+		
+		if(result > 0) {
+			request.setAttribute("msg", "카테고리 추가 완료");
+			request.setAttribute("sTag", "Y");
+			request.getRequestDispatcher("views/admin/close.jsp").forward(request, response);
+		}else {
+			request.setAttribute("msg", "카테고리 추가 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+	}
 	}
 
 	/**

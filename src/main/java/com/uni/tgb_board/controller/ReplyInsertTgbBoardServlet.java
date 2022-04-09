@@ -1,7 +1,7 @@
-package com.uni.admin;
+package com.uni.tgb_board.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.member.model.service.MemberService;
+import com.uni.tgb_board.model.dto.TgbBoardReply;
+import com.uni.tgb_board.model.service.TgbBoard_service;
 
 /**
- * Servlet implementation class AdminDeleteMemberServlet
+ * Servlet implementation class ReplyInsertTgbBoardServlet
  */
-@WebServlet("/deleteMembers.do")
-public class MemberDeleteServlet extends HttpServlet {
+@WebServlet("/rTgbBoardInsert.do")
+public class ReplyInsertTgbBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDeleteServlet() {
+    public ReplyInsertTgbBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,20 +31,29 @@ public class MemberDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] strUserNo = request.getParameterValues("memberChecked");
-
-		//String배열을 int 배열로 바로 변환
-		int[] userNo = Arrays.stream(strUserNo).mapToInt(Integer::parseInt).toArray();
+		String content = request.getParameter("content");
+		int bno = Integer.parseInt(request.getParameter("bno"));
+	
 		
-		int result = new MemberService().deleteMembers(userNo);
+		//임시 ★
+		int writer = 9;
+		System.out.println("test");
 		
-		if(result > 0) {
-			request.setAttribute("msg", "회원 탈퇴 성공");
-			response.sendRedirect("admin.do");
+		TgbBoardReply r = new TgbBoardReply();
+		r.setReplyContent(content);
+		r.setRefBoardId(bno);
+		r.setReplyWriter(String.valueOf(writer));
+		
+		int result = new TgbBoard_service().insertReply(r);
+		PrintWriter out = response.getWriter();
+		
+		if(result > 0 ) {
+			out.print("success");
 		}else {
-			request.setAttribute("msg", "회원 탈퇴 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			out.print("fail");
 		}
+		out.flush();
+		out.close();
 		
 	}
 

@@ -1,7 +1,7 @@
-package com.uni.qna.controller;
+package com.uni.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.uni.qna.model.dto.Qna;
-import com.uni.qna.model.service.QnaService;
+import com.uni.admin.service.AdminService;
+
 
 /**
- * Servlet implementation class QnaCategoryListServlet
+ * Servlet implementation class DeleteQnaCategory
  */
-@WebServlet("/qnaCategoryList.do")
-public class QnaCategoryListServlet extends HttpServlet {
+@WebServlet("/deleteCategory.do")
+public class DeleteQnaCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaCategoryListServlet() {
+    public DeleteQnaCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,14 +31,20 @@ public class QnaCategoryListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int category = Integer.parseInt(request.getParameter("category"));
+		String[] QCaNos = request.getParameterValues("categoryChecked");
 
-		ArrayList<Qna> data = new QnaService().categoryList(category);
-		System.out.println("category ===" + category);
-		System.out.println("data ==== " + data);
-		response.setContentType("application/json; charset=utf-8");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(data, response.getWriter());
+		//String배열을 int 배열로 바로 변환
+		int[] QCaNo = Arrays.stream(QCaNos).mapToInt(Integer::parseInt).toArray();
+		
+		int result = new AdminService().deleteQnaCategorys(QCaNo);
+		
+		if(result > 0) {
+			request.setAttribute("msg", "카테고리 삭제 성공");
+			response.sendRedirect("QnaCategoryList.do");
+		}else {
+			request.setAttribute("msg", "카테고리 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

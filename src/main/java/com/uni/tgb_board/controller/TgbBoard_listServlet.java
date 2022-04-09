@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.tgb.model.service.TgbService;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 import com.uni.tgb_board.model.dto.TgbBoard_pageInfo;
-import com.uni.tgb_board.model.service.TGBBoard_service;
+import com.uni.tgb_board.model.service.TgbBoard_service;
 
 
 /**
@@ -50,10 +49,10 @@ public class TgbBoard_listServlet extends HttpServlet {
 		}
 		
 		//총 글 수
-		listCount = new TGBBoard_service().getTgbBoard_listCount();
+		listCount = new TgbBoard_service().getTgbBoard_listCount();
 		
 		//게시글 목록
-		ArrayList<TgbBoard_dto> list = new TGBBoard_service().getBoardList(currentPage, listPageCount);
+		ArrayList<TgbBoard_dto> list = new TgbBoard_service().getBoardList(currentPage, listPageCount);
 		
 		//목록 마지막
 		// 총 124 한 페이지 10개 면 13개 바 개수

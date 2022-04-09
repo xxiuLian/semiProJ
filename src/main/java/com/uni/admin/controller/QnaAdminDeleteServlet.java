@@ -1,7 +1,7 @@
-package com.uni.admin;
+package com.uni.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Category;
 import com.uni.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class QnaCategoryListSetvlet
+ * Servlet implementation class QnaAdminDeleteServlet
  */
-@WebServlet("/manageQnaCategory.do")
-public class QnaCategoryListSetvlet extends HttpServlet {
+@WebServlet("/deleteQnas.do")
+public class QnaAdminDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaCategoryListSetvlet() {
+    public QnaAdminDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,10 +30,21 @@ public class QnaCategoryListSetvlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Category> category = new QnaService().selectCategory();
-		System.out.println("category 입니다: " + category);
-		request.setAttribute("category", category);
-		request.getRequestDispatcher("views/admin/adminCategory.jsp").forward(request, response);
+		String[] strQnaNo = request.getParameterValues("qnaChecked");
+
+		//String배열을 int 배열로 바로 변환
+		int[] qno = Arrays.stream(strQnaNo).mapToInt(Integer::parseInt).toArray();
+		
+		int result = new QnaService().deleteQnas(qno);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("msg", "문의게시글 삭제 성공");
+			response.sendRedirect("adminQnaList.do");
+		}else {
+			request.setAttribute("msg", "문의게시글 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**
