@@ -35,7 +35,7 @@ public class TgbDao {
 	
 	}
 
-	public ArrayList<Tgb> selectList(Connection conn, PageInfo pi) {
+	public ArrayList<Tgb> selectList(Connection conn, PageInfo pi) {//현재페이지/1페이지 공구 글 목록 조회해오는 메소드
 		ArrayList<Tgb> list = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -83,7 +83,7 @@ public class TgbDao {
 		return list;
 	}
 
-	public int insertTgb(Connection conn, Tgb t) {
+	public int insertTgb(Connection conn, Tgb t) {//공구 글 등록하는 메소드
 		
 		
 		int result = 0;
@@ -127,7 +127,7 @@ public class TgbDao {
 		return result;
 	}
 
-	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
+	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {//공구 글 등록할 때, 첨부파일 등록하는 메소드
 		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_TGB.CURRVAL, ?)
 		
 		int result = 0;
@@ -158,7 +158,7 @@ public class TgbDao {
 		return result;
 	}
 
-	public int getlistCount(Connection conn) {
+	public int getlistCount(Connection conn) {//전체 글 갯수
 		
 		//listCount=SELECT COUNT(*) FROM TGB WHERE STATUS='Y'
 		int result = 0;
@@ -188,7 +188,7 @@ public class TgbDao {
 		return result;
 	}
 
-	public Tgb selectTgb(Connection conn, int bno) {
+	public Tgb selectTgb(Connection conn, int bno) {// 해당 번호의 글을 불러오는 메소드
 		Tgb t = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -229,7 +229,7 @@ public class TgbDao {
 		return t;
 	}
 
-	public ArrayList<Attachment> selectAttachment(Connection conn, int bno) {
+	public ArrayList<Attachment> selectAttachment(Connection conn, int bno) {// 해당 번호의 글의 첨부파일을 불러오는 메소드
 		ArrayList<Attachment> list = new ArrayList<Attachment>();
 		
 		PreparedStatement pstmt = null;
@@ -269,7 +269,7 @@ public class TgbDao {
 		return list;
 	}
 
-	public int deleteTgb(Connection conn, int bno) {
+	public int deleteTgb(Connection conn, int bno) {//해당 번호 글을 삭제하는 메소드
 		//deleteTgb=UPDATE TGB SET STATUS='N'WHERE TGB_NO=?
 		
 		int result = 0;
@@ -290,8 +290,30 @@ public class TgbDao {
 		
 		return result;
 	}
+	public int deleteTgbAttachment(Connection conn, int bno) {//해당 번호 글의 첨부파일을 삭제하는 메소드
+		//deleteTgbAttachment=UPDATE ATTACHMENT SET STATUS='N'WHERE B_NO=? AND TYPE LIKE 'TGB'
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteTgbAttachment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
-	public int deleteAttachment(Connection conn, String[] fno) {
+
+	public int updateAttachment(Connection conn, String[] fno) {//글 수정할 때 선택된 첨부파일을 먼저 지우는 메소드 지울 파일번호를 배열로 받는다 
 		int result = 0;
 		PreparedStatement pstmt = null;
 		//deleteAttachment=UPDATE ATTACHMENT SET STATUS=N WHERE FILE_NO=?
@@ -319,7 +341,7 @@ public class TgbDao {
 		return result;
 	}
 
-	public ArrayList<Tgb> searchTgb(Connection conn, PageInfo pi, String keyword) {
+	public ArrayList<Tgb> searchTgb(Connection conn, PageInfo pi, String keyword) {//현재 페이지와 키워드를 가지고 검색하는 메소드<- 페이징 검사 안해봤음
 		ArrayList<Tgb> list = new ArrayList<>();
 		String k = "%"+keyword+"%";
 		PreparedStatement pstmt = null;
@@ -371,7 +393,7 @@ public class TgbDao {
 		return list;
 	}
 
-	public int deleteTgb(Connection conn, int[] bno) {
+	public int deleteTgb(Connection conn, int[] bno) {//권오선
 		//deleteTgb=UPDATE TGB SET STATUS='N'WHERE TGB_NO=?
 
 		int result = 0;
@@ -396,8 +418,8 @@ public class TgbDao {
 		
 		return result;
 	}
-
-	public int deleteTgbAttachment(Connection conn, int[] bno) {
+	
+	public int deleteTgbAttachment(Connection conn, int[] bno) {//권오선
 		//deleteTgbAttachment=UPDATE ATTACHMENT SET STATUS='N'WHERE B_NO=? AND TYPE LIKE 'TGB'
 		
 		int result = 0;
@@ -423,5 +445,81 @@ public class TgbDao {
 		
 		return result;
 	}
+
+	public int insertWishList(Connection conn, int userNo, int tgbNo) {//찜하기
+		//insertWishList=INSERT INTO WISHLIST VALUES(?, ?)
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertWishList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, tgbNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectWish(Connection conn, int userNo, int bno) {// 글 상세조회할때 찜한 내역 들고 오기
+		int result = 0;
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+//		/selectWish=SELECT COUNT(*) FROM WISHLIST WHERE USER_NO = ? AND TGB_NO = ?
+		String sql = prop.getProperty("selectWish");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int deleteWishList(Connection conn, int userNo, int tgbNo) {//찜한 내역 지우기
+		//deleteWishList=DELETE FROM WISHLIST WHERE USER_NO = ? AND TGB_NO = ?
+				int result = 0;
+				PreparedStatement pstmt = null;
+				String sql = prop.getProperty("deleteWishList");
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, userNo);
+					pstmt.setInt(2, tgbNo);
+					
+					result = pstmt.executeUpdate();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+				}
+				
+				return result;
+	}
+
+
 
 }

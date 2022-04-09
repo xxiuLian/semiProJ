@@ -1,23 +1,27 @@
 package com.uni.tgb.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.member.model.dto.Member;
+import com.uni.tgb.model.service.TgbService;
+
 /**
- * Servlet implementation class TgbEnrollFormServlet
+ * Servlet implementation class TgbWishServlet
  */
-@WebServlet("/tgbInsert.do")// 공구 글 동록 jsp로 이동하는 서블릿
-public class TgbInsertFormServlet extends HttpServlet {
+@WebServlet("/wish.do")
+public class InsertWishServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TgbInsertFormServlet() {
+    public InsertWishServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +31,24 @@ public class TgbInsertFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/tgb/tgbInsertForm.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		Member user = (Member)request.getSession().getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		int tgbNo = Integer.parseInt(request.getParameter("tgbNo"));
+		System.out.println("userNO : "+ userNo);
+		System.out.println("TGBNO : "+tgbNo);
+		
+		int result = new TgbService().insertWishList(userNo, tgbNo);
+		
+		
+		boolean tf = false;
+		
+		if(result > 0) {
+			tf = true;
+		}
+		
+		response.getWriter().print(tf);
 	}
 
 	/**

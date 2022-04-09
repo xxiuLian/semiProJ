@@ -22,7 +22,7 @@ import com.uni.tgb.model.service.TgbService;
 /**
  * Servlet implementation class Tgbinsert
  */
-@WebServlet("/tgbInsertServlet.do")
+@WebServlet("/tgbInsertServlet.do")//공구 글 등록하는 서블릿
 public class Tgbinsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -101,7 +101,7 @@ public class Tgbinsert extends HttpServlet {
 			
 			
 		
-		int result = new TgbService().insertTgb(t, fileList);
+		int result = new TgbService().insertTgb(t, fileList);//첨부파일과 공구 글을 등록하는 메소드
 		System.out.println("result : "+ result);
 		
 		if(result >0) {

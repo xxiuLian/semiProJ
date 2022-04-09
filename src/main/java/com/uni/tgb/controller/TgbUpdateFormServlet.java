@@ -16,7 +16,7 @@ import com.uni.tgb.model.service.TgbService;
 /**
  * Servlet implementation class TgbUpdateFormServlet
  */
-@WebServlet("/updateForm.do")
+@WebServlet("/updateForm.do")//공구 글 수정 jsp로 이동하는 서블릿
 public class TgbUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
