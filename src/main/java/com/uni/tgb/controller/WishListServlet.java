@@ -34,6 +34,10 @@ public class WishListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
+		
+		
+		
+		
 		int userNO = loginUser.getUserNo();
 		
 		ArrayList<Tgb> list = new TgbService().wishList(userNO);
