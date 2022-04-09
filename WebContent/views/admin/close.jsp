@@ -27,8 +27,7 @@ System.out.println("originCname = " + originCname);
 		}
 
 		if (sTag == "Y") {
-			console.log(opener.document.getElementById("test").value)
-			opener.document.getElementById("test").value = originCname;
+			window.opener.location.reload()
 			window.close() //창 닫기
 		}
 	})
