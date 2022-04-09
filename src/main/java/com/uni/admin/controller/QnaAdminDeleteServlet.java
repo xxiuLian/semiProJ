@@ -1,28 +1,27 @@
-package com.uni.admin;
+package com.uni.admin.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.member.model.dto.Member;
-import com.uni.member.model.service.MemberService;
+import com.uni.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class MemberInfoServlet
+ * Servlet implementation class QnaAdminDeleteServlet
  */
-@WebServlet("/memberView.do")
-public class MemberInfoServlet extends HttpServlet {
+@WebServlet("/deleteQnas.do")
+public class QnaAdminDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberInfoServlet() {
+    public QnaAdminDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +30,20 @@ public class MemberInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		String[] strQnaNo = request.getParameterValues("qnaChecked");
+
+		//String배열을 int 배열로 바로 변환
+		int[] qno = Arrays.stream(strQnaNo).mapToInt(Integer::parseInt).toArray();
 		
-		Member member = new MemberService().selectMember(userNo);
+		int result = new QnaService().deleteQnas(qno);
 		
-		RequestDispatcher view = null;
-		if(member != null) {
-			request.setAttribute("loginUser", member);
-			view = request.getRequestDispatcher("views/member/myInfo.jsp");
+		if(result > 0) {
+			request.setAttribute("msg", "문의게시글 삭제 성공");
+			response.sendRedirect("adminQnaList.do");
 		}else {
-			request.setAttribute("msg", "조회 실패하였습니다."); //조회 한 결과 해당 유저 정보가 없을때
-			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg", "문의게시글 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		view.forward(request, response);
-		
 		
 	}
 
