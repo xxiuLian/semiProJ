@@ -35,7 +35,7 @@ public class TgbSearchServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		System.out.println("검색 키워드 : "+keyword);
 		
-		//페이징처리
+				//페이징처리
 				int listCount; //총 게시글 수
 				int currentPage;// 현제 페이지
 				int startPage;// 시작 페이지 
@@ -45,8 +45,8 @@ public class TgbSearchServlet extends HttpServlet {
 				int pageLimit; // 한 페이지 하단에 보여질 페이지 최대 갯수
 				int boardLimit; // 한페이지에 보여질 게시글 최대 갯수
 
-				listCount = new TgbService().getlistCount();//전체 글 수 가져오는 메소드 -> 없어도 됨
-				System.out.println("tgb의 listCount : "+listCount);
+				listCount = new TgbService().getSearchinglistCount(keyword);//검색된 전체 글 수 가져오는 메소드 
+				System.out.println("searchingtgb의 listCount : "+listCount);
 				
 				currentPage = 1;
 				

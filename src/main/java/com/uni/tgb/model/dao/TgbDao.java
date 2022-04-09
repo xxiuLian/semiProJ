@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.tgb.model.dto.Tgb;
@@ -352,7 +353,7 @@ public class TgbDao {
 //		TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME FROM TGB JOIN MEMBER ON TGB_WRITER=USER_NO LEFT JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) \
 //		LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE TYPE LIKE 'TGB' \
 //		#AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO WHERE  TGB.STATUS = 'Y' AND TGB_TITLE LIKE ? OR TGB_CONTENT LIKE ? \
-//		OR TGB_GUIDE LIKE '?  ORDER BY TGB_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
+//		OR TGB_GUIDE LIKE ?  ORDER BY TGB_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
 		String sql = prop.getProperty("searchTgb");
 		
 		try {
@@ -520,26 +521,39 @@ public class TgbDao {
 				return result;
 	}
 
-	public ArrayList<Tgb> wishList(Connection conn, int userNO) {
-//		wishList=SELECT TGB_NO, TGB_TITLE, TGB_PRICE FROM TGB JOIN WISHLIST USING (TGB_NO) WHERE USER_NO = ?
+	public ArrayList<Tgb> wishList(Connection conn, PageInfo pi, int userNO) {//마이페이지 찜목록
+//		wishList=SELECT * FROM ( SELECT ROWNUM RNUM, A.* FROM(SELECT TGB_NO, TGB_CATEGORY_NO, \
+//		TGB_TITLE, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME FROM TGB LEFT JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) \
+//		JOIN WISHLIST USING(TGB_NO) LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT \
+//		WHERE TYPE LIKE 'TGB' AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO WHERE  TGB.STATUS = 'Y' AND WISHLIST.USER_NO=? \
+//		ORDER BY TGB_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
+		
 
 		ArrayList<Tgb> list = new ArrayList<Tgb>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
+		int startRow = (pi.getCurrentPage() -1)*pi.getBoardLimit()+1;
+		int endRow = startRow+pi.getBoardLimit() -1;
+		
 		String sql = prop.getProperty("wishList");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNO);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset=pstmt.executeQuery();
 			while(rset.next()) {
-				Tgb t = new Tgb();
-				t.setTgbNo(rset.getInt("TGB_NO"));
-				t.setTgbTitle(rset.getString("TGB_TITLE"));
-				t.setTgb_Price(rset.getInt("TGB_PRICE"));
-				
-				list.add(t);
+				list.add(new Tgb(rset.getInt("TGB_NO"),
+						rset.getString("TGB_CATEGORY_NO"),
+						rset.getString("TGB_TITLE"), 
+						rset.getInt("TGB_COUNT"), 
+						rset.getDate("TGB_TERM"), 
+						rset.getInt("TGB_PRICE"), 
+						rset.getDate("CREATE_DATE"),
+						rset.getString("CHANGE_NAME")));
+	
 				
 			}
 			
@@ -547,9 +561,104 @@ public class TgbDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			close(rset);
 			close(pstmt);
 		}
 		
+		
+		return list;
+	}
+
+	public int getSearchinglistCount(Connection conn, String keyword) {// 검색 페이징바할 때 전체 글 수 불러오는 메소드
+			//getSearchinglistCount=SELECT COUNT(*) FROM TGB WHERE STATUS='Y' AND (TGB_TITLE LIKE ? OR TGB_CONTENT LIKE ? OR TGB_GUIDE LIKE ?)
+				int result = 0;
+				String k = "%"+keyword+"%";
+				PreparedStatement pstmt = null;
+				ResultSet rset = null;
+				
+				String sql = prop.getProperty("getSearchinglistCount");
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, k);
+					pstmt.setString(2, k);
+					pstmt.setString(3, k);
+					
+					rset = pstmt.executeQuery();
+					
+					if(rset.next()) {
+						result = rset.getInt(1);
+					}
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(rset);
+					close(pstmt);
+				}
+				
+				
+				return result;
+	}
+
+	public int getWishListlistCount(Connection conn, int userNo) {//찜목록 페이징바 전체 글수
+//		getWishListlistCount=SELECT COUNT(*) FROM WISHLIST WHERE USER_NO=?
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getWishListlistCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo );
+		
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<Category> getCategory(Connection conn) {//마이페이지 찜목록 내역에 카테고리 가져오기
+		ArrayList<Category> list = new ArrayList<Category>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getCategory");
+		//getCategory=SELECT * FROM TGB_CATEGORY
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+//			TGB_CATEGORY_NO	NUMBER
+//			TGB_CATEGORY_NAME	VARCHAR2(30 BYTE)
+			
+			while(rset.next()) {
+				list.add(new Category(rset.getInt("TGB_CATEGORY_NO"), rset.getString("TGB_CATEGORY_NAME")));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		
 		return list;
 	}

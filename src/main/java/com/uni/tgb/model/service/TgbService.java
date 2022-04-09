@@ -5,6 +5,7 @@ import static com.uni.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.tgb.model.dao.TgbDao;
@@ -220,10 +221,40 @@ public class TgbService {
 		return result;
 	}
 
-	public ArrayList<Tgb> wishList(int userNO) {// 마이페이지에서 찜내역 불러오기
+	public ArrayList<Tgb> wishList(PageInfo pi, int userNO) {// 마이페이지에서 찜내역 불러오기
 		Connection conn = getConnection();
 		
-		ArrayList<Tgb> list = new TgbDao().wishList(conn,userNO);
+		ArrayList<Tgb> list = new TgbDao().wishList(conn,pi, userNO);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int getSearchinglistCount(String keyword) {// 검색된 전체 글 수 가져옴
+		Connection conn = getConnection();
+		int result = new TgbDao().getSearchinglistCount(conn, keyword);
+		
+		close(conn);
+		
+		
+		return result;
+	}
+
+	public int getWishListlistCount(int userNo) {//찜목록 내역 페이징바 전체글수
+		Connection conn = getConnection();
+		int result = new TgbDao().getWishListlistCount(conn, userNo);
+		
+		close(conn);
+		
+		
+		return result;
+	}
+
+	public ArrayList<Category> getCategory() {//마이페이지 찜목록 내역에 카테고리 가져오기
+		Connection conn = getConnection();
+		
+		ArrayList<Category> list = new TgbDao().getCategory(conn);
 		
 		close(conn);
 		
