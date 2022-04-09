@@ -213,7 +213,7 @@ $(function(){
 <script>
 	if(!${empty list}){
 		$(function(){
-			$(".listArea>tbody>tr").click(function(){
+			$("#tbody>tr").click(function(){
 				var qno = $(this).children().eq(0).text();
 				location.href = "${contextPath}/detailQna.do?qno="+qno;
 			})

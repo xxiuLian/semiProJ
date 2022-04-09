@@ -29,7 +29,6 @@ System.out.println("originCname = " + originCname);
 		if (sTag == "Y") {
 			console.log(opener.document.getElementById("test").value)
 			opener.document.getElementById("test").value = originCname;
-			//이 페이지를 연 부모창의 originPwd값을 찾아 바꿔주고
 			window.close() //창 닫기
 		}
 	})
