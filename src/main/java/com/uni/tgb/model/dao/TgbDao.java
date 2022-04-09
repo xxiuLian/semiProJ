@@ -520,6 +520,40 @@ public class TgbDao {
 				return result;
 	}
 
+	public ArrayList<Tgb> wishList(Connection conn, int userNO) {
+//		wishList=SELECT TGB_NO, TGB_TITLE, TGB_PRICE FROM TGB JOIN WISHLIST USING (TGB_NO) WHERE USER_NO = ?
+
+		ArrayList<Tgb> list = new ArrayList<Tgb>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("wishList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNO);
+			
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				Tgb t = new Tgb();
+				t.setTgbNo(rset.getInt("TGB_NO"));
+				t.setTgbTitle(rset.getString("TGB_TITLE"));
+				t.setTgb_Price(rset.getInt("TGB_PRICE"));
+				
+				list.add(t);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
 
 
 }

@@ -109,6 +109,7 @@ public class TgbService {
 			rollback(conn);
 		}
 		
+		close(conn);
 		return result;
 	}
 	public int deleteTgbAttachment(int bno) {// 해당번호 글의 첨부파일을 삭제하는 메소드
@@ -122,6 +123,7 @@ public class TgbService {
 			rollback(conn);
 		}
 		
+		close(conn);
 		
 		return result;
 	}
@@ -138,6 +140,7 @@ public class TgbService {
 			rollback(conn);
 		}
 		
+		close(conn);
 		
 		return result;
 	}
@@ -163,6 +166,7 @@ public class TgbService {
 			rollback(conn);
 		}
 		
+		close(conn);
 		return result;
 	}
 
@@ -176,6 +180,7 @@ public class TgbService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		
 		return result;
 	}
@@ -192,6 +197,7 @@ public class TgbService {
 			rollback(conn);
 		}
 		
+		close(conn);
 		
 		return result;
 	}
@@ -201,6 +207,7 @@ public class TgbService {
 		
 		int result = new TgbDao().selectWish(conn, userNo, bno);
 		
+		close(conn);
 		
 		return result;
 	}
@@ -216,8 +223,19 @@ public class TgbService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
 		
 		return result;
+	}
+
+	public ArrayList<Tgb> wishList(int userNO) {// 마이페이지에서 찜내역 불러오기
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> list = new TgbDao().wishList(conn,userNO);
+		
+		close(conn);
+		
+		return list;
 	}
 
 
