@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.tgb_board.model.service.TGBBoard_service;
+import com.uni.tgb_board.model.service.TgbBoard_service;
+
 
 /**
  * Servlet implementation class tgbBoard_deleteServlet
@@ -30,11 +31,11 @@ public class tgbBoard_deleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		int result = new TGBBoard_service().deletetgbBoard(bno);
+		int result = new TgbBoard_service().deletetgbBoard(bno);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "문의글 삭제 완료");
-			response.sendRedirect("qnaList.do");
+			response.sendRedirect("tgbBoardSelect.do");
 		}else {
 			request.setAttribute("msg", "문의글 삭제 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

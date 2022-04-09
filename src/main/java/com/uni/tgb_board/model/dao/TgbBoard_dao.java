@@ -14,6 +14,7 @@ import java.util.Properties;
 import static com.uni.common.JDBCTemplate.*;
 
 import com.uni.common.Attachment;
+import com.uni.tgb_board.model.dto.TgbBoardReply;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 
 
@@ -99,15 +100,15 @@ public class TgbBoard_dao {
 			
 			while(rset.next()) {
 				list.add(new TgbBoard_dto(
-						rset.getInt("BOARD_NO"),
-						rset.getString("BOARD_CATEGORY_NAME"),
-						rset.getString("USER_ID"),
-						rset.getString("BOARD_TITLE"),
-						rset.getString("BOARD_CONTENT"),
-						rset.getInt("COUNT"),
-						rset.getDate("CREATE_DATE"),
-						rset.getString("STATUS")
-						));
+					rset.getInt("BOARD_NO"),
+					rset.getString("BOARD_CATEGORY_NAME"),
+					rset.getString("USER_ID"),
+					rset.getString("BOARD_TITLE"),
+					rset.getString("BOARD_CONTENT"),
+					rset.getInt("COUNT"),
+					rset.getDate("CREATE_DATE"),
+					rset.getString("STATUS")
+					));
 			}
 			
 		} catch (SQLException e) {
@@ -143,18 +144,18 @@ public class TgbBoard_dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
-			close(stmt);
 			close(rset);
+			close(stmt);
 		}
 		
 		return listCount;
 	}
 
-	public TgbBoard_dto selectBoard(Connection conn, int bno) {
+	public TgbBoard_dto selectDetailTgbBoard(Connection conn, int bno) {
 		TgbBoard_dto b = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("detailTgbBoard");
+		String sql = prop.getProperty("selectDetailTgbBoard");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bno);
@@ -164,8 +165,8 @@ public class TgbBoard_dao {
 			if(rset.next()) {
 				b = new TgbBoard_dto(
 						rset.getInt("BOARD_NO"),
-						rset.getString("BOARD_CATEGORY_NAME"),
-						rset.getString("USER_ID"),
+						rset.getString("BOARD_CATEGORY_NO"),
+						rset.getString("BOARD_WRITER"),
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getInt("COUNT"),
@@ -178,8 +179,8 @@ public class TgbBoard_dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		
 		return b;
@@ -225,31 +226,32 @@ public class TgbBoard_dao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertTgbBoardAttachment");
 	
-			try {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setString(1, at.getOriginName());
-				pstmt.setString(2, at.getChangeName());
-				pstmt.setString(3, at.getFilePath());
-				
-				result = pstmt.executeUpdate();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(pstmt);
-			}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 
 		return result;
 	}
 	
 	
 	public Attachment selectTgbAttachment(Connection conn, int bno) {
-		//selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT WHERE REF_BNO=? AND STATUS='Y'
+		System.out.println("test============================= ");
+		
 		Attachment at = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+		System.out.println("selectUpdate_bno : " + bno );
 		String sql = prop.getProperty("selectTgbAttachment");
 
 		try {
@@ -394,7 +396,6 @@ public class TgbBoard_dao {
 
 	public Attachment selectAttachment(Connection conn, int bno) {
 		
-		System.out.println("===========test====================================");
 		Attachment at = null;
 
 		PreparedStatement pstmt = null;
@@ -413,9 +414,6 @@ public class TgbBoard_dao {
 
 			rset = pstmt.executeQuery();
       
-
-      
-
 			if (rset.next()) {
 				at = new Attachment();
 				at.setFileNo(rset.getInt("FILE_NO"));
@@ -432,6 +430,122 @@ public class TgbBoard_dao {
 		System.out.println("첨부파일 조회2 : " + at);
 
 		return at;
+	}
+
+
+	public TgbBoard_dto selectUpdateTgbBoard(Connection conn, int bno) {
+		TgbBoard_dto b = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDetailTgbBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b = new TgbBoard_dto(
+						rset.getInt("BOARD_NO"),
+						rset.getString("BOARD_CATEGORY_NO"),
+						rset.getString("BOARD_WRITER"),
+						rset.getString("BOARD_TITLE"),
+						rset.getString("BOARD_CONTENT"),
+						rset.getInt("COUNT"),
+						rset.getDate("CREATE_DATE"),
+						rset.getString("STATUS")
+						);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return b;
+	}
+
+
+	public ArrayList<TgbBoardReply> selectRList(Connection conn, int bno) {
+		
+
+		System.out.println("확인확인확인 : " + bno);
+		ArrayList<TgbBoardReply> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("tgbBoardSelectRlist");
+
+		//tgbBoardSelectRlist=selectRlist=SELECT REPLY_NO, REPLY_CONTENT, REPLY_WRITER, CREATE_DATE FROM REPLY R JOIN MEMBER ON(REPLY_WRITER = USER_NO) WHERE REF_BNO=? AND R.STATUS='Y' ORDER BY REPLY_NO DESC
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<TgbBoardReply>();
+			
+			while(rset.next()) {
+				TgbBoardReply r = new TgbBoardReply(
+									rset.getInt("REPLY_NO"),
+									rset.getString("REPLY_CONTENT"),
+									rset.getString("REPLY_WRITER"),
+									rset.getDate("CREATE_DATE"));
+						
+					list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		System.out.println("확인확인확인2 : " + bno);
+		return list;
+	}
+
+
+	public int insertReply(Connection conn, TgbBoardReply r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		System.out.println(r.getReplyContent()); //String
+		System.out.println(r.getRefBoardId()); //int
+		System.out.println(Integer.parseInt(r.getReplyWriter())); //String
+		
+//		REPLY_NO	NUMBER
+		
+//		BOARD_NO	NUMBER
+//		REPLY_WRITER	NUMBER
+//		REPLY_CONTENT	VARCHAR2(400 BYTE)
+		
+//		CREATE_DATE	DATE
+//		STATUS	VARCHAR2(1 BYTE)
+		
+		String sql = prop.getProperty("tgbBoardinsertReply");
+		//INSERT INTO BOARD_REPLY VALUES
+		//	(SEQ_RNO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT)
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, r.getRefBoardId());
+			pstmt.setInt(2, Integer.parseInt(r.getReplyWriter()));
+			pstmt.setString(3, r.getReplyContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+			
+			
+		return result;
 	}
 
 
