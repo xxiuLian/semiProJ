@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.uni.common.Attachment;
+import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 
@@ -38,9 +39,21 @@ public class TgbDetailServlet extends HttpServlet {
 		Tgb t = new TgbService().selectTgb(bno);// 해당 번호의 글을 불러오는 메소드
 		ArrayList<Attachment> aList = new TgbService().selectAttachment(bno); // 해당 번호의 글의 첨부파일을 불러오는 메소드
 		System.out.println("t : "+ t);
+		boolean wish = false;
 		
-		t.setTgbContent(t.getTgbContent().replaceAll("\n", "<br>"));
-		t.setTgbGuide(t.getTgbGuide().replaceAll("\n", "<br>"));
+		if(request.getSession().getAttribute("loginUser") != null) {//로그인 되 있으면 찜한 내역 불러오기
+			
+			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+			
+			int result = new TgbService().selectWish(userNo, bno);//찜한 내역 1 아니면 0 
+			System.out.println(result);
+			if(result == 1) {
+				wish = true;
+			}
+			
+		}
+		
+		
 		
 		
 		
@@ -48,6 +61,7 @@ public class TgbDetailServlet extends HttpServlet {
 		if(t != null && aList != null) {
 			request.setAttribute("t", t);
 			request.setAttribute("aList", aList);
+			request.setAttribute("wish", wish);
 			
 			request.getRequestDispatcher("views/tgb/tgbDetailView.jsp").forward(request, response);
 			
