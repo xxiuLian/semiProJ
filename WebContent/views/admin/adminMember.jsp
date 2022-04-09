@@ -46,7 +46,7 @@
 							</div> 상품
 						</a>
 						<div class="sb-sidenav-menu-heading">게시판</div>
-						<a class="nav-link" href="adminQnaList.do">
+						<a class="nav-link" href="adminQna.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 문의
@@ -69,9 +69,9 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="layout-static.html">상품</a> <a
-									class="nav-link" href="layout-sidenav-light.html">커뮤니티</a> <a
-									class="nav-link" href="manageQnaCategory.do">문의</a>
+								<a class="nav-link" href="TGBCategoryList.do">상품</a> <a
+									class="nav-link" href="BoardCategoryList.do">커뮤니티</a> <a
+									class="nav-link" href="QnaCategoryList.do">문의</a>
 							</nav>
 						</div>
 					</div>
@@ -151,7 +151,7 @@
 						<br>
 						<div class="btns" align="center">
 							<c:if test="${!empty list}">
-								<button type="submit">해당 회원탈퇴</button>
+								<button type="button" onclick="deleteMembers()">해당 회원탈퇴</button>
 							</c:if>
 						</div>
 					</form>
@@ -172,6 +172,11 @@
 		</div>
 	</div>
 	<script>
+	function deleteMembers(){
+		if(confirm("탈퇴 시키겠습니까?")){
+			$("#deleteMember").submit();
+		}
+	}
 	if(!${empty list}){
 		$(function(){
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){

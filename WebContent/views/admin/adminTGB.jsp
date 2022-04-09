@@ -77,9 +77,9 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="layout-static.html">상품</a> <a
-									class="nav-link" href="layout-sidenav-light.html">커뮤니티</a> <a
-									class="nav-link" href="layout-sidenav-light.html">문의</a>
+								<a class="nav-link" href="TGBCategoryList.do">상품</a> <a
+									class="nav-link" href="BoardCategoryList.do">커뮤니티</a> <a
+									class="nav-link" href="QnaCategoryList.do">문의</a>
 							</nav>
 						</div>
 					</div>
@@ -143,7 +143,7 @@
 						<br>
 						<div class="btns" align="center">
 							<c:if test="${!empty list}">
-								<button type="submit">선택 상품 삭제</button>
+								<button type="button" onclick="deleteTGBs()">선택 상품 삭제</button>
 							</c:if>
 						</div>
 						</form>
@@ -217,6 +217,11 @@
 	</div>
 </body>
 <script>
+	function deleteTGBs(){
+		if(confirm("삭제 하시겠습니까?")){
+			$("#deleteTGB").submit();
+		}
+	}
 	if(!${empty list}){
 		$(function(){
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){

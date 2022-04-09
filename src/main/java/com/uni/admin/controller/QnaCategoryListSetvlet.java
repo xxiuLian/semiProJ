@@ -15,7 +15,7 @@ import com.uni.admin.service.AdminService;
 /**
  * Servlet implementation class QnaCategoryListSetvlet
  */
-@WebServlet("/manageQnaCategory.do")
+@WebServlet("/QnaCategoryList.do")
 public class QnaCategoryListSetvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
