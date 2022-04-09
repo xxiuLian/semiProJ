@@ -37,6 +37,7 @@ public class TgbDetailServlet extends HttpServlet {
 		
 		Tgb t = new TgbService().selectTgb(bno);// 해당 번호의 글을 불러오는 메소드
 		ArrayList<Attachment> aList = new TgbService().selectAttachment(bno); // 해당 번호의 글의 첨부파일을 불러오는 메소드
+		System.out.println("t : "+ t);
 		
 		t.setTgbContent(t.getTgbContent().replaceAll("\n", "<br>"));
 		t.setTgbGuide(t.getTgbGuide().replaceAll("\n", "<br>"));
