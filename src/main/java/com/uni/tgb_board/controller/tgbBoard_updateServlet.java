@@ -14,7 +14,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.uni.common.Attachment;
 import com.uni.common.MyFileRenamePolicy;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
-import com.uni.tgb_board.model.service.TGBBoard_service;
+import com.uni.tgb_board.model.service.TgbBoard_service;
 
 /**
  * Servlet implementation class tgbBoard_updateServlet
@@ -80,11 +80,11 @@ public class tgbBoard_updateServlet extends HttpServlet {
 				}
 			}
 			
-			int result = new TGBBoard_service().updateTgbBoard(b, at);
+			int result = new TgbBoard_service().updateTgbBoard(b, at);
 			
 			if(result > 0) {
 				request.getSession().setAttribute("msg", "게시글 수정 완료");
-				response.sendRedirect("detailQna.do?qno=" + bno);
+				response.sendRedirect("tgbBoardDetail.do?bno=" + bno);
 			}else {
 				request.setAttribute("msg", "게시글 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
