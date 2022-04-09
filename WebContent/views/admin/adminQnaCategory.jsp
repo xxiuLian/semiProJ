@@ -117,7 +117,7 @@
 											<tr>
 												<td><input type="checkbox" id="categoryChecked" name="categoryChecked" value="${c.categoryNo}"></td>
 												<td>${c.categoryNo}</td>
-												<td>${c.categoryName}</td>
+												<td id="test">${c.categoryName}</td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>
@@ -156,7 +156,7 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var cno = $(this).parent().children().eq(1).text();
 				console.log(cno)
-				window.open("${contextPath}/updateCategory.do?cno="+cno, "문의글조회", "width=1000, height=600")
+				window.open("${contextPath}/selectCategory.do?cno="+cno, "카테고리 수정", "width=300, height=170 left=800, top=200" )
 			})
 		})
 	}
