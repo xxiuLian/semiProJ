@@ -151,5 +151,29 @@ public class AdminDao {
 		return result;
 	}
 
+	public ArrayList<Category> selectTGBCategoryList(Connection conn) {
+		ArrayList<Category> category = new ArrayList<Category>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//selectTGBCategoryList=SELECT * FROM TGB_CATEGORY
+		String sql = prop.getProperty("selectTGBCategoryList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Category c = new Category(rset.getInt("QNA_CATEGORY_NO"), rset.getString("QNA_CATEGORY_NAME"));
+				
+				category.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return category;
+	}
+
 
 }
