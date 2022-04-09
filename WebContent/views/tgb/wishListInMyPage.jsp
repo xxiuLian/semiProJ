@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
+<%
+	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,43 +47,21 @@
 
 	<div class="outer">
 		<br>
-		<h2 align="center">공지사항</h2>
+		<h2 align="center">찜목록 내역</h2>
 		<br>
 
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
-					<th>글번호</th>
-					<th width="300">글제목</th>
+					<th></th><!-- 체크 -->
+					<th width="300"></th>
 					<th width="100">작성자</th>
 					<th>조회수</th>
 					<th width="100">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
-				<!-- 
-				<tr>
-					<td>3</td>
-					<td>마지막 공지사항제목</td>
-					<td>admin</td>
-					<td>10</td>
-					<td>2020-02-10</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>두번째 공지사항제목</td>
-					<td>admin</td>
-					<td>100</td>
-					<td>2020-02-01</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>첫번째 공지사항 제목</td>
-					<td>admin</td>
-					<td>45</td>
-					<td>2019-12-25</td>
-				</tr>
-				 -->
+				
 				<% if(list.isEmpty()){ %>
 				<tr>
 					<td colspan="5">존재하는 공지사항이 없습니다.</td>
@@ -127,6 +115,21 @@
 	<%}%>
 	
 	</script>
+	<!-- 페이징바 -->
+		<div class="paging" align="center">
+		
+		
+		<!-- 페이지 목록 -->
+		<%for(int i = startPage; i<=endPage; i++){ %>
+			<%if(i ==currentPage){ %>
+			<button disabled><%= i %></button>
+			<%}else{ %>
+				<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage='<%=i%>"><%=i %></button>
+			<%} %>
+		<%} %>
+		
+		
+		</div>
 	
 
 
