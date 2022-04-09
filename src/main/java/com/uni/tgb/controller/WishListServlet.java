@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TgbWishServlet
+ * Servlet implementation class WishListServlet
  */
-@WebServlet("/wish.do")
-public class TgbWishServlet extends HttpServlet {
+@WebServlet("/wishList.do")
+public class WishListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TgbWishServlet() {
+    public WishListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,21 +26,8 @@ public class TgbWishServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("UTF-8");
-		System.out.println("userNO : "+ request.getParameter("userNo"));
-		System.out.println("TGBNO : "+request.getParameter("tgbNO"));
-		
-		String userNo = request.getParameter("userNo");
-		String tgbNo = request.getParameter("tgbNo");
-		
-		boolean tf = false;
-		
-		if(userNo != null && tgbNo != null) {
-			tf = true;
-		}
-		
-		response.getWriter().print(tf);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
