@@ -3,6 +3,7 @@
  <%
  	Tgb t = (Tgb)request.getAttribute("t");
  	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("aList");
+ 	boolean wish = (boolean)request.getAttribute("wish");
  
  %>
 <!DOCTYPE html>
@@ -134,7 +135,7 @@ td{
 			
 		</table>
 		
-		<button type="button" id='wish'><img src="<%=contextPath%>/assets/TgbAssets/undib.png"></button>
+		<button type="button" id='wish' value=""><img src="<%=contextPath%>/assets/TgbAssets/undib.png"></button>
 		<button type="button" id="ptici">참여하기</button>
 		
 	</div>
@@ -156,15 +157,22 @@ td{
 	
 		$(document).ready(function(){
 			
-			console.log('되냐');
+			//console.log('되냐');
 			
 			var num= 0;
 			
-			<%for(int i = 1; i < alist.size() ;i++){%>
+			<%for(int i = 1; i < alist.size() ;i++){%>//content 본문에 이미지 추가
 				
 				$('#contentArea').children('img').eq(num).attr("src","<%=request.getContextPath()%>/assets/img_upfile/<%=alist.get(i).getChangeName()%>");
 			num++;
 			<%};%>
+			
+			<%if(wish){%>
+			$('#wish').children('img').attr("src", "<%=contextPath%>/assets/TgbAssets/dib.png");
+			$('#wish').val('true');// 찜한 내역이면 TRUE
+			<%}else{%>
+			$('#wish').val('false');
+			<%}%>
 			
 	
 		});
@@ -174,23 +182,61 @@ td{
 		
 		$('#wish').click(function(){
 			var loginUser = "<%=loginUser%>";
-			alert("loginUser :"+loginUser);<%--null이라고 찍힘--%>
-			if(loginUser != null){
-			var tgbNo = "<%=t.getTgbNo()%>";
+			<%--
+			console.log(typeof(loginUser));//String
+			console.log(loginUser);//null, 객체 toString
+			console.log(loginUser !== null);//t//t
+			console.log(!loginUser);//f//f
+			console.log(loginUser != null);//t//t
+			console.log(loginUser === "");//f//f
+			console.log(loginUser.lenght === 0);//f/f
+			--%>
+			
+			//스트릿태그에서 선언한 자바변수를 자바스트립트 if문에서 비교할 수 없는 건가? 
+			
+		<%	if(loginUser != null){%>	
+		var tgbNo = "<%=t.getTgbNo()%>";
 			
 				console.log("tgbNO :"+tgbNo);
 
+			
+			if($('#wish').val() === 'false'){//안찜한 거였으면
+				
 				$.ajax({
-						url:"wish.do",
+					url:"wish.do",
+					data : {
+						
+						tgbNo : tgbNo
+					},
+					type : "post",
+					success : function(result){
+						console.log("찜 결과 :"+result)
+						if(result){
+						$('#wish').children('img').attr("src", "<%=contextPath%>/assets/TgbAssets/dib.png");
+						$('#wish').val('true');
+							alert("찜한 내역에 저장되었습니다.");
+						}else{
+							alert("실패");
+						}
+					},
+					error : function(){
+						
+					}
+				});
+				}else if($('#wish').val() === 'true'){//찜한거였으면
+					$.ajax({
+						url:"deleteWish.do",
 						data : {
 							
 							tgbNo : tgbNo
 						},
 						type : "post",
 						success : function(result){
-							console.log("찜 결과 :"+result)
+							console.log("찜 결과 :"+result);
 							if(result){
-							$('#wish').children('img').attr("src", "<%=contextPath%>/assets/TgbAssets/dib.png");
+							$('#wish').children('img').attr("src", "<%=contextPath%>/assets/TgbAssets/undib.png");
+							$('#wish').val('false');
+								alert("찜한 내역에서 삭제되었습니다.");
 							}else{
 								alert("실패");
 							}
@@ -199,9 +245,10 @@ td{
 							
 						}
 					});
+		
+				}
 				
-				
-			}else{
+		<%	}else{%>
 				var a = confirm("로그인을 해야 합니다. 로그인창으로 이동하시겠습니까?");
 				
 				if(a){
@@ -209,7 +256,7 @@ td{
 				}
 				
 				
-			}
+			<%}%>
 		
 		});
 		

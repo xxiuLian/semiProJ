@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.member.model.dto.Member;
+import com.uni.tgb.model.service.TgbService;
+
 /**
- * Servlet implementation class TgbWishServlet
+ * Servlet implementation class DeleteWishServlet
  */
-@WebServlet("/wish.do")
-public class TgbWishServlet extends HttpServlet {
+@WebServlet("/deleteWish.do")
+public class DeleteWishServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TgbWishServlet() {
+    public DeleteWishServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,17 +29,20 @@ public class TgbWishServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("userNO : "+ request.getParameter("userNo"));
-		System.out.println("TGBNO : "+request.getParameter("tgbNO"));
 		
-		String userNo = request.getParameter("userNo");
-		String tgbNo = request.getParameter("tgbNo");
+		Member user = (Member)request.getSession().getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		int tgbNo = Integer.parseInt(request.getParameter("tgbNo"));
+		System.out.println("userNO : "+ userNo);
+		System.out.println("TGBNO : "+tgbNo);
+		
+		int result = new TgbService().deleteWishList(userNo, tgbNo);
+		
 		
 		boolean tf = false;
 		
-		if(userNo != null && tgbNo != null) {
+		if(result > 0) {
 			tf = true;
 		}
 		

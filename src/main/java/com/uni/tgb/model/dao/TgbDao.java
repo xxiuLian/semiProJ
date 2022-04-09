@@ -446,6 +446,80 @@ public class TgbDao {
 		return result;
 	}
 
+	public int insertWishList(Connection conn, int userNo, int tgbNo) {//찜하기
+		//insertWishList=INSERT INTO WISHLIST VALUES(?, ?)
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertWishList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, tgbNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectWish(Connection conn, int userNo, int bno) {// 글 상세조회할때 찜한 내역 들고 오기
+		int result = 0;
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+//		/selectWish=SELECT COUNT(*) FROM WISHLIST WHERE USER_NO = ? AND TGB_NO = ?
+		String sql = prop.getProperty("selectWish");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int deleteWishList(Connection conn, int userNo, int tgbNo) {//찜한 내역 지우기
+		//deleteWishList=DELETE FROM WISHLIST WHERE USER_NO = ? AND TGB_NO = ?
+				int result = 0;
+				PreparedStatement pstmt = null;
+				String sql = prop.getProperty("deleteWishList");
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, userNo);
+					pstmt.setInt(2, tgbNo);
+					
+					result = pstmt.executeUpdate();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+				}
+				
+				return result;
+	}
+
 
 
 }

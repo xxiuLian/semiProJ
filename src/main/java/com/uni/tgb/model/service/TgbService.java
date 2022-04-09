@@ -180,5 +180,45 @@ public class TgbService {
 		return result;
 	}
 
+	public int insertWishList(int userNo, int tgbNo) {//찜하기 
+		Connection conn = getConnection();
+		
+		int result = new TgbDao().insertWishList(conn, userNo, tgbNo);
+		
+		if(result >0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		
+		return result;
+	}
+
+	public int selectWish(int userNo, int bno) {// 글 상세조회할때 찜한 내역 들고 오기
+		Connection conn = getConnection();
+		
+		int result = new TgbDao().selectWish(conn, userNo, bno);
+		
+		
+		return result;
+	}
+
+	public int deleteWishList(int userNo, int tgbNo) {//공구 글 상세 뷰에서 찜내역 삭제
+		Connection conn = getConnection();
+		
+		int result = new TgbDao().deleteWishList(conn, userNo, tgbNo);
+		
+		if(result >0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 
 }
