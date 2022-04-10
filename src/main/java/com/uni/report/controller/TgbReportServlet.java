@@ -31,14 +31,13 @@ public class TgbReportServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int reportUser = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		System.out.println("신고서블릿 bno : " + request.getParameter("bno"));
 		
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		String content = request.getParameter("content");
 		
-		Report r = new Report(reportUser, content, bno);
+		Report r = new Report(content, bno);
 		
-		int result = new ReportService().insertReport(r);
+		int result = new ReportService().insertReport(r, reportUser);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "신고 완료");

@@ -12,9 +12,9 @@ import com.uni.report.model.dto.Report;
 
 public class ReportService {
 
-	public int insertReport(Report r) {
+	public int insertReport(Report r, int reportUser) {
 		Connection conn = getConnection();
-		int result = new ReportDao().insertReport(conn, r);
+		int result = new ReportDao().insertReport(conn, r, reportUser);
 		
 		
 		if(result > 0) {

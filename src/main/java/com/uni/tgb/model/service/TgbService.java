@@ -8,11 +8,8 @@ import java.util.ArrayList;
 import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
-import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
-import com.uni.tgb_board.model.dao.TgbBoard_dao;
-import com.uni.tgb_board.model.dto.TgbBoard_dto;
 
 public class TgbService {
 
@@ -270,6 +267,16 @@ public class TgbService {
 		
 		
 		return result;
+	}
+
+	public String selectThumbnail(int tgbNo) {
+		Connection conn = getConnection();
+		
+		String thumbnail = new TgbDao().selectThumbnail(conn, tgbNo);
+		
+		close(conn);
+		
+		return thumbnail;
 	}
 
 

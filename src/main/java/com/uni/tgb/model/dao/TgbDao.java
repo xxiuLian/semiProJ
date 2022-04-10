@@ -13,7 +13,6 @@ import java.util.Properties;
 import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
-import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dto.Tgb;
 import static com.uni.common.JDBCTemplate.*;
 
@@ -692,6 +691,39 @@ public class TgbDao {
 		
 	
 		return result;
+	}
+
+	public String selectThumbnail(Connection conn, int tgbNo) {
+		String thumbnail = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+//		selectThumbnail=SELECT TGB_NO, CHANGE_NAME
+//		FROM TGB JOIN MEMBER ON TGB_WRITER=USER_NO JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) JOIN (SELECT * FROM ATTACHMENT 
+//		WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE TYPE LIKE 'TGB' GROUP BY B_NO)) ON TGB_NO = B_NO 
+//		WHERE STATUS = 'Y' AND TGB_NO=?
+		String sql = prop.getProperty("selectThumbnail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tgbNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				thumbnail = rset.getString("CHANGE_NAME");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		
+		return thumbnail;
 	}
 
 

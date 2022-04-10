@@ -32,14 +32,14 @@ public class ReportDao {
 			e.printStackTrace();
 		}
 	}
-	public int insertReport(Connection conn, Report r) {
+	public int insertReport(Connection conn, Report r, int reportUser) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		//insertReport=INSERT INTO REPORT VALUES(SEQ_RNO.NEXTVAL, ?, ?, ?,SYSDATE)
 		String sql = prop.getProperty("insertReport");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, r.getReportUserNo());
+			pstmt.setInt(1, reportUser);
 			pstmt.setString(2, r.getReportContent());
 			pstmt.setInt(3, r.getTgbNo());
 			result = pstmt.executeUpdate();
@@ -57,17 +57,7 @@ public class ReportDao {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-//		SELECT C.*, B.REPORT_NO, B.CREATE_DATE, B.REPORT_WRITER FROM 
-//		(SELECT ROWNUM RNUM, A.* FROM
-//		(SELECT TGB_NO, TGB_TITLE, USER_ID, CREATE_DATE AS TGB_CREATE_DATE, CHANGE_NAME
-//		FROM TGB JOIN MEMBER ON TGB_WRITER=USER_NO 
-//		JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) 
-//		JOIN (SELECT * FROM ATTACHMENT
-//		WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT 
-//		WHERE TYPE LIKE 'TGB' GROUP BY B_NO)) 
-//		ON TGB_NO = B_NO
-//		WHERE STATUS = 'Y' ORDER BY TGB_NO DESC)A 
-//		)C JOIN REPORT B ON C.TGB_NO=B.TGB_NO WHERE RNUM BETWEEN ? AND ? ORDER BY REPORT_NO DESC
+		//selectReportList=SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM (SELECT REPORT_NO, USER_ID, REPORT_CONTENT, TGB_NO, CREATE_DATE FROM REPORT JOIN MEMBER ON REPORT_WRITER=USER_NO)A) WHERE RNUM BETWEEN ? AND ?
 		String sql = prop.getProperty("selectReportList");
 
 //		board 게시글 currentPage = 1 startRow = 1 endRow = 10; currentPage = 2 
@@ -84,12 +74,8 @@ public class ReportDao {
 			while (rset.next()) {
 				Report r = new Report();
 				r.setTgbNo(rset.getInt("TGB_NO")); //신고된 상품 번호
-				r.setTgbTitle(rset.getString("TGB_TITLE")); // 신고된 상품 제목
-				r.setTgbWriter(rset.getString("USER_ID")); // 신고된 상품 작성자
-				r.setTgbCreateDate(rset.getDate("TGB_CREATE_DATE")); // 신고된 상품 게시일
-				r.setThumnail(rset.getString("CHANGE_NAME")); // 신고된 상품 썸네일
 				r.setReportNo(rset.getInt("REPORT_NO")); //신고 번호
-				r.setReportUserNo(rset.getInt("REPORT_WRITER")); //신고 작성자
+				r.setReportUserId(rset.getString("USER_ID")); //신고 작성자
 				r.setCreateDate(rset.getDate("CREATE_DATE")); // 신고일
 				list.add(r);
 			}

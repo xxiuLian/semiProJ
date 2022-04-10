@@ -1,8 +1,6 @@
 package com.uni.qna.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.uni.common.Attachment;
-import com.uni.common.MyFileRenamePolicy;
 import com.uni.member.model.dto.Member;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;

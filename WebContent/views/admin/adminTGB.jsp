@@ -116,8 +116,8 @@
 									<th width="100"><button type="reset">전체취소</button></th>
 									<th width="50">썸네일</th>
 									<th width="100">글번호</th>
-									<th width="300">카테고리</th>
-									<th width="100">글제목</th>
+									<th width="100">카테고리</th>
+									<th width="300">글제목</th>
 									<th width="100">작성자</th>
 									<th width="100">조회수</th>
 									<th width="150">작성일</th>
