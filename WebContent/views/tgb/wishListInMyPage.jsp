@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*, com.uni.admin.dto.*"%>
-<%
+<%--
 	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Category> ctg = (ArrayList<Category>)request.getAttribute("catelist");
@@ -10,7 +10,15 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-%> 
+--%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="listCount" value="${pi.listCount}" scope="request"/>
+<c:set var="currentPage" value="${pi.currentPage}" scope="request"/>
+<c:set var="maxPage" value="${pi.maxPage}" scope="request"/>
+<c:set var="startPage" value="${pi.startPage}" scope="request"/>
+<c:set var="endPage" value="${pi.endPage}" scope="request"/>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +30,6 @@
 .outer {
 	width: 800px;
 	height: 500px;
-	background: black;
-	color: white;
 	margin: auto;
 	margin-top: 50px;
 }
