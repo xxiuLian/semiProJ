@@ -336,7 +336,7 @@ public class TgbBoard_dao {
 		String sql = prop.getProperty("insertTgbNewAttachment");
 
 		try {
-
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, at.getOriginName());
 			pstmt.setString(2, at.getChangeName());

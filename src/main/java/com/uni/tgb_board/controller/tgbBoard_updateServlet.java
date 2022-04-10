@@ -57,10 +57,9 @@ public class tgbBoard_updateServlet extends HttpServlet {
 			b.setTgbBoardCategory(multiRequest.getParameter("category"));
 			b.setTgbBoardNo(bno);
 			
-			
 			Attachment at = null;
 			
-			//수정페이지에서  사용자가 새로 파일 첨부하면
+			//수정페이지에서 사용자가 새로 파일 첨부하면
 			if(multiRequest.getOriginalFileName("upFile") != null) {
 				String originName = multiRequest.getOriginalFileName("upFile");
 				String changeName = multiRequest.getFilesystemName("upFile");
@@ -70,6 +69,9 @@ public class tgbBoard_updateServlet extends HttpServlet {
 				at.setOriginName(originName);
 				at.setChangeName(changeName);
 				
+				System.out.println("찍어보기 === " + multiRequest.getParameter("originFile"));
+				
+				//기존 파일 있으면 지움
 				if(multiRequest.getParameter("originFile") != null) {
 					File deleteFile = new File(savePath + multiRequest.getParameter("originFile"));
 					deleteFile.delete();
@@ -79,7 +81,8 @@ public class tgbBoard_updateServlet extends HttpServlet {
 					at.setRefBoardNo(bno);
 				}
 			}
-			
+			System.out.println("b : " + b);
+			System.out.println("at : " + at);
 			int result = new TgbBoard_service().updateTgbBoard(b, at);
 			
 			if(result > 0) {
