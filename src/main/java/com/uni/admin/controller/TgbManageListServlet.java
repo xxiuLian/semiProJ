@@ -43,7 +43,6 @@ public class TgbManageListServlet extends HttpServlet {
 				int boardLimit; // 한페이지에 보여질 게시글 최대 갯수
 
 				listCount = new TgbService().getlistCount();
-				System.out.println("tgb의 listCount : "+listCount);
 				
 				currentPage = 1;
 				
@@ -66,7 +65,6 @@ public class TgbManageListServlet extends HttpServlet {
 				
 				PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 				ArrayList<Tgb> list = new TgbService().selectList(pi);
-				System.out.println("tgb list : " + list);
 				request.setAttribute("list", list);
 				request.setAttribute("pi", pi);
 				

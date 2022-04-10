@@ -27,7 +27,7 @@ System.out.println("originCname = " + originCname);
 		}
 
 		if (sTag == "Y") {
-			window.opener.location.reload()
+			window.opener.location.reload()//부모페이지 새로고침
 			window.close() //창 닫기
 		}
 	})
