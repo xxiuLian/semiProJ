@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,9 +21,6 @@
 	background: darkgrey;
 	cursor: pointer
 }
-<%
-	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
-%>
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="listCount" value="${pi.listCount}" scope="request" />
@@ -93,7 +90,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">상품 관리</h1>
+					<h1 class="mt-4">신고 상품 관리</h1>
 					<div class="card mb-4">
 						<div class="card-body">
 							This page is an example of using the light side navigation
@@ -107,46 +104,47 @@
 						</div>
 					</div>
 					<br>
-					<form id="deleteTGB" action="${contextPath}/deleteTGBs.do"
+					<form id="deleteTGB" action="${contextPath}/deleteTGBs.do?report=true"
 						method="post">
 
 						<table class="listArea" align="center">
 							<thead>
 								<tr>
 									<th width="100"><button type="reset">전체취소</button></th>
-									<th width="50">썸네일</th>
-									<th width="100">글번호</th>
-									<th width="300">카테고리</th>
-									<th width="100">글제목</th>
-									<th width="100">작성자</th>
-									<th width="100">조회수</th>
-									<th width="150">작성일</th>
+									<th width="100">신고 번호</th>
+									<th width="100">썸네일</th>
+									<th width="100">공구 번호</th>
+									<th width="100">공구 작성자</th>
+									<th width="150">공구 등록일</th>
+									<th width="150">신고일</th>
 								</tr>
 							<thead>
-						  	<tbody>
-								<%if(list.isEmpty()){ %>
-								<tr>
-									<td colspan="8">조회된 리스트가 없습니다.</td>
-								</tr>
-								<%}else{ %>
-									<% for( Tgb t : list){ %>
-									<tr class="list">
-										<td><input type="checkbox" id="TGBChecked" name="TGBChecked" value="<%=t.getTgbNo()%>"></td>
-										<td><img src = <%=contextPath%>/assets/img_upfile/<%= t.getThumnail() %> width="200px" height="150px"></td>
-										<td><%= t.getTgbNo() %></td>
-										<td><%= t.getTgbCategory() %>
-										<td><%= t.getTgbTitle() %></td>
-										<td><%= t.getTgbWriter() %></td>
-										<td><%= t.getCount() %></td>
-										<td><%= t.getCreateDate() %></td>
-									</tr>
-									<%} %>
-								<%} %>
-						</tbody>
+							<tbody id="tbody">
+								<c:choose>
+									<c:when test="${empty report}">
+										<tr>
+											<td colspan="7">조회된 리스트가 없습니다.</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="r" items="${report}">
+											<tr>
+												<td><input type="checkbox" id="TGBChecked" name="TGBChecked" value="${r.tgbNo}"></td>
+												<td>${r.reportNo}</td>
+												<td><img src="${contextPath}/assets/img_upfile/${r.thumnail}" width="200px" height="150px"></td>
+												<td>${r.tgbNo}</td>
+												<td>${r.tgbWriter}</td>
+												<td>${r.tgbCreateDate}</td>
+												<td>${r.createDate}</td>
+											</tr>	
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
 						</table>
 						<br>
 						<div class="btns" align="center">
-							<c:if test="${!empty list}">
+							<c:if test="${!empty report}">
 								<button type="button" onclick="deleteTGBs()">선택 상품 삭제</button>
 							</c:if>
 						</div>
@@ -157,7 +155,7 @@
 						<div class="pagingArea" align="center">
 							<!-- 맨 처음으로 (<<) -->
 							<button
-								onclick="location.href='${contextPath}/adminTgbList.do?currentPage=1'">
+								onclick="location.href='${contextPath}/adminReportTgb.do?currentPage=1'">
 								&lt;&lt;</button>
 
 							<!-- 이전페이지로(<) -->
@@ -167,7 +165,7 @@
 								</c:when>
 								<c:otherwise>
 									<button
-										onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${currentPage - 1}&amdin=admin'">
+										onclick="location.href='${contextPath}/adminReportTgb.do?currentPage=${currentPage - 1}&amdin=admin'">
 										&lt;</button>
 								</c:otherwise>
 							</c:choose>
@@ -179,7 +177,7 @@
 									</c:when>
 									<c:otherwise>
 										<button
-											onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${p}'">
+											onclick="location.href='${contextPath}/adminReportTgb.do?currentPage=${p}'">
 											${p}</button>
 									</c:otherwise>
 								</c:choose>
@@ -192,14 +190,14 @@
 								</c:when>
 								<c:otherwise>
 									<button
-										onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${currentPage + 1}'">
+										onclick="location.href='${contextPath}/adminReportTgb.do?currentPage=${currentPage + 1}'">
 										&gt;</button>
 								</c:otherwise>
 							</c:choose>
 
 							<!-- 맨 끝으로 (>>) -->
 							<button
-								onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${maxPage}'">
+								onclick="location.href='${contextPath}/adminReportTgb.do?currentPage=${maxPage}'">
 								&gt;&gt;</button>
 						</div>
 						<br> <br>
@@ -221,20 +219,20 @@
 	</div>
 </body>
 <script>
-	function deleteTGBs(){
-		if(confirm("삭제 하시겠습니까?")){
-			$("#deleteTGB").submit();
-		}
+function deleteTGBs(){
+	if(confirm("삭제 하시겠습니까?")){
+		$("#deleteTGB").submit();
 	}
-	if(!${empty list}){
-		$(function(){
-			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
-				var bno = $(this).parent().children().eq(2).text();
-				console.log(bno)
-				window.open("${contextPath}/detailTgb.do?bno="+bno, "상품조회", "width=1000, height=600")
-			})
+}
+if(!${empty report}){
+	$(function(){
+		$("#tbody>tr>td:not(:has(input))").click(function(){
+			var rno = $(this).parent().children().eq(1).text();
+			console.log(rno)
+			window.open("${contextPath}/detailReport.do?rno="+rno, "상품조회", "width=1000, height=600")
 		})
-	}
+	})
+}
 </script>
 <script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

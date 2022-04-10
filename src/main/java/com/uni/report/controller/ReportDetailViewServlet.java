@@ -1,4 +1,4 @@
-package com.uni.qna.controller;
+package com.uni.report.controller;
 
 import java.io.IOException;
 
@@ -8,21 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
+import com.uni.report.model.dto.Report;
+import com.uni.report.model.service.ReportService;
 
 /**
- * Servlet implementation class qnaDetailServlet
+ * Servlet implementation class ReportDetailViewServlet
  */
-@WebServlet("/detailQna.do")
-public class QnaDetailServlet extends HttpServlet {
+@WebServlet("/detailReport.do")
+public class ReportDetailViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDetailServlet() {
+    public ReportDetailViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +32,12 @@ public class QnaDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int qno = Integer.parseInt(request.getParameter("qno"));
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		Report r = new ReportService().selectReport(rno);
 		
-		Qna q = new QnaService().selectQna(qno);
-		
-		if(q != null) {
-			request.setAttribute("q", q);
-			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);
+		if(r != null) {
+			request.setAttribute("r", r);
+			request.getRequestDispatcher("views/admin/reportDetailView.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "게시글 상세조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
