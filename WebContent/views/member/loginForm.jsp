@@ -20,12 +20,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 <style>
 .loginArea{border: 2px solid cornflowerblue; margin: 0 auto; padding: 20px; width: 500px; height: 500px; position: relative;}
 </style>
 <!-- 카카오 -->
-<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <script type="text/javascript">
 
@@ -81,16 +82,11 @@
 			<!-- 네이버 로그인 버튼 노출영역 -->
 			<a href="<%=apiURL%>"><img height="40" src="https://www.xpressengine.com/files/attach/images//697/974/022/830561d2c908882a1acf11869868dce6.PNG"></a>
 			<br>
-			<!-- 카카오 로그인 버튼 노출 영역 -->
-			<a href="javascript:kakaoLogin();"><img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="height:40px;width:auto;"></a>
-	  	  	<ul>
-		<li onclick="kakaoLogout();">
-	      <a href="javascript:void(0)">
-	          <span>카카오 로그아웃</span>
-	      </a>
-		</li>
-	</ul>
-
+			<!-- 카카오 버튼이 생기는 a태그 -->
+			<div id="kakaoLogin">  
+    			<a id="kakao-login-btn"></a>
+    			<a href="http://developers.kakao.com/logout"></a>
+			</div>
 
 
 		</form>
@@ -112,49 +108,51 @@
 			}
 			
 		</script>
-	<script type="text/javascript">
-  
-	<!-- 카카오 로그인 버튼 노출 영역 -->
-	Kakao.init('9fb8871864e8f093d41c5c8020df9c37'); //발급받은 키 중 javascript키를 사용해준다.
-	Kakao.isInitialized();
-	console.log(Kakao.isInitialized()); // sdk초기화여부판단
-	//카카오로그인
-	function kakaoLogin() {
-	    Kakao.Auth.login({
-	      success: function (response) {
-	        Kakao.API.request({
-	          url: '/v2/user/me',
-	          success: function (response) {
-	                console.log(response)
-	                console.log(response.kakao_account['email']) 
-	                console.log(response.id)
-	                console.log(response.kakao_profile['nickname'])	
-	         },
-	          fail: function (error) {
-	            console.log(error)
-	          },
-	        })
-	      },
-	      fail: function (error) {
-	        console.log(error)
-	      },
-	    })
-	  }
-	//카카오로그아웃  
-	function kakaoLogout() {
-	    if (Kakao.Auth.getAccessToken()) {
-	      Kakao.API.request({
-	        url: '/v1/user/unlink',
-	        success: function (response) {
-	        	console.log(response)
-	        },
-	        fail: function (error) {
-	          console.log(error)
-	        },
-	      })
-	      Kakao.Auth.setAccessToken(undefined)
-	    }
-	  }  
-	</script>
+
+		<script type='text/javascript'>
+    	//가치사 javascript키
+    	Kakao.init('9fb8871864e8f093d41c5c8020df9c37');
+    	// 카카오 로그인 버튼을 생성합니다.
+    	Kakao.Auth.createLoginButton({
+      		container: '#kakao-login-btn',
+     		success: function(authObj) {
+          
+          //로그인 성공시, 카카오 API를 호출한다.(카카오에 있는 데이터 불러옴)
+          Kakao.API.request({
+              url: '/v2/user/me',
+              success: function(res){
+                  console.log(res);
+                  console.log(res.id);
+                  console.log(JSON.stringify(res.properties.nickname));
+                  console.log(JSON.stringify(res.kakao_account.email));
+                 $.ajax({
+                    url:"<%=request.getContextPath()%>/kakaoLogin.do",
+                    data:{ //kakaologin 서블릿으로 던질 데이터들
+                    	"userId":res.id, 
+                    	"name":JSON.stringify(res.properties.nickname),
+                    	"email":JSON.stringify(res.kakao_account.email)
+                    	},
+                    Type:"post",
+                    success:function(data){
+                        //성공적으로 하고나면 이동할 url
+                        location.href="<%=request.getContextPath()%>/login.do";
+                    }
+                    
+                 });
+              },
+              fail: function(error){
+                  alert(JSON.stringify(error));
+              }
+          });
+         //접속된이 잘 된다면 회원의 토큰값 출력됨
+        alert(JSON.stringify(authObj));
+        
+      },
+      fail: function(err) {
+         alert(JSON.stringify(err));
+      }
+    });
+</script>  
+
 </body>
 </html>
