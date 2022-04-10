@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>문의 글 작성</title>
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js"
+	src="${contextPath}/resources/smarteditor/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -58,7 +58,7 @@
 		nhn.husky.EZCreator.createInIFrame({
 		    oAppRef: oEditors,
 		    elPlaceHolder: "ir1",  //textarea ID 입력
-		    sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html", //martEditor2Skin.html 경로 입력
+		    sSkinURI: "${contextPath}/resources/smarteditor/SmartEditor2Skin.html", //martEditor2Skin.html 경로 입력
 					fCreator : "createSEditor2",
 					htParams : {
 						// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
