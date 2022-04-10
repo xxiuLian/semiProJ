@@ -46,8 +46,9 @@
 			 <input type="text" id="search"><button type="button" onclick="searching();">검색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공지</a></li>
-					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
+					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공구</a></li>
+					<li class="nav-item"><a class="nav-link" href="eventList.do">재욱이벤트</a></li>
+					<li class="nav-item"><a class="nav-link" href="noticeList.do">재욱공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="login.do">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="enroll.do">회원가입</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
@@ -63,7 +64,9 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
 					<li class="nav-item"><a class="nav-link" href="category.do">카테고리</a></li>
-					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
+					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공구</a></li>
+					<li class="nav-item"><a class="nav-link" href="eventList.do">재욱이벤트</a></li>
+					<li class="nav-item"><a class="nav-link" href="noticeList.do">재욱공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="wishlist.do">찜목록</a></li>
 					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>

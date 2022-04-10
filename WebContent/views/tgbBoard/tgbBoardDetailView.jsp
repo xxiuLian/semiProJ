@@ -2,6 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ page import="com.uni.tgb_board.model.dto.*, com.uni.common.Attachment" %>
+<%@page import="com.uni.member.model.dto.Member" %>
+<% String contextPath = request.getContextPath();
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <%
 	TgbBoard_dto b = (TgbBoard_dto)request.getAttribute("b");
 	Attachment at = (Attachment)request.getAttribute("at");
@@ -22,7 +26,7 @@
 </style>
 </head>
 <body>
-
+	
 	<%= b.getTgbBoardTitle() %>
 	<%= b.getTgbBoardContent() %>
  	<%= b.getTgbBoardCategory() %>
@@ -38,9 +42,11 @@
 		</td>
  	</table>
  	
-		<div class="btns" align="center">
+	<div class="btns" align="center">
+	<% if(loginUser != null && loginUser.getUserId().equals(b.getTgbBoardWriter())){ %>
 		<button type="button" onclick="updateForm();">수정하기</button>
 		<button type="button" onclick="deleteTgb();">삭제하기</button>
+	<% } %>
 		<button type="button" onclick="location.href='<%=request.getContextPath()%>/tgbBoardSelect.do'">목록으로</button>
 	</div>
 	
@@ -58,22 +64,21 @@
 			$("#postForm").attr("action", "<%=request.getContextPath()%>/tgbBoardDelete.do");
 			$("#postForm").submit();
 		}
-		
-		
+
 	</script>
 	
 	<!-- 댓글창 -->
 	<div class="replyArea">
 		<table border="1" >
 			<tr>
-				<th>submit</th>
-				
+				<th>댓글작성</th>
+				<% if(loginUser != null){ %>
 				<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
 				<td><button id="addReply">댓글등록</button></td>
-				<!-- 
+				<% }else{ %>
 				<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea></td>
 				<td><button disabled>댓글등록</button></td>
-				 -->
+				 <% } %>
 			</tr>
 		</table>
 		
@@ -98,19 +103,33 @@
 				type:"get",
 				success:function(list){
 						console.log(list)
-						
+					/*
 					$.each(list, function(index, obj){
-								
+						
 						var writerTd = $("<td>").text(obj.replyWriter).attr("width", "100px");
 						var contentTd = $("<td>").text(obj.replyContent).attr("width", "330px");
 						var dateTd = $("<td>").text(obj.createDate).attr("width", "150px");
-						var dateTd2 = $("<td id='rdelete'>").text("삭제").attr("width", "150px");
-						
-						var tr = $("<tr>").append(writerTd, contentTd, dateTd, dateTd2);
-						
+						//var dateTd2 = $("<td onclick='fdelete(index)';>").text("삭제").attr("width", "150px");
+						var tr = $("<tr>").append(writerTd, contentTd, dateTd);
 						$("#replyList").append(tr);
-							
+						
 					});
+					*/
+				
+					/*
+						var value="";
+						for(var i in list){
+							value += '<tr>'+
+										'<td width="100px">'+ list[i].replyWriter+'</td>'+ 
+										'<td width="330px">'+ list[i].replyContent+'</td>'+ 
+										'<td width="150px">'+ list[i].createDate+'</td>'+ 
+										'<td width="150px" fdelete(i)> 삭제 </td>'+
+									'</tr>';
+						}
+						$("#replyList").html(value);
+					*/
+					
+					
 		
 				},
 				error:function(){
@@ -147,8 +166,21 @@
 			})
 		})
 	})
+	</script>
+	<script>
+	/*
+	function fdelete(e){
+		alert("댓글 삭제 되었습니다 : " + e)
+		$("td:eq(0)").css({"background":"black","color":"red"})
+	}
+	*/
 	
-	
+	//$(function(){
+		//$(".listArea>tbody>tr").click(function(){
+		//	var bno = $(this).children().eq(0).text();
+		//	location.href = "<%=request.getContextPath()%>/detailBoard.do?bno="+bno;
+	//	})
+//	})
 	
 	</script>
 </body>
