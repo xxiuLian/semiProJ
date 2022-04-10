@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*, com.uni.admin.dto.*"%>
-<%--
+<% 
 	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Category> ctg = (ArrayList<Category>)request.getAttribute("catelist");
@@ -10,7 +10,7 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
---%> 
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="listCount" value="${pi.listCount}" scope="request"/>
 <c:set var="currentPage" value="${pi.currentPage}" scope="request"/>
@@ -86,7 +86,7 @@ td>img{
 				<c:choose>
 					<c:when test="${empty list}">
 						<tr>
-							<td>찜한 내역이 없습니다.</td>
+							<td colspan="5">찜한 내역이 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -104,7 +104,7 @@ td>img{
 			</tbody>
 
 		</table>
-		
+		<button type="button" id="delete">선택 목록 삭제하기</button>
 		<br>
 		<br>
 		
@@ -114,46 +114,71 @@ td>img{
 	$(function(){
 		$('#tgbCategory').change(function(){
 			var selected = $('option:selected').val();
+			console.log(selected)
 			
-		if(selected === '000'){
-			console.log("[지우기]같은 카테고리")
+			if(selected === '000'){
+				$('.listArea').children('tbody').empty();
+				<%if(list.isEmpty()){%>
+				$('.listArea').children('tbody').html('<tr><td colspan="5">찜한 내역이 없습니다.</td></tr>');
+				
+				<%}else{%>
+				<%for(Tgb t : list){%>
+				var imgsrc = "<%=t.getThumnail()%>";
+				var td = '<tr><td><input type="checkbox"></td>';
+				td += '<td>'+<%=t.getTgbNo()%>+'</td>';
+				td += '<td><img src='+"<%=contextPath%>"+'/assets/img_upfile/'+imgsrc+'>';
+				td +='<td>'+"<%=t.getTgbTitle()%>"+'</td>';
+				td+='<td>'+<%=t.getTgb_Price()%>+'</td></tr>';
+					
+				$('.listArea').children('tbody').append(td);
+										
 			
-			
-			$.ajax({
-				url :"wishList2.do",
-				type : "get",
-				success:function(list, pi){
-					console.log(list);
-					console.log(pi);
+					
+				<%}%>
+					
+				
+				
+				<%}%>
+				
+				
+			}else{
+				$('.listArea').children('tbody').empty();
+				$('.listArea').children('tbody').empty();
+				<%if(list.isEmpty()){%>
+				$('.listArea').children('tbody').html('<tr><td colspan="5">찜한 내역이 없습니다.</td></tr>');
+				
+				<%}else{%>
+				<%for(Tgb t : list){%>
+				
+				if(selected === "<%=t.getTgbCategory()%>"){
+					var imgsrc = "<%=t.getThumnail()%>";
+					var td = '<tr><td><input type="checkbox"></td>';
+					td += '<td>'+<%=t.getTgbNo()%>+'</td>';
+					td += '<td><img src='+"<%=contextPath%>"+'/assets/img_upfile/'+imgsrc+'>';
+					td +='<td>'+"<%=t.getTgbTitle()%>"+'</td>';
+					td+='<td>'+<%=t.getTgb_Price()%>+'</td></tr>';
+						
+					$('.listArea').children('tbody').append(td);
+										
 				}
-			})
+				<%}%>
+				
+				<%}%>
 		
+			}
 			
-		}else{
-			console.log("[지우기]다른 카테고리");
-		}
-			
-			
-			
-			
+
 		})
+		
 	})
 	
 	
-	
-	
-	if(!${empty list}){
-	$(function(){
-		$(".listArea>tbody>tr").click(function(){
-			var bno = $(this).children().eq(1).text();
-			
-			location.href = "<%=contextPath%>/detailTgb.do?bno="+bno;
-			
-		})
+	$('#delete').click(function(){
+		var checked = $('td').children('input[type=checkbox]:checked').val();
+		console.log(checked);
+		
+		
 	})
-	
-}
-	
 	
 	</script>
 	<!-- 페이징바 -->
