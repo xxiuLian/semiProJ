@@ -1,28 +1,26 @@
-package com.uni.qna.controller;
+package com.uni.report.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
-import com.uni.qna.model.dto.Qna;
-import com.uni.qna.model.service.QnaService;
+import com.uni.report.model.service.ReportService;
+
 
 /**
- * Servlet implementation class qnaDetailServlet
+ * Servlet implementation class DeleteReportServlet
  */
-@WebServlet("/detailQna.do")
-public class QnaDetailServlet extends HttpServlet {
+@WebServlet("/deleteReport.do")
+public class DeleteReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDetailServlet() {
+    public DeleteReportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,15 +29,16 @@ public class QnaDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int qno = Integer.parseInt(request.getParameter("qno"));
+		int rno = Integer.parseInt(request.getParameter("report"));
 		
-		Qna q = new QnaService().selectQna(qno);
+		int result = new ReportService().deleteReport(rno);
 		
-		if(q != null) {
-			request.setAttribute("q", q);
-			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);
+		if(result > 0) {
+			request.setAttribute("sTag", "Y");
+			request.setAttribute("msg", "신고 삭제 완료");
+			request.getRequestDispatcher("views/admin/close.jsp").forward(request, response);
 		}else {
-			request.setAttribute("msg", "게시글 상세조회 실패");
+			request.setAttribute("msg", "신고 삭제 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

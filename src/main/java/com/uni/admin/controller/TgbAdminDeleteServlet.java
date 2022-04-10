@@ -38,10 +38,14 @@ public class TgbAdminDeleteServlet extends HttpServlet {
 		int result1 = new TgbService().deleteTgbs(bno);
 		int result2 = new TgbService().deleteTgbAttachments(bno);
 		
-		if(result1*result2 > 0) {
+		if (result1*result2 > 0 && request.getParameter("report").equals("true")) {
+			request.getSession().setAttribute("msg", "글이 삭제되었습니다.");
+			response.sendRedirect("adminReportTgb.do");
+		}
+		else if(result1*result2 > 0) {
 			request.getSession().setAttribute("msg", "글이 삭제되었습니다.");
 			response.sendRedirect("adminTGB.do");
-			
+		
 		}else if(result1>0 &&result2 < 0 ) {
 			request.setAttribute("msg", "글이 완전히 삭제되지 않았습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
