@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.notice.model.dto.Notice;
+import com.uni.notice.model.service.NoticeService;
+
 /**
- * Servlet implementation class test
+ * Servlet implementation class NoticeUpdateForm
  */
-@WebServlet("/test2")
-public class test extends HttpServlet {
+@WebServlet("/updateFormNotice.do")
+public class NoticeUpdateForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public test() {
+    public NoticeUpdateForm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +29,23 @@ public class test extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	      int nno = Integer.parseInt(request.getParameter("nno"));
+	      Notice notice = new NoticeService().selectUpdateNotice(nno);
+	   
+	      String view = "";
+	      if(notice != null) {
+	         notice.setNoticeTitle(notice.getNoticeTitle().replaceAll("<br>", "\n"));
+	         notice.setNoticeContent(notice.getNoticeContent().replaceAll("<br>", "\n"));
+	         request.setAttribute("notice", notice);
+	         view = "views/notice/noticeUpdateForm.jsp";
+	         
+	      }else {
+	         request.setAttribute("msg", "공지사항 조회에 실패했습니다.");
+	         view = "views/common/errorPage.jsp";
+
+	      }
+	      
+	      request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**
