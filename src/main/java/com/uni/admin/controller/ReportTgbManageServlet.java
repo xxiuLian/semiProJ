@@ -54,7 +54,6 @@ public class ReportTgbManageServlet extends HttpServlet {
 				if(request.getParameter("currentPage") != null) {
 					currentPage = Integer.parseInt(request.getParameter("currentPage"));
 				}
-				
 				//페이지 최대개수
 				pageLimit = 10;
 				
@@ -100,7 +99,6 @@ public class ReportTgbManageServlet extends HttpServlet {
 				// * endPage : 현재 페이지에 보여지는 페이징 바의 끝 수
 				// startPage : 1	=> endPage : 10
 				// startPage : 11	=> endPage : 20
-				
 				endPage = startPage + pageLimit - 1;
 				
 				if(maxPage < endPage) {
@@ -109,6 +107,7 @@ public class ReportTgbManageServlet extends HttpServlet {
 				
 				PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 				ArrayList<Report> report = new ReportService().selectReportList(pi);
+				request.setAttribute("pi", pi);
 				request.setAttribute("report", report);
 				request.getRequestDispatcher("views/admin/adminReport.jsp").forward(request, response);
 		
