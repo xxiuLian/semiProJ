@@ -4,9 +4,6 @@
 String msg = (String) request.getAttribute("msg");
 String sTag = (String) request.getAttribute("sTag");
 String originCname = (String) request.getAttribute("originCname");
-System.out.println("msg = " + msg);
-System.out.println("sTag = " + sTag);
-System.out.println("originCname = " + originCname);
 %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +16,6 @@ System.out.println("originCname = " + originCname);
 <script>
 	var msg="<%=msg%>";
 	var sTag="<%=sTag%>";
-	var originCname = "<%=originCname%>";
 	$(function() {
 		if (msg != "null") {
 
