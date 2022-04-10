@@ -21,13 +21,13 @@ import com.uni.tgb_board.model.service.TgbBoard_service;
  * Servlet implementation class BoardManageListSetvlet
  */
 @WebServlet("/adminBoard.do")
-public class BoardManageListSetvlet extends HttpServlet {
+public class BoardAdminListSetvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardManageListSetvlet() {
+    public BoardAdminListSetvlet() {
         super();
         // TODO Auto-generated constructor stub
     }
