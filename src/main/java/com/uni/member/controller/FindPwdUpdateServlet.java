@@ -40,7 +40,7 @@ public class FindPwdUpdateServlet extends HttpServlet {
 		
 		if(updatePwd > 0) {
 			request.setAttribute("sTag", "Y"); //제대로 변경됐으면 Y
-			request.setAttribute("msg", "성공적으로 비밀번호를 변경하였습니다.");
+			request.getSession().setAttribute("msg", "성공적으로 비밀번호를 변경하였습니다.");
 
 			request.getSession().setAttribute("originPwd", originPwd);//비번도 같이 옮기기!!!
 			response.sendRedirect(request.getContextPath());
