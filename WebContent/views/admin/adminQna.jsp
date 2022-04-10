@@ -48,7 +48,11 @@
 						<a class="nav-link" href="adminTGB.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
-							</div> 상품
+							</div> 전체 상품
+						</a><a class="nav-link" href="reportTGB.do">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-tachometer-alt"></i>
+							</div> 신고된 상품
 						</a>
 						<div class="sb-sidenav-menu-heading">게시판</div>
 						<a class="nav-link" href="adminQnaList.do">
