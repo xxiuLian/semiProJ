@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.board.model.dto.Board;
-import com.uni.board.model.service.BoardService;
 
 /**
  * Servlet implementation class eventListServlet
@@ -33,8 +31,8 @@ public class eventListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//ArrayList<Board> list = new BoardService().selectThList();
 		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/thumbnail/thumbnailListView.jsp").forward(request, response);
+		//request.setAttribute("list", list);
+		//request.getRequestDispatcher("views/thumbnail/thumbnailListView.jsp").forward(request, response);
 	}
 
 	/**
