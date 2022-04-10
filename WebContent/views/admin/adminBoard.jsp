@@ -1,5 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
+	pageEncoding="UTF-8"
+	import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
+<%@page import="com.uni.tgb_board.model.dto.TgbBoard_pageInfo"%>
+<%@page import="com.uni.tgb_board.model.dto.TgbBoard_dto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.uni.member.model.dto.Member"%>
+<%
+ArrayList<TgbBoard_dto> list = (ArrayList<TgbBoard_dto>) request.getAttribute("list");
+TgbBoard_pageInfo pi = (TgbBoard_pageInfo) request.getAttribute("pi");
+
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int barStart = pi.getBarStart();
+int barEnd = pi.getBarEnd();
+int barCount = pi.getBarCount();
+int barMax = pi.getBarMax();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +26,8 @@
 <meta name="author" content="" />
 <title>Insert title here</title>
 <link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
 <style type="text/css">
 .listArea {
 	border: 1px solid black;
@@ -21,16 +38,13 @@
 	background: darkgrey;
 	cursor: pointer
 }
-<%
-	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
-%>
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="listCount" value="${pi.listCount}" scope="request" />
 <c:set var="currentPage" value="${pi.currentPage}" scope="request" />
-<c:set var="maxPage" value="${pi.maxPage}" scope="request" />
-<c:set var="startPage" value="${pi.startPage}" scope="request" />
-<c:set var="endPage" value="${pi.endPage}" scope="request" />
+<c:set var="barMax" value="${pi.barMax}" scope="request" />
+<c:set var="barStart" value="${pi.barStart}" scope="request" />
+<c:set var="barEnd" value="${pi.barEnd}" scope="request" />
 
 </head>
 <body>
@@ -82,8 +96,8 @@
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link" href="categoryList.do?keyword=tgb">상품</a> <a
-									class="nav-link" href="categoryList.do?keyword=board">커뮤니티</a> <a
-									class="nav-link" href="categoryList.do?keyword=qna">문의</a>
+									class="nav-link" href="categoryList.do?keyword=board">커뮤니티</a>
+								<a class="nav-link" href="categoryList.do?keyword=qna">문의</a>
 							</nav>
 						</div>
 					</div>
@@ -93,7 +107,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">상품 관리</h1>
+					<h1 class="mt-4">커뮤니티 관리</h1>
 					<div class="card mb-4">
 						<div class="card-body">
 							This page is an example of using the light side navigation
@@ -107,102 +121,91 @@
 						</div>
 					</div>
 					<br>
-					<form id="deleteTGB" action="${contextPath}/deleteTGBs.do"
+					<form id="deleteBoard" action="${contextPath}/deleteBoards.do"
 						method="post">
 
-						<table class="listArea" align="center">
+						<table class="tgbBoardArea">
 							<thead>
 								<tr>
-									<th width="100"><button type="reset">전체취소</button></th>
-									<th width="50">썸네일</th>
-									<th width="100">글번호</th>
-									<th width="300">카테고리</th>
-									<th width="100">글제목</th>
-									<th width="100">작성자</th>
-									<th width="100">조회수</th>
-									<th width="150">작성일</th>
+									<td>번호</td>
+									<td>카테고리</td>
+									<td>작성자</td>
+									<td>제목</td>
+									<td>내용</td>
+									<td>조회수</td>
+									<td>작성일</td>
+									<td>상태값</td>
 								</tr>
-							<thead>
-						  	<tbody>
-								<%if(list.isEmpty()){ %>
+							</thead>
+							<tbody>
+								<%
+								if (list.isEmpty()) {
+								%>
 								<tr>
-									<td colspan="8">조회된 리스트가 없습니다.</td>
+									<td>조회된 리스트가 없습니다.</td>
 								</tr>
-								<%}else{ %>
-									<% for( Tgb t : list){ %>
-									<tr class="list">
-										<td><input type="checkbox" id="TGBChecked" name="TGBChecked" value="<%=t.getTgbNo()%>"></td>
-										<td><img src = <%=contextPath%>/assets/img_upfile/<%= t.getThumnail() %> width="200px" height="150px"></td>
-										<td><%= t.getTgbNo() %></td>
-										<td><%= t.getTgbCategory() %>
-										<td><%= t.getTgbTitle() %></td>
-										<td><%= t.getTgbWriter() %></td>
-										<td><%= t.getCount() %></td>
-										<td><%= t.getCreateDate() %></td>
-									</tr>
-									<%} %>
-								<%} %>
-						</tbody>
+								<%
+								} else {
+								%>
+
+								<%
+								for (TgbBoard_dto b : list) {
+								%>
+								<tr>
+									<td><input type="checkbox" id="boardChecked"
+										name="boardChecked" value="<%=b.getTgbBoardNo()%>"></td>
+									<td><%=b.getTgbBoardNo()%></td>
+									<td><%=b.getTgbBoardCategory()%></td>
+									<td><%=b.getTgbBoardWriter()%></td>
+									<td><%=b.getTgbBoardTitle()%></td>
+									<td><%=b.getTgbBoardContent()%></td>
+									<td><%=b.getTgbBoardCount()%></td>
+									<td><%=b.getTgbBoardDate()%></td>
+									<td><%=b.getTgbBoardStatus()%></td>
+								</tr>
+								<%
+								}
+								%>
+								<%
+								}
+								%>
+							</tbody>
 						</table>
-						<br>
+
 						<div class="btns" align="center">
 							<c:if test="${!empty list}">
-								<button type="button" onclick="deleteTGBs()">선택 상품 삭제</button>
+								<button type="button" onclick="deleteBoards()">선택 게시글
+									삭제</button>
 							</c:if>
 						</div>
-						</form>
-						<br> <br>
+					</form>
+					<br> <br>
 
-						<!-- 페이징바 만들기 -->
-						<div class="pagingArea" align="center">
-							<!-- 맨 처음으로 (<<) -->
-							<button
-								onclick="location.href='${contextPath}/adminTgbList.do?currentPage=1'">
-								&lt;&lt;</button>
+					<!-- 2.페이징바 -->
+					<div class="pagingArea" align="center">
+						<button
+							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=1%>'">
+							&lt;&lt;</button>
+						<button
+							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=currentPage - barCount%>'">&lt;</button>
 
-							<!-- 이전페이지로(<) -->
-							<c:choose>
-								<c:when test="${currentPage eq 1}">
-									<button disabled>&lt;</button>
-								</c:when>
-								<c:otherwise>
-									<button
-										onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${currentPage - 1}&amdin=admin'">
-										&lt;</button>
-								</c:otherwise>
-							</c:choose>
-							<!-- 페이지 목록 -->
-							<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
-								<c:choose>
-									<c:when test="${p eq currentPage}">
-										<button disabled>${p}</button>
-									</c:when>
-									<c:otherwise>
-										<button
-											onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${p}'">
-											${p}</button>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
+						<!-- 페이징바 이동 -->
+						<%
+						for (int i = barStart; i <= barEnd; i++) {
+						%>
+						<button
+							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=i%>'"><%=i%></button>
+						<%
+						}
+						%>
 
-							<!-- 다음페이지로(>) -->
-							<c:choose>
-								<c:when test="${currentPage eq maxPage}">
-									<button disabled>&gt;</button>
-								</c:when>
-								<c:otherwise>
-									<button
-										onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${currentPage + 1}'">
-										&gt;</button>
-								</c:otherwise>
-							</c:choose>
-
-							<!-- 맨 끝으로 (>>) -->
-							<button
-								onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${maxPage}'">
-								&gt;&gt;</button>
-						</div>
-						<br> <br>
+						<button
+							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=currentPage + barCount%>'">&gt;</button>
+						<button
+							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=barMax%>'">
+							&gt;&gt;</button>
+					</div>
+					<br> <br>
 				</div>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
@@ -221,23 +224,23 @@
 	</div>
 </body>
 <script>
-	function deleteTGBs(){
+	function deleteBoards(){
 		if(confirm("삭제 하시겠습니까?")){
-			$("#deleteTGB").submit();
+			$("#deleteBoard").submit();
 		}
 	}
 	if(!${empty list}){
 		$(function(){
-			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
-				var bno = $(this).parent().children().eq(2).text();
+			$(".tgbBoardArea>tbody>tr>td:not(:has(input))").click(function(){
+				var bno = $(this).parent().children().eq(1).text();
 				console.log(bno)
-				window.open("${contextPath}/detailTgb.do?bno="+bno, "문의글조회", "width=1000, height=600")
+				window.open("${contextPath}/tgbBoardDetail.do?bno="+bno, "문의글조회", "width=1000, height=600")
 			})
 		})
 	}
 </script>
 <script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>
 </html>

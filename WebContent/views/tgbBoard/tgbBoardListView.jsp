@@ -1,11 +1,15 @@
-<%@page import="java.util.ListIterator"%>
+ <%@page import="java.util.ListIterator"%>
 <%@page import="com.uni.tgb_board.model.dto.TgbBoard_pageInfo"%>
 <%@page import="com.uni.tgb_board.model.dto.TgbBoard_dto"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="com.uni.member.model.dto.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  
    
-<% String contextPath = request.getContextPath(); %>
+<% String contextPath = request.getContextPath();
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <%
 	ArrayList<TgbBoard_dto> list = (ArrayList<TgbBoard_dto>)request.getAttribute("list");
 	TgbBoard_pageInfo pi = (TgbBoard_pageInfo)request.getAttribute("pi");
@@ -38,7 +42,7 @@
 </style>
 </head>
 <body>
-
+	
 <!-- 
 	listCount : <%= listCount %> <br>
 	currentPage : <%= currentPage %> <br>
@@ -102,7 +106,9 @@
 		<button onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%= barMax %>'"> &gt;&gt; </button>
 	</div>
 	<div>
+		<% if(loginUser != null){ %>
 		<button onclick="location.href='EnrollTgbBoard.do'">작성하기</button>
+		<% } %>
 		<button type="button" onclick="location.href='<%=request.getContextPath()%>';">페이지로</button>
 	</div>
 	<script>

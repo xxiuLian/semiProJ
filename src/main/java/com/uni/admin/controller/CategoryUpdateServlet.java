@@ -33,9 +33,21 @@ public class CategoryUpdateServlet extends HttpServlet {
 		int cno = Integer.parseInt(request.getParameter("cno"));
 		int originCno = Integer.parseInt(request.getParameter("originCno"));
 		String cname = request.getParameter("cname");
-		
 		Category c = new Category(cno, cname);
-		int result = new AdminService().updateCategory(c, originCno);
+		String keyword = request.getParameter("keyword");
+		
+		int result = 0;
+		
+		if(keyword.equals("qna")) {
+			result = new AdminService().updateQnaCategory(c, originCno);
+			request.setAttribute("keyword", "qna");
+		}else if(keyword.equals("tgb")) {
+			result = new AdminService().updateTGBCategory(c, originCno);
+			request.setAttribute("keyword", "tgb");
+		}else if(keyword.equals("board")) {
+			result = new AdminService().updateBoardCategory(c, originCno);
+			request.setAttribute("keyword", "board");
+		}
 		
 		if(result > 0) {
 			request.setAttribute("sTag", "Y");

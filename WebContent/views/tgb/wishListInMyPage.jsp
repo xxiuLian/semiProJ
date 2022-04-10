@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*, com.uni.admin.dto.*"%>
 <%
 	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Category> ctg = (ArrayList<Category>)request.getAttribute("catelist");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -67,13 +68,13 @@
 					<td colspan="5">존재하는 공지사항이 없습니다.</td>
 				</tr>
 				<% }else{  %>
-				<% for(Notice n : list){ %>
+				<% for(Tgb t : list){ %>
 				<tr>
-					<td><%= n.getNoticeNo() %></td>
-					<td><%= n.getNoticeTitle() %></td>
-					<td><%= n.getNoticeWriter() %></td>
-					<td><%= n.getCount() %></td>
-					<td><%= n.getCreateDate() %></td>
+					<td><%= t.getNoticeNo() %></td>
+					<td><%= t.getNoticeTitle() %></td>
+					<td><%= t.getNoticeWriter() %></td>
+					<td><%= t.getCount() %></td>
+					<td><%= t.getCreateDate() %></td>
 				</tr>
 				<% } %>
 				<% } %>

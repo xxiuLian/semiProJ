@@ -12,16 +12,16 @@ import com.uni.admin.dto.Category;
 import com.uni.admin.service.AdminService;
 
 /**
- * Servlet implementation class CategoryEditServlet
+ * Servlet implementation class AddCategoryServlet
  */
-@WebServlet("/selectCategory.do")
-public class CategorySelectServlet extends HttpServlet {
+@WebServlet("/addCategory.do")
+public class AddCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategorySelectServlet() {
+    public AddCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +31,33 @@ public class CategorySelectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cno = Integer.parseInt(request.getParameter("cno"));
+		String cname = request.getParameter("cname");
 		String keyword = request.getParameter("keyword");
-		Category c = null;
+		Category c = new Category(cno, cname);
+		int result = 0;
 		if(keyword.equals("qna")) {
-			c = new AdminService().selectQnaCategory(cno);
-			request.setAttribute("keyword", "qna");
+			result = new AdminService().insertQnaCategory(c);
 		}else if(keyword.equals("tgb")) {
-			c = new AdminService().selectTGBCategory(cno);
-			request.setAttribute("keyword", "tgb");
+			result = new AdminService().insertTGBCategory(c);
 		}else if(keyword.equals("board")) {
-			c = new AdminService().selectBoardCategory(cno);
-			request.setAttribute("keyword", "board");
+			result = new AdminService().insertBoardCategory(c);
 		}
-		request.setAttribute("category", c);
-		request.getRequestDispatcher("views/admin/updateCategoryForm.jsp").forward(request, response);
+		
+		if(result > 0) {
+			request.setAttribute("msg", "카테고리 추가 완료");
+			request.setAttribute("sTag", "Y");
+			request.getRequestDispatcher("views/admin/close.jsp").forward(request, response);
+		}else {
+			request.setAttribute("msg", "카테고리 추가 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+	}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

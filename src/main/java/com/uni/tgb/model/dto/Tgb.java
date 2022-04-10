@@ -64,6 +64,21 @@ public class Tgb {
 		this.createDate = createDate;
 		Thumnail = thumnail;
 	}
+
+	public Tgb(int tgbNo, String tgbCategory, String tgbTitle, int count, Date tgbTerm, int tgb_Price, Date createDate,
+			String thumnail) {
+		super();
+		this.tgbNo = tgbNo;
+		this.tgbCategory = tgbCategory;
+		this.tgbTitle = tgbTitle;
+		this.count = count;
+		this.tgbTerm = tgbTerm;
+		this.tgb_Price = tgb_Price;
+		this.createDate = createDate;
+		Thumnail = thumnail;
+	}
+
+	
 	
 	
 

@@ -115,10 +115,12 @@ public class TgbBoard_service {
 		
 		int result2 = 1;
 		
+		System.out.println("at2 : " + at);
 		if(at != null) {
 			if(at.getFileNo() != 0) {
 				result2 = new TgbBoard_dao().updateTgbAttachment(conn, at);
 			}else {
+				System.out.println("2이냐");
 				result2 = new TgbBoard_dao().insertTgbNewAttachment(conn, at, b);
 			}
 		}
@@ -162,6 +164,39 @@ public class TgbBoard_service {
 			rollback(conn);
 		}
 		close(conn);		
+		
+		return result;
+	}
+
+	public int deleteFile(int bno) {
+		Connection conn = getConnection();
+		
+		int	result = new TgbBoard_dao().deleteTgbAttachment(conn, bno);
+		
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteBoards(int[] bno) {
+		Connection conn = getConnection();
+		
+		int result = new TgbBoard_dao().deleteBoards(conn, bno);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
 		
 		return result;
 	}

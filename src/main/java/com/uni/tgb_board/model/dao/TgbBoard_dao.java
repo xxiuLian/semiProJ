@@ -336,7 +336,7 @@ public class TgbBoard_dao {
 		String sql = prop.getProperty("insertTgbNewAttachment");
 
 		try {
-
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, at.getOriginName());
 			pstmt.setString(2, at.getChangeName());
@@ -545,6 +545,30 @@ public class TgbBoard_dao {
 		}
 			
 			
+		return result;
+	}
+
+
+	public int deleteBoards(Connection conn, int[] bno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//deleteBoards=UPDATE TGB_BOARD SET STATUS='N' WHERE BOARD_NO=?
+		String sql = prop.getProperty("deleteBoards");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(bno != null) {
+				for(int i = 0; i < bno.length; i++) {
+					pstmt.setInt(1, bno[i]);
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result;
 	}
 

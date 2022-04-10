@@ -26,6 +26,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<h2 align="center">게시판 수정하기</h2>
@@ -73,5 +74,22 @@
 			<button type="submit">수정하기</button>
 		</div>
 	</form>
+	
+	<div class="btns">
+		<% if(at != null ){ %>
+			<button type="button" onclick="fDelete();">파일삭제</button>
+		<% } %>
+	</div>
+	
+	<form action="" id="postForm" method="post">
+		<input type="hidden" name="bno" value="<%= b.getTgbBoardNo() %>">
+	</form>
+	
+	<script>
+		function fDelete(){
+			$("#postForm").attr("action", "<%=request.getContextPath()%>/tgbBoardFileDelete.do");
+			$("#postForm").submit();
+		}
+	</script>
 </body>
 </html>

@@ -43,10 +43,14 @@
 						<a class="nav-link" href="adminTGB.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
-							</div> 상품
+							</div> 전체 상품
+						</a><a class="nav-link" href="reportTGB.do">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-tachometer-alt"></i>
+							</div> 신고된 상품
 						</a>
 						<div class="sb-sidenav-menu-heading">게시판</div>
-						<a class="nav-link" href="adminQna.do">
+						<a class="nav-link" href="adminQnaList.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 문의
@@ -69,9 +73,9 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="TGBCategoryList.do">상품</a> <a
-									class="nav-link" href="BoardCategoryList.do">커뮤니티</a> <a
-									class="nav-link" href="QnaCategoryList.do">문의</a>
+								<a class="nav-link" href="categoryList.do?keyword=tgb">상품</a> <a
+									class="nav-link" href="categoryList.do?keyword=board">커뮤니티</a> <a
+									class="nav-link" href="categoryList.do?keyword=qna">문의</a>
 							</nav>
 						</div>
 					</div>

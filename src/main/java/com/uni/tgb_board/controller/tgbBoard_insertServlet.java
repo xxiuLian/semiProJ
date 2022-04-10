@@ -2,7 +2,6 @@ package com.uni.tgb_board.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +15,7 @@ import com.uni.common.Attachment;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.uni.common.MyFileRenamePolicy;
+import com.uni.member.model.dto.Member;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 import com.uni.tgb_board.model.service.TgbBoard_service;
 
@@ -57,9 +57,8 @@ public class tgbBoard_insertServlet extends HttpServlet {
 			String content = multiRequest.getParameter("content");
 
 			// 로그인한 회원번호(Session으로)★
-			// int userNo =((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-			String userNo = "1";
-
+			int userNo =((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+			
 			TgbBoard_dto b = new TgbBoard_dto();
 			b.setTgbBoardCategory(category);
 			b.setTgbBoardTitle(title);
