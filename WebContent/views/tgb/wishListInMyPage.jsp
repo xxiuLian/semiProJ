@@ -71,7 +71,7 @@ td>img{
 			</select>
 		</div>
 
-
+		<form action="<%= contextPath %>/wishListDelete.do" method="post" id="frm">
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
@@ -82,7 +82,7 @@ td>img{
 					<th width="100">공구 가격</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody >
 				<c:choose>
 					<c:when test="${empty list}">
 						<tr>
@@ -91,8 +91,8 @@ td>img{
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${list}" var="list" varStatus="st">
-							<tr>
-								<td><input type="checkbox"></td>
+							<tr class="list">
+								<td><input type="checkbox" name="ch" value="${list.tgbNo}"></td>
 								<td>${list.tgbNo}</td>
 								<td><img src="<%=contextPath%>/assets/img_upfile/${list.thumnail}"></td>
 								<td>${list.tgbTitle }</td>
@@ -104,7 +104,8 @@ td>img{
 			</tbody>
 
 		</table>
-		<button type="button" id="delete">선택 목록 삭제하기</button>
+		<button type="submit" id="delete">선택 목록 삭제하기</button>
+		</form>
 		<br>
 		<br>
 		
@@ -124,7 +125,7 @@ td>img{
 				<%}else{%>
 				<%for(Tgb t : list){%>
 				var imgsrc = "<%=t.getThumnail()%>";
-				var td = '<tr><td><input type="checkbox"></td>';
+				var td = '<tr><td><input type="checkbox" name="ch" vlaue = "<%=t.getTgbNo()%>"></td>';
 				td += '<td>'+<%=t.getTgbNo()%>+'</td>';
 				td += '<td><img src='+"<%=contextPath%>"+'/assets/img_upfile/'+imgsrc+'>';
 				td +='<td>'+"<%=t.getTgbTitle()%>"+'</td>';
@@ -152,7 +153,7 @@ td>img{
 				
 				if(selected === "<%=t.getTgbCategory()%>"){
 					var imgsrc = "<%=t.getThumnail()%>";
-					var td = '<tr><td><input type="checkbox"></td>';
+					var td = '<tr><td><input type="checkbox" name="ch" vlaue = "<%=t.getTgbNo()%>"></td>';
 					td += '<td>'+<%=t.getTgbNo()%>+'</td>';
 					td += '<td><img src='+"<%=contextPath%>"+'/assets/img_upfile/'+imgsrc+'>';
 					td +='<td>'+"<%=t.getTgbTitle()%>"+'</td>';
@@ -172,13 +173,14 @@ td>img{
 		
 	})
 	
+	$(function(){
+				$('.list').click(function(){
+					var bno = $(this).children().eq(1).text();
+					alert("[지우기]글번호:"+bno);
+					location.href="<%=contextPath%>/detailTgb.do?bno="+bno ;
+ 				});
+			});
 	
-	$('#delete').click(function(){
-		var checked = $('td').children('input[type=checkbox]:checked').val();
-		console.log(checked);
-		
-		
-	})
 	
 	</script>
 	<!-- 페이징바 -->
