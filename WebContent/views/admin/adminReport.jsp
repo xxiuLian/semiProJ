@@ -114,8 +114,9 @@
 									<th width="100">신고 번호</th>
 									<th width="100">썸네일</th>
 									<th width="100">공구 번호</th>
-									<th width="100">공구 작성자</th>
+									<th width="125">공구 작성자</th>
 									<th width="150">공구 등록일</th>
+									<th width="125">신고 작성자</th>
 									<th width="150">신고일</th>
 								</tr>
 							<thead>
@@ -123,20 +124,23 @@
 								<c:choose>
 									<c:when test="${empty report}">
 										<tr>
-											<td colspan="7">조회된 리스트가 없습니다.</td>
+											<td colspan="8">조회된 리스트가 없습니다.</td>
 										</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="r" items="${report}">
-											<tr>
+										<c:forEach items="${report}" varStatus="s"> 
+											<c:set var="r" value="${requestScope.report[s.count - 1]}" /> 
+											<c:set var="t" value="${requestScope.tgb[s.count - 1]}" /> 
+												<tr>
 												<td><input type="checkbox" id="TGBChecked" name="TGBChecked" value="${r.tgbNo}"></td>
 												<td>${r.reportNo}</td>
-												<td><img src="${contextPath}/assets/img_upfile/${r.thumnail}" width="200px" height="150px"></td>
+												<td><img src="${contextPath}/assets/img_upfile/${t.thumnail}" width="200px" height="150px"></td>
 												<td>${r.tgbNo}</td>
-												<td>${r.tgbWriter}</td>
-												<td>${r.tgbCreateDate}</td>
+												<td>${t.tgbWriter}</td>
+												<td>${t.createDate}</td>
+												<td>${r.reportUserId}</td>
 												<td>${r.createDate}</td>
-											</tr>	
+											</tr>
 										</c:forEach>
 									</c:otherwise>
 								</c:choose>
@@ -150,7 +154,6 @@
 						</div>
 						</form>
 						<br> <br>
-
 						<!-- 페이징바 만들기 -->
 						<div class="pagingArea" align="center">
 							<!-- 맨 처음으로 (<<) -->

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.member.model.dto.Member;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
 

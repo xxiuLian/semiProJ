@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.uni.common.PageInfo;
 import com.uni.report.model.dto.Report;
 import com.uni.report.model.service.ReportService;
+import com.uni.tgb.model.dto.Tgb;
+import com.uni.tgb.model.service.TgbService;
 
 /**
  * Servlet implementation class ReportTgbManageServlet
@@ -106,9 +108,19 @@ public class ReportTgbManageServlet extends HttpServlet {
 				}
 				
 				PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-				ArrayList<Report> report = new ReportService().selectReportList(pi);
+				
+				//신고의 정보와 공동구매의 정보가 둘 다 필요하므로 두개의 리스트 보내야함
+				ArrayList<Report> report = new ReportService().selectReportList(pi);//신고에 공동구매 상태가 Y인 것만 담음
+				ArrayList<Tgb> tgb = new ArrayList<Tgb>();
+				for(int i = 0; i < report.size(); i++) {
+					Tgb t = new TgbService().selectTgb(report.get(i).getTgbNo()); //반복문으로 신고에 담긴 공구번호로 공구 조회
+					t.setThumnail(new TgbService().selectThumbnail(t.getTgbNo()));//단건조회엔 썸네일이 없어서 썸네일 추가조회
+					tgb.add(t);// 공구 리스트에 담기
+				}
+				
 				request.setAttribute("pi", pi);
 				request.setAttribute("report", report);
+				request.setAttribute("tgb", tgb);
 				request.getRequestDispatcher("views/admin/adminReport.jsp").forward(request, response);
 		
 	}
