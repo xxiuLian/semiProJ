@@ -32,7 +32,7 @@
 		<br>
 		<div class="container" role="main">
 			<form id="updateForm" action="${contextPath}/updateQna.do"
-				method="post" enctype="multipart/form-data">
+				method="post">
 				<input type="hidden" name="qno" value="${q.qnaNo}">
 
 				<div class="mb-3">

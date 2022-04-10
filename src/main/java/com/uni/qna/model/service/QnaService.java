@@ -99,22 +99,12 @@ public class QnaService {
 		return q;
 	}
 
-	public int updateQna(Qna q, Attachment at) {
+	public int updateQna(Qna q) {
 		Connection conn = getConnection();
 		
-		int result1 = new QnaDao().updateQna(conn ,q);
+		int result = new QnaDao().updateQna(conn ,q);
 		
-		int result2 = 1;
-		
-		if(at != null) {
-			if(at.getFileNo() != 0) {
-				result2 = new QnaDao().updateAttachment(conn, at);
-			}else {
-				result2 = new QnaDao().insertNewAttachment(conn, at, q);
-			}
-		}
-		
-		if(result1 > 0 && result2 > 0) {
+		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -122,7 +112,7 @@ public class QnaService {
 		
 		close(conn);
 		
-		return result1 * result2;
+		return result;
 	}
 
 	public int insertReply(Qna q) {
