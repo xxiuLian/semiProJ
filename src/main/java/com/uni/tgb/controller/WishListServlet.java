@@ -56,7 +56,7 @@ public class WishListServlet extends HttpServlet {
 		}
 		
 		pageLimit = 5;//한번에 5페이지씩
-		boardLimit = 5;//한페이지에 5글
+		boardLimit = 10;//한페이지에 5글
 		
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		
@@ -74,11 +74,14 @@ public class WishListServlet extends HttpServlet {
 		ArrayList<Tgb> list = new TgbService().wishList(pi, userNo);
 		ArrayList<Category> catelist = new TgbService().getCategory();
 		
+		System.out.println("찜내역 갯수 : "+list.size());
+		
+		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		request.setAttribute("catelist", catelist);
 		
-		request.getRequestDispatcher("views/tgb/wishListInMyPage.jsp").forward(request, response);;
+		request.getRequestDispatcher("views/tgb/wishListInMyPage.jsp").forward(request, response);
 		
 	}
 

@@ -47,6 +47,11 @@
 	background: darkgrey;
 	cursor: pointer
 }
+td>img{
+	width:300px;
+	height:150px;
+	
+}
 </style>
 </head>
 <body>
@@ -78,73 +83,91 @@
 				</tr>
 			</thead>
 			<tbody>
-				
-				<% if(list.isEmpty()){ %>
-				<tr>
-					<td colspan="5">존재하는 공지사항이 없습니다.</td>
-				</tr>
-				<% }else{  %>
-				<% for(Tgb t : list){ %>
-				<tr>
-					<td><%= t.getNoticeNo() %></td>
-					<td><%= t.getNoticeTitle() %></td>
-					<td><%= t.getNoticeWriter() %></td>
-					<td><%= t.getCount() %></td>
-					<td><%= t.getCreateDate() %></td>
-				</tr>
-				<% } %>
-				<% } %>
+				<c:choose>
+					<c:when test="${empty list}">
+						<tr>
+							<td>찜한 내역이 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${list}" var="list" varStatus="st">
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>${list.tgbNo}</td>
+								<td><img src="<%=contextPath%>/assets/img_upfile/${list.thumnail}"></td>
+								<td>${list.tgbTitle }</td>
+								<td>${list.tgb_Price }</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</tbody>
 
 		</table>
-		<form class="searchArea" align="center">
-			<select id="condition" name="condition">
-				<option value="writer">작성자</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select> <input type="search" name="search">
-			<button type="submit">검색하기</button>
-		</form>
+		
 		<br>
 		<br>
-		<div align="center">
-			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
-
-			<button
-				onclick="location.href='<%=contextPath%>/enrollFormNotice.do'">작성하기</button>
-			<% } %>
-		</div>
+		
 
 	</div>
 	<script type="text/javascript">
-	
-	<% if(!list.isEmpty()){%>
 	$(function(){
-		$(".listArea>tbody>tr").click(function(){
-			var nno = $(this).children().eq(0).text();//한 행을 클릭하면 그 행의 첫번째 열의 text를 반환
+		$('#tgbCategory').change(function(){
+			var selected = $('option:selected').val();
 			
-			location.href = "<%=contextPath%>/detailNotice.do?nno="+nno;
-			//menubar에서 contextPath를 아예 선언해서 쓰고 있다
+		if(selected === '000'){
+			console.log("[지우기]같은 카테고리")
+			
+			
+			$.ajax({
+				url :"wishList2.do",
+				type : "get",
+				success:function(list){
+					console.log(list);
+				}
+			})
+		
+			
+		}else{
+			console.log("[지우기]다른 카테고리");
+		}
+			
+			
+			
+			
 		})
 	})
 	
 	
-	<%}%>
+	
+	
+	if(!${empty list}){
+	$(function(){
+		$(".listArea>tbody>tr").click(function(){
+			var bno = $(this).children().eq(1).text();
+			
+			location.href = "<%=contextPath%>/detailTgb.do?bno="+bno;
+			
+		})
+	})
+	
+}
+	
 	
 	</script>
 	<!-- 페이징바 -->
 		<div class="paging" align="center">
 		
-		
-		<!-- 페이지 목록 -->
-		<%for(int i = startPage; i<=endPage; i++){ %>
-			<%if(i ==currentPage){ %>
-			<button disabled><%= i %></button>
-			<%}else{ %>
-				<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage='<%=i%>"><%=i %></button>
-			<%} %>
-		<%} %>
-		
+			<c:forEach var="p" begin="${startPage}" end="${endPage }" step="1">
+				<c:choose>
+					<c:when test="${p eq currentPage}">
+						<button disabled>${p}</button>
+					</c:when>
+					<c:otherwise>
+						<button onclick="location.href='<%=contextPath%>/qnaList.do?currentPage=${p}'">${p}</button>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 		
 		</div>
 	
