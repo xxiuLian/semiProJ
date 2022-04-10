@@ -52,7 +52,7 @@
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 전체 상품
-						</a><a class="nav-link" href="reportTGB.do">
+						</a><a class="nav-link" href="adminReportTgb.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 신고된 상품
@@ -231,7 +231,7 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var bno = $(this).parent().children().eq(2).text();
 				console.log(bno)
-				window.open("${contextPath}/detailTgb.do?bno="+bno, "문의글조회", "width=1000, height=600")
+				window.open("${contextPath}/detailTgb.do?bno="+bno, "상품조회", "width=1000, height=600")
 			})
 		})
 	}

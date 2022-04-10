@@ -62,15 +62,10 @@ public class QnaService {
 	public int deleteQna(int qno) {
 		Connection conn = getConnection();
 		
-		int result1 = new QnaDao().deleteQna(conn, qno);
-		int result2 = 1;
+		int result = new QnaDao().deleteQna(conn, qno);
 		
-		Attachment at = new QnaDao().selectAttachment(conn, qno);
-		if(at != null) {
-			result2 = new QnaDao().deleteAttachment(conn, qno);
-		}
 		
-		if(result1 > 0 && result2 > 0) {
+		if(result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -78,7 +73,7 @@ public class QnaService {
 		
 		close(conn);
 		
-		return result1 * result2;
+		return result;
 	}
 
 	public int insertQna(Qna q) {

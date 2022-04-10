@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
+import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dto.Tgb;
 import static com.uni.common.JDBCTemplate.*;
 
@@ -661,6 +662,36 @@ public class TgbDao {
 		}
 		
 		return list;
+	}
+
+	public int deleteWishList(Connection conn, int user, String[] arr) {
+		//deleteWishList=DELETE FROM WISHLIST WHERE USER_NO = ? AND TGB_NO = ?
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteWishList");
+		
+		try {
+			
+		for(int i =0; i<arr.length; i++) {
+			
+		
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, user);
+			pstmt.setInt(2, Integer.parseInt(arr[i]));
+			
+			result += pstmt.executeUpdate();
+		
+		}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+		return result;
 	}
 
 

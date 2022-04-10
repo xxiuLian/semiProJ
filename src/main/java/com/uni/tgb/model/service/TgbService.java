@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
+import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb_board.model.dao.TgbBoard_dao;
@@ -259,6 +260,16 @@ public class TgbService {
 		close(conn);
 		
 		return list;
+	}
+
+	public int wishListDelete(int user, String[] arr) {
+		Connection conn = getConnection();
+		int result = new TgbDao().deleteWishList(conn, user, arr);
+		
+		close(conn);
+		
+		
+		return result;
 	}
 
 
