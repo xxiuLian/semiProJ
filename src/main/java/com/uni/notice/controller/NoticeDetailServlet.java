@@ -1,26 +1,26 @@
-package com.uni.event.controller;
+package com.uni.notice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.notice.model.dto.Notice;
+import com.uni.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class eventListServlet
+ * Servlet implementation class NoticeDetailServlet
  */
-@WebServlet("/eventList.do")
-public class eventListServlet extends HttpServlet {
+@WebServlet("/noticeDetail.do")
+public class NoticeDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public eventListServlet() {
+    public NoticeDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,10 +29,21 @@ public class eventListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ArrayList<Board> list = new BoardService().selectThList();
+		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		//request.setAttribute("list", list);
-		//request.getRequestDispatcher("views/thumbnail/thumbnailListView.jsp").forward(request, response);
+		Notice notice = new NoticeService().selectNotice(nno);
+		
+		String view = "";
+		if(notice != null) {
+			request.setAttribute("notice", notice);
+			view = "views/notice/noticeDetailView.jsp";
+		}else {
+			request.setAttribute("msg", "공지사항 조회에 실패했습니다.");
+			view = "views/common/errorPage.jsp";
+		}
+		
+		request.getRequestDispatcher(view).forward(request, response); //view를 담아주고 forward
+
 	}
 
 	/**
