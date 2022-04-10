@@ -19,8 +19,7 @@
 .loginArea{border: 2px solid cornflowerblue; margin: 0 auto; padding: 20px; width: 500px; height: 500px; position: relative;}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<!-- 카카오 -->
-<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 
 </head>
 <body>
@@ -46,8 +45,8 @@
 			function closePopUp(){
 			    testPopUp.close();
 			}
-			function goMain() {
-				location.href="http://localhost:8070/valueSa";
+			function goMain() { //로그아웃 후 메인으로 돌아감
+				location.href="http://localhost:8100/valueSa";
 			}
 			function naverLogout() {
 				openPopUp();
