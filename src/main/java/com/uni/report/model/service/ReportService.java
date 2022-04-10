@@ -3,6 +3,7 @@ package com.uni.report.model.service;
 import static com.uni.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.uni.report.model.dao.ReportDao;
 import com.uni.report.model.dto.Report;
@@ -24,6 +25,16 @@ public class ReportService {
 		
 		return result;
 		
+	}
+
+	public ArrayList<Report> selectReportTgb() {
+		Connection conn = getConnection();
+		
+		ArrayList<Report> report = new ReportDao().selectReportTgb(conn);
+		
+		close(conn);
+		
+		return report;
 	}
 
 }

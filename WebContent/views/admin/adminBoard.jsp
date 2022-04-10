@@ -66,7 +66,7 @@ int barMax = pi.getBarMax();
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 전체 상품
-						</a><a class="nav-link" href="reportTGB.do">
+						</a><a class="nav-link" href="adminReportTgb.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
 							</div> 신고된 상품
