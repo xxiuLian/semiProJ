@@ -6,7 +6,7 @@
 <% String msg = (String)session.getAttribute("msg"); %>
 <!-- 네이버 -->
 <%
-    String clientId = "ZncfIzzOzACjfv58Qta_";//애플리케이션 클라이언트 아이디값";
+    String clientId = "ZncfIzzOzACjfv58Qta_";//가치사 아이디값";
     String redirectURI = URLEncoder.encode("http://127.0.0.1:8100/valueSa/naverLogin.do", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
@@ -24,6 +24,20 @@
 <title>Insert title here</title>
 <style>
 .loginArea{border: 2px solid cornflowerblue; margin: 0 auto; padding: 20px; width: 500px; height: 500px; position: relative;}
+#kakaoLogin{margin-top:5px;}
+#loginAPI{margin-top:50px;}
+.divider .border {
+	background:#e7eaee;
+	height:1px;
+	position: absolute;
+	left:0;
+	width:40%;
+	top:40%;
+}
+.divider .border.right {
+	left:auto;
+	right:0;
+}
 </style>
 <!-- 카카오 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -76,19 +90,24 @@
 				 <a href="<%=request.getContextPath()%>/findId.do">아이디 찾기</a>
 				 <a href="<%=request.getContextPath()%>/findPwd.do">비밀번호 찾기</a>
 				
-			    
 			</div>
-			<div style="height: 50px;margin-top: 1%; " id="naver_id_login"></div>
-			<!-- 네이버 로그인 버튼 노출영역 -->
-			<a href="<%=apiURL%>"><img height="40" src="https://www.xpressengine.com/files/attach/images//697/974/022/830561d2c908882a1acf11869868dce6.PNG"></a>
-			<br>
-			<!-- 카카오 버튼이 생기는 a태그 -->
-			<div id="kakaoLogin">  
-    			<a id="kakao-login-btn"></a>
-    			<a href="http://developers.kakao.com/logout"></a>
+			
+			<div class="divider">
+				<div class="border"></div>
+				<br>
+				<div class="border right"></div>
 			</div>
-
-
+			
+			<div id ="loginAPI">
+				<!-- 네이버 로그인 버튼 노출영역 -->
+				<a href="<%=apiURL%>"><img width="220" height="48" src="<%=contextPath%>/resources/smarteditor/img/naver.png"></a>
+				<br>
+				<!-- 카카오 버튼이 생기는 a태그 -->
+				<div id="kakaoLogin">  
+    				<a id="kakao-login-btn"></a>
+    				<a href="http://developers.kakao.com/logout"></a>
+				</div>
+			</div>
 		</form>
 		<% }else{ %> 
 			<div id = "userInfo">
@@ -144,7 +163,7 @@
                   alert(JSON.stringify(error));
               }
           });
-         //접속된이 잘 된다면 회원의 토큰값 출력됨
+         //접속이 잘 된다면 회원의 토큰값 출력됨
         alert(JSON.stringify(authObj));
         
       },
