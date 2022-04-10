@@ -122,8 +122,9 @@ td>img{
 			$.ajax({
 				url :"wishList2.do",
 				type : "get",
-				success:function(list){
+				success:function(list, pi){
 					console.log(list);
+					console.log(pi);
 				}
 			})
 		
