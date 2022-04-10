@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.uni.tgb.model.dto.*, java.util.ArrayList, com.uni.common.Attachment"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%
  	Tgb t = (Tgb)request.getAttribute("t");
  	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("aList");
@@ -137,7 +138,7 @@ td{
 		
 		<button type="button" id='wish' value=""><img src="<%=contextPath%>/assets/TgbAssets/undib.png"></button>
 		<button type="button" id="ptici">참여하기</button>
-		
+		<button type="button" onclick="reportTgb();">상품 신고</button>
 	</div>
 	<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
 	<div id="contentArea" class="textarea" ><%=t.getTgbContent() %></div>
@@ -152,7 +153,8 @@ td{
 	
 	<%} %>
 	<button type="button" onclick="history.back();">목록으로</button>
-
+	
+	
 	<script>
 	
 		$(document).ready(function(){
@@ -297,6 +299,14 @@ td{
 		        
 		    }) 
 
+		    
+		    function reportTgb(){
+			 if(${loginUser == null}){
+				 alert("로그인 한 유저만 신고할 수 있습니다.")
+				 return false;
+			 }
+			 location.href = "<%=request.getContextPath()%>/reportTgbForm.do?bno=${t.tgbNo}";
+		 }
 	</script>
 	
 </div>
