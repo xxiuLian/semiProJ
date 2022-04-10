@@ -42,7 +42,6 @@ public class QnaInsertServlet extends HttpServlet {
 			String category = request.getParameter("category");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			String[] contents = request.getParameterValues("content");
 			System.out.println(category);
 			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 			

@@ -185,6 +185,22 @@ public class TgbBoard_service {
 		return result;
 	}
 
+	public int deleteBoards(int[] bno) {
+		Connection conn = getConnection();
+		
+		int result = new TgbBoard_dao().deleteBoards(conn, bno);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 	
 	
 }
