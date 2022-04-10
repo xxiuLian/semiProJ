@@ -112,11 +112,11 @@
 								<tr>
 									<th width="100"><button type="reset">전체취소</button></th>
 									<th width="100">신고 번호</th>
-									<th width="100">썸네일</th>
+									<th width="50">썸네일</th>
 									<th width="100">공구 번호</th>
-									<th width="125">공구 작성자</th>
+									<th width="150">공구 작성자</th>
 									<th width="150">공구 등록일</th>
-									<th width="125">신고 작성자</th>
+									<th width="150">신고 작성자</th>
 									<th width="150">신고일</th>
 								</tr>
 							<thead>
