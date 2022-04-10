@@ -57,14 +57,24 @@
 		<h2 align="center">찜목록 내역</h2>
 		<br>
 
+		<div>
+			<select name="tgbCategory" id="tgbCategory">
+				<option value="000">카테고리 선택</option>
+				<c:forEach items="${catelist}" var="category" varStatus="st">
+					<option value="${category.categoryNo}"><c:out value="${category.categoryName}"/></option>
+				</c:forEach>
+			</select>
+		</div>
+
+
 		<table class="listArea" align="center">
 			<thead>
 				<tr>
 					<th></th><!-- 체크 -->
-					<th width="300"></th>
-					<th width="100">작성자</th>
-					<th>조회수</th>
-					<th width="100">작성일</th>
+					<th>글번호</th>
+					<th width="300">썸네일</th>
+					<th width="100">글제목</th>
+					<th width="100">공구 가격</th>
 				</tr>
 			</thead>
 			<tbody>

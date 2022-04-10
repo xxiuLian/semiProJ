@@ -78,7 +78,7 @@ public class WishListServlet extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("catelist", catelist);
 		
-		request.getRequestDispatcher("views/tgb/wishListInMyPage.jsp");
+		request.getRequestDispatcher("views/tgb/wishListInMyPage.jsp").forward(request, response);;
 		
 	}
 
