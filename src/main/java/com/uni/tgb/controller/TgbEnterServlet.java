@@ -65,7 +65,7 @@ public class TgbEnterServlet extends HttpServlet {
 		String tper = String.format("%.2f", tp);
 		
 		request.setAttribute("cntper", cntper);
-		request.setAttribute("term", t.getTgbTerm());
+		request.setAttribute("t", t);
 		request.setAttribute("tper", tper);
 		
 		request.getRequestDispatcher("views/tgb/tgbEnterView.jsp").forward(request, response);

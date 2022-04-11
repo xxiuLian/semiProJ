@@ -8,6 +8,10 @@
 </head>
 <body>
 
+	<div>
+	<img src = "${contextPate }/assets/img_upfile/">
+	</div>
+
 <div>${cntper}</div>
 <div>${term }</div>
 <div>${tper }</div>
