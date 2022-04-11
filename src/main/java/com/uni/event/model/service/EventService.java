@@ -1,4 +1,4 @@
-package com.uni.notice.model.service;
+package com.uni.event.model.service;
 
 import static com.uni.common.JDBCTemplate.close;
 import static com.uni.common.JDBCTemplate.commit;
@@ -8,23 +8,25 @@ import static com.uni.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.uni.event.model.dao.EventDao;
+import com.uni.event.model.dto.EventDto;
 import com.uni.notice.model.dao.NoticeDao;
 import com.uni.notice.model.dto.NoticeDto;
 
-public class NoticeService {
+public class EventService {
 
-	public ArrayList<NoticeDto> selectList() {
+	public ArrayList<EventDto> selectList() {
 		Connection conn = getConnection();
-		ArrayList<NoticeDto> list = new NoticeDao().selectList(conn);
+		ArrayList<EventDto> list = new EventDao().selectList(conn);
 		
 		close(conn);
 		return list;
 	}
 
-	public int insertNotice(NoticeDto n) {
+	public int insertNotice(EventDto n) {
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().insertNotice(conn,n);
+		int result = new EventDao().insertNotice(conn,n);
 		
 		if(result > 0) {
 			commit(conn);
@@ -35,14 +37,15 @@ public class NoticeService {
 		return result;
 	}
 
-	public NoticeDto selectNotice(int nno) {
+	public EventDto selectEvent(int nno) {
+		
 		Connection conn = getConnection();
-		int result = new NoticeDao().increaseCount(conn,nno); //조회수 증가
-		NoticeDto n = null;
+		int result = new EventDao().increaseCount(conn,nno); //조회수 증가
+		EventDto n = null;
 		
 		if(result > 0) {
 			commit(conn);
-			n = new NoticeDao().selectNotice(conn, nno);
+			n = new EventDao().selectEvent(conn, nno);
 			
 		}else {
 			rollback(conn);
@@ -53,10 +56,10 @@ public class NoticeService {
 		return n;
 	}
 
-	public int deleteNotice(String nno) {
+	public int deleteEvent(String nno) {
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().deleteNotice(conn, nno);
+		int result = new EventDao().deleteEvent(conn, nno);
 		
 		if(result > 0 ) {
 			commit(conn);
@@ -67,20 +70,19 @@ public class NoticeService {
 		return result;
 	}
 
-	public NoticeDto selectUpdateNotice(int nno) {
-	Connection conn = getConnection();
+	public EventDto selectUpdateEvent(int nno) {
+		Connection conn = getConnection();
 		
-		NoticeDto n = new NoticeDao().selectNotice(conn, nno);
+		EventDto n = new EventDao().selectEvent(conn, nno);
 		
 		close(conn);
 		return n;
-
 	}
 
-	public int updateNotice(NoticeDto n) {
+	public int updateEvent(EventDto n) {
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().updateNotice(conn, n);
+		int result = new EventDao().updateEvent(conn, n);
 		
 		if(result > 0 ) {
 			commit(conn);
