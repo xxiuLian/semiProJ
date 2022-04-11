@@ -68,6 +68,7 @@ public class MyListServlet extends HttpServlet {
 		int userNo = loginUser.getUserNo();
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
+
 		ArrayList<Tgb> list = new MemberService().mySelectList(pi, userNo);
 		ArrayList<Tgb> joinList = new MemberService().myjoinList(pi, userNo);
 		

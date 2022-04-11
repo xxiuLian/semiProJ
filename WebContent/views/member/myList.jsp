@@ -99,7 +99,7 @@
 				<c:choose>
 					<c:when test="${empty list}">
 						<tr>
-							<td colspan="5">진행 내역이 없습니다.</td>
+							<td colspan="5">공동구매 진행 내역이 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -186,7 +186,7 @@
 				<c:choose>
 					<c:when test="${empty joinList}">
 						<tr>
-							<td colspan="5">진행 내역이 없습니다.</td>
+							<td colspan="5">공동구매 참여 내역이 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -261,10 +261,6 @@
 		</div>-->
 		</div>
 		</div>
-
-
-
-
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
