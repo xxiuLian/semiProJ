@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.notice.model.dto.Notice;
+import com.uni.notice.model.dto.NoticeDto;
 import com.uni.notice.model.service.NoticeService;
 
 /**
@@ -30,7 +30,7 @@ public class NoticeUpdateForm extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	      int nno = Integer.parseInt(request.getParameter("nno"));
-	      Notice notice = new NoticeService().selectUpdateNotice(nno);
+	      NoticeDto notice = new NoticeService().selectUpdateNotice(nno);
 	   
 	      String view = "";
 	      if(notice != null) {

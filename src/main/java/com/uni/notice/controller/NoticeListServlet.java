@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.notice.model.dto.Notice;
+import com.uni.notice.model.dto.NoticeDto;
 import com.uni.notice.model.service.NoticeService;
 
 /**
@@ -32,7 +32,7 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Notice> list = new NoticeService().selectList();
+		ArrayList<NoticeDto> list = new NoticeService().selectList();
 		request.setAttribute("list", list);
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/notice/noticeListView.jsp");
