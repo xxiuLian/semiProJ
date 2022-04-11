@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
+import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dto.Tgb;
 import static com.uni.common.JDBCTemplate.*;
 
@@ -754,6 +755,70 @@ public class TgbDao {
 		
 		
 		
+		
+		return result;
+	}
+
+	public Member searchById(Connection conn, String userId) {
+		//searchById=SELECT * FROM MEMBER WHERE USER_ID LIKE ?
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchById");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+	
+			
+			if(rset.next()) {
+				m=new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setPhone(rset.getString("PHONE"));
+				m.setEmail(rset.getString("EMAIL"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return m;
+	}
+
+	public int countTgbById(Connection conn, int userNo) {
+		//countTgbById=SELECT COUNT(*) FROM TGB JOIN MEMBER ON TGB_WRITER = USER_NO WHERE USER_ID LIKE ?
+
+		int result=0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countTgbById");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		
 		return result;
 	}

@@ -62,12 +62,14 @@ public class TgbEnterServlet extends HttpServlet {
 		
 //		System.out.println(tper);
 //		System.out.println((int)(((double)adays/bdays)*100));
-		String cntper = String.format("%.2f", c);
-		String tper = String.format("%.2f", tp);
+		String cntper = String.format("%.1f", c);
+		String tper = String.format("%.1f", tp);
 		
 		request.setAttribute("cntper", cntper);
 		request.setAttribute("t", t);
 		request.setAttribute("tper", tper);
+		
+
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
 		

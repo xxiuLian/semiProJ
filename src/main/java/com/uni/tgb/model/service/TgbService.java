@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
+import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
 
@@ -280,14 +281,33 @@ public class TgbService {
 	}
 
 	public int currentCount(int tno) {
-		Connection conn = getConnection();
 		
+		Connection conn = getConnection();
 		int result = new TgbDao().currentCount(conn, tno);
 		
 		close(conn);
 		
 		
 		return result;
+	}
+
+	public Member searchById(String userId) {
+		Connection conn = getConnection();
+		Member m = new TgbDao().searchById(conn, userId);
+		
+		close(conn);
+		
+		return m;
+	}
+
+	public int countTgbById(int userNo) {
+		Connection conn = getConnection();
+		
+		int cnt = new TgbDao().countTgbById(conn, userNo);
+		
+		close(conn);
+		
+		return cnt;
 	}
 
 
