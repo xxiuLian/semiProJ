@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.notice.model.dto.Notice;
+import com.uni.notice.model.dto.NoticeDto;
 import com.uni.notice.model.service.NoticeService;
 
 /**
@@ -34,7 +34,7 @@ public class NoticeUpdateServlet extends HttpServlet {
 	      String title = request.getParameter("title");
 	      String content = request.getParameter("content").replaceAll("\n", "<br>");
 	      
-	      Notice n = new Notice();
+	      NoticeDto n = new NoticeDto();
 	      n.setNoticeTitle(title);
 	      n.setNoticeContent(content);
 	      n.setNoticeNo(nno);

@@ -1,9 +1,9 @@
-<%@page import="com.uni.notice.model.dto.NoticeDto"%>
+<%@page import="com.uni.event.model.dto.EventDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.notice.model.dto.NoticeDto"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.event.model.dto.EventDto"%>
     
 <%
-	ArrayList<NoticeDto> list = (ArrayList<NoticeDto>) request.getAttribute("list");
+	ArrayList<EventDto> list = (ArrayList<EventDto>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -79,14 +79,14 @@
 				 -->
 				 	 <% if(list.isEmpty()){ %>
 				 	<tr>
-						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+						<td colspan="5">존재하는 이벤트가 없습니다.</td>
 					</tr>
 				 <% }else{  %>
-				 	<% for(NoticeDto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
+				 	<% for(EventDto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
 				 		<tr>
-				 			<td><%= n.getNoticeNo() %></td>
-							<td><%= n.getNoticeTitle() %></td>
-							<td><%= n.getNoticeWriter() %></td>
+				 			<td><%= n.getEventNo() %></td>
+							<td><%= n.getEventTitle() %></td>
+							<td><%= n.getEventWriter() %></td>
 							<td><%= n.getCount() %></td>
 							<td><%= n.getCreateDate() %></td>
 				 		</tr>
@@ -111,7 +111,7 @@
 			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
 			<!-- admin일 경우 컨트롤/NoticeEnrollFormServlet -->
 			
-			<button onclick="location.href='<%=contextPath%>/enrollFormNotice.do'">작성하기</button> 
+			<button onclick="location.href='<%=contextPath%>/enrollFormEvent.do'">작성하기</button> 
 		<% } %>
 		</div>
 		
@@ -122,13 +122,11 @@
 				$(".listArea>tbody>tr").click(function(){
 					var nno = $(this).children().eq(0).text();
 					
-					location.href="<%=contextPath%>/noticeDetail.do?nno="+nno;
+					location.href="<%=contextPath%>/eventDetail.do?nno="+nno;
 				})
 			})
 		<%}%>
 	</script>
-	
-
 	
 </body>
 </html>

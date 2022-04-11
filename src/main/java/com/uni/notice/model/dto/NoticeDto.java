@@ -1,7 +1,7 @@
 package com.uni.notice.model.dto;
 import java.sql.Date;
 
-public class Notice {
+public class NoticeDto {
 
 	private int noticeNo;
 	private String noticeTitle;
@@ -11,17 +11,17 @@ public class Notice {
 	private Date createDate;
 	private String status;
 	
-	public Notice() {
+	public NoticeDto() {
 		
 	}
 	
-	public Notice(String noticeTitle, String noticeWriter, String noticeContent) {
+	public NoticeDto(String noticeTitle, String noticeWriter, String noticeContent) {
 		this.noticeTitle = noticeTitle;
 		this.noticeWriter = noticeWriter;
 		this.noticeContent = noticeContent;
 	}
 
-	public Notice(int noticeNo, String noticeTitle, String noticeWriter, int count, Date createDate) {
+	public NoticeDto(int noticeNo, String noticeTitle, String noticeWriter, int count, Date createDate) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
@@ -32,7 +32,7 @@ public class Notice {
 	
 
 
-	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, int count, Date createDate) {
+	public NoticeDto(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, int count, Date createDate) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
