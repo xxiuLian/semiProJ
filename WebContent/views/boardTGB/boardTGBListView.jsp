@@ -1,9 +1,11 @@
-<%@page import="com.uni.event.model.dto.EventDto"%>
+<%@page import="com.uni.boardTGB.model.dto.BoardTGB_dto"%>
+<%@page import="com.uni.notice.model.dto.NoticeDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.event.model.dto.EventDto"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, 
+    com.uni.boardTGB.model.dto.BoardTGB_dto"%>
     
 <%
-	ArrayList<EventDto> list = (ArrayList<EventDto>) request.getAttribute("list");
+	ArrayList<BoardTGB_dto> list = (ArrayList<BoardTGB_dto>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -40,7 +42,7 @@
 
 	<div class="outer">
 		<br>
-		<h2 align="center">이벤트</h2>
+		<h2 align="center">게시판</h2>
 		<br>
 		        
 		<table class="listArea" align="center">
@@ -79,14 +81,14 @@
 				 -->
 				 	 <% if(list.isEmpty()){ %>
 				 	<tr>
-						<td colspan="5">존재하는 이벤트가 없습니다.</td>
+						<td colspan="5">존재하는 공지사항이 없습니다.</td>
 					</tr>
 				 <% }else{  %>
-				 	<% for(EventDto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
+				 	<% for(BoardTGB_dto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
 				 		<tr>
-				 			<td><%= n.getEventNo() %></td>
-							<td><%= n.getEventTitle() %></td>
-							<td><%= n.getEventWriter() %></td>
+				 			<td><%= n.getBoardTgbNo() %></td>
+							<td><%= n.getBoardTgbTitle() %></td>
+							<td><%= n.getBoardTgbWriter() %></td>
 							<td><%= n.getCount() %></td>
 							<td><%= n.getCreateDate() %></td>
 				 		</tr>
@@ -111,7 +113,7 @@
 			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
 			<!-- admin일 경우 컨트롤/NoticeEnrollFormServlet -->
 			
-			<button onclick="location.href='<%=contextPath%>/enrollFormEvent.do'">작성하기</button> 
+			<button onclick="location.href='<%=contextPath%>/enrollFormBoardTGB.do'">작성하기</button> 
 		<% } %>
 		</div>
 		
@@ -122,11 +124,13 @@
 				$(".listArea>tbody>tr").click(function(){
 					var nno = $(this).children().eq(0).text();
 					
-					location.href="<%=contextPath%>/eventDetail.do?nno="+nno;
+					location.href="<%=contextPath%>/boardTGBDetail.do?nno="+nno;
 				})
 			})
 		<%}%>
 	</script>
+	
+
 	
 </body>
 </html>
