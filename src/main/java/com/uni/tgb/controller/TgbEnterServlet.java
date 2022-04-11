@@ -2,6 +2,7 @@ package com.uni.tgb.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -67,6 +68,11 @@ public class TgbEnterServlet extends HttpServlet {
 		request.setAttribute("cntper", cntper);
 		request.setAttribute("t", t);
 		request.setAttribute("tper", tper);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
+		
+		System.out.println(sdf.format(t.getTgbTerm()));
+		request.setAttribute("term", sdf.format(t.getTgbTerm()));
 		
 		request.getRequestDispatcher("views/tgb/tgbEnterView.jsp").forward(request, response);
 	}
