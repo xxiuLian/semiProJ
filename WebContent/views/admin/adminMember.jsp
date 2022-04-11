@@ -132,7 +132,6 @@
 														<td><input type="checkbox" disabled></td>
 													</c:otherwise>
 												</c:choose>
-
 												<td>${m.userNo}</td>
 												<td>${m.userId}</td>
 												<td>${m.phone}</td>

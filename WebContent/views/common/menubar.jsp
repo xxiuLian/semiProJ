@@ -72,6 +72,7 @@
 					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li>
+					<li class="nav-item"><a class="nav-link" onclick="paytest();">결제</a></li>
 				</ul>
 			</div>
 			<div id = "userInfo">
@@ -92,6 +93,9 @@
 		
 		location.href = "<%=contextPath%>/searchTgb.do?keyword="+keyword;
 		
+	}
+	function paytest(){
+		window.open("${contextPath}/payView.do", "결제정보 확인", "width=700, height=500 left=800, top=200" )
 	}
 	</script>
 </body>
