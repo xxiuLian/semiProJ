@@ -40,7 +40,7 @@
 
 	<div class="outer">
 		<br>
-		<h2 align="center">공지사항</h2>
+		<h2 align="center">이벤트</h2>
 		<br>
 		        
 		<table class="listArea" align="center">
