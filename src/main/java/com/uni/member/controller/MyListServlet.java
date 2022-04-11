@@ -69,8 +69,10 @@ public class MyListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		ArrayList<Tgb> list = new MemberService().mySelectList(pi, userNo);
+		ArrayList<Tgb> joinList = new MemberService().myjoinList(pi, userNo);
 		
 		request.setAttribute("list", list);
+		request.setAttribute("joinList", joinList);
 		request.setAttribute("pi", pi);
 		request.getRequestDispatcher("views/member/myList.jsp").forward(request, response);;
 	}

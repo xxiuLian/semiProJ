@@ -180,4 +180,43 @@ public class MemberService {
 		return list;
 	}
 
+
+	public ArrayList<Tgb> myjoinList(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> joinList = new MemberDao().myjoinList(conn, pi, userNo);
+		
+		close(conn);
+		
+		return joinList;
+	}
+	
+	
+	public int ingCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int ingCount = new MemberDao().ingCount(conn, userNo);
+		
+		close(conn);
+		return ingCount;
+	}
+
+	public int payCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int payCount = new MemberDao().payCount(conn, userNo);
+		
+		close(conn);
+		return payCount;
+	}
+
+	public int qnaCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int qnaCount = new MemberDao().qnaCount(conn, userNo);
+		
+		close(conn);
+		return qnaCount;
+	}
+
 }

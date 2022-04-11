@@ -542,5 +542,144 @@ public class MemberDao {
 		
 		return list;
 	}
+	
+	public ArrayList<Tgb> myjoinList(Connection conn, PageInfo pi, int userNo) {
+		//myJoinList=SELECT * FROM ( SELECT ROWNUM RNUM, A.* FROM(SELECT TGB_NO, TGB_CATEGORY_NO, TGB_CATEGORY_NAME, \
+//		TGB_TITLE, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME FROM TGB LEFT JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) \
+//		JOIN PAY USING(TGB_NO) LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT \
+//		WHERE TYPE LIKE 'TGB' AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO WHERE  TGB.STATUS = 'Y' AND USER_NO=? \
+//		ORDER BY TGB_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
+		ArrayList<Tgb> joinList = new ArrayList<Tgb>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("myJoinList");
+		
+		int startRow = (pi.getCurrentPage() -1)*pi.getBoardLimit()+1;
+		int endRow = startRow+pi.getBoardLimit() -1;
+		
+		try { 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				joinList.add(new Tgb(rset.getInt("TGB_NO"),
+						rset.getString("TGB_CATEGORY_NO"),
+						rset.getString("TGB_TITLE"), 
+						rset.getInt("TGB_COUNT"), 
+						rset.getDate("TGB_TERM"), 
+						rset.getInt("TGB_PRICE"), 
+						rset.getDate("CREATE_DATE"),
+						rset.getString("CHANGE_NAME")));
+				
+			} 
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}	
+		
+		return joinList;
+	}
+
+	public int ingCount(Connection conn, int userNo) {
+		int ingCount = 0;
+		//ingCount=SELECT COUNT(*) FROM TGB JOIN MEMBER ON TGB_WRITER = USER_NO WHERE USER_NO = ?
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("ingCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				ingCount = rset.getInt(1);
+				
+			}
+			System.out.println("dao에서 가져옴" + ingCount);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return ingCount;
+	}
+
+	public int payCount(Connection conn, int userNo) {
+		int payCount = 0;
+		//payCount=SELECT COUNT(*) FROM PAY JOIN MEMBER USING(USER_NO) WHERE USER_NO = ?
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("payCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				payCount = rset.getInt(1);
+				
+			}
+			System.out.println("dao에서 가져옴" + payCount);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return payCount;
+	}
+
+	public int qnaCount(Connection conn, int userNo) {
+		int qnaCount = 0;
+		//qnaCount=SELECT COUNT(*) FROM QNA_BOARD JOIN MEMBER ON QNA_WRITER = USER_NO WHERE USER_NO = ?
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("qnaCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				qnaCount = rset.getInt(1);
+				
+			}
+			System.out.println("dao에서 가져옴" + qnaCount);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qnaCount;
+	}
+
+	
 
 }
