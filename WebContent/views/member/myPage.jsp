@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*"%>
+<%
+	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
 <c:set var="msg" value="${sessionScope.msg}" scope="session"/>
@@ -95,6 +98,7 @@
 					<td>
 					<div class="userIng" style = "width:200px;height:200px;border:2px solid red">
 						<b>진 행</b>
+						<input type="text" id="output3" style="width: 300px" readonly>
 					</div>
 					</td>
 					<td>
@@ -106,9 +110,12 @@
 				</tr>
 			</table>
 				</div>
+			</div>
 		</div>
-	</div>
 	<script>
+		$(function(){
+			
+		})
 	
 		function updatePwd(){
 			window.open("<%= contextPath %>/updatePwdForm.do","비밀번호 변경창 ","width=500, height=300")

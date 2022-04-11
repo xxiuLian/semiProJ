@@ -5,8 +5,11 @@ import static com.uni.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.uni.common.PageInfo;
 import com.uni.member.model.dao.MemberDao;
 import com.uni.member.model.dto.Member;
+import com.uni.tgb.model.dao.TgbDao;
+import com.uni.tgb.model.dto.Tgb;
 
 public class MemberService {
 
@@ -165,6 +168,16 @@ public class MemberService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public ArrayList<Tgb> mySelectList(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> list = new MemberDao().mySelectList(conn, pi, userNo);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

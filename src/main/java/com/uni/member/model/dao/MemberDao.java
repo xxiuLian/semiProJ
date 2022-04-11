@@ -12,7 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.common.PageInfo;
 import com.uni.member.model.dto.Member;
+import com.uni.tgb.model.dto.Tgb;
 
 public class MemberDao {
 	
@@ -493,6 +495,52 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Tgb> mySelectList(Connection conn, PageInfo pi, int userNo) {
+		ArrayList<Tgb> list = new ArrayList<Tgb>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("myList");
+		
+		int startRow = (pi.getCurrentPage() -1)*pi.getBoardLimit()+1;
+		int endRow = startRow+pi.getBoardLimit() -1;
+//		myList=SELECT * FROM ( SELECT ROWNUM RNUM, A.* FROM(SELECT TGB_NO, TGB_CATEGORY_NO, TGB_CATEGORY_NAME, \
+//				TGB_TITLE, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME FROM TGB LEFT JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) \
+//				JOIN WISHLIST USING(TGB_NO) LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT \
+//				WHERE TYPE LIKE 'TGB' AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO WHERE  TGB.STATUS = 'Y' AND USER_NO=? \
+//				ORDER BY TGB_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
+		try { 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				list.add(new Tgb(rset.getInt("TGB_NO"),
+						rset.getString("TGB_CATEGORY_NO"),
+						rset.getString("TGB_TITLE"), 
+						rset.getInt("TGB_COUNT"), 
+						rset.getDate("TGB_TERM"), 
+						rset.getInt("TGB_PRICE"), 
+						rset.getDate("CREATE_DATE"),
+						rset.getString("CHANGE_NAME")));
+				
+			} 
+			System.out.println(list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}	
+		
+		return list;
 	}
 
 }
