@@ -3,7 +3,6 @@
 <%
 String msg = (String) request.getAttribute("msg");
 String sTag = (String) request.getAttribute("sTag");
-String originCname = (String) request.getAttribute("originCname");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +17,6 @@ String originCname = (String) request.getAttribute("originCname");
 	var sTag="<%=sTag%>";
 	$(function() {
 		if (msg != "null") {
-
 			alert(msg) //msg가 있으면 띄워주고
 		}
 
