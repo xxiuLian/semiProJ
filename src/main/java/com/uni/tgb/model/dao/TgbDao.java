@@ -663,7 +663,7 @@ public class TgbDao {
 		return list;
 	}
 
-	public int deleteWishList(Connection conn, int user, String[] arr) {
+	public int deleteWishList(Connection conn, int user, String[] arr) {//찜목록 지우기
 		//deleteWishList=DELETE FROM WISHLIST WHERE USER_NO = ? AND TGB_NO = ?
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -693,7 +693,7 @@ public class TgbDao {
 		return result;
 	}
 
-	public String selectThumbnail(Connection conn, int tgbNo) {
+	public String selectThumbnail(Connection conn, int tgbNo) {//권오선
 		String thumbnail = null;
 		
 		PreparedStatement pstmt = null;
@@ -724,6 +724,38 @@ public class TgbDao {
 	
 		
 		return thumbnail;
+	}
+
+	public int currentCount(Connection conn, int tno) {
+		//currentCount=SELECT COUNT(*) FROM PAY WHERE TGB_NO = ?
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("currentCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
 	}
 
 

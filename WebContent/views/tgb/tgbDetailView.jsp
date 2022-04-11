@@ -137,7 +137,7 @@ td{
 		</table>
 		
 		<button type="button" id='wish' value=""><img src="<%=contextPath%>/assets/TgbAssets/undib.png"></button>
-		<button type="button" id="ptici">참여하기</button>
+		<button type="button" id="ptici" onclick="participation();">참여하기</button>
 		<button type="button" onclick="reportTgb();">상품 신고</button>
 	</div>
 	<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
@@ -306,6 +306,20 @@ td{
 				 return false;
 			 }
 			 location.href = "<%=request.getContextPath()%>/reportTgbForm.do?bno=${t.tgbNo}";
+		 }
+		 
+		 
+		 function participation(){
+			 if(${loginUser == null}){
+				 var a = confirm("로그인을 해야 합니다. 로그인창으로 이동하시겠습니까?");
+					
+					if(a){
+						location.href="<%=contextPath%>/login.do";
+					}
+			 }else{
+				 location.href="<%=contextPath%>/tgbEnter.do?tno=${t.tgbNo}";
+				 
+			 }
 		 }
 	</script>
 	
