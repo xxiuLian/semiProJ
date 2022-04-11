@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
-<c:set var="msg" value="${sessionScope.msg}" scope="session"/>
-<c:set var="contextPath" value="<%= request.getContextPath()%>" scope="session"/>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*"%>
+<%
+	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
+	int ingCount = (int)request.getAttribute("ingCount");
+	int payCount = (int)request.getAttribute("payCount");
+	int qnaCount = (int)request.getAttribute("qnaCount");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -41,7 +44,7 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
+                <div class="sidebar-heading border-bottom bg-light"><a href="<%=contextPath %>/myPage.do">Start Bootstrap</a></div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do" id="myInfo">내 정보</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myList.do">공동구매 내역 조회</a>
@@ -90,49 +93,28 @@
 					<td>
 					<div class="userIng" style = "width:200px;height:200px;border:2px solid red">
 						<b>구 매</b>
+						<%= payCount %>건
 					</div>
 					</td>
 					<td>
 					<div class="userIng" style = "width:200px;height:200px;border:2px solid red">
 						<b>진 행</b>
+						<%= ingCount %>건
 					</div>
 					</td>
 					<td>
 					<div class="userIng" style = "width:200px;height:200px;border:2px solid red">
 						<b>문 의</b>
+						<%= qnaCount %>건
 					</div>
 					</td>
 					<td></td>
 				</tr>
 			</table>
 				</div>
+			</div>
 		</div>
-	</div>
-	<script>
 	
-		function updatePwd(){
-			window.open("<%= contextPath %>/updatePwdForm.do","비밀번호 변경창 ","width=500, height=300")
-		} //window.open : 새창 열기
-
-		function deleteMember(){
-			var pwd = prompt("비밀번호를 입력하세요");
-			var op = $("#originPwd").val(); //form 안에 있는 원래 비번 값(.val())
-			
-			if(op === pwd){
-				var val = confirm("정말로 가치사를 탈퇴 하시겠습니까?");
-				if(val){ //true(확인) : 삭제하겠따
-					$("#updateForm").attr("action","<%= contextPath %>/deleteMember.do"); 
-					                                                            //MemberDeleteServlet.java로 이동
-					$("#updateForm").submit();
-					alert("탈퇴 완료 되었습니다.");
-				}else{
-					alert("취소하였습니다");
-				}
-			}
-		}
-
-	</script>
-
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
