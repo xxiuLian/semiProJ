@@ -1,6 +1,7 @@
-package com.uni.notice.controller;
+package com.uni.event.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.member.model.dto.Member;
-import com.uni.notice.model.dto.Notice;
+import com.uni.event.model.dto.EventDto;
+import com.uni.event.model.service.EventService;
 import com.uni.notice.model.service.NoticeService;
 
+
 /**
- * Servlet implementation class NoticeinsertServlet
+ * Servlet implementation class eventListServlet
  */
-@WebServlet("/insertNotice.do")
-public class NoticeinsertServlet extends HttpServlet {
+@WebServlet("/eventList.do")
+public class EventListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeinsertServlet() {
+    public EventListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +34,11 @@ public class NoticeinsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		ArrayList<EventDto> list = new EventService().selectList();
+		request.setAttribute("list", list);
 		
-		Notice n = new Notice(title, writer, content.replaceAll("\n", "<br>"));
-		
-		int result = new NoticeService().insertNotice(n);
-		
-		if(result > 0 ) {
-			request.getSession().setAttribute("msg", "공지사항이 등록되었습니다.");
-			response.sendRedirect("noticeList.do");
-		}else {
-			request.setAttribute("msg", "공지사항 실패하였습니다. ");
-		
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}
+		RequestDispatcher view = request.getRequestDispatcher("views/event/eventListView.jsp");
+		view.forward(request, response);
 	}
 
 	/**

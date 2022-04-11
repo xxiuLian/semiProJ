@@ -1,6 +1,9 @@
-package com.uni.notice.model.dao;
+package com.uni.event.model.dao;
 
 import static com.uni.common.JDBCTemplate.close;
+import static com.uni.common.JDBCTemplate.commit;
+import static com.uni.common.JDBCTemplate.getConnection;
+import static com.uni.common.JDBCTemplate.rollback;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,27 +15,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.uni.notice.model.dto.NoticeDto;
+import com.uni.event.model.dto.EventDto;
+import com.uni.notice.model.dao.NoticeDao;
 
-public class NoticeDao {
+public class EventDao {
+	
 	private Properties prop = new Properties();
 	
-	public NoticeDao() {
-		String fileName = NoticeDao.class.getResource("/sql/notice_wook/notice_query.properties").getPath();
-		System.out.println("fileName   " + fileName);
+	public EventDao() {
+		String fileName = EventDao.class.getResource("/sql/event_wook/event_query.properties").getPath();
+		
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
-	
-	public ArrayList<NoticeDto> selectList(Connection conn) {
-
-		ArrayList<NoticeDto> list = new ArrayList<NoticeDto>();
+	public ArrayList<EventDto> selectList(Connection conn) {
+		ArrayList<EventDto> list = new ArrayList<EventDto>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -46,7 +49,7 @@ public class NoticeDao {
 			
 			
 			while(rset.next()) {
-				list.add(new NoticeDto(rset.getInt("NOTICE_NO"),
+				list.add(new EventDto(rset.getInt("NOTICE_NO"),
 									rset.getString("NOTICE_TITLE"),
 									rset.getString("USER_ID"),
 									rset.getInt("COUNT"),
@@ -66,27 +69,21 @@ public class NoticeDao {
 		
 		return list;
 	}
-
-	public int insertNotice(Connection conn, NoticeDto n) {
+	
+	public int insertNotice(Connection conn, EventDto n) {
 
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertNotice");
+		String sql = prop.getProperty("insertEvent");
 		
 		//insertNotice=INSERT INTO NOTICE VALUES(SEQ_NNO.NEXTVAL, ?, ?, ?, DEFAULT, SYSDATE, DEFAULT)
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-//			pstmt.setString(1, n.get()); 
-//			pstmt.setString(2, n.getNoticeTitle());
-//			pstmt.setString(3, n.getNoticeContent());
-			System.out.println("1 : " + n.getNoticeTitle() );
-			System.out.println("2 : " + n.getNoticeContent() );
-			System.out.println("3 : " + Integer.parseInt(n.getNoticeWriter()));
-			
-			pstmt.setInt(1, Integer.parseInt(n.getNoticeWriter()) );
-			pstmt.setString(2, n.getNoticeTitle());
-			pstmt.setString(3, n.getNoticeContent());
+			pstmt.setInt(1, Integer.parseInt(n.getEventWriter()) );
+			pstmt.setString(2, n.getEventTitle());
+			pstmt.setString(3, n.getEventContent());
 			
 			
 			result = pstmt.executeUpdate();
@@ -98,15 +95,10 @@ public class NoticeDao {
 		
 		return result;
 	}
-
 	public int increaseCount(Connection conn, int nno) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("increaseCount");
-		
-		//increaseCount=UPDATE NOTICE SET COUNT = COUNT+1 WHERE NOTICE_NO=? AND STATUS='Y'
-		
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -118,17 +110,14 @@ public class NoticeDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
-
-	public NoticeDto selectNotice(Connection conn, int nno) {
-		NoticeDto n = null; //조회 못해오면 0으로 리턴?
-		//selectNotice=SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, USER_ID, COUNT, CREATE_DATE FROM NOTICE N JOIN MEMBER ON (NOTICE_WRITER=USER_NO) WHERE NOTICE_NO=? AND N.STATUS='Y'
+	public EventDto selectEvent(Connection conn, int nno) {
+		EventDto n = null; //조회 못해오면 0으로 리턴?
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectNotice");
+		String sql = prop.getProperty("selectEvent");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -137,7 +126,7 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				n = new NoticeDto(rset.getInt("NOTICE_NO"),
+				n = new EventDto(rset.getInt("NOTICE_NO"),
 								rset.getString("NOTICE_TITLE"),
 								rset.getString("NOTICE_CONTENT"),
 								rset.getString("USER_ID"),
@@ -155,14 +144,11 @@ public class NoticeDao {
 		
 		return n;
 	}
-
-	public int deleteNotice(Connection conn, String nno) {
+	public int deleteEvent(Connection conn, String nno) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		//deleteNotice
-		//=UPDATE NOTICE SET STATUS='N' WHERE NOTICE_NO=?
-		String sql = prop.getProperty("deleteNotice");
+		String sql = prop.getProperty("deleteEvent");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -179,25 +165,20 @@ public class NoticeDao {
 
 		return result;
 	}
-
-	public int updateNotice(Connection conn, NoticeDto n) {
-		
+	
+	public int updateEvent(Connection conn, EventDto n) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("updateNotice");
-		//updateNotice=
-		//UPDATE NOTICE_EVENT 
-		//SET NOTICE_TITLE=?, NOTICE_CONTENT=? 
-		//WHERE NOTICE_NO=?
+		String sql = prop.getProperty("updateEvent");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeContent());
-			pstmt.setInt(3, n.getNoticeNo());
+			pstmt.setString(1, n.getEventTitle());
+			pstmt.setString(2, n.getEventContent());
+			pstmt.setInt(3, n.getEventNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

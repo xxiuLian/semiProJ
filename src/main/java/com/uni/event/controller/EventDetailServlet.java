@@ -1,4 +1,4 @@
-package com.uni.notice.controller;
+package com.uni.event.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.event.model.dto.EventDto;
+import com.uni.event.model.service.EventService;
 import com.uni.notice.model.dto.NoticeDto;
 import com.uni.notice.model.service.NoticeService;
 
 /**
  * Servlet implementation class NoticeDetailServlet
  */
-@WebServlet("/noticeDetail.do")
-public class NoticeDetailServlet extends HttpServlet {
+@WebServlet("/eventDetail.do")
+public class EventDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailServlet() {
+    public EventDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +33,12 @@ public class NoticeDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		NoticeDto notice = new NoticeService().selectNotice(nno);
+		EventDto event = new EventService().selectEvent(nno);
 		
 		String view = "";
-		if(notice != null) {
-			request.setAttribute("notice", notice);
-			view = "views/notice/noticeDetailView.jsp";
+		if(event != null) {
+			request.setAttribute("event", event);
+			view = "views/event/eventDetailView.jsp";
 		}else {
 			request.setAttribute("msg", "공지사항 조회에 실패했습니다.");
 			view = "views/common/errorPage.jsp";
