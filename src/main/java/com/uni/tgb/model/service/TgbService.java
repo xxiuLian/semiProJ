@@ -259,7 +259,7 @@ public class TgbService {
 		return list;
 	}
 
-	public int wishListDelete(int user, String[] arr) {
+	public int wishListDelete(int user, String[] arr) {//찜목록 삭제
 		Connection conn = getConnection();
 		int result = new TgbDao().deleteWishList(conn, user, arr);
 		
@@ -269,7 +269,7 @@ public class TgbService {
 		return result;
 	}
 
-	public String selectThumbnail(int tgbNo) {
+	public String selectThumbnail(int tgbNo) {//권오선
 		Connection conn = getConnection();
 		
 		String thumbnail = new TgbDao().selectThumbnail(conn, tgbNo);
@@ -277,6 +277,17 @@ public class TgbService {
 		close(conn);
 		
 		return thumbnail;
+	}
+
+	public int currentCount(int tno) {
+		Connection conn = getConnection();
+		
+		int result = new TgbDao().currentCount(conn, tno);
+		
+		close(conn);
+		
+		
+		return result;
 	}
 
 
