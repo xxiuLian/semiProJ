@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.uni.notice.model.dto.NoticeDto;
 
 public class NoticeDao {
+	
 	private Properties prop = new Properties();
 	
 	public NoticeDao() {
