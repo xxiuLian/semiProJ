@@ -28,7 +28,7 @@
 	<div class="outer">
 		<br>
 		
-		<h2 align="center">공지사항 작성하기</h2>
+		<h2 align="center">이벤트 작성하기</h2>
 		
 		<form id="enrollForm" action="<%= contextPath %>/insertEvent.do" method="post" >
 			<table align="center">

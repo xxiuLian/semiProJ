@@ -29,18 +29,21 @@ public class BoardTGBDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		BoardTGB_dto boardTGB = new BoardTGB_service().detailBoardTGB(nno);
+		BoardTGB_dto n = new BoardTGB_service().detailBoardTGB(nno);
 		
 		String view = "";
-		if(boardTGB != null) {
-			request.setAttribute("boardTGB", boardTGB);
-			view = "views/notice/noticeDetailView.jsp";
+		if(n != null) {
+			request.setAttribute("n", n);
+			view = "views/boardTGB/boardTGBDetailView.jsp";
 		}else {
-			request.setAttribute("msg", "공지사항 조회에 실패했습니다.");
+			request.setAttribute("msg", "게시판 조회에 실패했습니다.");
 			view = "views/common/errorPage.jsp";
 		}
+		
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**

@@ -23,7 +23,6 @@ public class EventDeleteServlet extends HttpServlet {
      */
     public EventDeleteServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,8 +35,6 @@ public class EventDeleteServlet extends HttpServlet {
 		int result = new EventService().deleteEvent(nno);
 		
 		if(result > 0) {
-			//삭제완료
-			//메뉴바 해준 Session을 가져와서 set해줌
 			request.getSession().setAttribute("msg", "삭제성공");
 			
 			response.sendRedirect("eventList.do");

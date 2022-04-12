@@ -32,7 +32,7 @@
 	<div class="outer">
 		<br>
 		
-		<h2 align="center">공지사항 상세보기</h2>
+		<h2 align="center">이벤트 상세보기</h2>
 		
 
 		<table id="detailArea" border="1">
@@ -61,12 +61,12 @@
 		
 		<div class="btns" align="center">
 		
-			<a href="noticeList.do">목록으로</a> &nbsp;&nbsp;
+			<a href="eventList.do">목록으로</a> &nbsp;&nbsp;
 				
 			
 			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
-			<a href="updateFormNotice.do?nno=<%=n.getEventNo()%>">수정하기</a> &nbsp;&nbsp;
-			<a href="deleteNotice.do?nno=<%=n.getEventNo()%>">삭제하기</a>
+			<a href="updateFormEvent.do?nno=<%=n.getEventNo()%>">수정하기</a> &nbsp;&nbsp;
+			<a href="deleteEvent.do?nno=<%=n.getEventNo()%>">삭제하기</a>
 		
 			<% } %>
 			
