@@ -216,6 +216,8 @@ public class TgbDao {
 							rset.getInt("TGB_PRICE"), 
 							rset.getDate("CREATE_DATE"));
 				
+				t.setStatus(rset.getString("STATUS"));
+				
 			}
 			
 		} catch (SQLException e) {
@@ -820,6 +822,30 @@ public class TgbDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int updateStatus(Connection conn, int tno) {
+		// updateStatus=UPDATE TGB SET STATUS='YN'WHERE TGB_NO=?
+		int result=0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+
 		return result;
 	}
 
