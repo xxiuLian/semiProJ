@@ -16,16 +16,16 @@ import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 
 /**
- * Servlet implementation class MyListServlet
+ * Servlet implementation class MyFinishListServlet
  */
-@WebServlet("/myList.do")
-public class MyListServlet extends HttpServlet {
+@WebServlet("/myFinishList.do")
+public class MyFinishListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyListServlet() {
+    public MyFinishListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -69,12 +69,11 @@ public class MyListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 
+		ArrayList<Tgb> finishList = new MemberService().myFinishList(pi, userNo);
 		
-		ArrayList<Tgb> list = new MemberService().mySelectList(pi, userNo);
-		
-		request.setAttribute("list", list);
+		request.setAttribute("finishList", finishList);
 		request.setAttribute("pi", pi);
-		request.getRequestDispatcher("views/member/myList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/member/myFinishList.jsp").forward(request, response);
 	}
 
 	/**
