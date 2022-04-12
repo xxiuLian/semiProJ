@@ -1,156 +1,210 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link href="css/styles.css" rel="stylesheet"/>
-<link href="css/chat.css" rel="stylesheet"/>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="css/chat.css" rel="stylesheet" />
+<script src="resources/bootstrap/js/bootstrap.js"></script>
 <title>Insert title here</title>
 
 </head>
 <body>
-<div class="container bootstrap snippet">	
-<div class="row">
-    <div class="col-xs-12">
-        <div class="card chat-app">
-            <div id="plist" class="people-list ">
-                <div class="input-group">
-                <input type="text" class="form-control" placeholder="검색...">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+	<div class="container bootstrap snippets">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="portlet portlet-default">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4><i class="fa fa-circle text-green"></i>채팅</h4>
                     </div>
-                </div>
-                <ul class="list-unstyled chat-list mt-2 mb-0">
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">곽트</div>
-                            <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>                                            
+                    <div class="portlet-widgets">
+						<c:if test="${loginUser.userId eq t.tgbWriter}">                   
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-white dropdown-toggle btn-xs" data-toggle="dropdown">
+                                <i class="fa fa-circle text-green"></i> 참여자
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                            	<c:forEach var="b" items="${buyer}">
+	                            	<li><a href="#"><i class="fa fa-circle text-green"></i>${buyer.userId}</a>
+	                                </li>
+                            	</c:forEach>
+                            </ul>
                         </div>
-                    </li>
-                    <li class="clearfix active">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Aiden Chavez</div>
-                            <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Mike Thomas</div>
-                            <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                        </div>
-                    </li>                                    
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Christian Kelly</div>
-                            <div class="status"> <i class="fa fa-circle offline"></i> left 10 hours ago </div>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Monica Ward</div>
-                            <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Dean Henry</div>
-                            <div class="status"> <i class="fa fa-circle offline"></i> offline since Oct 28 </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="chat" class="parlet-body chat-widget" style="overflow-y:auto; width:auto; height:600px;">
-                <div class="chat-header clearfix">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                            </a>
-                            <div class="chat-about">
-                                <h6 class="m-b-1">곽트</h6>
-                            </div>
-                        </div>
+                        </c:if> 
+                        
+                        <span class="divider"></span>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="chat-history">
-                    <ul class="m-b-0">
-                        <li class="clearfix">
-                            <div class="message-data text-right">
-                                <span class="message-data-time">10:10 AM, Today</span>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                <div id="chat" class="panel-collapse collapse in">
+                    <div>
+                    <div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 300px;">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="text-center text-muted small"></p>
                             </div>
-                            <div class="message other-message float-right"> Hi Aiden, how are you? How is the project coming along? </div>
-                        </li>
-                        <li class="clearfix">
-                            <div class="message-data">
-                                <span class="message-data-time">10:12 AM, Today</span>
-                            </div>
-                            <div class="message my-message">Are we meeting today?</div>                                    
-                        </li>                               
-                        <li class="clearfix">
-                            <div class="message-data">
-                                <span class="message-data-time">10:15 AM, Today</span>
-                            </div>
-                            <div class="message my-message">Project has been already finished and I have results to show you.</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="chat-message clearfix">
-                    <div class="input-group mb-0">
-                        <textarea id="chatContent" class="form-control" style="resize: none;" placeholder="메시지를 입력하세요..." maxlength="100"></textarea>    
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" onclick="chatSubmit();"><i class="fa fa-send"></i></span>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">
+                                            <span class="small pull-right"></span>
+                                        </h4>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">John Smith
+                                            <span class="small pull-right">12:28 PM</span>
+                                        </h4>
+                                        <p>Yeah I did. Everything looks good.</p>
+                                        <p>Did you have an update on purchase order #302?</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Jane Smith
+                                            <span class="small pull-right">12:39 PM</span>
+                                        </h4>
+                                        <p>No not yet, the transaction hasn't cleared yet. I will let you know as soon as everything goes through. Any idea where you want to get lunch today?</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    </div>
+                    <div class="portlet-footer">
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea class="form-control" id="chatContent" style="resize: none;" placeholder="채팅 입력..." maxlength="100"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-default pull-right" onclick="chatSubmit()">전송</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /.col-md-4 -->
     </div>
-</div>
-</div>
-
+</div>                
 </body>
 <script type="text/javascript">
-	function autoClosingAlert(selector, delay){
-		var alert = $(selector).alert();
-		alert.show();
-		window.setTimeout(function() {alert.hide() }, delay);
-	}
-	function chatSubmit(){
-		var fromId = ${loginUser.userId}
-		var toId;
+	function chatSubmit() {
+		var fromId = '${loginUser.userId}';
+		var toId = 'user02';
 		var chatContent = $("#chatContent").val();
-		
+
 		$.ajax({
-			type:"POST",
-			url: "${contextPath}/chatSubmit.do",
-			data: {
-				fromId: encodeURIComponent(fromId),
-				toId: encodeURIComponent(toId),
-				chatContent: encodeURIComponent(chatContent),
+			type : "POST",
+			url : "${contextPath}/chatSubmit.do",
+			data : {
+				fromId : encodeURIComponent(fromId),
+				toId : encodeURIComponent(toId),
+				chatContent : encodeURIComponent(chatContent),
 			},
-			success: function(result){
-				if(result == 1){
-					autoClosingAlert("#successMessage", 2000);
-				}else if(result == empty){
-					autoClosingAlert("#dangerMessage", 2000);
-				}else{
-					autoClosingAlert("#warningMessage", 2000);
+			success : function(result) {
+				if (result == 1) {
+					console.log('채팅 보내졌는지 확인')
 				}
 			}
 		});
 		$("#chatContent").val('');
 	}
+	var lastId = 0;
+	function chatList(type) {
+		var fromId = '${loginUser.userId}';
+		var toId = 'user02';
+		$.ajax({
+			type : "POST",
+			url : "${contextPath}/chatList.do",
+			data : {
+				fromId : fromId,
+				toId : toId,
+				listType : type
+			},
+			success : function(data) {
+				console.log(data)
+				data = JSON.parse(data);
+				console.log(data)
+				if (data == "")
+					return;
+				$.each(data, function(i) {
+					addChat(data[i].fromId, data[i].chatContent, data[i].chatTime);
+					if (data.length - 1 == i) {
+						lastId = Number(data[i].chatId)
+					}
+				})
+				console.log(lastId)
+			}
+		})
+
+	}
+	function addChat(chatName, chatContent, chatTime) {
+
+		$("#chatList").append('<div class="row">'
+								+ '<div class="col-lg-12">'
+								+ '<div class="meidia">'
+								+'<a class="pull-left" href="#">'
+								+'<img class="media-object img-circle" style"width:30px; height:30px" src="assets/img/chat.jpg" alt="">'
+								+'</a>'
+								+'<div class="media-body">'
+								+'<h4 class="media-heading">'
+								+ chatName
+								+ '<span class="small pull-right">'
+								+ chatTime
+								+ '</span>'
+								+ '</h4>'
+								+ '<p>'
+								+ chatContent
+								+ '</p>'
+								+ '</div>'
+								+ '</div>'
+								+ '</div>'
+								+ '</div>'
+								+ '<hr>');
+								$("#chatList").scrollTop($("#chatList")[0].scrollHeight);
+	}
+	function getInfiniteChat(){
+		setInterval(function(){
+			chatList(lastId);
+		}, 3000);
+	}
+	
+	$(document).ready(function(){
+		chatList('ten');
+	})
 </script>
 </html>

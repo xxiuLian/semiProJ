@@ -1,11 +1,15 @@
 package com.uni.chat.model.dao;
 
+import static com.uni.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.uni.chat.model.dto.Chat;
@@ -31,7 +35,7 @@ public class ChatDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		//insertChat=INSERT INTO CHAT VALUES(SEQ_CHAT, ?, ?, ?, SYSDATE)
+		//insertChat=INSERT INTO CHAT VALUES(SEQ_CHAT.NEXTVAL, ?, ?, ?, SYSDATE)
 		String sql = prop.getProperty("insertChat");
 		
 		try {
@@ -43,8 +47,127 @@ public class ChatDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
+	
+	public ArrayList<Chat> selectChatList(Connection conn, Chat c) {
+		ArrayList<Chat> list = new ArrayList<Chat>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//selectChatList=SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) ORDER BY CHAT_TIME
+		String sql = prop.getProperty("selectChatList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, c.getFromId());
+			pstmt.setString(2, c.getToId());
+			pstmt.setString(3, c.getToId());
+			pstmt.setString(4, c.getFromId());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Chat chat = new Chat();
+				chat.setFromId(rset.getString("FROM_ID"));
+				chat.setToId(rset.getString("TO_ID"));
+				chat.setChatContent(rset.getString("CHAT_CONTENT"));
+				chat.setChatTime(rset.getDate("CHAT_TIME"));
+				
+				list.add(chat);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 
+	public ArrayList<Chat> getChatListByRecent(Connection conn, String fromId, String toId, int num) {
+		ArrayList<Chat> list = new ArrayList<Chat>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//getChatListByRecent=SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) AND CHAT_NO > (SELECT MAX(CHAT_NO) - ? FROM CHAT) ORDER BY CHAT_TIME
+		String sql = prop.getProperty("getChatListByRecent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fromId);
+			pstmt.setString(2, toId);
+			pstmt.setString(3, toId);
+			pstmt.setString(4, fromId);
+			pstmt.setInt(5, num);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Chat chat = new Chat();
+				chat.setChatId(rset.getInt("CHAT_NO"));
+				chat.setFromId(rset.getString("FROM_ID"));
+				chat.setToId(rset.getString("TO_ID"));
+				chat.setChatContent(rset.getString("CONTENT"));
+				chat.setChatTime(rset.getDate("CHAT_TIME"));
+				
+				list.add(chat);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<Chat> getChatListById(Connection conn, String fromId, String toId, int num) {
+		ArrayList<Chat> list = new ArrayList<Chat>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//getChatListById=SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) AND CHAT_NO > ? ORDER BY CHAT_TIME
+		String sql = prop.getProperty("getChatListById");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fromId);
+			pstmt.setString(2, toId);
+			pstmt.setString(3, toId);
+			pstmt.setString(4, fromId);
+			pstmt.setInt(5, num);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Chat chat = new Chat();
+				chat.setChatId(rset.getInt("CHAT_NO"));
+				chat.setFromId(rset.getString("FROM_ID"));
+				chat.setToId(rset.getString("TO_ID"));
+				chat.setChatContent(rset.getString("CONTENT"));
+				chat.setChatTime(rset.getDate("CHAT_TIME"));
+				
+				list.add(chat);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 }

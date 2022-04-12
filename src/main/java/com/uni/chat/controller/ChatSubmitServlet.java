@@ -1,6 +1,7 @@
 package com.uni.chat.controller;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,38 +19,46 @@ import com.uni.member.model.dto.Member;
 @WebServlet("/chatSubmit.do")
 public class ChatSubmitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ChatSubmitServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-		String fromId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		String toId = request.getParameter("toId");
-		String chatContent = request.getParameter("chatContent");
-		
-		Chat c = new Chat(fromId, toId, chatContent);
-		
-		if(toId == null || toId.equals("") || chatContent == null || chatContent.equals("")) {
-			response.getWriter().write("empty");
-		}else {
-			int result = new ChatService().insertChat(c);
-		}
-				
+	public ChatSubmitServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
+		// String toId = request.getParameter("toId");
+		String chatContent = request.getParameter("chatContent");
+		String toId = "user02";
+
+		if (toId == null || toId.equals("") || chatContent == null || chatContent.equals("")) {
+			response.getWriter().write("empty");
+		} else {
+			chatContent = URLDecoder.decode(chatContent, "UTF-8");//안하면 한글깨짐
+			Chat c = new Chat(fromId, toId, chatContent);
+			int result = new ChatService().insertChat(c);
+			if (result == 1) {
+				response.getWriter().write("1");
+			}
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -6,6 +6,7 @@ import static com.uni.common.JDBCTemplate.getConnection;
 import static com.uni.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.uni.chat.model.dao.ChatDao;
 import com.uni.chat.model.dto.Chat;
@@ -26,6 +27,26 @@ public class ChatService {
 		close(conn);
 		
 		return result;
+	}
+
+	public ArrayList<Chat> getChatListByRecent(String fromId, String toId, int num) {
+		Connection conn = getConnection();
+		
+		ArrayList<Chat> chat = new ChatDao().getChatListByRecent(conn, fromId, toId, num);
+		
+		close(conn);
+		
+		return chat;
+	}
+
+	public ArrayList<Chat> getChatListById(String fromId, String toId, int num) {
+		Connection conn = getConnection();
+		
+		ArrayList<Chat> chat = new ChatDao().getChatListById(conn, fromId, toId, num);
+		
+		close(conn);
+		
+		return chat;
 	}
 
 }

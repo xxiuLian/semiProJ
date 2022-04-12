@@ -12,12 +12,17 @@ public class Chat {
 	private String chatContent;
 	private Date chatTime;
 	
+	public Chat() {
+	}
+	
 	public Chat(String fromId, String toId, String chatContent) {
 		super();
 		this.fromId = fromId;
 		this.toId = toId;
 		this.chatContent = chatContent;
 	}
+
+	
 	
 	
 }
