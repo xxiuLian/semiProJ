@@ -299,7 +299,7 @@
 	</script>
 
 
-<%@ include file="../tgb/chat.jsp" %>
+<%@ include file="../chat/chat.jsp" %>
 
 
 
