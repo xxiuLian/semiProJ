@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
@@ -34,14 +35,16 @@ public class TgbUpdateFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int bno =Integer.parseInt(request.getParameter("bno"));
-		Tgb t = new TgbService().updateFormTgb(bno);
-		ArrayList<Attachment> list = new TgbService().updateFormAttachment(bno);
+		Tgb t = new TgbService().selectTgb(bno);
+		ArrayList<Attachment> list = new TgbService().selectAttachment(bno);
+		ArrayList<Category> catelist = new TgbService().getCategory();
 		 
 		
 		if(t != null) {
 		
 		request.setAttribute("t", t);
 		request.setAttribute("list", list);
+		request.setAttribute("catelist", catelist);
 		request.getRequestDispatcher("views/tgb/tgbUpdateForm.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "수정할 글 조회에 실패했습니다.");

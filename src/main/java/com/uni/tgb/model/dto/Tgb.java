@@ -39,7 +39,7 @@ public class Tgb {
 		this.status = status;
 	}
 
-	public Tgb(String tgbCategory, String tgbTitle, String tgbContent, String tgbGuide, String tgbWriter, Date tgbTerm,
+	public Tgb(String tgbCategory, String tgbTitle, String tgbContent, String tgbGuide, String tgbWriter,int count, Date tgbTerm,
 			int tgb_Price) {
 		super();
 		this.tgbCategory = tgbCategory;
@@ -47,6 +47,7 @@ public class Tgb {
 		this.tgbContent = tgbContent;
 		this.tgbGuide = tgbGuide;
 		this.tgbWriter = tgbWriter;
+		this.count = count;
 		this.tgbTerm = tgbTerm;
 		this.tgb_Price = tgb_Price;
 	}
