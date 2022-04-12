@@ -29,10 +29,10 @@ public class ChatService {
 		return result;
 	}
 
-	public ArrayList<Chat> getChatListByRecent(String fromId, String toId, int num) {
+	public ArrayList<Chat> getChatListByRecent(String fromId, String toId) {
 		Connection conn = getConnection();
 		
-		ArrayList<Chat> chat = new ChatDao().getChatListByRecent(conn, fromId, toId, num);
+		ArrayList<Chat> chat = new ChatDao().getChatListByRecent(conn, fromId, toId);
 		
 		close(conn);
 		
