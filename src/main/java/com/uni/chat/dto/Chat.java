@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 public class Chat {
-	private String UserId;
+	private int chatId;
+	private String fromId;
+	private String toId;
 	private String chatContent;
-	private Date chatDate;
+	private Date chatTime;
 }

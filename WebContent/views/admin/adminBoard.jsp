@@ -184,25 +184,25 @@ int barMax = pi.getBarMax();
 					<!-- 2.페이징바 -->
 					<div class="pagingArea" align="center">
 						<button
-							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=1%>'">
+							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=1%>'">
 							&lt;&lt;</button>
 						<button
-							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=currentPage - barCount%>'">&lt;</button>
+							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=currentPage - barCount%>'">&lt;</button>
 
 						<!-- 페이징바 이동 -->
 						<%
 						for (int i = barStart; i <= barEnd; i++) {
 						%>
 						<button
-							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=i%>'"><%=i%></button>
+							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=i%>'"><%=i%></button>
 						<%
 						}
 						%>
 
 						<button
-							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=currentPage + barCount%>'">&gt;</button>
+							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=currentPage + barCount%>'">&gt;</button>
 						<button
-							onclick="location.href='<%=contextPath%>/tgbBoardSelect.do?currentPage=<%=barMax%>'">
+							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=barMax%>'">
 							&gt;&gt;</button>
 					</div>
 					<br> <br>
