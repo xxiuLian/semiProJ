@@ -156,7 +156,6 @@
 							<c:if test="${!empty list}">
 								<button type="button" onclick="deleteMembers()">해당 회원탈퇴</button>
 							</c:if>
-							<a href="${contextPath}/chatTest.do">채팅 테스트</a>
 						</div>
 					</form>
 				</div>
