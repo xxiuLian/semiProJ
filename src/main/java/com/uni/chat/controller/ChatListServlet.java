@@ -47,8 +47,7 @@ public class ChatListServlet extends HttpServlet {
 		} else if (listType.equals("ten")){
 			System.out.println("진입");
 			list = new ChatService().getChatListByRecent(fromId, toId, 10);
-			System.out.println("채팅내역 : " + list);
-			Gson gson = new GsonBuilder().setDateFormat("YY-MM-dd HH:mm:ss").create();
+			Gson gson = new GsonBuilder().setDateFormat("YY-MM-dd HH:mm").create();
 			gson.toJson(list, response.getWriter());
 		} else {
 			try {

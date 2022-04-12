@@ -46,61 +46,10 @@
                 </div>
                 <div id="chat" class="panel-collapse collapse in">
                     <div>
-                    <div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 300px;">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <p class="text-center text-muted small"></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">
-                                            <span class="small pull-right"></span>
-                                        </h4>
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">John Smith
-                                            <span class="small pull-right">12:28 PM</span>
-                                        </h4>
-                                        <p>Yeah I did. Everything looks good.</p>
-                                        <p>Did you have an update on purchase order #302?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Jane Smith
-                                            <span class="small pull-right">12:39 PM</span>
-                                        </h4>
-                                        <p>No not yet, the transaction hasn't cleared yet. I will let you know as soon as everything goes through. Any idea where you want to get lunch today?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
+                    <div class="portlet-body chat-widget" id="chatList" style="overflow-y: auto; width: auto; height: 300px;">
+                      
+                     
+                       
                     </div>
                     </div>
                     <div class="portlet-footer">
@@ -124,7 +73,12 @@
 <script type="text/javascript">
 	function chatSubmit() {
 		var fromId = '${loginUser.userId}';
-		var toId = 'user02';
+		var toId = '';
+		if (${loginUser.userId eq t.tgbWriter}){
+			toId = 'user02'//드롭다운으로 선택한 유저로 바꿔야함
+		}else{
+			toId = '${t.tgbWriter}'
+		}
 		var chatContent = $("#chatContent").val();
 
 		$.ajax({
@@ -178,7 +132,7 @@
 								+ '<div class="col-lg-12">'
 								+ '<div class="meidia">'
 								+'<a class="pull-left" href="#">'
-								+'<img class="media-object img-circle" style"width:30px; height:30px" src="assets/img/chat.jpg" alt="">'
+								+'<img class="media-object img-circle" style="width:30px; height:30px" src="assets/img/chat.jpg" alt="">'
 								+'</a>'
 								+'<div class="media-body">'
 								+'<h4 class="media-heading">'
@@ -195,7 +149,6 @@
 								+ '</div>'
 								+ '</div>'
 								+ '<hr>');
-								$("#chatList").scrollTop($("#chatList")[0].scrollHeight);
 	}
 	function getInfiniteChat(){
 		setInterval(function(){

@@ -93,7 +93,9 @@ public class ChatDao {
 
 	public ArrayList<Chat> getChatListByRecent(Connection conn, String fromId, String toId, int num) {
 		ArrayList<Chat> list = new ArrayList<Chat>();
-		
+		System.out.println(fromId);
+		System.out.println(toId);
+		System.out.println(num);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -117,7 +119,7 @@ public class ChatDao {
 				chat.setToId(rset.getString("TO_ID"));
 				chat.setChatContent(rset.getString("CONTENT"));
 				chat.setChatTime(rset.getDate("CHAT_TIME"));
-				
+				System.out.println(chat);
 				list.add(chat);
 			}
 		} catch (SQLException e) {
