@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.css">
+<link href="css/chat.css" rel="stylesheet" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link href="css/chat.css" rel="stylesheet" />
 <script src="resources/bootstrap/js/bootstrap.js"></script>
 <title>채팅</title>
 </head>
@@ -66,8 +66,8 @@
 	</div>
 </body>
 <script type="text/javascript">
-	var toId = '';
-	var lastId = 0;
+	var toId = ''; //보낼사람 빈값으로 초기화
+	var lastNo = 0;//마지막 채팅번호
 	$("#buyer").change(function(){//공구진행자가 참여자를 고르면
 		toId = $("option:selected").val();//보낼사람에 선택한 유저를 담아준다
 		$("#chatList").html('');//다른 유저를 골랐으니 기존 채팅은 지워줌
@@ -105,7 +105,7 @@
 				$.each(data, function(i) {
 					addChat(data[i].fromId, data[i].chatContent, data[i].chatTime);//받아온 댓글을 화면부에 넣는 메소드
 					if (data.length - 1 == i) {
-						lastId = Number(data[i].chatId)//마지막 채팅번호를 담아준다(갱신용)
+						lastNo = Number(data[i].chatId)//마지막 채팅번호를 담아준다(갱신용)
 					}
 				})
 			}
@@ -139,7 +139,7 @@
 	
 	function getInfiniteChat(){//상대방이 보낸 메세지 3초마다 갱신
 		setInterval(function(){
-			chatList(lastId);//가장 마지막 채팅번호를 매개변수로 보냄
+			chatList(lastNo);//가장 마지막 채팅번호를 매개변수로 보냄
 		}, 3000);
 	}
 	

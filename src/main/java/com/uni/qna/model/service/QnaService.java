@@ -5,7 +5,6 @@ import static com.uni.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dao.QnaDao;
 import com.uni.qna.model.dto.Qna;
@@ -50,14 +49,6 @@ public class QnaService {
 		return q;
 	}
 
-	public Attachment selectAttachment(int qno) {
-		Connection conn = getConnection();
-
-		Attachment at = new QnaDao().selectAttachment(conn, qno);
-		close(conn);
-		
-		return at;
-	}
 
 	public int deleteQna(int qno) {
 		Connection conn = getConnection();
@@ -140,10 +131,10 @@ public class QnaService {
 		return reply;
 	}
 
-	public ArrayList<Qna> categoryList(int category) {
+	public ArrayList<Qna> categoryList(int category, PageInfo pi) {
 		Connection conn = getConnection();
 		
-		ArrayList<Qna> list = new QnaDao().categoryList(conn, category);
+		ArrayList<Qna> list = new QnaDao().categoryList(conn, pi, category);
 		
 		close(conn);
 		

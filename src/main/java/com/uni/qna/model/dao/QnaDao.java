@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 
@@ -197,60 +196,6 @@ public class QnaDao {
 		return result;
 	}
 
-	public Attachment selectAttachment(Connection conn, int qno) {
-		Attachment at = null;
-
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		// selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT
-		// WHERE B_NO=? AND STATUS='Y' AND TYPE='QNA'
-		String sql = prop.getProperty("selectAttachment");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, qno);
-
-			rset = pstmt.executeQuery();
-
-			if (rset.next()) {
-				at = new Attachment();
-				at.setFileNo(rset.getInt("FILE_NO"));
-				at.setOriginName(rset.getString("ORIGIN_NAME"));
-				at.setChangeName(rset.getString("CHANGE_NAME"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		System.out.println("첨부파일 조회 : " + at);
-		return at;
-	}
-
-	public int deleteAttachment(Connection conn, int qno) {
-		int result = 0;
-
-		PreparedStatement pstmt = null;
-
-		// deleteAttachment=UPDATE ATTACHMENT SET STATUS='N' WHERE B_NO=?
-		String sql = prop.getProperty("deleteAttachment");
-		System.out.println("deleteAttachment : " + sql);
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, qno);
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
 
 	public int insertQna(Connection conn, Qna q) {
 		int result = 0;
@@ -273,39 +218,6 @@ public class QnaDao {
 			pstmt.setString(2, q.getQnaTitle());
 			pstmt.setString(3, q.getQnaContent());
 			pstmt.setInt(4, Integer.parseInt(q.getQnaWriter()));
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
-
-	public int insertAttachment(Connection conn, Attachment at, Qna q) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-
-		// insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?,
-		// SYSDATE, DEFAULT, SEQ_QNO.CURRVAL, 'QNA')
-		String sql = prop.getProperty("insertAttachment");
-//		FILE_NO	NUMBER
-//		ORIGIN_NAME	VARCHAR2(255 BYTE) 1
-//		CHANGE_NAME	VARCHAR2(255 BYTE) 2
-//		FILE_PATH	VARCHAR2(1000 BYTE) 3
-//		UPLOAD_DATE	DATE
-//		STATUS	VARCHAR2(1 BYTE)
-//		B_NO	NUMBER
-//		TYPE	VARCHAR2(50 BYTE)
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
-			System.out.println(q.getQnaNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -343,65 +255,6 @@ public class QnaDao {
 		return result;
 	}
 
-	public int updateAttachment(Connection conn, Attachment at) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-
-		// updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?,
-		// FILE_PATH=? WHERE FILE_NO=?
-		String sql = prop.getProperty("updateAttachment");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getChangeName());
-			pstmt.setString(2, at.getOriginName());
-			pstmt.setString(3, at.getFilePath());
-			pstmt.setInt(4, at.getFileNo());
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
-
-	public int insertNewAttachment(Connection conn, Attachment at, Qna q) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-
-		// insertNewAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?,
-		// SYSDATE, DEFAULT, ?, 'QNA')
-		String sql = prop.getProperty("insertNewAttachment");
-
-		try {
-//			FILE_NO	NUMBER
-//			ORIGIN_NAME	VARCHAR2(255 BYTE) 1
-//			CHANGE_NAME	VARCHAR2(255 BYTE) 2
-//			FILE_PATH	VARCHAR2(1000 BYTE) 3
-//			UPLOAD_DATE	DATE
-//			STATUS	VARCHAR2(1 BYTE)
-//			B_NO	NUMBER 4
-//			TYPE	VARCHAR2(50 BYTE)
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
-			pstmt.setInt(4, q.getQnaNo());
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
 
 	public int insertReply(Connection conn, Qna q) {
 		int result = 0;
@@ -460,7 +313,7 @@ public class QnaDao {
 		return reply;
 	}
 
-	public ArrayList<Qna> categoryList(Connection conn, int category) {
+	public ArrayList<Qna> categoryList(Connection conn, PageInfo pi, int category) {
 		ArrayList<Qna> list = new ArrayList<Qna>();
 
 		PreparedStatement pstmt = null;
@@ -469,13 +322,23 @@ public class QnaDao {
 		// FROM (SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT,
 		// CREATE_DATE, QNA_REPLY FROM QNA_BOARD Q JOIN QNA_CATEGORY
 		// USING(QNA_CATEGORY_NO) JOIN MEMBER ON (QNA_WRITER=USER_NO)
-		// WHERE Q.STATUS='Y' AND QNA_CATEGORY_NO=? ORDER BY QNA_NO DESC) A)
+		// WHERE Q.STATUS='Y' AND QNA_CATEGORY_NO=? ORDER BY QNA_NO DESC) A) WHERE RNUM BETWEEN ? AND ?
 		
 		String sql = prop.getProperty("selectCategoryList");
+//		board 게시글 currentPage = 1 startRow = 1 endRow = 10; currentPage = 2 
+//		startRow = 11 endRow = 20; currentPage = 3 startRow = 21 endRow = 30;
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
 
 		try {
+			System.out.println(sql);
+			System.out.println(category);
+			System.out.println(startRow);
+			System.out.println(endRow);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, category);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			// QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
