@@ -68,7 +68,7 @@
 			$(function(){
 				$('.list').click(function(){
 					var bno = $(this).children().eq(0).val();
-					alert("[지우기]글번호:"+bno);
+					//alert("[지우기]글번호:"+bno);
 					location.href="<%=contextPath%>/detailTgb.do?bno="+bno ;
  				});
 			});

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.uni.tgb.model.dto.*, java.util.ArrayList, com.uni.common.Attachment"%>
+    pageEncoding="UTF-8" import="com.uni.tgb.model.dto.*, java.util.ArrayList, com.uni.common.Attachment, com.uni.admin.dto.*"%>
 <%
 	Tgb t = (Tgb)request.getAttribute("t");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
@@ -15,116 +15,339 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <style>
-	.outer{
-		width:1000px;
-		height:650px;
-		background:black;
-		color:white;
+
+div tr td{
+
+}
+td{
+	height: 50px;
+	text-align: left;
+}
+.tdfirst{
+	width: 100px;
+	border-right: 0.5px solid black;
+}
+.tdsecond{
+	padding-left: 10px;
+}
+.outer{
+		width:800px;
+		height:300px;
+		color:black;
 		margin:auto;
 		margin-top:50px;
+		text-align : center;
+		
 	}
-	
-	#insertForm>table{
-		border:1px solid white;
-	}
-	#insertForm input, #insertForm textarea{
-		width:100%;
-		box-sizing:border-box;
-	}
-	#insertForm img{
-		border:1px dashed darkgray;
-	}
+#titleImg{
+	width:300px;
+	height:400px;
+	border: 0.2px solid black;
+	overflow:hidden;
+	margin : 0 auto;
+	display:inline-block;
+	float : left;
+}
+#thumb{
+	max-width:100%;
+	max-height: 100%;
+	object-fit:cover;
+}
+.option{
+	width:350px;
+	height:400px;
+	margin : 10px;
+	display:inline-block;
+}
+.textarea{
+	width:766px; 
+	height:412px;
+	overflow-y : scroll;
+	text-align : left;
+	border : 1px solid black;
+	padding : 30px;
+}
+.btns{
+	text-align: left;
+}
+#ctnbtn{
+	background-color: rgb(2, 2, 59);
+	color: white;
+}
+#gidbtn{
+	background-color: rgb(190, 190, 190);
+	color: rgb(199, 197, 197);
+}
+#uploaded{
+	width:766px; 
+	height:80px;
+	border : 1px solid rgb(110, 110, 110);
+	margin-top: 20px;
+	overflow-y : scroll;
+}
+#fileinput{
+	text-align: left;
+	margin-top: 20px;
+}
+#contentArea{
+	max-width: 100%;
+}
+
 </style>
 </head>
 
+
 <body>
-	
-	<div class="outer">
-		<br>
-		<h2 align="center">사진 게시판 작성하기</h2>
-		<br>
-		
-		
-		<form id="insertForm" action="insertThumb.do" method="post" enctype="multipart/form-data">
-			<%-- <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">--%>
-			<table align="center">
+<%@ include file="../common/menubar.jsp" %>
+
+
+
+<div class="outer">
+<br>
+<h2>공동구매 등록</h2>
+<hr>
+	<form action="${contextPath }/updateTgb.do" method="post" id="frm" enctype="multipart/form-data"> 
+		<div id="titleImg">대표 이미지<img id="thumb" src="<%=contextPath%>/assets/img_upfile/${list[0].changeName}"></div>
+		<input type="text" name = "tno" value="${t.tgbNo}" hidden>
+		<div class="option">
+		<input type="file" id="thumbImg" name="file0" onchange="loadThumbImg(event)" hidden>
+			<table>
 				<tr>
-					<th width="100">제목</th>
-					<td colspan="3"><input type="text" name="title" value="<%= t.getTgbTitle()%>"></td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td colspan="3"><textarea name="content" rows="5" style="resize:none;" ><%=t.getTgbContent()%></textarea>
-				</tr>
-				<tr>
-					<th>대표이미지</th>
-					<td colspan="3">
-						<img id="titleImg" width="150" height="120" src="<%=request.getContextPath()%>/assets/img_upfile/<%=list.get(0).getChangeName()%>">
+					<td class="tdfirst">카테고리  </td>
+					<td class="tdsecond">
+						<div>
+							<select name="category" id="tgbCategory">
+								<c:forEach items="${catelist}" var="category" varStatus="st">
+									<option value="${category.categoryNo}"><c:out value="${category.categoryName}"/></option>
+								</c:forEach>
+							</select>
+						</div>
 					</td>
 				</tr>
 				<tr>
-				<% for(int i=1; i<list.size(); i++){ %>
-					<th>내용이미지</th>
-					<td>
-						<img id="contentImg<%=i%>" width="150" height="120" src="<%=request.getContextPath()%>/assets/img_upfile/<%=list.get(i).getChangeName()%>">
-					</td>
+					<td class="tdfirst"> 제목  </td>
+					<td class="tdsecond"><input type="text" name="title" id="titleId" value="${t.tgbTitle}"></td>
+				</tr>
+				<tr>
+					<td class="tdfirst">공구 인원  </td>
+					<td class="tdsecond"><input type="number" name="pcont" value="${t.count}"> 명</td>
+				</tr>
+				<tr>
+					<td class="tdfirst">공구 기간</td>
+					<td class="tdsecond"><input type="date" name="term" value="${t.tgbTerm}"></td>
+				</tr>
+				<tr>
+					<td class="tdfirst">가격 </td>
+					<td class="tdsecond"><input type="number" name="price" value="0" step ="1000" id="priceId" value="${t.tgb_Price}"> 원</td>
+				</tr>
+				<tr>
 					
-				<% } %>
 				</tr>
+
 			</table>
-			<div id="fileArea" hidden>
-			    <input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
-			    <input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
-			    <input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
-			</div>
-						 
-			
-			<br>
-			
-			<div class="btns" align="center">
+
+		</div>
+	
+
+		<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
+		<div id="contentArea" class="textarea" contenteditable="true">${t.tgbContent}</div>
+    	<div id="guidArea" class="textarea" contenteditable="true" hidden>${t.tgbGuide}</div>
 		
-				<button type="submit">수정 완료하기</button>
-			</div>
-		</form>
+		<textarea name="content" id="content" hidden></textarea> 
+		<textarea name="guide" id="guide" hidden></textarea> 
+
+		<div class="btns"><button type="button" id="fileinput">이미지 삽입</button></div>
 		
+		<div id="uploaded"></div>
+		<button type="button" onclick="deleteImg();">선택파일 삭제</button>
+		
+		<input type="hidden" name="writer" value=<%=loginUser.getUserNo() %> ><!--writer_NO-->
+		
+		<button id="btn1" type="button">작성완료</button>
+		
+		<div id = "inputFileArea" hidden>
+			<input type="file" class="inputFile" name="file1" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file2" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file3" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file4" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file5" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file6" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file7" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file8" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file9" onchange="loadImg(event)">
+			<input type="file" class="inputFile" name="file10" onchange="loadImg(event)">
+		</div>
+		<inptu type="text" name = "deleteAt" id="deleteAt" hidden>
+		
+		
+	</form>
 	</div>
 	
+	
+
+	
 	<script>
-	$(function(){
-		$("#fileArea").hide();
+
+	var arr = [false, false, false, false, false, false, false, false, false, false];
+	$(document).ready(function(){
+
+		var num= 0;
 		
-		$("#titleImg").click(function(){
-			$("#file1").click();
-		});
+		<%for(int i = 1; i < list.size() ;i++){%>//content 본문에 이미지 추가
 		
-		$("#contentImg1").click(function(){
-			$("#file2").click();
-		});
+		$('#contentArea').children('img').eq(num).attr("src","<%=request.getContextPath()%>/assets/img_upfile/<%=list.get(i).getChangeName()%>");
+		$('.inputFile').eq(num).attr("disabled", true);
+		$('#uploaded').append("<div><input type=checkbox class=uploadfile>"+"<%=list.get(i).getOriginName()%>"+"</div>")
+		arr[num] = true;
+		num++;
+		<%};%>
 		
-		$("#contentImg2").click(function(){
-			$("#file3").click();
-		});
 		
-		$("#contentImg3").click(function(){
-			$("#file4").click();
-		});
-		
+			
 	});
-	function loadImg(inputFile, num){
-		if(inputFile.files.length == 1){//length? 
-			var reader = new FileReader();//파일 읽어 들일 객체 생성
-			reader.readAsDataURL(inputFile.files[0]);//파일 읽어 들이는 메소드 
-			//https://developer.mozilla.org/ko/docs/Web/API/FileReader
-			reader.onload = function(e){//파일 읽기가 다 완료되면 실행
-				switch(num){
-				case 1 : $("#titleImg").attr("src", e.target.result); break;//공부
-				case 2 : $("#contentImg1").attr("src", e.target.result); break;
-				case 3 : $("#contentImg2").attr("src", e.target.result); break;
-				case 4 : $("#contentImg3").attr("src", e.target.result); break;
+	
+	
+	
+	$(function(){
+		$('#titleImg').click(function(){
+			$("#thumbImg").click();
+		})
+	});
+	
+	function loadThumbImg(event){
+
+        let fileInputControl = event.target;
+        let files = Array.from(fileInputControl.files);
+		//console.log(files);
+
+             files.forEach((file, index) => {
+                 
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            var dataURL = reader.result;
+                            $('#thumb').attr("src", dataURL);
+
+                        }
+                        reader.readAsDataURL(file);
+            })  
+            
+     
+	};
+	
+	
+	
+	$('#btn1').click(function(){
+		$('#contentArea').children('img').attr("src","");
+	
+        $('#guide').val($('#guidArea').html());
+        $('#content').val($('#contentArea').html());
+        
+        $('#frm').submit();
+
+	
+	})
+	
+	
+	
+	 $('#ctnbtn').click(function(){
+	        $('#guide').val($('#guidArea').html());
+
+	        $('#contentArea').attr("hidden", false);
+	        $("#guidArea").attr("hidden", true);
+	        $('#ctnbtn').attr("disabled", true);
+			$('#ctnbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
+	        $("#gidbtn").attr("disabled", false);
+			$('#gidbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
+
+	    })
+	    $('#gidbtn').click(function(){
+	        $('#content').val($('#contentArea').html());
+	        
+	        $('#guidArea').attr("hidden", false);
+	        $("#contentArea").attr("hidden", true);
+	        $("#gidbtn").attr("disabled", true);
+			$('#gidbtn').css({"background-color" : "rgb(2, 2, 59)", "color": "white"})
+	        $('#ctnbtn').attr("disabled", false);
+			$('#ctnbtn').css({"background-color" : "rgb(190, 190, 190)", "color": "rgb(199, 197, 197)"})
+
+	        
+	    })  
+	
+	
+	
+	$("#fileinput").click(function(){
+		
+		for(var i = 0; i<arr.length; i++){
+			
+			if(!arr[i]){
+				$(".inputFile").eq(i).click();
+				break;
+			}
+			
+		}
+		
+	})
+	
+	
+	
+	
+	
+	function loadImg(event){
+        
+        let fileInputControl = event.target;
+        let files = Array.from(fileInputControl.files);
+		console.log(files);
+
+             files.forEach((file, index) => {
+                 
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            var dataURL = reader.result;
+                            for(var i = 0; i<arr.length; i++){
+                            	if(arr[i]){
+                            		arr[i] = true;
+		                            $('#contentArea').append("<img id= file"+i+" src="+dataURL+">");
+		                            $('#uploaded').append("<div><input type=checkbox class=uploadfile>"+file.name+"</div>");
+                    			}
+                            	
+                            }
+                            
+
+                        }
+                        reader.readAsDataURL(file);
+            })    
+    }
+	
+	
+	 function deleteImg(){// 배열 TRUE FALSE 로 파일 입력 수정 중간을 지우고 나중에 다시 삽입할때 밀린다. 
+	    	
+	    	var uploadFile = document.getElementsByClassName('uploadfile');
+	    	
+	    	for(var j = 0; j<uploadFile.length; j++){
+	    		
+				if($(uploadFile[j]).is(":checked")){
+					arr[j] = false;
+					var filename = "file"+(j+1);
+					
+				if(!$('input[name='+filename+']').val("")){	
+					console.log($('input[name='+filename+']').val());
+					$('input[name='+filename+']').val("");
+					
+				}else{
+					console.log($(uploadFile[j]).parent().text());
+					$('#deleteAt').val($(uploadFile[j]).parent().text()+",");
+					console.log($('#deleteAt').val());// 값이 찍히는데도 서블릿으로 파라미터가 넘어가지 않는다. 
+					
+					}
+					$(uploadFile[j]).parent().remove();
+				
+				
+				
 				}
 			}
-		}
-	}
+
+			};
+	
 	
 	
 	</script>

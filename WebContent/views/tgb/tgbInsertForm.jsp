@@ -107,10 +107,13 @@ td{
 				<tr>
 					<td class="tdfirst">카테고리  </td>
 					<td class="tdsecond">
-						<select name="category">
-							<option value="1">식품</option>
-							<option value="2">의류</option>
-						</select>
+						<div>
+							<select name="category" id="tgbCategory">
+								<c:forEach items="${catelist}" var="category" varStatus="st">
+									<option value="${category.categoryNo}"><c:out value="${category.categoryName}"/></option>
+								</c:forEach>
+							</select>
+						</div>
 					</td>
 				</tr>
 				<tr>

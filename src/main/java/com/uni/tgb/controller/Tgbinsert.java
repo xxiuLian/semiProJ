@@ -58,6 +58,7 @@ public class Tgbinsert extends HttpServlet {
 			String guide = multiRequest.getParameter("guide");
 			String category = multiRequest.getParameter("category");
 			String trm = multiRequest.getParameter("term");
+			int count = Integer.parseInt(multiRequest.getParameter("pcont"));
 		
 			int price = Integer.parseInt(multiRequest.getParameter("price"));
 				
@@ -73,7 +74,7 @@ public class Tgbinsert extends HttpServlet {
 			
 			Date term = Date.valueOf(trm);//String term을 Date로 변환
 			
-			Tgb t = new Tgb(category, title, content, guide, writer, term, price);
+			Tgb t = new Tgb(category, title, content, guide, writer, count, term, price);
 			
 					
 			ArrayList<Attachment> fileList = new ArrayList<>();
