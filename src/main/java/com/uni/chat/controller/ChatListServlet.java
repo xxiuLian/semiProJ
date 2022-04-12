@@ -38,6 +38,8 @@ public class ChatListServlet extends HttpServlet {
 		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		String toId = request.getParameter("toId");
 		String listType = request.getParameter("listType");
+		System.out.println("보낸사람 : " + fromId);
+		System.out.println("받는사람 : " + toId);
 		ArrayList<Chat> list = null;
 		Gson gson = new GsonBuilder().setDateFormat("YY-MM-dd HH:mm").create();
 		if (toId == null || toId.equals("") || listType == null || listType.equals("")) {

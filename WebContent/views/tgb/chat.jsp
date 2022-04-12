@@ -27,7 +27,7 @@
 							<c:if test="${loginUser.userId eq t.tgbWriter}">                   
 	                        <div class="btn-group">
 	                            <div class="mb-3">
-									<select name="buyer" id="buyer" style="color:black;" onchange="chatList('ten');">
+									<select name="buyer" id="buyer" style="color:black;"onchange="chatList('ten')">
 										<option value="000">참여자 선택</option>
 										<c:forEach var="b" items="${buyer}">
 			                           	 	<option value="${b}">${b}</option>
@@ -65,25 +65,25 @@
 	        <!-- /.col-md-4 -->
 	    </div>
 	</div>
-<button type="button" class="btn btn-default pull-right" onclick="chatList('today');">추가</button>   
 </body>
 <script type="text/javascript">
-var toId = '';
-
+	var toId = '';
 	var lastId = 0;
+	$("#buyer").change(function(){
+		toId = $("option:selected").val();
+		$("#chatList").html('');
+		console.log('바꾼 사람 ' + toId)
+	})
 	function chatList(type) {
-		$("#buyer").change(function(){
-			toId = $("option:selected").val();
-			$("#chatList").html('');
-		})
-
-		console.log('타입 ' + type)
+		
+		
 		var fromId = '${loginUser.userId}';
 		if (${loginUser.userId != t.tgbWriter}){
 			toId = '${t.tgbWriter}'
 		}
 		
 		var chatContent = $("#chatContent").val();
+		console.log('타입 ' + type)
 		console.log('보내는 사람 ' + fromId)
 		console.log('받는사람 ' + toId)
 		$.ajax({
@@ -132,7 +132,6 @@ var toId = '';
 								+ '</div>'
 								+ '<hr>');
 		console.log($("#chatList").scrollTop($("#chatList")[0].scrollHeight))
-		$("#chatList").scroll();
 	}
 	
 	function getInfiniteChat(){
