@@ -1,4 +1,4 @@
-package com.uni.admin.dto;
+package com.uni.admin.model.dto;
 
 import lombok.Data;
 

@@ -1,0 +1,180 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="css/chat.css" rel="stylesheet" />
+<script src="resources/bootstrap/js/bootstrap.js"></script>
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div class="container bootstrap snippets">
+	    <div class="row">
+	        <div class="col-md-4 col-md-offset-4">
+	            <div class="portlet portlet-default">
+	                <div class="portlet-heading">
+	                    <div class="portlet-title">
+	                        <h4><i class="fa fa-circle text-green"></i>채팅</h4>
+	                    </div>
+	                    <div class="portlet-widgets">
+							<c:if test="${loginUser.userId eq t.tgbWriter}">                   
+	                        <div class="btn-group">
+	                            <div class="mb-3">
+									<select name="buyer" id="buyer" style="color:black;" onchange="chatList('ten');">
+										<option value="000">참여자 선택</option>
+										<c:forEach var="b" items="${buyer}">
+			                           	 	<option value="${b}">${b}</option>
+		                            	</c:forEach>
+									</select>
+								</div>
+	                        </div>
+	                        </c:if> 
+	                        
+	                        <span class="divider"></span>
+	                        <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
+	                    </div>
+	                    <div class="clearfix"></div>
+	                </div>
+	                <div id="chat" class="panel-collapse collapse in">
+	                    <div>
+	                    <div class="portlet-body chat-widget" id="chatList" style="overflow-y: auto; width: auto; height: 300px;">
+	                      
+	                    </div>
+	                    </div>
+	                    <div class="portlet-footer">
+	                        <form role="form">
+	                            <div class="form-group">
+	                                <textarea class="form-control" id="chatContent" style="resize: none;" placeholder="채팅 입력..." maxlength="100"></textarea>
+	                            </div>
+	                            <div class="form-group">
+	                                <button type="button" class="btn btn-default pull-right" onclick="chatSubmit()">전송</button>
+	                                <div class="clearfix"></div>
+	                            </div>
+	                        </form>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /.col-md-4 -->
+	    </div>
+	</div>
+<button type="button" class="btn btn-default pull-right" onclick="chatList('today');">추가</button>   
+</body>
+<script type="text/javascript">
+var toId = '';
+
+	var lastId = 0;
+	function chatList(type) {
+		$("#buyer").change(function(){
+			toId = $("option:selected").val();
+			$("#chatList").html('');
+		})
+
+		console.log('타입 ' + type)
+		var fromId = '${loginUser.userId}';
+		if (${loginUser.userId != t.tgbWriter}){
+			toId = '${t.tgbWriter}'
+		}
+		
+		var chatContent = $("#chatContent").val();
+		console.log('보내는 사람 ' + fromId)
+		console.log('받는사람 ' + toId)
+		$.ajax({
+			type : "POST",
+			url : "${contextPath}/chatList.do",
+			data : {
+				fromId : fromId,
+				toId : toId,
+				listType : type
+			},
+			success : function(data) {
+				console.log(data)
+				$.each(data, function(i) {
+					addChat(data[i].fromId, data[i].chatContent, data[i].chatTime);
+					if (data.length - 1 == i) {
+						lastId = Number(data[i].chatId)
+					}
+				})
+			}
+		})
+
+	}
+	
+	
+	function addChat(chatName, chatContent, chatTime) {
+
+		$("#chatList").append('<div class="row">'
+								+ '<div class="col-lg-12">'
+								+ '<div class="meidia">'
+								+'<a class="pull-left" href="#">'
+								+'<img class="media-object img-circle" style="width:30px; height:30px" src="assets/img/chat.jpg" alt="">'
+								+'</a>'
+								+'<div class="media-body">'
+								+'<h4 class="media-heading">'
+								+ chatName
+								+ '<span class="small pull-right">'
+								+ chatTime
+								+ '</span>'
+								+ '</h4>'
+								+ '<p>'
+								+ chatContent
+								+ '</p>'
+								+ '</div>'
+								+ '</div>'
+								+ '</div>'
+								+ '</div>'
+								+ '<hr>');
+		console.log($("#chatList").scrollTop($("#chatList")[0].scrollHeight))
+		$("#chatList").scroll();
+	}
+	
+	function getInfiniteChat(){
+		setInterval(function(){
+			chatList(lastId);
+		}, 3000);
+	}
+	
+	$(document).ready(function(){
+		chatList('ten');
+		getInfiniteChat();
+	})
+	
+	
+	
+	function chatSubmit() {
+		var fromId = '${loginUser.userId}';
+		if (${loginUser.userId eq t.tgbWriter}){
+			
+		}else{
+			toId = '${t.tgbWriter}'
+		}
+		console.log('보내는 사람 ' + fromId)
+		console.log('받는사람 ' + toId)
+		var chatContent = $("#chatContent").val();
+
+		$.ajax({
+			type : "POST",
+			url : "${contextPath}/chatSubmit.do",
+			data : {
+				fromId : encodeURIComponent(fromId),
+				toId : encodeURIComponent(toId),
+				chatContent : encodeURIComponent(chatContent),
+			},
+			success : function(result) {
+				if (result == 1) {
+					console.log('채팅 보내졌는지 확인')
+				}
+			}
+		});
+		$("#chatContent").val('');
+	}
+	
+</script>
+</html>

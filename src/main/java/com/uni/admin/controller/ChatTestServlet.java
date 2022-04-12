@@ -1,28 +1,23 @@
 package com.uni.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.admin.model.dto.Category;
-import com.uni.admin.model.service.AdminService;
-
 /**
- * Servlet implementation class TGBCategoryListServlet
+ * Servlet implementation class ChatTestServlet
  */
-@WebServlet("/TGBCategoryList.do")
-public class TGBCategoryListServlet extends HttpServlet {
+@WebServlet("/chatTest.do")
+public class ChatTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TGBCategoryListServlet() {
+    public ChatTestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,9 +26,7 @@ public class TGBCategoryListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Category> category = new AdminService().selectTGBCategoryList();
-		request.setAttribute("category", category);
-		request.getRequestDispatcher("views/admin/adminTGBCategory.jsp").forward(request, response);
+		request.getRequestDispatcher("views/tgb/chat.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.uni.admin.dao;
+package com.uni.admin.model.dao;
 
 import static com.uni.common.JDBCTemplate.close;
 
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.uni.admin.dto.Category;
+import com.uni.admin.model.dto.Category;
 
 public class AdminDao {
 	private Properties prop = new Properties();
@@ -50,6 +50,9 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return c;
 	}
@@ -74,6 +77,9 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return category;
 	}
@@ -87,9 +93,6 @@ public class AdminDao {
 		String sql = prop.getProperty("updateQnaCategory");
 
 		try {
-			System.out.println("바꾸는 번호 : " + c.getCategoryNo());
-			System.out.println("바꾸는 이름 : " + c.getCategoryName());
-			System.out.println("원래 번호 : " + originCno);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, c.getCategoryNo());
 			pstmt.setString(2, c.getCategoryName());
@@ -124,6 +127,8 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
@@ -144,6 +149,8 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
@@ -168,6 +175,9 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return category;
 	}
@@ -192,6 +202,9 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return category;
 	}
@@ -212,6 +225,8 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
@@ -234,6 +249,8 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
@@ -257,6 +274,9 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return c;
 	}
@@ -280,6 +300,9 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return c;
 	}
@@ -351,8 +374,9 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-		System.out.println("tgb category delete result : " + result);
 		return result;
 	}
 
@@ -375,6 +399,8 @@ public class AdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
