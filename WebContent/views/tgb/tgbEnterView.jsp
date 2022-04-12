@@ -187,14 +187,21 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-			<div >
+			<div id = "noloaded">
 				<img src = "<%=contextPath%>/assets/TgbAssets/truckpackage.png">
 				<h3>아직 배송 등록이 안됐습니다.</h3>
 			</div>
-			<iframe hidden src="https://tracker.delivery/#/kr.chunilps/1111111111111" style="width:100%; height:300px"></iframe>
+			<button type="button" onclick="loaded();">송장번호 등록</button>
+			<iframe id="packAPI" hidden src="https://tracker.delivery/#/kr.chunilps/1111111111111" style="width:100%; height:300px"></iframe>
 			<br><br>
 		</c:otherwise>
 	</c:choose>
+	<script>
+		function loaded(){
+			window.open("${contextPath}/packLoadForm.do?tno=${t.tgbNo}", "배송정보 입력", "width=500, height=170 left=800, top=200" );
+			
+		};
+	</script>
 </div>
 </div>
 <div class="menu3">
