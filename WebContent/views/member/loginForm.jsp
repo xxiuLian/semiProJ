@@ -7,7 +7,7 @@
 <!-- 네이버 -->
 <%
     String clientId = "ZncfIzzOzACjfv58Qta_";//가치사 아이디값";
-    String redirectURI = URLEncoder.encode("http://127.0.0.1:8100/valueSa/naverLogin.do", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:8100/valueSa/naverLogin.do", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
     String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -153,8 +153,8 @@
                     	},
                     Type:"post",
                     success:function(data){
-                        //성공적으로 하고나면 이동할 url
-                        location.href="<%=request.getContextPath()%>/login.do";
+                        //로그인을 성공적으로 연결하고나면 이동할 메인 url
+                        location.href="<%=request.getContextPath()%>";
                     }
                     
                  });
@@ -164,7 +164,7 @@
               }
           });
          //접속이 잘 된다면 회원의 토큰값 출력됨
-        alert(JSON.stringify(authObj));
+        //alert(JSON.stringify(authObj));
         
       },
       fail: function(err) {

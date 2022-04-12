@@ -1,6 +1,7 @@
-package com.uni.member.controller;
+package com.uni.boardTGB.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,20 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.boardTGB.model.dto.BoardTGB_dto;
+import com.uni.boardTGB.model.service.BoardTGB_service;
 import com.uni.member.model.dto.Member;
-import com.uni.member.model.service.MemberService;
+import com.uni.notice.model.dto.NoticeDto;
+import com.uni.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class test
  */
-@WebServlet("/loginMember.do")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/checkBoardTGBList.do")
+public class CheckBoardTGBList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public CheckBoardTGBList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,23 +35,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//loginForm.jsp에서 값 받아오기
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		String originPwd = (String)request.getAttribute("originPwd");
 		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
+		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		ArrayList<BoardTGB_dto> list = new BoardTGB_service().CHECKSelectList(writer);
 		
-		if(loginUser != null) {//유저가 있으면 session값 전달
-			request.setAttribute("msg", "로그인 완료");
-			request.getSession().setAttribute("loginUser", loginUser);
-			request.getSession().setAttribute("originPwd", originPwd);
-			response.sendRedirect(request.getContextPath());
-		}else {
-			request.setAttribute("msg", "로그인 실패하였습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}
+		request.setAttribute("list", list);
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/boardTGB/boardTGBListView.jsp");
+		view.forward(request, response);
 	}
 
 	/**

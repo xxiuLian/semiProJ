@@ -70,25 +70,7 @@ public class TgbService {
 		return list;
 	}
 
-	public Tgb updateFormTgb(int bno) {
-		Connection conn = getConnection();
-		Tgb t = new TgbDao().selectTgb(conn, bno);
-		
-		close(conn);
-		
-		return t;
-		
-	}
 	
-	public ArrayList<Attachment> updateFormAttachment(int bno) {
-		Connection conn = getConnection();
-		
-		ArrayList<Attachment> list = new TgbDao().selectAttachment(conn, bno);
-		
-		close(conn);
-		
-		return list;
-	}
 
 	public int deleteTgb(int bno) {//해당 번호 글을 삭제하는 메소드
 		Connection conn = getConnection();
@@ -280,7 +262,7 @@ public class TgbService {
 		return thumbnail;
 	}
 
-	public int currentCount(int tno) {
+	public int currentCount(int tno) {// 현재 참여 인원
 		
 		Connection conn = getConnection();
 		int result = new TgbDao().currentCount(conn, tno);
@@ -310,7 +292,7 @@ public class TgbService {
 		return cnt;
 	}
 
-	public int updateStatus(int tno) {
+	public int updateStatus(int tno) {// 마감완료상태로 만듬
 		Connection conn = getConnection();
 		int result = new TgbDao().updateStatus(conn, tno);
 		
@@ -323,6 +305,24 @@ public class TgbService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int updateTgb(Tgb t, Attachment at, String tno) {
+		Connection conn = getConnection();
+		
+		int result1 = new TgbDao().updateTgb(conn, t);
+		int result2 = new TgbDao().updateAt(conn, at, tno);
+		
+		
+		if(result1*result2 >0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1*result2;
 	}
 
 

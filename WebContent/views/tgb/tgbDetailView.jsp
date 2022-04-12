@@ -143,10 +143,10 @@ td{
 	<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
 	<div id="contentArea" class="textarea" ><%=t.getTgbContent() %></div>
    	<div id="guidArea" class="textarea" hidden><%=t.getTgbGuide() %></div>
+	
 
 	
-	
-	<%if(loginUser != null &&loginUser.getUserId() == t.getTgbWriter()){ %><!-- 아이디를 갖고 오자 -->
+	<%if(loginUser != null && loginUser.getUserId().equals(t.getTgbWriter())){ %><!-- 아이디를 갖고 오자 -->
 	
 	<button type="button" onclick="tgbUpdateForm(<%= t.getTgbNo()%>)">수정하기</button>
 	<button type="button" onclick= "tgbDelete(<%= t.getTgbNo()%>)">삭제하기</button>

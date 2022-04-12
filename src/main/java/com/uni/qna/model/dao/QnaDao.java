@@ -526,4 +526,51 @@ public class QnaDao {
 		return result;
 	}
 
+	public ArrayList<Qna> CheckSelectList(Connection conn, PageInfo pi, int writer) {
+		//추가해줌_재욱
+		ArrayList<Qna> list = new ArrayList<Qna>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("CheckSelectQnaList");
+
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			//수정해줌_재욱
+			pstmt.setInt(1, writer);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				Qna q = new Qna();
+				q.setQnaNo(rset.getInt("QNA_NO"));
+				q.setCategory(rset.getString("QNA_CATEGORY_NAME"));
+				q.setQnaTitle(rset.getString("QNA_TITLE"));
+				q.setQnaWriter(rset.getString("USER_ID"));
+				q.setCount(rset.getInt("COUNT"));
+				q.setCreateDate(rset.getDate("CREATE_DATE"));
+
+				if (rset.getString("QNA_REPLY") != null) {
+					q.setQnaReply(rset.getString("QNA_REPLY"));
+				}
+
+				list.add(q);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 }

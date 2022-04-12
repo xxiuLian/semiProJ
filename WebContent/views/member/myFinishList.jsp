@@ -60,6 +60,8 @@
 						</ul>
                     </div>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="wishList.do">찜내역관리</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="checkQnaList.do">문의내역조회</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="checkBoardTGBList.do">공동구매게시판조회</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
@@ -106,7 +108,7 @@
 			<thead>
 		  	<tbody>
 				<c:choose>
-					<c:when test="${empty joinList}">
+					<c:when test="${empty finishList}">
 						<tr>
 							<td colspan="5">공동구매 만료 내역이 없습니다.</td>
 						</tr>

@@ -17,6 +17,25 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <style>
+        #popups {
+		    display: none;
+		    position: fixed; 
+		    left: 0; right: 0; top: 0; bottom: 0;
+		    background: rgba(0,0,0,0.5); z-index:1;
+		}
+		.modals {
+			margin-top:140px;
+			margin-left:600px;
+		    position: relative;
+		}
+		.close {
+		    position: absolute;
+			margin-left:1020px; top:140px;
+		    color: #fff; border: none; 
+		    padding: 10px 20px;
+		}
+       </style>
     </head>		
     <body id="page-top">
     <%@ include file="views/common/menubar.jsp" %>
@@ -30,6 +49,8 @@
                
                 <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
             </div>
+            
+    
         </header>
         <!-- Services-->
         <section class="page-section" id="services">
@@ -65,6 +86,24 @@
                     </div>
                 </div>
             </div>
+            <div id="popups">
+            	<div class="modals" >
+				<img alt="" src="https://cdn.imweb.me/upload/S20191226f354293cbbefc/7ff814128b9fa.png" width="500px" height="500px">
+        		</div>
+        		<div class="close"><button >X</button></div>
+        	</div> 
+        	<!-- 홈페이지 열리면 띄우는 팝업창 
+        	<script>
+        	window.onload=function(){ //팝업 오픈
+        		$("#popups").fadeIn();
+        	}
+        	$("#popups").click(function(){ //다른곳을 클릭하면 닫기
+        	    $(this).fadeOut();
+        	})
+        	$(".close").click(function(){ //x버튼 눌러도 닫기
+        	    $("#popups").fadeOut();
+        	})-->
+        	</script>
         </section>
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
@@ -584,6 +623,7 @@
                 </div>
             </div>
         </div>
+        <%@ include file="views/common/footer.jsp" %>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

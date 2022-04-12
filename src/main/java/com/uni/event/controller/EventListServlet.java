@@ -1,28 +1,30 @@
-package com.uni.tgb.controller;
+package com.uni.event.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.admin.dto.Category;
-import com.uni.tgb.model.service.TgbService;
+import com.uni.event.model.dto.EventDto;
+import com.uni.event.model.service.EventService;
+
 
 /**
- * Servlet implementation class TgbEnrollFormServlet
+ * Servlet implementation class eventListServlet
  */
-@WebServlet("/tgbInsert.do")// 공구 글 동록 jsp로 이동하는 서블릿
-public class TgbInsertFormServlet extends HttpServlet {
+@WebServlet("/eventList.do")
+public class EventListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TgbInsertFormServlet() {
+    public EventListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,9 +33,11 @@ public class TgbInsertFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Category> catelist = new TgbService().getCategory();
-		request.setAttribute("catelist", catelist);
-		request.getRequestDispatcher("views/tgb/tgbInsertForm.jsp").forward(request, response);
+		ArrayList<EventDto> list = new EventService().selectList();
+		request.setAttribute("list", list);
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/event/eventListView.jsp");
+		view.forward(request, response);
 	}
 
 	/**
