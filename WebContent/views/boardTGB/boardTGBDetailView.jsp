@@ -64,7 +64,7 @@
 			<a href="boardTGBList.do">목록으로</a> &nbsp;&nbsp;
 				
 			
-			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+			<% if(loginUser != null) { %>
 			<a href="updateFormBoardTGB.do?nno=<%=n.getBoardTgbNo()%>">수정하기</a> &nbsp;&nbsp;
 			<a href="deleteBoardTGB.do?nno=<%=n.getBoardTgbNo()%>">삭제하기</a>
 		

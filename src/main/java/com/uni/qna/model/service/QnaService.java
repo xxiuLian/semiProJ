@@ -166,5 +166,16 @@ public class QnaService {
 		return result;
 	}
 
+	public ArrayList<Qna> CheckSelectList(PageInfo pi, int writer) {
+		//추가해줌_재욱
+		
+		Connection conn = getConnection();
+		ArrayList<Qna> list = new QnaDao().CheckSelectList(conn, pi, writer);
+		
+		close(conn);
+		
+		return list;
+	}
+
 
 }
