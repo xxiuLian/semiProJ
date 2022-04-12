@@ -90,6 +90,15 @@ public class BoardTGB_service {
 		close(conn);
 		return result;
 	}
+
+	public ArrayList<BoardTGB_dto> CHECKSelectList(int writer) {
+		
+		Connection conn = getConnection();
+		ArrayList<BoardTGB_dto> list = new BoardTGB_dao().CHECKselectList(conn, writer);
+		
+		close(conn);
+		return list;
+	}
 	
 
 }

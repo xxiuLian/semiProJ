@@ -110,8 +110,7 @@
 		
 		<br><br>
 		<div align="center">
-			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
-			<!-- admin일 경우 컨트롤/NoticeEnrollFormServlet -->
+			<% if(loginUser != null) { %> 
 			
 			<button onclick="location.href='<%=contextPath%>/enrollFormBoardTGB.do'">작성하기</button> 
 		<% } %>

@@ -230,6 +230,40 @@ public class BoardTGB_dao {
 		
 		return result;
 	}
+
+	public ArrayList<BoardTGB_dto> CHECKselectList(Connection conn, int writer) {
+		
+		ArrayList<BoardTGB_dto> list = new ArrayList<BoardTGB_dto>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		System.out.println("되냐 안되냥ㄹㄴ이러마니; : " + writer);
+		String sql = prop.getProperty("CHECKselectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, writer);
+			
+			rset = pstmt.executeQuery();
+
+			
+			while(rset.next()) {
+				list.add(new BoardTGB_dto(rset.getInt("BOARD_NO"),
+									rset.getString("BOARD_TITLE"),
+									rset.getString("USER_ID"),
+									rset.getInt("COUNT"),
+									rset.getDate("CREATE_DATE")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 }
