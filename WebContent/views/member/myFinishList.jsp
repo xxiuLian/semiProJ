@@ -108,7 +108,7 @@
 			<thead>
 		  	<tbody>
 				<c:choose>
-					<c:when test="${empty joinList}">
+					<c:when test="${empty finishList}">
 						<tr>
 							<td colspan="5">공동구매 만료 내역이 없습니다.</td>
 						</tr>
