@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.uni.admin.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
+import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dto.Tgb;
 import static com.uni.common.JDBCTemplate.*;
 
@@ -214,6 +215,8 @@ public class TgbDao {
 							rset.getDate("TGB_TERM"), 
 							rset.getInt("TGB_PRICE"), 
 							rset.getDate("CREATE_DATE"));
+				
+				t.setStatus(rset.getString("STATUS"));
 				
 			}
 			
@@ -755,6 +758,94 @@ public class TgbDao {
 		
 		
 		
+		return result;
+	}
+
+	public Member searchById(Connection conn, String userId) {
+		//searchById=SELECT * FROM MEMBER WHERE USER_ID LIKE ?
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchById");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+	
+			
+			if(rset.next()) {
+				m=new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setPhone(rset.getString("PHONE"));
+				m.setEmail(rset.getString("EMAIL"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return m;
+	}
+
+	public int countTgbById(Connection conn, int userNo) {
+		//countTgbById=SELECT COUNT(*) FROM TGB JOIN MEMBER ON TGB_WRITER = USER_NO WHERE USER_ID LIKE ?
+
+		int result=0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countTgbById");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateStatus(Connection conn, int tno) {
+		// updateStatus=UPDATE TGB SET STATUS='YN'WHERE TGB_NO=?
+		int result=0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+
 		return result;
 	}
 

@@ -20,6 +20,19 @@
 	text-align : center;
 	
 }
+.menu1{
+	width:80%;
+	height:auto;
+	color:black;
+	margin:auto;
+	margin-top:50px;
+	text-align : center;
+	
+}
+
+.menu1>.*{
+	display : inline-block;
+}
 #titleImg{
 	width:300px;
 	height:200px;
@@ -81,12 +94,41 @@
 #ptici{
 	width:150px;
 	height:100px;
+	
 	margin:10px;
 }
+.time{
+	display : inline-block;
+}
+
+.mg{
+	margin : 30px;
+}
+
+.progress {
+
+     border-radius: 10px;
+    
+}
+
+.progress-bar {
+    -webkit-transition: width 2.5s ease;
+    transition: width 2.5s ease;
+     border-radius: 20px;
+     background-color : #00003F;
+     color :white;
+}
+
+
+
 </style>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
+
+<br><br>
+<div id="menu1">
 <div class="outer">
 
 	<br>
@@ -102,53 +144,94 @@
 			<p>${t.tgb_Price }</p>
 		</div>
 		
+		<c:choose>
+			<c:when test="${loginUser.userId eq t.tgbWriter}">
+				<button type="button" onclick="deadline();">마감완료</button>
+			</c:when>
+			<c:when test = "${t.status eq 'YN'}">
+				<button disabled>마감완료된 상품입니다.</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button">결제</button>
+				<button type="button" onclick="reportTgb();">상품 신고</button>
+			</c:otherwise>
+		</c:choose>
 		
-		<button type="button">결제</button>
-		<button type="button" onclick="reportTgb();">상품 신고</button>
 	</div>
 	<div class="btns">
-		<button>진행상황</button>
+		<button  type="button" onclick="progressdata();">진행상황</button>
 		<button>게시판</button>
 	
 	<c:choose>
-		<c:when test="${loginUser.userNo} == ${t.tgbWriter }">
+		<c:when test="${loginUser.userId eq t.tgbWriter}">
 			<button>참여자 정보</button>
 		</c:when>
 		<c:otherwise>
-			<button>진행자 정보</button>
+			<button type="button" onclick="memberdata1();">진행자 정보</button>
 		</c:otherwise>
 	</c:choose>
-	
-	</div>
-	<div class="time">
-	<span id="d-day-days">00</span>
-    <span class="col">:</span>
-    <span id="d-day-hour">00</span>
-    <span class="col">:</span>
-    <span id="d-day-min">00</span>
-    <span class="col">:</span>
-    <span id="d-day-sec">00</span>
-  </div>
-	<div>
-	<div id="hide" hidden>${term}</div>
-		<div id="count"></div>
-		<progress value="${cntper }" max="100"></progress>
 	</div>
 	
+</div>
+<div class="menu1">
+	<c:choose>
+		<c:when test = "${t.status ne 'YN'}">
+			<div >
+				<div class="tiem mg"><h3>마감일까지</h3></div>
+				<div class="time"><h1 id="d-day"></h1></div>
+				<div class="time">초 남았습니다.</div>
+				<h4 class = "mg">현재 참여율</h4>
+				<div class="progress mg"  style="height:30px; border-radius: 20px;">
+			  		<div class="progress-bar" role="progressbar" style="width : 0; height:30px;  background-color : #00003F;" aria-valuenow="${cntper}" aria-valuemin="0" aria-valuemax="100">${cntper}%</div>
+				</div>	
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div >
+				<img src = "<%=contextPath%>/assets/TgbAssets/truckpackage.png">
+				<h3>아직 배송 등록이 안됐습니다.</h3>
+			</div>
+			<iframe hidden src="https://tracker.delivery/#/kr.chunilps/1111111111111" style="width:100%; height:300px"></iframe>
+			<br><br>
+		</c:otherwise>
+	</c:choose>
+</div>
+</div>
+<div class="menu3">
+	<jsp:include page = "tgbEnterView3.jsp">
+		<jsp:param name="writer" value="${t.tgbWriter }"/>
+	</jsp:include>
+</div>	
 	<script>
-		var term = "${term}";
-		//var dday = new Date(term).getTime();
+	
+	$(document).ready(function(){
+		var p = ${cntper};
+		console.log(p);
+		$('.progressbar').val(p);
+		
+		$('.progress-bar').css("width", p+"%");
+		
+		//메뉴3T숨기기
+		$('.menu3').hide();
+		
+	})
+	
+	
+	
+		
 	function remaindTime() {
+		
 	    var now = new Date(); //현재시간을 구한다. 
-	    var t = new Date(term);
+	    var t = new Date("${term}");
 	    
-	    console.log(term);
-	  
+	   
+	  	t.setHours(00);
+	    
 	    var nt = now.getTime(); // 현재의 시간만 가져온다
-	    var ot = t.getTime(); // 오픈시간만 가져온다
+	    var ot = t.getTime(); // 마감시간만 가져온다
 	    
 	  
-	   if(nt<ot){ //현재시간이 오픈시간보다 이르면 오픈시간까지의 남은 시간을 구한다.   
+	   if(nt<ot){ 
 	     sec = parseInt(ot - nt) / 1000;
 	   	 days = parseInt(sec/60/60/24);
 	   	 sec = (sec - (days*60*60*24));
@@ -160,19 +243,51 @@
 	     if(hour<10){hour="0"+hour;}
 	     if(min<10){min="0"+min;}
 	     if(sec<10){sec="0"+sec;}
-	      $("#d-day-days").html(days);
-	      $("#d-day-hour").html(hour);
-	      $("#d-day-min").html(min);
-	      $("#d-day-sec").html(sec);
+	     
+	     var dday = days+":"+hour+":"+min+":"+sec
+	    
+	      $("#d-day").html(dday);
 	      
 	   } else{ //현재시간이 종료시간보다 크면
-		$("#d-day-days").html('00');
-	    $("#d-day-hour").html('00');
-	    $("#d-day-min").html('00');
-	    $("#d-day-sec").html('00');
+		  $("#d-day").html("00:00:00:00");
+	   		
+	   
 	   }
 	  }
 	  setInterval(remaindTime,1000);
+	  
+	  function memberdata1(){
+		  $('.menu1').hide();
+		  $('.menu3').show();
+		  memberdata();
+		  
+	  };
+	  
+	  function progressdata(){
+		  $('.menu1').show();
+		  $('.menu3').hide();
+		  
+	  }
+	  
+	  function deadline(){
+		  
+		  $.ajax({
+			  url : "updateStatus.do",
+			  data : {
+				  tno : ${t.tgbNo}
+			  },
+			  type : "post",
+			  success : function(result){
+				  console.log(result);
+				  alert("마감이 완료되었습니다.");
+			  },
+			  error : function(e){
+				  console.log("통신 실패"+e);
+			  }
+		  })
+		  
+		  
+	  }
 	
 	</script>
 
