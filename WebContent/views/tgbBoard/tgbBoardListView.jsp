@@ -43,7 +43,7 @@
 </head>
 <body>
 <!-- 
-<%@ include file="../common/menubar.jsp" %>
+
 
 	listCount : <%= listCount %> <br>
 	currentPage : <%= currentPage %> <br>
