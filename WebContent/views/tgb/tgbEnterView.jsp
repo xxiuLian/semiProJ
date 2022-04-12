@@ -145,8 +145,11 @@
 		</div>
 		
 		<c:choose>
-			<c:when test="${loginUser.userNo} == ${t.tgbWriter }">
-				<button>마감완료</button>
+			<c:when test="${loginUser.userId eq t.tgbWriter}">
+				<button type="button" onclick="deadline();">마감완료</button>
+			</c:when>
+			<c:when test = "${t.status eq 'YN'}">
+				<button disabled>마감완료된 상품입니다.</button>
 			</c:when>
 			<c:otherwise>
 				<button type="button">결제</button>
@@ -160,7 +163,7 @@
 		<button>게시판</button>
 	
 	<c:choose>
-		<c:when test="${loginUser.userNo} == ${t.tgbWriter }">
+		<c:when test="${loginUser.userId eq t.tgbWriter}">
 			<button>참여자 정보</button>
 		</c:when>
 		<c:otherwise>
@@ -171,21 +174,27 @@
 	
 </div>
 <div class="menu1">
-	<div id="prs" >
-		<div class="tiem mg"><h3>마감일까지</h3></div>
-		<div class="time"><h1 id="d-day"></h1></div>
-		<div class="time">초 남았습니다.</div>
-		<h4 class = "mg">현재 참여율</h4>
-		<div class="progress mg"  style="height:30px; border-radius: 20px;">
-	  		<div class="progress-bar" role="progressbar" style="width : 0; height:30px;  background-color : #00003F;" aria-valuenow="${cntper}" aria-valuemin="0" aria-valuemax="100">25%</div>
-		</div>	
-	</div>
-	<div class="prs">
-		<img src = "<%=contextPath%>/assets/TgbAssets/truckpackage.png">
-		<h3>아직 배송 등록이 안됐습니다.</h3>
-	</div>
-	<iframe hidden src="https://tracker.delivery/#/kr.chunilps/1111111111111" style="width:100%; height:300px"></iframe>
-	<br><br>
+	<c:choose>
+		<c:when test = "${t.status ne 'YN'}">
+			<div >
+				<div class="tiem mg"><h3>마감일까지</h3></div>
+				<div class="time"><h1 id="d-day"></h1></div>
+				<div class="time">초 남았습니다.</div>
+				<h4 class = "mg">현재 참여율</h4>
+				<div class="progress mg"  style="height:30px; border-radius: 20px;">
+			  		<div class="progress-bar" role="progressbar" style="width : 0; height:30px;  background-color : #00003F;" aria-valuenow="${cntper}" aria-valuemin="0" aria-valuemax="100">${cntper}%</div>
+				</div>	
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div >
+				<img src = "<%=contextPath%>/assets/TgbAssets/truckpackage.png">
+				<h3>아직 배송 등록이 안됐습니다.</h3>
+			</div>
+			<iframe hidden src="https://tracker.delivery/#/kr.chunilps/1111111111111" style="width:100%; height:300px"></iframe>
+			<br><br>
+		</c:otherwise>
+	</c:choose>
 </div>
 </div>
 <div class="menu3">
@@ -257,6 +266,26 @@
 	  function progressdata(){
 		  $('.menu1').show();
 		  $('.menu3').hide();
+		  
+	  }
+	  
+	  function deadline(){
+		  
+		  $.ajax({
+			  url : "updateStatus.do",
+			  data : {
+				  tno : ${t.tgbNo}
+			  },
+			  type : "post",
+			  success : function(result){
+				  console.log(result);
+				  alert("마감이 완료되었습니다.");
+			  },
+			  error : function(e){
+				  console.log("통신 실패"+e);
+			  }
+		  })
+		  
 		  
 	  }
 	

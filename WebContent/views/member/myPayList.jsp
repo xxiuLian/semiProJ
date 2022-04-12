@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
-	int ingCount = (int)request.getAttribute("ingCount");
-	int payCount = (int)request.getAttribute("payCount");
-	int qnaCount = (int)request.getAttribute("qnaCount");
+	ArrayList<Tgb> joinList = (ArrayList<Tgb>)request.getAttribute("joinList");
 %>
+<c:set var="listCount" value="${pi.listCount}" scope="request" />
+<c:set var="currentPage" value="${pi.currentPage}" scope="request" />
+<c:set var="maxPage" value="${pi.maxPage}" scope="request" />
+<c:set var="startPage" value="${pi.startPage}" scope="request" />
+<c:set var="endPage" value="${pi.endPage}" scope="request" />
 
+<c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
+<c:set var="msg" value="${sessionScope.msg}" scope="session"/>
+<c:set var="contextPath" value="<%= request.getContextPath()%>" scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,12 +38,8 @@
 	
 	#joinBtn{background:yellowgreen;}
 	#goMain{background:orangered;}
-	
-	table{margin-top:100px}
-	#user{margin-left:300px; margin-right:100px;}
-	.userIng{margin-left:20px;}
-	
 	ul, li { list-style: none; }
+	
 </style>
     </head>
     <body>
@@ -88,41 +90,103 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-				<!-- <div class="content">
+				<!-- <div class="content"></div> -->
 				
-				</div> -->
-				
-				<div>
-				<h2 align="center">마이페이지</h2>
-								
-			<table>
+		<h2 align="center">나의 참여 상품</h2>
+		<br>
+		<div class="myGoods" align="center">
+		<table class="listArea" align="center">
+			<thead>
 				<tr>
-					<td><b id="user">${loginUser.userName }님 환영합니다.</b></td>
-					<td></td>
-					<td>
-					<div class="userIng" style = "width:200px;height:200px;border:2px solid red">
-						<b>구 매</b>
-						<%= payCount %>건
-					</div>
-					</td>
-					<td>
-					<div class="userIng" style = "width:200px;height:200px;border:2px solid red">
-						<b>진 행</b>
-						<%= ingCount %>건
-					</div>
-					</td>
-					<td>
-					<div class="userIng" style = "width:200px;height:200px;border:2px solid red">
-						<b>문 의</b>
-						<%= qnaCount %>건
-					</div>
-					</td>
-					<td></td>
+					<th width="50">글번호</th>
+					<th width="100">썸네일</th>
+					<th width="300">글제목</th>
+					<th width="150">작성일</th>
 				</tr>
-			</table>
-				</div>
-			</div>
+			<thead>
+		  	<tbody>
+				<c:choose>
+					<c:when test="${empty joinList}">
+						<tr>
+							<td colspan="5">공동구매 참여 내역이 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${joinList}" var="joinList" varStatus="status">
+						<c:out value="${status.index}" /> / <c:out value="${status.end}" />
+							<tr class="list">
+								<td>${joinList.tgbNo}</td>
+								<td><img src="<%=contextPath%>/assets/img_upfile/${joinList.thumnail}" width="100px" height="100px"></td>
+								<td>${joinList.tgbTitle }</td>
+								<td>${joinList.createDate }</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
+		<br>
+		
+		<!-- 페이징바 만들기 -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button onclick="location.href='${contextPath}/myPayList.do?currentPage=1'">&lt;&lt;</button>
+
+			<!-- 이전페이지로(<) -->
+			<c:choose>
+				<c:when test="${currentPage eq 1}">
+					<button disabled>&lt;</button>
+				</c:when>
+				<c:otherwise>
+					<button
+						onclick="location.href='${contextPath}/myPayList.do?currentPage=${currentPage - 1}'">
+						&lt;</button>
+				</c:otherwise>
+			</c:choose>
+			<!-- 페이지 목록 -->
+			<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
+				<c:choose>
+					<c:when test="${p eq currentPage}">
+						<button disabled>${p}</button>
+					</c:when>
+					<c:otherwise>
+						<button
+							onclick="location.href='${contextPath}/myPayList.do?currentPage=${p}'">
+							${p}</button>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+
+			<!-- 다음페이지로(>) -->
+			<c:choose>
+				<c:when test="${currentPage eq maxPage}">
+					<button disabled>&gt;</button>
+				</c:when>
+				<c:otherwise>
+					<button
+						onclick="location.href='${contextPath}/myPayList.do?currentPage=${currentPage + 1}'">
+						&gt;
+					</button>
+				</c:otherwise>
+			</c:choose>
+
+			<!-- 맨 끝으로 (>>) -->
+			<button
+				onclick="location.href='${contextPath}/myPayList.do?currentPage=${maxPage}'">
+				&gt;&gt;</button>
 		</div>
+		<br> <br>
+		</div>
+		<!--<h2 align="center">진행</h2>
+		<br>
+		<div class="listArea" align="center">
+		</div>-->
+		</div>
+		</div>
+
+
+
+
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
