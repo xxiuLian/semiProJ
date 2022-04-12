@@ -159,7 +159,7 @@ public class ChatDao {
 				chat.setToId(rset.getString("TO_ID"));
 				chat.setChatContent(rset.getString("CONTENT"));
 				chat.setChatTime(rset.getDate("CHAT_TIME"));
-				
+				System.out.println("getChatListById  " + chat);
 				list.add(chat);
 			}
 		} catch (SQLException e) {

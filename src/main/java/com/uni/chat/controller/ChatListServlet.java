@@ -34,24 +34,22 @@ public class ChatListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("application/json; charset=utf-8");
 		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		// String toId = request.getParameter("toId");
 		String toId = "user02";
 		String listType = request.getParameter("listType");
-		System.out.println("아이디 " + fromId);
-		System.out.println("리스트타입 " + listType);
 		ArrayList<Chat> list = null;
+		Gson gson = new GsonBuilder().setDateFormat("YY-MM-dd HH:mm").create();
 		if (toId == null || toId.equals("") || listType == null || listType.equals("")) {
 			response.getWriter().write("");
 		} else if (listType.equals("ten")){
-			System.out.println("진입");
 			list = new ChatService().getChatListByRecent(fromId, toId, 10);
-			Gson gson = new GsonBuilder().setDateFormat("YY-MM-dd HH:mm").create();
 			gson.toJson(list, response.getWriter());
 		} else {
 			try {
-				list = new ChatService().getChatListById(fromId, toId, 10);
+				list = new ChatService().getChatListById(fromId, toId, Integer.parseInt(listType));
+				gson.toJson(list, response.getWriter());
 			} catch (Exception e) {
 				response.getWriter().write("");
 			}

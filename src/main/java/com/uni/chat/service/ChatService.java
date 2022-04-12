@@ -39,10 +39,10 @@ public class ChatService {
 		return chat;
 	}
 
-	public ArrayList<Chat> getChatListById(String fromId, String toId, int num) {
+	public ArrayList<Chat> getChatListById(String fromId, String toId, int chatNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Chat> chat = new ChatDao().getChatListById(conn, fromId, toId, num);
+		ArrayList<Chat> chat = new ChatDao().getChatListById(conn, fromId, toId, chatNo);
 		
 		close(conn);
 		
