@@ -34,20 +34,18 @@ public class ChatSubmitServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");// 보냍 타입과 인코딩 설정
 		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		String toId = request.getParameter("toId");
 		String chatContent = request.getParameter("chatContent");
 
 		if (toId == null || toId.equals("") || chatContent == null || chatContent.equals("")) {
-			response.getWriter().write("empty");
+			response.getWriter().write("");
 		} else {
-			chatContent = URLDecoder.decode(chatContent, "UTF-8");//안하면 한글깨짐
+			chatContent = URLDecoder.decode(chatContent, "UTF-8");// 안하면 한글깨짐
 			Chat c = new Chat(fromId, toId, chatContent);
-			int result = new ChatService().insertChat(c);
-			if (result == 1) {
-				response.getWriter().write("1");
-			}
+
+			response.getWriter().write(new ChatService().insertChat(c));
 		}
 
 	}

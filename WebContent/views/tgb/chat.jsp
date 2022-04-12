@@ -168,9 +168,7 @@
 				chatContent : chatContent,
 			},
 			success : function(result) {
-				if (result == 1) {//제대로 insert됐으면
-					//console.log('채팅 보내졌는지 확인')
-				}
+				//console.log('전송성공')
 			},
 			error:function(e){
 				alert("채팅 전송 실패")
