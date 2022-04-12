@@ -1,11 +1,14 @@
 package com.uni.tgb.model.service;
 
-import static com.uni.common.JDBCTemplate.*;
+import static com.uni.common.JDBCTemplate.close;
+import static com.uni.common.JDBCTemplate.commit;
+import static com.uni.common.JDBCTemplate.getConnection;
+import static com.uni.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.uni.admin.dto.Category;
+import com.uni.admin.model.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.member.model.dto.Member;
