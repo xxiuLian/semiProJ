@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.uni.boardTGB.model.dto.BoardTGB_dto" %>
+<%
+	BoardTGB_dto b = (BoardTGB_dto)request.getAttribute("b");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,27 +18,29 @@
 		margin:auto;
 		margin-top:50px;
 	}
-	#enrollForm{width:60%; margin:auto;}
-	#enrollForm>table{border:1px solid white;}
-	#enrollForm>table input{
+	#updateForm{width:60%; margin:auto;}
+	#updateForm>table{border:1px solid white;}
+	#updateForm>table input{
 		width:100%;
 		box-sizing:border-box;
 	}
+	
 </style>
 </head>
 <body>
+
 	<%@ include file="../common/menubar.jsp" %>
 	
 	<div class="outer">
 		<br>
+		<h2 align="center">게시판 수정하기</h2>
 		
-		<h2 align="center">이벤트 작성하기</h2>
-		
-		<form id="enrollForm" action="<%= contextPath %>/insertEvent.do" method="post" >
+		<form id="updateForm" action="<%= contextPath %>/updateBoardTGB.do" method="post" >
+			<input type="hidden" name="nno" value="<%= b.getBoardTgbNo() %>">
 			<table align="center">
 				<tr>
 					<td>제목</td>
-					<td colspan="3"><input type="text" name="title"></td>
+					<td colspan="3"><input type="text" name="title" value="<%= b.getBoardTgbTitle() %>"></td>
 				</tr>
 				
 				<tr>
@@ -43,19 +49,17 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<textarea name="content" cols="60" rows="15" style="resize:none;"></textarea>
+						<textarea name="content" cols="60" rows="15" style="resize:none;"><%= b.getBoardTgbContent() %></textarea>
 					</td>
 				</tr>	
 			</table>
 			<br>
 			
 			<div class="btns" align="center">
-				<button type="submit">등록하기</button>
-				
+				<button type="submit">수정하기</button>
 			</div>
 		</form>
 	</div>
-
-
+	
 </body>
 </html>
