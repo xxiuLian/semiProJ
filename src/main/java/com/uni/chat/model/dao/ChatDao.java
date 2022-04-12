@@ -91,15 +91,14 @@ public class ChatDao {
 		return list;
 	}
 
-	public ArrayList<Chat> getChatListByRecent(Connection conn, String fromId, String toId, int num) {
+	public ArrayList<Chat> getChatListByRecent(Connection conn, String fromId, String toId) {
 		ArrayList<Chat> list = new ArrayList<Chat>();
 		System.out.println(fromId);
 		System.out.println(toId);
-		System.out.println(num);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		//getChatListByRecent=SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) AND CHAT_NO > (SELECT MAX(CHAT_NO) - ? FROM CHAT) ORDER BY CHAT_TIME
+		//getChatListByRecent=SELECT * FROM(SELECT ROWNUM RNUM, A.* FROM (SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) ORDER BY CHAT_TIME DESC)A) WHERE RNUM <=10 ORDER BY RNUM DESC
 		String sql = prop.getProperty("getChatListByRecent");
 		
 		try {
@@ -108,7 +107,6 @@ public class ChatDao {
 			pstmt.setString(2, toId);
 			pstmt.setString(3, toId);
 			pstmt.setString(4, fromId);
-			pstmt.setInt(5, num);
 			
 			rset = pstmt.executeQuery();
 			
