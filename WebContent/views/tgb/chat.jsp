@@ -27,7 +27,7 @@
 							<c:if test="${loginUser.userId eq t.tgbWriter}">                   
 	                        <div class="btn-group">
 	                            <div class="mb-3">
-									<select name="buyer" id="buyer" style="color:black;"onchange="chatList('ten')">
+									<select name="buyer" id="buyer" style="color:black;"onchange="changeUser()">
 										<option value="000">참여자 선택</option>
 										<c:forEach var="b" items="${buyer}">
 			                           	 	<option value="${b}">${b}</option>
@@ -74,12 +74,21 @@
 		$("#chatList").html('');
 		console.log('바꾼 사람 ' + toId)
 	})
+	
+	function changeUser(){// 그냥 onchange에 chagList('ten')을 할당하면 
+		setTimeout(function(){//ajax가 onchage메소드보다 빨리 실행되어 채팅내역이 꼬이게된다
+			chatList('ten');
+		}, 300);//따라서 0.3초후(toId가 바뀐 select옵션으로 바뀐뒤)에 chatList를 다시 불러와준다
+	
+	}
+	
+	
 	function chatList(type) {
 		
 		
-		var fromId = '${loginUser.userId}';
-		if (${loginUser.userId != t.tgbWriter}){
-			toId = '${t.tgbWriter}'
+		var fromId = '${loginUser.userId}'; //보내는사람은 항상 현재 로그인된 유저
+		if (${loginUser.userId != t.tgbWriter}){ //만약 공구 작성자가 아니면(참여자)
+			toId = '${t.tgbWriter}'	//무조건 공구 작성자에게 채팅보내기
 		}
 		
 		var chatContent = $("#chatContent").val();
