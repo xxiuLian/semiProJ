@@ -1,51 +1,37 @@
-package com.uni.event.controller;
+package com.uni.tgb.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.event.model.service.EventService;
-
 /**
- * Servlet implementation class EventDeleteServlet
+ * Servlet implementation class PackLoadFormServlet
  */
-@WebServlet("/deleteEvent.do")
-public class EventDeleteServlet extends HttpServlet {
+@WebServlet("/packLoadForm.do")
+public class PackLoadFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EventDeleteServlet() {
+    public PackLoadFormServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nno = request.getParameter("nno"); 
 		
+		int tno = Integer.parseInt(request.getParameter("tno"));
+		System.out.println("tno"+tno);
+		request.setAttribute("tno", tno);
 		
-		int result = new EventService().deleteEvent(nno);
-		
-		if(result > 0) {
-			request.getSession().setAttribute("msg", "삭제성공");
-			
-			response.sendRedirect("eventList.do");
-			
-		}else {
-			//실패
-			request.getSession().setAttribute("msg", "실패");
-			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}
+		request.getRequestDispatcher("views/tgb/packLoadForm.jsp").forward(request, response);
 	}
 
 	/**

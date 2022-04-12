@@ -151,6 +151,85 @@ public class BoardTGB_dao {
 		return n;
 		
 	}
+
+	public int deleteBoardTGB(Connection conn, int nno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("deleteBoardTGB");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, nno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public BoardTGB_dto selectUpdateBoardTGB(Connection conn, int nno) {
+		
+		BoardTGB_dto n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectUpdateBoardTGB");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n = new BoardTGB_dto(rset.getInt("BOARD_NO"),
+								rset.getString("BOARD_TITLE"),
+								rset.getString("BOARD_CONTENT"),
+								rset.getString("USER_ID"),
+								rset.getInt("COUNT"),
+								rset.getDate("CREATE_DATE")
+							);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return n;
+	}
+
+	public int updateBoardTGB(Connection conn, BoardTGB_dto n) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateBoardTGB");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, n.getBoardTgbTitle());
+			pstmt.setString(2, n.getBoardTgbContent());
+			pstmt.setInt(3, n.getBoardTgbNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return result;
+	}
 	
 	
 }

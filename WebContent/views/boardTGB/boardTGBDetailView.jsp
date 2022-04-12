@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.uni.event.model.dto.EventDto" %>
+<%@ page import="com.uni.boardTGB.model.dto.BoardTGB_dto" %>
 <%
-	EventDto n = (EventDto)request.getAttribute("event");
+	BoardTGB_dto n = (BoardTGB_dto)request.getAttribute("n");
 %>
 
 <!DOCTYPE html>
@@ -32,17 +32,17 @@
 	<div class="outer">
 		<br>
 		
-		<h2 align="center">이벤트 상세보기</h2>
+		<h2 align="center">게시판 상세보기</h2>
 		
 
 		<table id="detailArea" border="1">
 			<tr>
 				<td>제목</td>
-				<td colspan="3"><%= n.getEventTitle() %></td>
+				<td colspan="3"><%= n.getBoardTgbTitle() %></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><%= n.getEventWriter() %></td>
+				<td><%= n.getBoardTgbWriter() %></td>
 				<td>작성일</td>
 				<td><%= n.getCreateDate() %></td>
 			</tr>
@@ -52,7 +52,7 @@
 			</tr>
 			<tr>
 				<td colspan="4">
-					<p><%= n.getEventContent() %></p>
+					<p><%= n.getBoardTgbContent() %></p>
 				</td>
 			</tr>	
 		</table>
@@ -61,12 +61,12 @@
 		
 		<div class="btns" align="center">
 		
-			<a href="eventList.do">목록으로</a> &nbsp;&nbsp;
+			<a href="boardTGBList.do">목록으로</a> &nbsp;&nbsp;
 				
 			
 			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
-			<a href="updateFormEvent.do?nno=<%=n.getEventNo()%>">수정하기</a> &nbsp;&nbsp;
-			<a href="deleteEvent.do?nno=<%=n.getEventNo()%>">삭제하기</a>
+			<a href="updateFormBoardTGB.do?nno=<%=n.getBoardTgbNo()%>">수정하기</a> &nbsp;&nbsp;
+			<a href="deleteBoardTGB.do?nno=<%=n.getBoardTgbNo()%>">삭제하기</a>
 		
 			<% } %>
 			

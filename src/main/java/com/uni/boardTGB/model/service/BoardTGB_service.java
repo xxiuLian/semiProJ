@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import com.uni.boardTGB.model.dao.BoardTGB_dao;
 import com.uni.boardTGB.model.dto.BoardTGB_dto;
+import com.uni.notice.model.dao.NoticeDao;
+import com.uni.notice.model.dto.NoticeDto;
 
 
 public class BoardTGB_service {
@@ -50,6 +52,43 @@ public class BoardTGB_service {
 		close(conn);
 		
 		return n;
+	}
+
+	public int deleteBoardTGB(int nno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardTGB_dao().deleteBoardTGB(conn, nno);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public BoardTGB_dto selectUpdateBoardTGB(int nno) {
+		Connection conn = getConnection();
+		
+		BoardTGB_dto n = new BoardTGB_dao().selectUpdateBoardTGB(conn, nno);
+		
+		close(conn);
+		return n;
+	}
+
+	public int updateBoardTGB(BoardTGB_dto n) {
+		Connection conn = getConnection();
+		
+		int result = new BoardTGB_dao().updateBoardTGB(conn, n);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 	
 
