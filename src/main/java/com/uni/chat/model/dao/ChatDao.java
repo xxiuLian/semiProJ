@@ -52,44 +52,6 @@ public class ChatDao {
 		}
 		return result;
 	}
-	
-	public ArrayList<Chat> selectChatList(Connection conn, Chat c) {
-		ArrayList<Chat> list = new ArrayList<Chat>();
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		//selectChatList=SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) ORDER BY CHAT_TIME
-		String sql = prop.getProperty("selectChatList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, c.getFromId());
-			pstmt.setString(2, c.getToId());
-			pstmt.setString(3, c.getToId());
-			pstmt.setString(4, c.getFromId());
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Chat chat = new Chat();
-				chat.setFromId(rset.getString("FROM_ID"));
-				chat.setToId(rset.getString("TO_ID"));
-				chat.setChatContent(rset.getString("CHAT_CONTENT"));
-				chat.setChatTime(rset.getDate("CHAT_TIME"));
-				
-				list.add(chat);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
 
 	public ArrayList<Chat> getChatListByRecent(Connection conn, String fromId, String toId) {
 		ArrayList<Chat> list = new ArrayList<Chat>();
