@@ -40,7 +40,14 @@
                 <div class="sidebar-heading border-bottom bg-light"><a href="<%=contextPath %>/myPage.do">Start Bootstrap</a></div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do" id="myInfo">내 정보</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myList.do">공동구매 내역 조회</a>
+                                       <div>
+                    	<a id="myList" class="list-group-item list-group-item-action list-group-item-light p-3" href="myList.do">공동구매 내역 조회</a>
+                    	<ul>
+							<li><a class="nav-link" href="myList.do">나의 진행 상품</a></li>
+							<li><a class="nav-link" href="myPayList.do">나의 참여 상품</a></li> 
+							<li><a class="nav-link" href="myFinishList.do">이전 상품</a></li>
+						</ul>
+                    </div>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="wishList.do">찜내역관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>

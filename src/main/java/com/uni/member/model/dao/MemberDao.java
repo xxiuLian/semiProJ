@@ -589,6 +589,60 @@ public class MemberDao {
 		
 		return joinList;
 	}
+	
+	public ArrayList<Tgb> myFinishList(Connection conn, PageInfo pi, int userNo) {
+//		myFinishList=SELECT  * FROM ( SELECT ROWNUM RNUM, A.* FROM(SELECT TGB_NO, TGB_CATEGORY_NO, TGB_CATEGORY_NAME, \
+//		TGB_TITLE, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME FROM TGB LEFT JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) \
+//		JOIN MEMBER ON TGB_WRITER=USER_NO LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT \
+//		WHERE TYPE LIKE 'TGB' AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO WHERE  TGB.STATUS = 'YN' AND USER_NO=? \
+//		ORDER BY TGB_NO DESC)A) \
+//		UNION \
+//		SELECT * FROM ( SELECT ROWNUM RNUM, A.* FROM(SELECT TGB_NO, TGB_CATEGORY_NO, TGB_CATEGORY_NAME, \
+//		TGB_TITLE, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME FROM TGB LEFT JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) \
+//		JOIN PAY USING(TGB_NO) LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT \
+//		WHERE TYPE LIKE 'TGB' AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO WHERE  TGB.STATUS = 'YN' AND USER_NO=? \
+//		ORDER BY TGB_NO DESC)A)WHERE RNUM BETWEEN ? AND ?;
+		ArrayList<Tgb> finishList = new ArrayList<Tgb>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("myFinishList");
+		
+		int startRow = (pi.getCurrentPage() -1)*pi.getBoardLimit()+1;
+		int endRow = startRow+pi.getBoardLimit() -1;
+		
+		try { 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				finishList.add(new Tgb(rset.getInt("TGB_NO"),
+						rset.getString("TGB_CATEGORY_NO"),
+						rset.getString("TGB_TITLE"), 
+						rset.getInt("TGB_COUNT"), 
+						rset.getDate("TGB_TERM"), 
+						rset.getInt("TGB_PRICE"), 
+						rset.getDate("CREATE_DATE"),
+						rset.getString("CHANGE_NAME")));
+				
+			} 
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}	
+		
+		return finishList;
+	}
 
 	public int ingCount(Connection conn, int userNo) {
 		int ingCount = 0;

@@ -191,6 +191,15 @@ public class MemberService {
 		return joinList;
 	}
 	
+	public ArrayList<Tgb> myFinishList(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> finishList = new MemberDao().myFinishList(conn, pi, userNo);
+		
+		close(conn);
+		
+		return finishList;
+	}
 	
 	public int ingCount(int userNo) {
 		Connection conn = getConnection();
@@ -218,5 +227,7 @@ public class MemberService {
 		close(conn);
 		return qnaCount;
 	}
+
+	
 
 }
