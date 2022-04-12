@@ -43,7 +43,7 @@ public class LoginNaverServlet extends HttpServlet {
 	      String clientSecret = "2flkt6Xepj";//애플리케이션 클라이언트 시크릿값";
 	      String code = request.getParameter("code");
 	      String state = request.getParameter("state");
-	      String redirectURI = URLEncoder.encode("http://127.0.0.1:8100/valueSa/naverLogin.do", "UTF-8");
+	      String redirectURI = URLEncoder.encode("http://localhost:8100/valueSa/naverLogin.do", "UTF-8");
 	      String apiURL;
 	      apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 	      apiURL += "client_id=" + clientId;
@@ -119,8 +119,8 @@ public class LoginNaverServlet extends HttpServlet {
       			String mobile = (String)resObj.get("mobile");
       			String userIds = (String)resObj.get("id");
       			
-      			String userId = userIds.substring(0,9);
-      			System.out.println(userId.substring(0,9));//임의로 아이디 정해주기 너무 길어서 10자로 잘랐음
+      			String userId = userIds.substring(0,10);
+      			System.out.println(userId.substring(0,10));//임의로 아이디 정해주기 너무 길어서 10자로 잘랐음
       			
       			request.setAttribute("name", name);
       			request.setAttribute("mobile", mobile);

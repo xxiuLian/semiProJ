@@ -37,7 +37,6 @@ public class LoginServlet extends HttpServlet {
 		String originPwd = (String)request.getAttribute("originPwd");
 		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		System.out.println(loginUser);
 		
 		if(loginUser != null) {//유저가 있으면 session값 전달
 			request.setAttribute("msg", "로그인 완료");
