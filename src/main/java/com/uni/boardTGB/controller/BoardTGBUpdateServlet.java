@@ -9,18 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.uni.boardTGB.model.dto.BoardTGB_dto;
 import com.uni.boardTGB.model.service.BoardTGB_service;
+import com.uni.notice.model.dto.NoticeDto;
+import com.uni.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class BoardTGBDetailServlet
+ * Servlet implementation class BoardTGBUpdateServlet
  */
-@WebServlet("/boardTGBDetail.do")
-public class BoardTGBDetailServlet extends HttpServlet {
+@WebServlet("/updateBoardTGB.do")
+public class BoardTGBUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardTGBDetailServlet() {
+    public BoardTGBUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +31,26 @@ public class BoardTGBDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int nno = Integer.parseInt(request.getParameter("nno"));
-		
-		BoardTGB_dto n = new BoardTGB_service().detailBoardTGB(nno);
-		
-		String view = "";
-		if(n != null) {
-			request.setAttribute("n", n);
-			view = "views/boardTGB/boardTGBDetailView.jsp";
-		}else {
-			request.setAttribute("msg", "게시판 조회에 실패했습니다.");
-			view = "views/common/errorPage.jsp";
-		}
-		
-		request.getRequestDispatcher(view).forward(request, response);
+	      
+	      String title = request.getParameter("title");
+	      String content = request.getParameter("content").replaceAll("\n", "<br>");
+	      
+	      BoardTGB_dto n = new BoardTGB_dto();
+	      n.setBoardTgbTitle(title);
+	      n.setBoardTgbContent(content);
+	      n.setBoardTgbNo(nno);
+	      
+	      int result = new BoardTGB_service().updateBoardTGB(n);
+	     
+	      
+	      if(result > 0) {
+	         request.getSession().setAttribute("msg", "공지 수정 완료");
+	         response.sendRedirect("boardTGBDetail.do?nno=" + nno);
+	      }else {
+	         request.setAttribute("msg", "공지 수정 실패");
+	         request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+	      }
 	}
 
 	/**
