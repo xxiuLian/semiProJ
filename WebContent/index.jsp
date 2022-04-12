@@ -29,10 +29,9 @@
 			margin-left:600px;
 		    position: relative;
 		}
-		.modals .close {
-		    position: absolute; 
-			right: 40px; top: 30px; 
-		    background-color: #96684d;
+		.close {
+		    position: absolute;
+			margin-left:1020px; top:140px;
 		    color: #fff; border: none; 
 		    padding: 10px 20px;
 		}
@@ -88,8 +87,10 @@
                 </div>
             </div>
             <div id="popups">
-			<img class="modals" alt="" src="https://cdn.imweb.me/upload/S20191226f354293cbbefc/7ff814128b9fa.png" width="500px" height="500px">
-        	<button class="close">X</button> 
+            	<div class="modals" >
+				<img alt="" src="https://cdn.imweb.me/upload/S20191226f354293cbbefc/7ff814128b9fa.png" width="500px" height="500px">
+        		</div>
+        		<div class="close"><button >X</button></div>
         	</div> 
         	<!-- 홈페이지 열리면 띄우는 팝업창 
         	<script>
@@ -101,8 +102,8 @@
         	})
         	$(".close").click(function(){ //x버튼 눌러도 닫기
         	    $("#popups").fadeOut();
-        	})
-        	</script>-->
+        	})-->
+        	</script>
         </section>
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
@@ -622,6 +623,7 @@
                 </div>
             </div>
         </div>
+        <%@ include file="views/common/footer.jsp" %>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
