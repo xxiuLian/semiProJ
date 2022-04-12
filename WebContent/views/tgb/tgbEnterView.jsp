@@ -298,5 +298,11 @@
 	
 	</script>
 
+
+<%@ include file="../tgb/chat.jsp" %>
+
+
+
+
 </body>
 </html>

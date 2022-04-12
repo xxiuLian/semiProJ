@@ -49,4 +49,13 @@ public class ChatService {
 		return chat;
 	}
 
+	public ArrayList<String> selectBuyer(int tno) {
+		Connection conn = getConnection();
+		
+		ArrayList<String> buyer = new ChatDao().selectBuyer(conn, tno);
+		
+		close(conn);
+		
+		return buyer;
+	}
 }

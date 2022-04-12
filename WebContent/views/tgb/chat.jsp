@@ -26,16 +26,14 @@
 	                    <div class="portlet-widgets">
 							<c:if test="${loginUser.userId eq t.tgbWriter}">                   
 	                        <div class="btn-group">
-	                            <button type="button" class="btn btn-white dropdown-toggle btn-xs" data-toggle="dropdown">
-	                                <i class="fa fa-circle text-green"></i> 참여자
-	                                <span class="caret"></span>
-	                            </button>
-	                            <ul class="dropdown-menu" role="menu">
-	                            	<c:forEach var="b" items="${buyer}">
-		                            	<li><a href="#"><i class="fa fa-circle text-green"></i>${buyer.userId}</a>
-		                                </li>
-	                            	</c:forEach>
-	                            </ul>
+	                            <div class="mb-3">
+									<select name="buyer" id="buyer" style="color:black;" onchange="chatList('ten');">
+										<option value="000">참여자 선택</option>
+										<c:forEach var="b" items="${buyer}">
+			                           	 	<option value="${b}">${b}</option>
+		                            	</c:forEach>
+									</select>
+								</div>
 	                        </div>
 	                        </c:if> 
 	                        
@@ -48,8 +46,6 @@
 	                    <div>
 	                    <div class="portlet-body chat-widget" id="chatList" style="overflow-y: auto; width: auto; height: 300px;">
 	                      
-	                     
-	                       
 	                    </div>
 	                    </div>
 	                    <div class="portlet-footer">
@@ -72,38 +68,24 @@
 <button type="button" class="btn btn-default pull-right" onclick="chatList('today');">추가</button>   
 </body>
 <script type="text/javascript">
-	function chatSubmit() {
-		var fromId = '${loginUser.userId}';
-		var toId = '';
-		if (${loginUser.userId eq t.tgbWriter}){
-			toId = 'user02'//드롭다운으로 선택한 유저로 바꿔야함
-		}else{
-			toId = '${t.tgbWriter}'
-		}
-		var chatContent = $("#chatContent").val();
+var toId = '';
 
-		$.ajax({
-			type : "POST",
-			url : "${contextPath}/chatSubmit.do",
-			data : {
-				fromId : encodeURIComponent(fromId),
-				toId : encodeURIComponent(toId),
-				chatContent : encodeURIComponent(chatContent),
-			},
-			success : function(result) {
-				if (result == 1) {
-					console.log('채팅 보내졌는지 확인')
-					chatList('ten')
-				}
-			}
-		});
-		$("#chatContent").val('');
-	}
 	var lastId = 0;
 	function chatList(type) {
-		console.log(type)
+		$("#buyer").change(function(){
+			toId = $("option:selected").val();
+			$("#chatList").html('');
+		})
+
+		console.log('타입 ' + type)
 		var fromId = '${loginUser.userId}';
-		var toId = 'user02';
+		if (${loginUser.userId != t.tgbWriter}){
+			toId = '${t.tgbWriter}'
+		}
+		
+		var chatContent = $("#chatContent").val();
+		console.log('보내는 사람 ' + fromId)
+		console.log('받는사람 ' + toId)
 		$.ajax({
 			type : "POST",
 			url : "${contextPath}/chatList.do",
@@ -114,19 +96,18 @@
 			},
 			success : function(data) {
 				console.log(data)
-				if (data == "")
-					return;
 				$.each(data, function(i) {
 					addChat(data[i].fromId, data[i].chatContent, data[i].chatTime);
 					if (data.length - 1 == i) {
 						lastId = Number(data[i].chatId)
 					}
 				})
-				console.log(lastId)
 			}
 		})
 
 	}
+	
+	
 	function addChat(chatName, chatContent, chatTime) {
 
 		$("#chatList").append('<div class="row">'
@@ -150,9 +131,8 @@
 								+ '</div>'
 								+ '</div>'
 								+ '<hr>');
-		console.log($("chatList").height())
-
-		$("#chatList").scrollTop($("chatList").height());
+		console.log($("#chatList").scrollTop($("#chatList")[0].scrollHeight))
+		$("#chatList").scroll();
 	}
 	
 	function getInfiniteChat(){
@@ -165,5 +145,36 @@
 		chatList('ten');
 		getInfiniteChat();
 	})
+	
+	
+	
+	function chatSubmit() {
+		var fromId = '${loginUser.userId}';
+		if (${loginUser.userId eq t.tgbWriter}){
+			
+		}else{
+			toId = '${t.tgbWriter}'
+		}
+		console.log('보내는 사람 ' + fromId)
+		console.log('받는사람 ' + toId)
+		var chatContent = $("#chatContent").val();
+
+		$.ajax({
+			type : "POST",
+			url : "${contextPath}/chatSubmit.do",
+			data : {
+				fromId : encodeURIComponent(fromId),
+				toId : encodeURIComponent(toId),
+				chatContent : encodeURIComponent(chatContent),
+			},
+			success : function(result) {
+				if (result == 1) {
+					console.log('채팅 보내졌는지 확인')
+				}
+			}
+		});
+		$("#chatContent").val('');
+	}
+	
 </script>
 </html>

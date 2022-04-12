@@ -172,4 +172,33 @@ public class ChatDao {
 		
 		return list;
 	}
+
+	public ArrayList<String> selectBuyer(Connection conn, int tno) {
+		ArrayList<String> list = new ArrayList<String>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//selectBuyer=SELECT USER_ID FROM PAY JOIN MEMBER USING(USER_NO) WHERE TGB_NO=?
+		String sql = prop.getProperty("selectBuyer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(rset.getString("USER_ID"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 }

@@ -36,9 +36,8 @@ public class ChatSubmitServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
-		// String toId = request.getParameter("toId");
+		String toId = request.getParameter("toId");
 		String chatContent = request.getParameter("chatContent");
-		String toId = "user02";
 
 		if (toId == null || toId.equals("") || chatContent == null || chatContent.equals("")) {
 			response.getWriter().write("empty");

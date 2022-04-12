@@ -36,8 +36,7 @@ public class ChatListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
 		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
-		// String toId = request.getParameter("toId");
-		String toId = "user02";
+		String toId = request.getParameter("toId");
 		String listType = request.getParameter("listType");
 		ArrayList<Chat> list = null;
 		Gson gson = new GsonBuilder().setDateFormat("YY-MM-dd HH:mm").create();

@@ -3,6 +3,7 @@ package com.uni.tgb.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.chat.service.ChatService;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 
@@ -65,6 +67,10 @@ public class TgbEnterServlet extends HttpServlet {
 		String cntper = String.format("%.1f", c);
 		String tper = String.format("%.1f", tp);
 		
+		
+		ArrayList<String> buyer = new ChatService().selectBuyer(tno);
+		System.out.println("바이어 " + buyer);
+		request.setAttribute("buyer", buyer);
 		request.setAttribute("cntper", cntper);
 		request.setAttribute("t", t);
 		request.setAttribute("tper", tper);
