@@ -1,12 +1,15 @@
 package com.uni.chat.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.chat.model.dto.Chat;
+import com.uni.chat.service.ChatService;
 import com.uni.member.model.dto.Member;
 
 /**
@@ -32,9 +35,13 @@ public class ChatSubmitServlet extends HttpServlet {
 		String fromId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String toId = request.getParameter("toId");
 		String chatContent = request.getParameter("chatContent");
+		
+		Chat c = new Chat(fromId, toId, chatContent);
+		
 		if(toId == null || toId.equals("") || chatContent == null || chatContent.equals("")) {
-			response.getWriter().write("0");
+			response.getWriter().write("empty");
 		}else {
+			int result = new ChatService().insertChat(c);
 		}
 				
 	}

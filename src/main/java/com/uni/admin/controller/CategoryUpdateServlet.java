@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.admin.dto.Category;
-import com.uni.admin.service.AdminService;
+import com.uni.admin.model.dto.Category;
+import com.uni.admin.model.service.AdminService;
 
 /**
  * Servlet implementation class CategoryUpdateServlet

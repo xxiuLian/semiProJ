@@ -143,7 +143,7 @@
 			success: function(result){
 				if(result == 1){
 					autoClosingAlert("#successMessage", 2000);
-				}else if(result == 0){
+				}else if(result == empty){
 					autoClosingAlert("#dangerMessage", 2000);
 				}else{
 					autoClosingAlert("#warningMessage", 2000);

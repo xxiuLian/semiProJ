@@ -1,4 +1,4 @@
-package com.uni.admin.service;
+package com.uni.admin.model.service;
 import static com.uni.common.JDBCTemplate.close;
 import static com.uni.common.JDBCTemplate.commit;
 import static com.uni.common.JDBCTemplate.getConnection;
@@ -7,8 +7,8 @@ import static com.uni.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.uni.admin.dao.AdminDao;
-import com.uni.admin.dto.Category;
+import com.uni.admin.model.dao.AdminDao;
+import com.uni.admin.model.dto.Category;
 public class AdminService {
 
 	public Category selectQnaCategory(int cno) {
