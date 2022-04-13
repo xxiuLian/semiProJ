@@ -59,7 +59,7 @@
         		</div>
         		<div class="close"><button >X</button></div>
         	</div> 
-        	 <!-- 홈페이지 열리면 띄우는 팝업창 
+        	 <!-- 홈페이지 열리면 띄우는 팝업창 -->
         	<script>
         	window.onload=function(){ //팝업 오픈
         		$("#popups").fadeIn();
@@ -70,7 +70,7 @@
         	$(".close").click(function(){ //x버튼 눌러도 닫기
         	    $("#popups").fadeOut();
         	})
-        	</script> -->
+        	</script>
         	
         	
 	        <!--  setInterval을 통한 이벤트 배너 넘기기 -->
