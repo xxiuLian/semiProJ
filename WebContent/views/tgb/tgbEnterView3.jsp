@@ -32,6 +32,7 @@ function memberdata(){
 	})
 };
 
+//추가_재욱
 function memberdataWook2(){
 	
 	$.ajax({
@@ -42,9 +43,9 @@ function memberdataWook2(){
 		type :"post",
 		success : function(m){
 			console.log(m);
-			var a = '<h6>참여자22 아이디 : '+m.userId+'</h6>';
-			a += '<h6> 핸드폰 번호 : '+m.phone+'</h6>';
-			a += '<h6> 이메일 주소 : '+m.email+'</h6>';
+			var a = '<h6>참여자22 아이디 : '+ m.userId+'</h6>';
+			a += '<h6> 핸드폰 번호 : '+ m.phone+'</h6>';
+			a += '<h6> 이메일 주소 : '+ m.email+'</h6>';
 			
 			$('.content3').html(a);
 		},
@@ -53,6 +54,8 @@ function memberdataWook2(){
 		}
 	})
 };
+//까지_재욱
+
 </script>
 </body>
 </html>

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.member.model.dto.Member;
+import com.uni.member.model.service.MemberService;
 import com.uni.chat.model.service.ChatService;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
@@ -67,7 +69,6 @@ public class TgbEnterServlet extends HttpServlet {
 		String cntper = String.format("%.1f", c);
 		String tper = String.format("%.1f", tp);
 		
-		
 		ArrayList<String> buyer = new ChatService().selectBuyer(tno);
 		System.out.println("바이어 " + buyer);
 		request.setAttribute("buyer", buyer);
@@ -75,6 +76,11 @@ public class TgbEnterServlet extends HttpServlet {
 		request.setAttribute("t", t);
 		request.setAttribute("tper", tper);
 		
+		//추가_재욱
+		ArrayList<Member> listMem = new MemberService().WookselectList(tno);
+		System.out.println("listMem 체크 : " + listMem);
+		request.setAttribute("listMem", listMem);
+		//까지_재욱
 
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");

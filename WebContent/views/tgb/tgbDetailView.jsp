@@ -5,7 +5,8 @@
  	Tgb t = (Tgb)request.getAttribute("t");
  	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("aList");
  	boolean wish = (boolean)request.getAttribute("wish");
- 
+ 	
+ 	ArrayList<Member> listMem = (ArrayList<Member>)request.getAttribute("listMem");
  %>
 <!DOCTYPE html>
 <html>
@@ -175,11 +176,7 @@ td{
 			<%}else{%>
 			$('#wish').val('false');
 			<%}%>
-			
-	
 		});
-		
-		
 		
 		
 		$('#wish').click(function(){

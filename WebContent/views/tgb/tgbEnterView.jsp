@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -209,6 +210,12 @@
 	</jsp:include>
 </div>	
 
+<!-- 추가 재욱 -->
+<div class="menu4">
+	<jsp:include page = "tgbEnterView3.jsp">
+		<jsp:param name="writer" value="${listMem[0].userId}"/>
+	</jsp:include>
+</div>	
 
 	<script>
 	
@@ -223,9 +230,6 @@
 		$('.menu3').hide();
 		
 	})
-	
-	
-	
 		
 	function remaindTime() {
 		
@@ -264,11 +268,13 @@
 	  }
 	  setInterval(remaindTime,1000);
 	  
+	//추가_재욱
 	  function memberdata_wook(){
 		  $('.menu1').hide();
-		  $('.menu3').show();
+		  $('.menu4').show();
 		  memberdataWook2();
 	  };
+	
 	  
 	  function memberdata1(){
 		  $('.menu1').hide();
@@ -308,11 +314,7 @@
 	
 	</script>
 
-
 <%@ include file="../chat/chat.jsp" %>
-
-
-
 
 </body>
 </html>
