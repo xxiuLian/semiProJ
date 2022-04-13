@@ -152,7 +152,7 @@
 				<button disabled>마감완료된 상품입니다.</button>
 			</c:when>
 			<c:otherwise>
-				<button type="button">결제</button>
+				<button type="button" onclick="payment();">결제</button>
 				<button type="button" onclick="reportTgb();">상품 신고</button>
 			</c:otherwise>
 		</c:choose>
@@ -170,9 +170,6 @@
 			<button type="button" onclick="memberdata1();">진행자 정보</button>
 		</c:otherwise>
 	</c:choose>
-	</div>
-	<div align="right">
-		<button type="button" onclick="payment();">결제</button>
 	</div>
 </div>
 <div class="menu1">
