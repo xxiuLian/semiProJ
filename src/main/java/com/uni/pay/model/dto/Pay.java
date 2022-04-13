@@ -8,7 +8,8 @@ public class Pay {
 	private int tgbNo;
 	private int totPrice;
 	private int amount;
-	
+	private String userId; //추가1_재욱
+
 	public Pay() {}
 
 	public Pay(int userNo, int tgbNo, int totPrice, int amount) {
@@ -18,4 +19,13 @@ public class Pay {
 		this.totPrice = totPrice;
 		this.amount = amount;
 	}
+
+	//추가2까지_재욱
+	public Pay(String userId ) {
+		super();
+		this.userId = userId;
+	}
+
+	
+	
 }

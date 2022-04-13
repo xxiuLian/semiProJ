@@ -118,6 +118,7 @@ public class ReportTgbManageServlet extends HttpServlet {
 					tgb.add(t);// 공구 리스트에 담기
 				}
 				
+				
 				request.setAttribute("pi", pi);
 				request.setAttribute("report", report);
 				request.setAttribute("tgb", tgb);

@@ -734,6 +734,36 @@ public class MemberDao {
 		return qnaCount;
 	}
 
+	public ArrayList<Member> WookselectList(Connection conn, int tno) {
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("WookselectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("USER_NO"),
+						rset.getString("USER_ID"),
+						rset.getString("PHONE"),
+						rset.getString("EMAIL")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+		
 	public ArrayList<Tgb> bestItem(Connection conn) {
 		//bestItem=SELECT ROWNUM, A.* FROM( SELECT TGB_NO, TGB_CATEGORY_NO, TGB_TITLE, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME, COUNT(*) \
 //		FROM PAY A JOIN TGB USING(TGB_NO) LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE TYPE LIKE 'TGB' AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO \
