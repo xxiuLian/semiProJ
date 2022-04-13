@@ -69,7 +69,6 @@ public class MyListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 
-		
 		ArrayList<Tgb> list = new MemberService().mySelectList(pi, userNo);
 		
 		request.setAttribute("list", list);

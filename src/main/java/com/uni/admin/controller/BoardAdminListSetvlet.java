@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.PageInfo;
-import com.uni.tgb.model.dto.Tgb;
-import com.uni.tgb.model.service.TgbService;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 import com.uni.tgb_board.model.dto.TgbBoard_pageInfo;
 import com.uni.tgb_board.model.service.TgbBoard_service;

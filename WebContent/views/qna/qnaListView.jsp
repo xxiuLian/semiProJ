@@ -12,6 +12,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>문의 게시판</title>
 <style>
 .outer {
@@ -57,7 +58,7 @@
 			<thead>
 				<tr>
 					<th width="100">글번호</th>
-					<th width="100">카테고리</th>
+					<th width="150">카테고리</th>
 					<th width="300">글제목</th>
 					<th width="100">작성자</th>
 					<th width="100">조회수</th>
@@ -148,20 +149,28 @@
 				&gt;&gt;</button>
 		</div>
 		<br> <br>
-
 		<div align="center">
-
+			<input type="text" id="search1">
+			<button type="button" onclick="searchQnaList();">검색</button>
+		</div>
+		<br> <br>
+		<div align="center">
 			<c:if test="${loginUser != null}">
 				<button onclick="location.href='enrollFormQna.do'">작성하기</button>
 			</c:if>
-
 		</div>
-
 	</div>
 
 
 </body>
-<script type="text/javascript">
+<script>
+	function searchQnaList(){
+		var keyword1 = $('#search1').val();
+		location.href = "${contextPath}/searchQna.do?keyword="+keyword1;
+	}
+</script>
+<script>
+
 $(function(){
 	$("#boardCategory").change(function(){
 	 	var selected = $("option:selected").val();
@@ -184,24 +193,58 @@ $(function(){
 						table.html("<tr><td>조회된 리스트가 없습니다.</td></tr>")
 						table.children("tr").children("td").attr("colspan","7")
 					}else {
-						for(var i = 0; i < list.length; i++){
-							if(category == list[i].category){
-								table.append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>")
-								table.children("tr").eq(i).children("td").eq(0).text(list[i].qnaNo)
-								table.children("tr").eq(i).children("td").eq(1).text(list[i].category)
-								table.children("tr").eq(i).children("td").eq(2).text(list[i].qnaTitle)
-								table.children("tr").eq(i).children("td").eq(3).text(list[i].qnaWriter)
-								table.children("tr").eq(i).children("td").eq(4).text(list[i].count)
-								table.children("tr").eq(i).children("td").eq(5).text(list[i].createDate)
-								if(list[i].qnaReply != null){
-									table.children("tr").eq(i).children("td").eq(6).text('답변 완료')
-								}else{
-									table.children("tr").eq(i).children("td").eq(6).text('답변 대기중')
-								}
+						$.each(list, function(i){
+							var text = '';
+							if(list[i].qnaReply != null){
+								text =  '답변 완료'
+							}else{
+								text = '답변 대기중'
 							}
-							
+							if(category == list[i].category){
+								table.append('<tr class="click">'
+										+ '<td>' + list[i].qnaNo + '</td>'
+										+ '<td>' + list[i].category + '</td>'
+										+ '<td>' + list[i].qnaTitle + '</td>'
+										+ '<td>' + list[i].qnaWriter + '</td>'
+										+ '<td>' + list[i].count + '</td>'
+										+ '<td>' + list[i].createDate + '</td>'
+										+ '<td>' + text + "</td>"
+										+ '</tr>')
+								
+							}
+						})
+						$(".click").click(function(){
+							var qno = $(this).children().eq(0).text();
+							location.href = "${contextPath}/detailQna.do?qno="+qno;
+						})
+					}
+					
+					$(".pagingArea").html('');
+					$(".pagingArea").append('<button onclick="location.href='
+										+ '$contextPath/qnaCategoryList.do?currentPage=1">'
+										+ '&lt;&lt;</button>'
+							)
+					if(${pi2.currentPage eq 1}){
+						$(".pagingArea").append('<button disabled>&lt;</button>')
+					}else{
+						$(".pagingArea").append('<button onclick="location.href='
+								+ '$contextPath/qnaCategoryList.do?currentPage=${currentPage - 1}">'
+								+ '&lt;&lt;</button>')
+					}
+					for(var i = ${pi2.startPage}; i < ${pi2.endPage}; i++){
+						if(${pi2.currentPage}==i){
+							$(".pagingArea").append('<button disabled>' + i + '</button>')
+						}else{
+							$(".pagingArea").append('<button onclick="location.href='
+									+ '$contextPath/qnaCategoryList.do?currentPage=' + i + '">'
+									+ i + '</button>'
+									)
 						}
 					}
+					
+					
+					
+					
 			},
 			error:function(e){
 				console.log("Ajax통신실패")
@@ -209,6 +252,8 @@ $(function(){
 		})
 	})
 })
+
+
 </script>
 <script>
 	if(!${empty list}){
@@ -219,5 +264,6 @@ $(function(){
 			})
 		})
 	}
+	
 </script>
 </html>

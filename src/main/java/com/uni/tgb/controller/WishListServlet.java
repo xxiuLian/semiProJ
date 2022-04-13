@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.admin.dto.Category;
+import com.uni.admin.model.dto.Category;
 import com.uni.common.PageInfo;
 import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dto.Tgb;

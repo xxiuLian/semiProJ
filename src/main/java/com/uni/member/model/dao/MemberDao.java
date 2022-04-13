@@ -631,7 +631,7 @@ public class MemberDao {
 						rset.getString("CHANGE_NAME")));
 				
 			} 
-
+			System.out.println(finishList);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

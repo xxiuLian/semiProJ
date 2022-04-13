@@ -1,5 +1,7 @@
 package com.uni.tgb.model.dao;
 
+import static com.uni.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,12 +12,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.uni.admin.dto.Category;
+import com.uni.admin.model.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dto.Tgb;
-import static com.uni.common.JDBCTemplate.*;
 
 
 public class TgbDao {
@@ -90,7 +91,7 @@ public class TgbDao {
 		
 		int result = 0;
 		//tgbInsert=INSERT INTO TGB VALUES
-		//(SEQ.TGB.NEXTVAL, ?, ?, ?, ?, ?, 0, ?, ?, SYSDATE, DEFAULT)
+		//(SEQ.TGB.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, DEFAULT)
 
 //		TGB_CATEGORY_NO
 //		TGB_TITLE
@@ -113,8 +114,9 @@ public class TgbDao {
 			pstmt.setString(3, t.getTgbContent());
 			pstmt.setString(4, t.getTgbGuide());
 			pstmt.setInt(5, Integer.parseInt(t.getTgbWriter()));
-			pstmt.setDate(6, t.getTgbTerm());
-			pstmt.setInt(7, t.getTgb_Price());
+			pstmt.setInt(6, t.getCount());
+			pstmt.setDate(7, t.getTgbTerm());
+			pstmt.setInt(8, t.getTgb_Price());
 			
 			result = pstmt.executeUpdate();
 			
@@ -249,8 +251,8 @@ public class TgbDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				System.out.println("Dao에서 rset 담는다");
-				System.out.println(rset.getString("ORIGIN_NAME"));
+//				System.out.println("Dao에서 rset 담는다");
+//				System.out.println(rset.getString("ORIGIN_NAME"));
 				Attachment a = new Attachment();
 				a.setOriginName(rset.getString("ORIGIN_NAME"));
 				a.setChangeName(rset.getString("CHANGE_NAME"));
@@ -848,6 +850,99 @@ public class TgbDao {
 
 		return result;
 	}
+
+	public int updateAt(Connection conn, Attachment at, String tno) {
+		int result=0;
+		PreparedStatement pstmt = null;
+		
+		//updateAt=SET ORIGIN_NAME = ?, CHANGE_NAME= ?, FILE_PATH=? WHERE 
+		//FILE_NO = (SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE B_NO = ? AND TYPE LIKE 'TGB')
+		String sql = prop.getProperty("updateAt");
+		
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, Integer.parseInt(tno));
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		
+		return result;
+	}
+
+	public int updateTgb(Connection conn, Tgb t) {
+		int result=0;
+		PreparedStatement pstmt = null;
+		//updateTgb=UPDATE TGB SET TGB_CATEGORY_NO = ?, TGB_TITLE=?, 
+		//TGB_CONTENT=?, TGB_GUIDE=?,TGB_COUNT=?, TGB_TERM=?,TGB_PRICE=? WHERE TGB_NO = ?
+		String sql = prop.getProperty("updateTgb");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(t.getTgbCategory()));
+			pstmt.setString(2, t.getTgbTitle());
+			pstmt.setString(3, t.getTgbContent());
+			pstmt.setString(4, t.getTgbGuide());
+			pstmt.setInt(5, t.getCount());
+			pstmt.setDate(6, t.getTgbTerm());
+			pstmt.setInt(7, t.getTgb_Price());
+			pstmt.setInt(8, t.getTgbNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int updateAtList(Connection conn, ArrayList<Attachment> fileList, String tno) {
+		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_TGB.CURRVAL, ?)
+		//updateAtList=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, ?, ?)
+
+				int result = 0;
+				
+				PreparedStatement pstmt = null;
+				String sql = prop.getProperty("updateAtList");
+				
+				try {
+					for(Attachment f : fileList) {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, f.getOriginName());
+					pstmt.setString(2, f.getChangeName());
+					pstmt.setString(3, f.getFilePath());
+					pstmt.setInt(4, Integer.parseInt(tno));
+					pstmt.setString(5, f.getType());
+					System.out.println("머가 invalid 넘버인데 "+tno);
+					result = pstmt.executeUpdate();
+					
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+				}
+				
+				
+				return result;
+			}
 
 
 

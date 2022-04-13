@@ -171,7 +171,9 @@
 		</c:otherwise>
 	</c:choose>
 	</div>
-	
+	<div align="right">
+		<button type="button" onclick="payment();">결제</button>
+	</div>
 </div>
 <div class="menu1">
 	<c:choose>
@@ -302,8 +304,18 @@
 		  
 		  
 	  }
+	  
+	  function payment(){
+		  window.open("${contextPath}/payView.do?bno=${t.tgbNo}", "결제정보", "width=700, height=500 left=800, top=200" )
+		}
 	
 	</script>
+
+
+<%@ include file="../chat/chat.jsp" %>
+
+
+
 
 </body>
 </html>
