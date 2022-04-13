@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import com.uni.common.PageInfo;
 import com.uni.member.model.dao.MemberDao;
 import com.uni.member.model.dto.Member;
-import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
 
 public class MemberService {

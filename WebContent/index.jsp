@@ -343,10 +343,11 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/4.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <h2 class="text-uppercase"><%=newItem.get(0).getTgbTitle() %></h2>
+                                    <p class="item-intro text-muted"><%=newItem.get(0).getTgbTerm() %></p>
+                                    <img class="img-fluid d-block mx-auto" src="<%=contextPath %>/assets/img_upfile/<%=newItem.get(0).getThumnail()%>" alt="..." />
+									<p><b><상품 가이드></b></p>
+                                    <p><%=newItem.get(0).getTgbGuide() %></p>                                    
                                     <ul class="list-inline">
                                         <li>
                                             <strong>Client:</strong>
@@ -357,9 +358,12 @@
                                             Branding
                                         </li>
                                     </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="location.href='<%=contextPath %>/detailTgb.do?bno=<%=newItem.get(0).getTgbNo()%>'">
+                                        이동하기
+                                    </button>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Close
                                     </button>
                                 </div>
                             </div>
@@ -378,10 +382,11 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/5.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <h2 class="text-uppercase"><%=newItem.get(1).getTgbTitle() %></h2>
+                                    <p class="item-intro text-muted"><%=newItem.get(1).getTgbTerm() %></p>
+                                    <img class="img-fluid d-block mx-auto" src="<%=contextPath %>/assets/img_upfile/<%=newItem.get(1).getThumnail()%>" alt="..." />
+									<p><b><상품 가이드></b></p>
+                                    <p><%=newItem.get(1).getTgbGuide() %></p>   
                                     <ul class="list-inline">
                                         <li>
                                             <strong>Client:</strong>
@@ -392,9 +397,12 @@
                                             Website Design
                                         </li>
                                     </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="location.href='<%=contextPath %>/detailTgb.do?bno=<%=newItem.get(1).getTgbNo()%>'">
+                                        이동하기
+                                    </button>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Close
                                     </button>
                                 </div>
                             </div>
@@ -413,10 +421,11 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <h2 class="text-uppercase"><%=newItem.get(2).getTgbTitle() %></h2>
+                                    <p class="item-intro text-muted"><%=newItem.get(2).getTgbTerm() %></p>
+                                    <img class="img-fluid d-block mx-auto" src="<%=contextPath %>/assets/img_upfile/<%=newItem.get(2).getThumnail()%>" alt="..." />
+									<p><b><상품 가이드></b></p>
+                                    <p><%=newItem.get(2).getTgbGuide() %></p>                                       
                                     <ul class="list-inline">
                                         <li>
                                             <strong>Client:</strong>
@@ -427,9 +436,12 @@
                                             Photography
                                         </li>
                                     </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="location.href='<%=contextPath %>/detailTgb.do?bno=<%=newItem.get(2).getTgbNo()%>'">
+                                        이동하기
+                                    </button>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Close
                                     </button>
                                 </div>
                             </div>
