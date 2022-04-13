@@ -101,7 +101,7 @@
            </script>
         </header>
         
-        
+    <%--   
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
@@ -438,6 +438,7 @@
                 </div>
             </div>
         </div>
+        --%>  
         <!-- Footer-->
         <%@ include file="views/common/footer.jsp" %>
         <!-- 부트스트랩 Footer
@@ -456,7 +457,7 @@
                     </div>
                 </div>
             </div>
-        </footer> -->
+        </footer> 
         
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

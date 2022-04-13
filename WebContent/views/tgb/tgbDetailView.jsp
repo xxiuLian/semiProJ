@@ -314,7 +314,7 @@ td{
 						location.href="<%=contextPath%>/login.do";
 					}
 			 }else{
-				 location.href="<%=contextPath%>/tgbEnter.do?tno=${t.tgbNo}";
+				 location.href="<%=contextPath%>/tgbEnter.do?tmenu=1&tno=${t.tgbNo}";
 				 
 			 }
 		 }
