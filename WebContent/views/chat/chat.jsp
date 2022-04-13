@@ -98,7 +98,8 @@
 			data : {
 				fromId : fromId,
 				toId : toId,
-				listType : type
+				listType : type,
+				bno : ${t.tgbNo}
 			},
 			success : function(data) {
 				//console.log(data)
@@ -166,6 +167,7 @@
 				fromId : fromId,
 				toId : toId,
 				chatContent : chatContent,
+				bno : ${t.tgbNo}
 			},
 			success : function(result) {
 				//console.log('전송성공')

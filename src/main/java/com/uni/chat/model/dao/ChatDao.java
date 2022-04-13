@@ -35,14 +35,15 @@ public class ChatDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		//insertChat=INSERT INTO CHAT VALUES(SEQ_CHAT.NEXTVAL, ?, ?, ?, SYSDATE)
+		//insertChat=INSERT INTO CHAT VALUES(SEQ_CHAT.NEXTVAL,? ,?, ?, ?, SYSDATE)
 		String sql = prop.getProperty("insertChat");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, c.getFromId());
-			pstmt.setString(2, c.getToId());
-			pstmt.setString(3, c.getChatContent());
+			pstmt.setInt(1, c.getTgbNo());
+			pstmt.setString(2, c.getFromId());
+			pstmt.setString(3, c.getToId());
+			pstmt.setString(4, c.getChatContent());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -53,14 +54,14 @@ public class ChatDao {
 		return result;
 	}
 
-	public ArrayList<Chat> getChatListByRecent(Connection conn, String fromId, String toId) {
+	public ArrayList<Chat> getChatListByRecent(Connection conn, String fromId, String toId, int bno) {
 		ArrayList<Chat> list = new ArrayList<Chat>();
 		System.out.println(fromId);
 		System.out.println(toId);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		//getChatListByRecent=SELECT * FROM(SELECT ROWNUM RNUM, A.* FROM (SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) ORDER BY CHAT_TIME DESC)A) WHERE RNUM <=10 ORDER BY RNUM DESC
+		//getChatListByRecent=SELECT * FROM(SELECT ROWNUM RNUM, A.* FROM (SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) AND TGB_NO=? ORDER BY CHAT_TIME DESC)A) WHERE RNUM <=10 ORDER BY RNUM DESC
 		String sql = prop.getProperty("getChatListByRecent");
 		
 		try {
@@ -69,6 +70,7 @@ public class ChatDao {
 			pstmt.setString(2, toId);
 			pstmt.setString(3, toId);
 			pstmt.setString(4, fromId);
+			pstmt.setInt(5, bno);
 			
 			rset = pstmt.executeQuery();
 			
@@ -79,7 +81,6 @@ public class ChatDao {
 				chat.setToId(rset.getString("TO_ID"));
 				chat.setChatContent(rset.getString("CONTENT"));
 				chat.setChatTime(rset.getDate("CHAT_TIME"));
-				System.out.println(chat);
 				list.add(chat);
 			}
 		} catch (SQLException e) {
@@ -93,13 +94,13 @@ public class ChatDao {
 		return list;
 	}
 	
-	public ArrayList<Chat> getChatListById(Connection conn, String fromId, String toId, int num) {
+	public ArrayList<Chat> getChatListById(Connection conn, String fromId, String toId, int num, int bno) {
 		ArrayList<Chat> list = new ArrayList<Chat>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		//getChatListById=SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) AND CHAT_NO > ? ORDER BY CHAT_TIME
+		//getChatListById=SELECT * FROM CHAT WHERE ((FROM_ID=? AND TO_ID=?) OR (FROM_ID=? AND TO_ID=?)) AND CHAT_NO > ? AND TGB_NO=? ORDER BY CHAT_TIME
 		String sql = prop.getProperty("getChatListById");
 		
 		try {
@@ -109,6 +110,7 @@ public class ChatDao {
 			pstmt.setString(3, toId);
 			pstmt.setString(4, fromId);
 			pstmt.setInt(5, num);
+			pstmt.setInt(6, bno);
 			
 			rset = pstmt.executeQuery();
 			
@@ -119,7 +121,6 @@ public class ChatDao {
 				chat.setToId(rset.getString("TO_ID"));
 				chat.setChatContent(rset.getString("CONTENT"));
 				chat.setChatTime(rset.getDate("CHAT_TIME"));
-				System.out.println("getChatListById  " + chat);
 				list.add(chat);
 			}
 		} catch (SQLException e) {

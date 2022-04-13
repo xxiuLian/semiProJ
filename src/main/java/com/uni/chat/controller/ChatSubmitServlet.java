@@ -38,12 +38,13 @@ public class ChatSubmitServlet extends HttpServlet {
 		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		String toId = request.getParameter("toId");
 		String chatContent = request.getParameter("chatContent");
+		int bno = Integer.parseInt(request.getParameter("bno"));
 
 		if (toId == null || toId.equals("") || chatContent == null || chatContent.equals("")) {
 			response.getWriter().write("");
 		} else {
 			chatContent = URLDecoder.decode(chatContent, "UTF-8");// 안하면 한글깨짐
-			Chat c = new Chat(fromId, toId, chatContent);
+			Chat c = new Chat(fromId, toId, chatContent, bno);
 
 			response.getWriter().write(new ChatService().insertChat(c));
 		}

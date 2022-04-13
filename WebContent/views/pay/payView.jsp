@@ -17,6 +17,9 @@
 .listArea {
 	border: 1px solid black;
 	text-align: center;
+}
+input{
+	width: 80px;
 }	
 </style>
 
@@ -24,9 +27,7 @@
 <body>
 	<h2>결제 정보 확인</h2>
 	<form id="paySubmit" action="${contextPath}/paySubmit.do" method="post">
-	<input type="hidden" name="bno" value="${bno}">
-	<input type="hidden" name="amount" value="${amount}">
-	<input type="hidden" name="totPrice" value="${amount * price}">
+	<input type="hidden" name="bno" value="${t.tgbNo}">
 		<table class="listArea" align="center">
 			<tr>
 				<th width="100">공구 글</th>
@@ -36,11 +37,11 @@
 				<th width="150">합계</th>
 			</tr>
 			<tr>
-				<td>${bno}</td>
+				<td>${t.tgbNo}</td>
 				<td><img src="${contextPath}/assets/img_upfile/${thumbnail}" width="200px" height="150px"></td>
-				<td>${price}</td>
-				<td>${amount}</td>
-				<td>${amount * price}</td>
+				<td>${t.tgb_Price} 원</td>
+				<td><input id="amount" type="number" name="amount" value="1"> 개</td>
+				<td><input id="totPrice" type="text" name="totPrice" value="${t.tgb_Price}" readonly> 원</td>
 			</tr>
 		</table>
 		<div class="btns" align="center">
@@ -50,13 +51,19 @@
 </body>
 <script>IMP.init('imp44891833') </script>
 <script>
+$("#amount").change(function(){
+	
+	$("#totPrice").val(${t.tgb_Price}*$("#amount").val())
+	
+	console.log($("#totPrice").val())
+})
 	function pay(){
 	    IMP.request_pay({
 	    	pg: "kakaopay",
 	        pay_method : 'card',
 	        merchant_uid: "order_${bno}_"+ Date.now(), //공구번호+현재시간을 붙여준다
-	        name : '주문명:결제테스트',
-	        amount: ${amount * price},
+	        name : '상품 결제',
+	        amount: $("#totPrice").val(),
 	        buyer_email: "${loginUser.email}",
 	        buyer_name: "${loginUser.userName}",
 	        buyer_tel: "${loginUser.phone}",
