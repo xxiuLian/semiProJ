@@ -39,14 +39,9 @@
 		<br>
 		<div class="mb-3">
 			<select name="category" id="boardCategory">
-				<option value="000">카테고리 선택</option>
-				<option value="10">공통</option>
-				<option value="20">회원</option>
-				<option value="30">주문/결제</option>
-				<option value="40">배송</option>
-				<option value="50">취소/반품/교환</option>
-				<option value="60">이벤트</option>
-				<option value="70">기타</option>
+				<c:forEach items="${category}" var="c">
+					<option value="${c.categoryNo}">${c.categoryName}</option>
+				</c:forEach>
 			</select>
 		</div>
 		<h2 align="center">문의 게시판</h2>
@@ -164,94 +159,6 @@
 
 </body>
 <script>
-	function searchQnaList(){
-		var keyword1 = $('#search1').val();
-		location.href = "${contextPath}/searchQna.do?keyword="+keyword1;
-	}
-</script>
-<script>
-
-$(function(){
-	$("#boardCategory").change(function(){
-	 	var selected = $("option:selected").val();
-	 	var category = $("option:selected").text();
-	 	$.ajax({
-			url : "qnaCategoryList.do",
-			data:{
-				category:selected
-			},
-			type:"get",
-			
-			success:function(map){
-			 	console.log(map["pi"])
-			 	console.log(map["list"])
-			 	var table = $("#tbody");
-				table.html("");
-					
-					if(map["list"].length == 0){
-						table.html("<tr><td>조회된 리스트가 없습니다.</td></tr>")
-						table.children("tr").children("td").attr("colspan","7")
-					}else {
-						$.each(map["list"], function(index, value){
-							var text = '';
-							if(value.qnaReply != null){
-								text =  '답변 완료'
-							}else{
-								text = '답변 대기중'
-							}
-							if(category == value.category){
-								table.append('<tr class="click">'
-										+ '<td>' + value.qnaNo + '</td>'
-										+ '<td>' + value.category + '</td>'
-										+ '<td>' + value.qnaTitle + '</td>'
-										+ '<td>' + value.qnaWriter + '</td>'
-										+ '<td>' + value.count + '</td>'
-										+ '<td>' + value.createDate + '</td>'
-										+ '<td>' + text + "</td>"
-										+ '</tr>')
-								
-							}
-						})
-						$(".click").click(function(){
-							var qno = $(this).children().eq(0).text();
-							location.href = "${contextPath}/detailQna.do?qno="+qno;
-						})
-					}
-					
-					$(".pagingArea").html('');
-					$(".pagingArea").append('<button onclick="location.href='
-										+ '$contextPath/qnaCategoryList.do?currentPage=1">'
-										+ '&lt;&lt;</button>'
-							)
-					if(${map["pi"].currentPage eq 1}){
-						$(".pagingArea").append('<button disabled>&lt;</button>')
-					}else{
-						$(".pagingArea").append('<button onclick="location.href='
-								+ '$contextPath/qnaCategoryList.do?currentPage=${currentPage - 1}">'
-								+ '&lt;&lt;</button>')
-					}
-					for(var i = map["pi"].startPage; i < map["pi"].endPage; i++){
-						if(map["pi"].currentPage==i){
-							$(".pagingArea").append('<button disabled>' + i + '</button>')
-						}else{
-							$(".pagingArea").append('<button onclick="location.href='
-									+ '$contextPath/qnaCategoryList.do?currentPage=' + i + '">'
-									+ i + '</button>'
-									)
-						}
-					}
-					
-			},
-			error:function(e){
-				console.log("Ajax통신실패")
-			}
-		})
-	})
-})
-
-
-</script>
-<script>
 	if(!${empty list}){
 		$(function(){
 			$("#tbody>tr").click(function(){
@@ -260,6 +167,16 @@ $(function(){
 			})
 		})
 	}
+	function searchQnaList(){
+		var keyword1 = $('#search1').val();
+		location.href = "${contextPath}/searchQna.do?keyword="+keyword1;
+	}
 	
+	$(function(){
+		$("#boardCategory").change(function(){
+		 	var selected = $("option:selected").val();
+		 	location.href = "${contextPath}/qnaCategoryList.do?category="+selected;
+		})
+	})
 </script>
 </html>

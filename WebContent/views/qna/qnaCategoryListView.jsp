@@ -40,7 +40,7 @@
 		<div class="mb-3">
 			<select name="category" id="boardCategory">
 				<c:forEach items="${category}" var="c">
-					<option value="${c.categoryNo}">${c.categoryName}</option>
+					<option value="${c.categoryNo}" <c:if test="${categoryNo eq c.categoryNo}">selected</c:if>>${c.categoryName}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -98,7 +98,7 @@
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
 			<button
-				onclick="location.href='${contextPath}/searchQna.do?currentPage=1&keyword=${keyword}'">
+				onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=1&category=${categoryNo}'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
@@ -108,7 +108,7 @@
 				</c:when>
 				<c:otherwise>
 					<button
-						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage - 1}&keyword=${keyword}'">
+						onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=${currentPage - 1}&category=${categoryNo}'">
 						&lt;</button>
 				</c:otherwise>
 			</c:choose>
@@ -120,7 +120,7 @@
 					</c:when>
 					<c:otherwise>
 						<button
-							onclick="location.href='${contextPath}/searchQna.do?currentPage=${p}&keyword=${keyword}'">
+							onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=${p}&category=${categoryNo}'">
 							${p}</button>
 					</c:otherwise>
 				</c:choose>
@@ -133,14 +133,14 @@
 				</c:when>
 				<c:otherwise>
 					<button
-						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage + 1}&keyword=${keyword}'">
+						onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=${currentPage + 1}&category=${categoryNo}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
 			<button
-				onclick="location.href='${contextPath}/searchQna.do?currentPage=${maxPage}&keyword=${keyword}'">
+				onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=${maxPage}&category=${categoryNo}'">
 				&gt;&gt;</button>
 		</div>
 		<br> <br>
@@ -178,5 +178,6 @@
 		 	location.href = "${contextPath}/qnaCategoryList.do?category="+selected;
 		})
 	})
+	
 </script>
 </html>
