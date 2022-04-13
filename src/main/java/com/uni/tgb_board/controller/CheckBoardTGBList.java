@@ -1,6 +1,7 @@
-package com.uni.boardTGB.controller;
+package com.uni.tgb_board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,22 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.boardTGB.model.dto.BoardTGB_dto;
-import com.uni.boardTGB.model.service.BoardTGB_service;
-import com.uni.notice.model.dto.NoticeDto;
-import com.uni.notice.model.service.NoticeService;
+import com.uni.member.model.dto.Member;
+import com.uni.tgb_board.model.dto.TgbBoard_dto;
+import com.uni.tgb_board.model.service.TgbBoard_service;
 
 /**
- * Servlet implementation class BoardTGBDeleteServlet
+ * Servlet implementation class test
  */
-@WebServlet("/deleteBoardTGB.do")
-public class BoardTGBDeleteServlet extends HttpServlet {
+@WebServlet("/checkBoardTGBList.do")
+public class CheckBoardTGBList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardTGBDeleteServlet() {
+    public CheckBoardTGBList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +33,14 @@ public class BoardTGBDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		int result = new BoardTGB_service().deleteBoardTGB(nno);
+		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		ArrayList<TgbBoard_dto> list = new TgbBoard_service().CHECKSelectList(writer);
 		
-		if(result > 0) {
-			request.getSession().setAttribute("msg", "삭제성공");
-			
-			response.sendRedirect("boardTGBList.do");
-			
-		}else {
-			request.getSession().setAttribute("msg", "실패");
-			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}
+		request.setAttribute("list", list);
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/boardTGB/boardTGBListView.jsp");
+		view.forward(request, response);
 	}
 
 	/**

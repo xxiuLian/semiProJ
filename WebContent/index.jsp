@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
 <%
-	ArrayList<Tgb> bestItem =(ArrayList<Tgb>)request.getAttribute("bestItem");
-	ArrayList<Tgb> newItem =(ArrayList<Tgb>)request.getAttribute("newItem");
+   ArrayList<Tgb> bestItem =(ArrayList<Tgb>)request.getAttribute("bestItem");
+   ArrayList<Tgb> newItem =(ArrayList<Tgb>)request.getAttribute("newItem");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,85 +23,85 @@
         <link href="css/styles.css" rel="stylesheet" />
         <style>
         #popups {
-		    display: none;
-		    position: fixed; 
-		    left: 0; right: 0; top: 0; bottom: 0;
-		    background: rgba(0,0,0,0.5); z-index:1;
-		}
-		.modals {
-			margin-top:140px;
-			margin-left:600px;
-		    position: relative;
-		}
-		.close {
-		    position: absolute;
-			margin-left:1020px; top:140px;
-		    color: #fff; border: none; 
-		    padding: 10px 20px;
-		}
-		
-		#slider {
-    		width: 1600px;
-		    height: 800px; 
-		    margin: 0 auto;
-		    position: relative; 
-		    overflow: hidden;
-		}
-		.slide{ width: 4830px; position: absolute; left: 0px; top: 0; }
-		.slide li { width: 1600px; float: left; }
-		.slide li img { width: 100%;}
+          display: none;
+          position: fixed; 
+          left: 0; right: 0; top: 0; bottom: 0;
+          background: rgba(0,0,0,0.5); z-index:1;
+      }
+      .modals {
+         margin-top:140px;
+         margin-left:600px;
+          position: relative;
+      }
+      .close {
+          position: absolute;
+         margin-left:1020px; top:140px;
+          color: #fff; border: none; 
+          padding: 10px 20px;
+      }
+      
+      #slider {
+          width: 1600px;
+          height: 800px; 
+          margin: 0 auto;
+          position: relative; 
+          overflow: hidden;
+      }
+      .slide{ width: 4830px; position: absolute; left: 0px; top: 0; }
+      .slide li { width: 1600px; float: left; }
+      .slide li img { width: 100%;}
 
        </style>
-    </head>		
+    </head>      
     <body id="page-top">
     <!-- Navigation-->
     <%@ include file="views/common/menubar.jsp" %>
         <header>
             <div id="popups">
-            	<div class="modals" >
-				<img alt="" src="https://cdn.imweb.me/upload/S20191226f354293cbbefc/7ff814128b9fa.png" width="500px" height="500px">
-        		</div>
-        		<div class="close"><button >X</button></div>
-        	</div> 
-        	 <!-- 홈페이지 열리면 띄우는 팝업창 -->
-        	<script>
-        	window.onload=function(){ //팝업 오픈
-        		$("#popups").fadeIn();
-        	}
-        	$("#popups").click(function(){ //다른곳을 클릭하면 닫기
-        	    $(this).fadeOut();
-        	})
-        	$(".close").click(function(){ //x버튼 눌러도 닫기
-        	    $("#popups").fadeOut();
-        	})
-        	</script>
-        	
-        	
-	        <!--  setInterval을 통한 이벤트 배너 넘기기 -->
-	        <div id="slider">
-	            <ul class="slide">
-	                <li><img src="assets/img/slide/slide1.jpg" alt="슬라이드1"></li>
-	                <li><img src="assets/img/slide/slide2.jpg" alt="슬라이드2"></li>
-	                <li><img src="assets/img/slide/slide3.jpg" alt="슬라이드3"></li>
-	            </ul>
-	        </div>
-	        <script type="text/javascript">
-	        let imgNum = $(".slide li").length;
-	        let imgWidth = $(".slide li").width();
-	        $(".slide").width( imgNum * imgWidth);
-	
-	        setInterval(roll, 4000);
-	
-	        function roll() { //imgwidth만큼 값을 빼줌 왜? 차례대로 이미지를 배치하기 위해
-	            $(".slide").animate({left:-imgWidth}, 1000, "swing", function(){
-	                $(".slide li:nth-child(1)").appendTo(".slide")
-	                $(".slide").css("left", 0)//0부터 다시 시작 appendTo로 다시붙임
-	            })
-	        }
-	        </script>
+               <div class="modals" >
+            <img alt="" src="https://cdn.imweb.me/upload/S20191226f354293cbbefc/7ff814128b9fa.png" width="500px" height="500px">
+              </div>
+              <div class="close"><button >X</button></div>
+           </div> 
+            <!-- 홈페이지 열리면 띄우는 팝업창 -->
+           <script>
+           window.onload=function(){ //팝업 오픈
+              $("#popups").fadeIn();
+           }
+           $("#popups").click(function(){ //다른곳을 클릭하면 닫기
+               $(this).fadeOut();
+           })
+           $(".close").click(function(){ //x버튼 눌러도 닫기
+               $("#popups").fadeOut();
+           })
+           </script>
+           
+           
+           <!--  setInterval을 통한 이벤트 배너 넘기기 -->
+           <div id="slider">
+               <ul class="slide">
+                   <li><img src="assets/img/slide/slide1.jpg" alt="슬라이드1"></li>
+                   <li><img src="assets/img/slide/slide2.jpg" alt="슬라이드2"></li>
+                   <li><img src="assets/img/slide/slide3.jpg" alt="슬라이드3"></li>
+               </ul>
+           </div>
+           <script type="text/javascript">
+           let imgNum = $(".slide li").length;
+           let imgWidth = $(".slide li").width();
+           $(".slide").width( imgNum * imgWidth);
+   
+           setInterval(roll, 4000);
+   
+           function roll() { //imgwidth만큼 값을 빼줌 왜? 차례대로 이미지를 배치하기 위해
+               $(".slide").animate({left:-imgWidth}, 1000, "swing", function(){
+                   $(".slide li:nth-child(1)").appendTo(".slide")
+                   $(".slide").css("left", 0)//0부터 다시 시작 appendTo로 다시붙임
+               })
+           }
+           </script>
         </header>
         
-    <%--   
+    
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
@@ -438,7 +438,7 @@
                 </div>
             </div>
         </div>
-        --%>  
+        
         <!-- Footer-->
         <%@ include file="views/common/footer.jsp" %>
         <!-- 부트스트랩 Footer

@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.uni.event.model.dto.EventDto;
 import com.uni.event.model.service.EventService;
-import com.uni.notice.model.dto.NoticeDto;
-import com.uni.notice.model.service.NoticeService;
 
 /**
  * Servlet implementation class NoticeDetailServlet

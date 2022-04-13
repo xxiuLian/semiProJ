@@ -1,4 +1,4 @@
-package com.uni.boardTGB.controller;
+package com.uni.notice.controller;
 
 import java.io.IOException;
 
@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.boardTGB.model.dto.BoardTGB_dto;
-import com.uni.boardTGB.model.service.BoardTGB_service;
 import com.uni.member.model.dto.Member;
-
+import com.uni.notice.model.dto.NoticeDto;
+import com.uni.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class boardTGBInsertServlet
+ * Servlet implementation class NoticeinsertServlet
  */
-@WebServlet("/insertBoardTGB.do")
-public class BoardTGBInsertServlet extends HttpServlet {
+@WebServlet("/insertNotice.do")
+public class NoticeInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardTGBInsertServlet() {
+    public NoticeInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,17 +35,16 @@ public class BoardTGBInsertServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-		int category =  Integer.parseInt(request.getParameter("category"));
 		
-		BoardTGB_dto n = new BoardTGB_dto(category, title, writer, content.replaceAll("\n", "<br>"));
+		NoticeDto n = new NoticeDto(title, writer, content.replaceAll("\n", "<br>"));
 		
-		int result = new BoardTGB_service().insertBoardTGB(n);
+		int result = new NoticeService().insertNotice(n);
 		
 		if(result > 0 ) {
-			request.getSession().setAttribute("msg", "글이 등록되었습니다.");
-			response.sendRedirect("boardTGBList.do");
+			request.getSession().setAttribute("msg", "공지사항이 등록되었습니다.");
+			response.sendRedirect("noticeList.do");
 		}else {
-			request.setAttribute("msg", "등록을 실패하였습니다. ");
+			request.setAttribute("msg", "공지사항 실패하였습니다. ");
 		
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);

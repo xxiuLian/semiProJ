@@ -1,4 +1,4 @@
-package com.uni.boardTGB.controller;
+package com.uni.event.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class BoardTGBEnrollFormServlet
+ * Servlet implementation class ReplyInsertEventServlet
  */
-@WebServlet("/enrollFormBoardTGB.do")
-public class BoardTGBEnrollFormServlet extends HttpServlet {
+@WebServlet("/ReplyInsertEventServlet")
+public class ReplyInsertEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardTGBEnrollFormServlet() {
+    public ReplyInsertEventServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,8 @@ public class BoardTGBEnrollFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/boardTGB/boardTGBEnrollForm.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
