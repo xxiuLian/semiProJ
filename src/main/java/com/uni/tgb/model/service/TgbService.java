@@ -344,5 +344,14 @@ public class TgbService {
 		return finalresult;
 	}
 
+	public Tgb enterTgb(int tno) {
+		Connection conn = getConnection();
+		Tgb t = new TgbDao().enterTgb(conn, tno);
+		
+		close(conn);
+		
+		return t;
+	}
+
 
 }
