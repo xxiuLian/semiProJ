@@ -1,6 +1,7 @@
-package com.uni.member.controller;
+package com.uni.common;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.member.model.dto.Member;
 import com.uni.member.model.service.MemberService;
+import com.uni.tgb.model.dto.Tgb;
 
 /**
- * Servlet implementation class MyPageServlet
+ * Servlet implementation class BestItemServlet
  */
-@WebServlet("/myPage.do")
-public class MyPageServlet extends HttpServlet {
+@WebServlet("")
+public class BestItemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageServlet() {
+    public BestItemServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +30,11 @@ public class MyPageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		int userNo = loginUser.getUserNo();
-		
-		int payCount = new MemberService().payCount(userNo);
-		request.setAttribute("payCount", payCount);
-		
-		int ingCount = new MemberService().ingCount(userNo);
-		request.setAttribute("ingCount", ingCount);
-		
-		int qnaCount = new MemberService().qnaCount(userNo);
-		request.setAttribute("qnaCount", qnaCount);
-		
-		request.getRequestDispatcher("views/member/myPage.jsp").forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+
+		ArrayList<Tgb> bestItem = new MemberService().bestItem();
+		request.setAttribute("bestItem", bestItem);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**

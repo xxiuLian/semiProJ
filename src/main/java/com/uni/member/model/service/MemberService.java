@@ -228,6 +228,16 @@ public class MemberService {
 		return qnaCount;
 	}
 
+	public ArrayList<Tgb> bestItem() {
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> bestItem = new MemberDao().bestItem(conn);
+		
+		close(conn);
+		
+		return bestItem;
+	}
+
 	
 
 }
