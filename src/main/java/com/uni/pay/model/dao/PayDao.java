@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.uni.admin.dao.AdminDao;
 import com.uni.pay.model.dto.Pay;
 
 public class PayDao {
