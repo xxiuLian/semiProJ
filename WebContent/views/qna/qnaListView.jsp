@@ -182,32 +182,31 @@ $(function(){
 			},
 			type:"get",
 			
-			success:function(list){
-				console.log(category)
-			 	console.log(list)
-			 	console.log(list[0].category)
+			success:function(map){
+			 	console.log(map["pi"])
+			 	console.log(map["list"])
 			 	var table = $("#tbody");
 				table.html("");
 					
-					if(list.length == 0){
+					if(map["list"].length == 0){
 						table.html("<tr><td>조회된 리스트가 없습니다.</td></tr>")
 						table.children("tr").children("td").attr("colspan","7")
 					}else {
-						$.each(list, function(i){
+						$.each(map["list"], function(index, value){
 							var text = '';
-							if(list[i].qnaReply != null){
+							if(value.qnaReply != null){
 								text =  '답변 완료'
 							}else{
 								text = '답변 대기중'
 							}
-							if(category == list[i].category){
+							if(category == value.category){
 								table.append('<tr class="click">'
-										+ '<td>' + list[i].qnaNo + '</td>'
-										+ '<td>' + list[i].category + '</td>'
-										+ '<td>' + list[i].qnaTitle + '</td>'
-										+ '<td>' + list[i].qnaWriter + '</td>'
-										+ '<td>' + list[i].count + '</td>'
-										+ '<td>' + list[i].createDate + '</td>'
+										+ '<td>' + value.qnaNo + '</td>'
+										+ '<td>' + value.category + '</td>'
+										+ '<td>' + value.qnaTitle + '</td>'
+										+ '<td>' + value.qnaWriter + '</td>'
+										+ '<td>' + value.count + '</td>'
+										+ '<td>' + value.createDate + '</td>'
 										+ '<td>' + text + "</td>"
 										+ '</tr>')
 								
@@ -224,15 +223,15 @@ $(function(){
 										+ '$contextPath/qnaCategoryList.do?currentPage=1">'
 										+ '&lt;&lt;</button>'
 							)
-					if(${pi2.currentPage eq 1}){
+					if(${map["pi"].currentPage eq 1}){
 						$(".pagingArea").append('<button disabled>&lt;</button>')
 					}else{
 						$(".pagingArea").append('<button onclick="location.href='
 								+ '$contextPath/qnaCategoryList.do?currentPage=${currentPage - 1}">'
 								+ '&lt;&lt;</button>')
 					}
-					for(var i = ${pi2.startPage}; i < ${pi2.endPage}; i++){
-						if(${pi2.currentPage}==i){
+					for(var i = map["pi"].startPage; i < map["pi"].endPage; i++){
+						if(map["pi"].currentPage==i){
 							$(".pagingArea").append('<button disabled>' + i + '</button>')
 						}else{
 							$(".pagingArea").append('<button onclick="location.href='
@@ -241,9 +240,6 @@ $(function(){
 									)
 						}
 					}
-					
-					
-					
 					
 			},
 			error:function(e){
