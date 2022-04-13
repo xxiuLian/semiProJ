@@ -189,7 +189,7 @@
 	for(var i = 0; i < ${buyer}.length; i++){
 		if(${buyer}[i] == ${loginUser.userId}){
 			chatStatus = true;
-		}else if(${loginUser.userId eq t.tgbWriter}){
+		}else if(${loginUser.userId} == ${t.tgbWriter}){
 			chatStatus = true;
 		}
 	}
