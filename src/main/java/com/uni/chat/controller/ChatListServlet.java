@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.uni.chat.model.dto.Chat;
-import com.uni.chat.service.ChatService;
+import com.uni.chat.model.service.ChatService;
 import com.uni.member.model.dto.Member;
 
 /**
