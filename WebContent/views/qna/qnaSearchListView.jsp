@@ -168,8 +168,8 @@
 		})
 	}
 	function searchQnaList(){
-		var keyword1 = $('#search1').val();
-		location.href = "${contextPath}/searchQna.do?keyword="+keyword1;
+		var keyword2 = $('#search2').val();
+		location.href = "${contextPath}/searchQna.do?keyword="+keyword2;
 	}
 	
 	$(function(){
