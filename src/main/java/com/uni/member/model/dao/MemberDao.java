@@ -772,6 +772,45 @@ public class MemberDao {
 		return bestItem;
 	}
 
+	public ArrayList<Tgb> newItem(Connection conn) {
+//		newItem=SELECT ROWNUM, A.* FROM( SELECT MAX(TGB_NO), TGB_NO, TGB_CATEGORY_NO, TGB_TITLE, TGB_CONTENT, TGB_GUIDE, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME \
+//				FROM PAY A JOIN TGB USING(TGB_NO) LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN(SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE TYPE LIKE 'TGB' AND ATTACHMENT.STATUS='Y' GROUP BY B_NO)) ON TGB_NO = B_NO \
+//				GROUP BY TGB_NO, TGB_CATEGORY_NO, TGB_TITLE, TGB_CONTENT, TGB_GUIDE, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME ORDER BY MAX(TGB_NO) DESC) A WHERE ROWNUM <=3
+
+		ArrayList<Tgb> newItem = new ArrayList<Tgb>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("newItem");
+		
+		try { 
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				Tgb t = new Tgb();
+				t.setTgbNo(rset.getInt("TGB_NO"));
+				t.setTgbCategory(rset.getString("TGB_CATEGORY_NO"));
+				t.setTgbTitle(rset.getString("TGB_TITLE"));
+				t.setTgbContent(rset.getString("TGB_CONTENT"));
+				t.setTgbGuide(rset.getString("TGB_GUIDE"));
+				t.setTgbTerm(rset.getDate("CREATE_DATE"));
+				t.setThumnail(rset.getString("CHANGE_NAME"));
+				
+				newItem.add(t);
+			} 
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}	
+		
+		return newItem;
+	}
+
 	
 
 }

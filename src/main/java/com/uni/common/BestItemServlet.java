@@ -34,6 +34,8 @@ public class BestItemServlet extends HttpServlet {
 
 		ArrayList<Tgb> bestItem = new MemberService().bestItem();
 		request.setAttribute("bestItem", bestItem);
+		ArrayList<Tgb> newItem = new MemberService().newItem();
+		request.setAttribute("newItem", newItem);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

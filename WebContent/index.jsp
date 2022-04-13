@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
 <%
 	ArrayList<Tgb> bestItem =(ArrayList<Tgb>)request.getAttribute("bestItem");
+	ArrayList<Tgb> newItem =(ArrayList<Tgb>)request.getAttribute("newItem");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +163,7 @@
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Portfolio</h2>
+                    <h2 class="section-heading text-uppercase">NEW 공동 구매</h2>
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row">
@@ -173,11 +174,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="assets/img/portfolio/4.jpg" alt="..." />
+                                <img class="img-fluid" src="<%=contextPath %>/assets/img_upfile/<%=newItem.get(0).getThumnail()%>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Lines</div>
-                                <div class="portfolio-caption-subheading text-muted">Branding</div>
+                                <div class="portfolio-caption-heading"><%=newItem.get(0).getTgbTitle() %></div>
+                                <div class="portfolio-caption-subheading text-muted"><%=newItem.get(0).getTgbTerm() %></div>
                             </div>
                         </div>
                     </div>
@@ -188,11 +189,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="assets/img/portfolio/5.jpg" alt="..." />
+                                <img class="img-fluid" src="<%=contextPath %>/assets/img_upfile/<%=newItem.get(1).getThumnail()%>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Southwest</div>
-                                <div class="portfolio-caption-subheading text-muted">Website Design</div>
+                                <div class="portfolio-caption-heading"><%=newItem.get(1).getTgbTitle() %></div>
+                                <div class="portfolio-caption-subheading text-muted"><%=newItem.get(1).getTgbTerm() %></div>
                             </div>
                         </div>
                     </div>
@@ -203,11 +204,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="assets/img/portfolio/6.jpg" alt="..." />
+                                <img class="img-fluid" src="<%=contextPath %>/assets/img_upfile/<%=newItem.get(2).getThumnail()%>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Window</div>
-                                <div class="portfolio-caption-subheading text-muted">Photography</div>
+                                <div class="portfolio-caption-heading"><%=newItem.get(2).getTgbTitle() %></div>
+                                <div class="portfolio-caption-subheading text-muted"><%=newItem.get(2).getTgbTerm() %></div>
                             </div>
                         </div>
                     </div>

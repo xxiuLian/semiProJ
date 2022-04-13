@@ -238,6 +238,16 @@ public class MemberService {
 		return bestItem;
 	}
 
+	public ArrayList<Tgb> newItem() {
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> newItem = new MemberDao().newItem(conn);
+		
+		close(conn);
+		
+		return newItem;
+	}
+
 	
 
 }
