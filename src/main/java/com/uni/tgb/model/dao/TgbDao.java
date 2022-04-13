@@ -944,6 +944,51 @@ public class TgbDao {
 				return result;
 			}
 
+	public Tgb enterTgb(Connection conn, int tno) {
+		Tgb t = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+//		enterTgb=SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, TGB_CONTENT, TGB_GUIDE, USER_ID, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, CHANGE_NAME \
+//		FROM TGB JOIN MEMBER ON TGB_WRITER = USER_NO JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) JOIN (SELECT * FROM ATTACHMENT WHERE FILE_NO IN( \
+//				SELECT MIN(FILE_NO) FROM ATTACHMENT WHERE TYPE LIKE 'TGB' GROUP BY B_NO)) ON B_NO= TGB_NO WHERE TGB_NO = ?
+		String sql = prop.getProperty("enterTgb");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				t = new Tgb(rset.getInt("TGB_NO"), 
+							rset.getString("TGB_CATEGORY_NAME"), 
+							rset.getString("TGB_TITLE"), 
+							rset.getString("TGB_CONTENT"), 
+							rset.getString("TGB_GUIDE"), 
+							rset.getString("USER_ID"), 
+							rset.getInt("TGB_COUNT"), 
+							rset.getDate("TGB_TERM"), 
+							rset.getInt("TGB_PRICE"), 
+							rset.getDate("CREATE_DATE"));
+				
+				t.setStatus(rset.getString("STATUS"));
+				t.setThumnail(rset.getString("CHANGE_NAME"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		
+		return t;
+	}
+
 
 
 }
