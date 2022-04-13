@@ -760,7 +760,6 @@ public class MemberDao {
 				
 				bestItem.add(t);
 			} 
-			System.out.println("dao bestItem" + bestItem);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

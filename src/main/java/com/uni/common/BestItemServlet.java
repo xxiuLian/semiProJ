@@ -33,7 +33,6 @@ public class BestItemServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 
 		ArrayList<Tgb> bestItem = new MemberService().bestItem();
-		System.out.println("뮈지");
 		request.setAttribute("bestItem", bestItem);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

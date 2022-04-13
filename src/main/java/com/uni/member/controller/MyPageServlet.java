@@ -35,15 +35,12 @@ public class MyPageServlet extends HttpServlet {
 		
 		int payCount = new MemberService().payCount(userNo);
 		request.setAttribute("payCount", payCount);
-		System.out.println("서블릿에서 결제 카운트" + payCount);
 		
 		int ingCount = new MemberService().ingCount(userNo);
 		request.setAttribute("ingCount", ingCount);
-		System.out.println("서블릿에서 진행 카운트" + ingCount);
 		
 		int qnaCount = new MemberService().qnaCount(userNo);
 		request.setAttribute("qnaCount", qnaCount);
-		System.out.println("서블릿에서 문의 카운트" + qnaCount);
 		
 		request.getRequestDispatcher("views/member/myPage.jsp").forward(request, response);
 	}
