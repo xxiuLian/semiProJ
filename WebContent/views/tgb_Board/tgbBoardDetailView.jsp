@@ -43,11 +43,11 @@
  	</table>
  	
 	<div class="btns" align="center">
-	<% if(loginUser != null && loginUser.getUserId().equals(b.getTgbBoardWriter())){ %>
-		<button type="button" onclick="updateForm();">수정하기</button>
-		<button type="button" onclick="deleteTgb();">삭제하기</button>
-	<% } %>
-		<button type="button" onclick="location.href='<%=request.getContextPath()%>/tgbBoardSelect.do'">목록으로</button>
+		<% if(loginUser != null && loginUser.getUserId().equals(b.getTgbBoardWriter())){ %>
+			<button type="button" onclick="updateForm();">수정하기</button>
+			<button type="button" onclick="deleteTgb();">삭제하기</button>
+		<% } %>
+			<button type="button" onclick="location.href='<%=request.getContextPath()%>/tgbBoardSelect.do'">목록으로</button>
 	</div>
 	
 	<form action="" id="postForm" method="post">

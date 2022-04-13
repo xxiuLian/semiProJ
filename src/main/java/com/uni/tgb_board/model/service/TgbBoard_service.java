@@ -201,6 +201,14 @@ public class TgbBoard_service {
 		return result;
 	}
 
+	public ArrayList<TgbBoard_dto> CHECKSelectList(int writer) {
+		Connection conn = getConnection();
+		ArrayList<TgbBoard_dto> list = new TgbBoard_dao().CHECKselectList(conn, writer);
+		
+		close(conn);
+		return list;
+	}
+
 	
 	
 }

@@ -46,7 +46,6 @@ public class TgbEnterMenuServlet extends HttpServlet {
 		Tgb t = new TgbService().selectTgb(tno);
 
 		
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
 		
 		System.out.println(sdf.format(t.getTgbTerm()));

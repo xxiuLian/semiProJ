@@ -83,8 +83,9 @@ public class TgbEnterServlet extends HttpServlet {
 		request.setAttribute("tper", tper);
 		
 		//추가_재욱
+		System.out.println("tno123 : " + tno);
 		ArrayList<Member> listMem = new MemberService().WookselectList(tno);
-		System.out.println("listMem 체크 : " + listMem);
+		System.out.println("listMem재욱테스트 : " + listMem);
 		request.setAttribute("listMem", listMem);
 		//까지_재욱
 		
