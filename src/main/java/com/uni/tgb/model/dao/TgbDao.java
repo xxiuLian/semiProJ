@@ -915,7 +915,7 @@ public class TgbDao {
 		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_TGB.CURRVAL, ?)
 		//updateAtList=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, ?, ?)
 
-				int result = 0;
+				int result = 1;
 				
 				PreparedStatement pstmt = null;
 				String sql = prop.getProperty("updateAtList");
