@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,15 +49,38 @@
 	                    </div>
 	                    </div>
 	                    <div class="portlet-footer">
-	                        <form role="form">
-	                            <div class="form-group">
-	                                <textarea class="form-control" id="chatContent" style="resize: none;" placeholder="채팅 입력..." maxlength="100"></textarea>
-	                            </div>
-	                            <div class="form-group">
-	                                <button type="button" class="btn btn-default pull-right" onclick="chatSubmit()">전송</button>
-	                                <div class="clearfix"></div>
-	                            </div>
-	                        </form>
+	                    <c:forEach var="b" items="${buyer}">
+							<c:if test="${b eq loginUser.userId}">
+								<c:set var="status" value="true"/>
+	                        </c:if>
+					    </c:forEach>
+					    <c:if test="${t.tgbWriter eq loginUser.userId}">
+							<c:set var="status" value="true"/>
+                        </c:if>
+					    <c:choose>
+							<c:when test="${status eq 'true'}">
+								<form role="form">
+		                            <div class="form-group">
+		                                <textarea class="form-control" id="chatContent" style="resize: none;" placeholder="채팅 입력..." maxlength="100"></textarea>
+		                            </div>
+		                            <div class="form-group">
+		                                <button type="button" class="btn btn-default pull-right" onclick="chatSubmit()">전송</button>
+		                                <div class="clearfix"></div>
+		                            </div>
+		                        </form>
+	                        </c:when>
+					     	<c:otherwise>
+					     		<form role="form">
+		                            <div class="form-group">
+		                                <textarea class="form-control" id="chatContent" style="resize: none;" placeholder="결제 뒤에만 채팅이 가능합니다." maxlength="100" readonly></textarea>
+		                            </div>
+		                            <div class="form-group">
+		                                <button type="button" class="btn btn-default pull-right" disabled>전송</button>
+		                                <div class="clearfix"></div>
+		                            </div>
+		                        </form>
+					     	</c:otherwise>
+			     	  	</c:choose>
 	                    </div>
 	                </div>
 	            </div>
@@ -152,46 +176,32 @@
 	
 	
 	function chatSubmit() {
-		if(chatStatus == true){
-			var fromId = '${loginUser.userId}';
-			if (${loginUser.userId != t.tgbWriter}){//진행자가 아니면(참여자면)
-				toId = '${t.tgbWriter}'//보내는사람이 진행자로 고정
+		var fromId = '${loginUser.userId}';
+		if (${loginUser.userId != t.tgbWriter}){//진행자가 아니면(참여자면)
+			toId = '${t.tgbWriter}'//보내는사람이 진행자로 고정
+		}
+		//console.log('보내는 사람 ' + fromId)
+		//console.log('받는사람 ' + toId)
+		var chatContent = $("#chatContent").val();
+
+		$.ajax({
+			type : "POST",
+			url : "${contextPath}/chatSubmit.do",
+			data : {
+				fromId : fromId,
+				toId : toId,
+				chatContent : chatContent,
+				bno : ${t.tgbNo}
+			},
+			success : function(result) {
+				//console.log('전송성공')
+			},
+			error:function(e){
+				alert("채팅 전송 실패")
 			}
-			//console.log('보내는 사람 ' + fromId)
-			//console.log('받는사람 ' + toId)
-			var chatContent = $("#chatContent").val();
-	
-			$.ajax({
-				type : "POST",
-				url : "${contextPath}/chatSubmit.do",
-				data : {
-					fromId : fromId,
-					toId : toId,
-					chatContent : chatContent,
-					bno : ${t.tgbNo}
-				},
-				success : function(result) {
-					//console.log('전송성공')
-				},
-				error:function(e){
-					alert("채팅 전송 실패")
-				}
-			});
-			$("#chatContent").val('');//전송뒤엔 실패하든 성공하든 작성된 채팅박스의 내용삭제
-		}else{
-			alert("결제 뒤에 채팅 가능합니다.");
-			$("#chatContent").val('');
-		}
-	}
-</script>
-<script>
-	var chatStatus = false;
-	for(var i = 0; i < ${buyer}.length; i++){
-		if(${buyer}[i] == ${loginUser.userId}){
-			chatStatus = true;
-		}else if(${loginUser.userId} == ${t.tgbWriter}){
-			chatStatus = true;
-		}
+		});
+		$("#chatContent").val('');//전송뒤엔 실패하든 성공하든 작성된 채팅박스의 내용삭제
+		
 	}
 </script>
 </html>
