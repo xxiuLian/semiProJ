@@ -150,6 +150,136 @@ td{
 	
 
 		<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
+		
+		<div class="editor-menu"> 
+			<button id="bold" type="button"> <b>B</b> </button> 
+			<button id="italic" type="button"> <i>I</i> </button> 
+			<button id="underline" type="button"> <u>U</u> </button> 
+			<button id="strike" type="button"> <s>S</s> </button> 
+			<button id="ordered-list" type="button"> OL </button> 
+			<button id="unordered-list" type="button"> UL </button>  
+			<select id="select-font-size">
+				<option value="">폰트 사이즈</option> 
+				<option value="1">10px</option> 
+				<option value="2">13px</option> 
+				<option value="3">16px</option> 
+				<option value="4">18px</option> 
+				<option value="5">24px</option> 
+				<option value="6">32px</option> 
+				<option value="7">38px</option> 
+			</select> 
+			
+			<select id="select-font-color"> 
+				<option value="">폰트 색상</option> 
+				<option value="#000000">검정</option> 
+				<option value="#FFFFFF">흰색</option> 
+				<option value="#CCCCCC">회색</option> 
+				<option value="#F03E3E">빨강</option> 
+				<option value="#1971C2">파랑</option> 
+				<option value="#37B24D">녹색</option> 
+			</select> 
+			<select id="select-font-background"> 
+				<option value="rgba(0, 0, 0, 0)">폰트 백그라운드</option> 
+				<option value="#000000">검정</option> 
+				<option value="#FFFFFF">흰색</option> 
+				<option value="#CCCCCC">회색</option> 
+				<option value="#F03E3E">빨강</option> 
+				<option value="#1971C2">파랑</option> 
+				<option value="#37B24D">녹색</option> 
+			</select>
+
+		</div> 
+
+
+<script> 
+const fontSizeList = [10, 13, 16, 18, 24, 32, 48];
+
+
+$('#bold').click(function(){
+	setStyle('bold');
+});
+$('#italic').click(function(){
+	setStyle('italic');
+});
+$('#underline').click(function(){
+	setStyle('underline');
+});
+$('#strike').click(function(){
+	setStyle('strikeThrough');
+});
+$('#ordered-list').click(function(){
+	setStyle('insertOrderedList');
+});
+$('#unordered-list').click(function(){
+	setStyle('insertUnorderedList');
+});
+
+$('#select-font-size').change(function(){
+	
+	
+	changeFontSize($(this).val());
+});
+
+function changeFontSize(num){
+	
+	document.execCommand('fontSize', false, num);
+	focusEditor();
+}
+
+
+$('#select-font-name').change(function(){// 폰트
+	var name = $(this).val();
+	changeFontName(name);
+})
+
+function changeFontName(name) { //폰트
+	
+	document.execCommand('fontName', false, name); 
+	focusEditor(); 
+};
+
+$('#select-font-color').change(function(){
+	setfontColor(this.value);
+});
+
+function setfontColor(color){
+	document.execCommand('foreColor', false, color);
+	focusEditor();
+}
+
+$('#select-font-background').change(function(){
+	setFontBackground(this.value);
+	
+})
+
+function setFontBackground(color){
+	document.execCommand('hiliteColor', false, color);
+	focusEditor();
+}
+
+function setStyle(style) { 
+	document.execCommand(style); 
+	focusEditor(); 
+} 
+function focusEditor() { 
+	
+
+	
+if($('#contentArea').is(":visible")){
+	$('#contentArea').focus();
+	
+}else{
+	
+	$('#guidArea').focus();
+}
+	 
+}
+
+</script>
+		
+		
+		
+		
 		<div id="contentArea" class="textarea" contenteditable="true">${t.tgbContent}</div>
     	<div id="guidArea" class="textarea" contenteditable="true" hidden>${t.tgbGuide}</div>
 		

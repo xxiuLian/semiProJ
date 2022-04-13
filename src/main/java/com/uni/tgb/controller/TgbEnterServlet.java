@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.chat.service.ChatService;
 import com.uni.member.model.dto.Member;
 import com.uni.member.model.service.MemberService;
+import com.uni.chat.model.service.ChatService;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 

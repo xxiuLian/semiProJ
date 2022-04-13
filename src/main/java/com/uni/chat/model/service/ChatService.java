@@ -1,4 +1,4 @@
-package com.uni.chat.service;
+package com.uni.chat.model.service;
 
 import static com.uni.common.JDBCTemplate.close;
 import static com.uni.common.JDBCTemplate.commit;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.uni.chat.model.dao.ChatDao;
 import com.uni.chat.model.dto.Chat;
+import com.uni.member.model.dto.Member;
 
 public class ChatService {
 

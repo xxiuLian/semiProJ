@@ -235,7 +235,26 @@ public class MemberService {
 		
 		close(conn);
 		return list;
+	}
 		
+	public ArrayList<Tgb> bestItem() {
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> bestItem = new MemberDao().bestItem(conn);
+		
+		close(conn);
+		
+		return bestItem;
+	}
+
+	public ArrayList<Tgb> newItem() {
+		Connection conn = getConnection();
+		
+		ArrayList<Tgb> newItem = new MemberDao().newItem(conn);
+		
+		close(conn);
+		
+		return newItem;
 	}
 
 	

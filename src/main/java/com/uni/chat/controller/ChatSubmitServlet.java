@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.uni.chat.model.dto.Chat;
-import com.uni.chat.service.ChatService;
+import com.uni.chat.model.service.ChatService;
 import com.uni.member.model.dto.Member;
 
 /**
