@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.uni.common.PageInfo;
@@ -113,12 +115,15 @@ public class QnaCategoryListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		ArrayList<Qna> data = new QnaService().categoryList(category, pi);
-		request.setAttribute("pi2", pi);
-		System.out.println("category ===" + category);
-		System.out.println("data ==== " + data);
+		JSONObject jsonMap = new JSONObject();
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(data, response.getWriter());
+		
+		jsonMap.put("pi", gson.toJson(pi));
+		jsonMap.put("list", gson.toJson(data));
+		
+		response.getWriter().print(jsonMap);
+	
 	}
 
 	/**
