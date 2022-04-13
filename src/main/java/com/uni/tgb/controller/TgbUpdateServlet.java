@@ -93,8 +93,43 @@ public class TgbUpdateServlet extends HttpServlet {
 	
 			}
 			
+			ArrayList<Attachment> fileList = new ArrayList<>();
+			for(int i = 1; i<=10; i++) {
+				
+				String name2 = "file"+i;
+				
+				if(multiRequest.getOriginalFileName(name2) != null) {
+					String originName = multiRequest.getOriginalFileName(name2);
+					String changeName = multiRequest.getFilesystemName(name2);
+					System.out.println(originName);
+					System.out.println("i :"+i);
+					
+					Attachment at1 = new Attachment();
+					at1.setFilePath(savePath);
+					at1.setOriginName(originName);
+					at1.setChangeName(changeName);
+					at1.setType("TGB");
+					
+					fileList.add(at1);
+				}
+				
+			}
+			
+			
+			for(Attachment a : fileList) {
+				System.out.println("==========파일 정보===========");
+				System.out.println(a.getOriginName());
+				System.out.println(a.getChangeName());
+				System.out.println(a.getFilePath());
+				System.out.println(a.getType());
+				System.out.println("========================");
+			}
+			
 
-			int result = new TgbService().updateTgb(t, at, tno);
+			
+			int result = new TgbService().updateTgb(t, at, tno, fileList);
+			
+			
 			if(result >0) {
 				request.getSession().setAttribute("msg", "공구 등록에 성공했습니다.");
 				response.sendRedirect("tgbList.do");
