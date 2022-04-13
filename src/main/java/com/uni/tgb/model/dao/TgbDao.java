@@ -196,8 +196,8 @@ public class TgbDao {
 		Tgb t = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-//		selectTgb=SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, TGB_CONTENT, TGB_GUIDE, USER_ID, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE FROM TGB \
-//				JOIN MEMBER ON TGB_WRITER = USER_NO JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) WHERE TGB_NO = ?
+//		selectTgb=SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, TGB_CONTENT, TGB_GUIDE, USER_ID, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, TGB.STATUS FROM TGB \
+//				JOIN MEMBER ON TGB_WRITER = USER_NO JOIN TGB_CATEGORY USING(TGB_CATEGORY_NO) WHERE TGB_NO = ? AND TGB.STATUS!='N'
 		String sql = prop.getProperty("selectTgb");
 		
 		try {
@@ -958,6 +958,7 @@ public class TgbDao {
 			pstmt.setInt(1, tno);
 			
 			rset = pstmt.executeQuery();
+			System.out.println(sql);
 			
 			if(rset.next()) {
 				t = new Tgb(rset.getInt("TGB_NO"), 
@@ -971,10 +972,11 @@ public class TgbDao {
 							rset.getInt("TGB_PRICE"), 
 							rset.getDate("CREATE_DATE"));
 				
-				t.setStatus(rset.getString("STATUS"));
+			
 				t.setThumnail(rset.getString("CHANGE_NAME"));
 				
 			}
+			System.out.println("다오에서 썸네일 : "+t.getThumnail());
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
