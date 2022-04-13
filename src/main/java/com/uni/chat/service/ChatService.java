@@ -29,20 +29,20 @@ public class ChatService {
 		return result;
 	}
 
-	public ArrayList<Chat> getChatListByRecent(String fromId, String toId) {
+	public ArrayList<Chat> getChatListByRecent(String fromId, String toId, int bno) {
 		Connection conn = getConnection();
 		
-		ArrayList<Chat> chat = new ChatDao().getChatListByRecent(conn, fromId, toId);
+		ArrayList<Chat> chat = new ChatDao().getChatListByRecent(conn, fromId, toId, bno);
 		
 		close(conn);
 		
 		return chat;
 	}
 
-	public ArrayList<Chat> getChatListById(String fromId, String toId, int chatNo) {
+	public ArrayList<Chat> getChatListById(String fromId, String toId, int chatNo, int bno) {
 		Connection conn = getConnection();
 		
-		ArrayList<Chat> chat = new ChatDao().getChatListById(conn, fromId, toId, chatNo);
+		ArrayList<Chat> chat = new ChatDao().getChatListById(conn, fromId, toId, chatNo, bno);
 		
 		close(conn);
 		

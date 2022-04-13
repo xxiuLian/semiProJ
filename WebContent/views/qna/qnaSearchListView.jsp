@@ -11,8 +11,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>문의 게시판</title>
 <style>
 .outer {
@@ -70,7 +70,7 @@
 				<c:choose>
 					<c:when test="${empty list}">
 						<tr>
-							<td colspan="6">조회된 리스트가 없습니다.</td>
+							<td colspan="7">${keyword}로 검색된 리스트가 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -103,7 +103,7 @@
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
 			<button
-				onclick="location.href='${contextPath}/qnaList.do?currentPage=1'">
+				onclick="location.href='${contextPath}/searchQna.do?currentPage=1&keyword=${keyword}'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
@@ -113,7 +113,7 @@
 				</c:when>
 				<c:otherwise>
 					<button
-						onclick="location.href='${contextPath}/qnaList.do?currentPage=${currentPage - 1}'">
+						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage - 1}&keyword=${keyword}'">
 						&lt;</button>
 				</c:otherwise>
 			</c:choose>
@@ -125,7 +125,7 @@
 					</c:when>
 					<c:otherwise>
 						<button
-							onclick="location.href='${contextPath}/qnaList.do?currentPage=${p}'">
+							onclick="location.href='${contextPath}/searchQna.do?currentPage=${p}&keyword=${keyword}'">
 							${p}</button>
 					</c:otherwise>
 				</c:choose>
@@ -138,21 +138,21 @@
 				</c:when>
 				<c:otherwise>
 					<button
-						onclick="location.href='${contextPath}/qnaList.do?currentPage=${currentPage + 1}'">
+						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage + 1}&keyword=${keyword}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
 			<button
-				onclick="location.href='${contextPath}/qnaList.do?currentPage=${maxPage}'">
+				onclick="location.href='${contextPath}/searchQna.do?currentPage=${maxPage}&keyword=${keyword}'">
 				&gt;&gt;</button>
 		</div>
 		<br> <br>
 		<div align="center">
-			<input type="text" id="search1">
-			<button type="button" onclick="searchQnaList();">검색</button>
+			<input type="text" id="search2"><button type="button" onclick="serachQnaList2();">검색</button>
 		</div>
+		
 		<br> <br>
 		<div align="center">
 			<c:if test="${loginUser != null}">
@@ -163,99 +163,7 @@
 
 
 </body>
-<script>
-	function searchQnaList(){
-		var keyword1 = $('#search1').val();
-		location.href = "${contextPath}/searchQna.do?keyword="+keyword1;
-	}
-</script>
-<script>
-
-$(function(){
-	$("#boardCategory").change(function(){
-	 	var selected = $("option:selected").val();
-	 	var category = $("option:selected").text();
-	 	$.ajax({
-			url : "qnaCategoryList.do",
-			data:{
-				category:selected
-			},
-			type:"get",
-			
-			success:function(list){
-				console.log(category)
-			 	console.log(list)
-			 	console.log(list[0].category)
-			 	var table = $("#tbody");
-				table.html("");
-					
-					if(list.length == 0){
-						table.html("<tr><td>조회된 리스트가 없습니다.</td></tr>")
-						table.children("tr").children("td").attr("colspan","7")
-					}else {
-						$.each(list, function(i){
-							var text = '';
-							if(list[i].qnaReply != null){
-								text =  '답변 완료'
-							}else{
-								text = '답변 대기중'
-							}
-							if(category == list[i].category){
-								table.append('<tr class="click">'
-										+ '<td>' + list[i].qnaNo + '</td>'
-										+ '<td>' + list[i].category + '</td>'
-										+ '<td>' + list[i].qnaTitle + '</td>'
-										+ '<td>' + list[i].qnaWriter + '</td>'
-										+ '<td>' + list[i].count + '</td>'
-										+ '<td>' + list[i].createDate + '</td>'
-										+ '<td>' + text + "</td>"
-										+ '</tr>')
-								
-							}
-						})
-						$(".click").click(function(){
-							var qno = $(this).children().eq(0).text();
-							location.href = "${contextPath}/detailQna.do?qno="+qno;
-						})
-					}
-					
-					$(".pagingArea").html('');
-					$(".pagingArea").append('<button onclick="location.href='
-										+ '$contextPath/qnaCategoryList.do?currentPage=1">'
-										+ '&lt;&lt;</button>'
-							)
-					if(${pi2.currentPage eq 1}){
-						$(".pagingArea").append('<button disabled>&lt;</button>')
-					}else{
-						$(".pagingArea").append('<button onclick="location.href='
-								+ '$contextPath/qnaCategoryList.do?currentPage=${currentPage - 1}">'
-								+ '&lt;&lt;</button>')
-					}
-					for(var i = ${pi2.startPage}; i < ${pi2.endPage}; i++){
-						if(${pi2.currentPage}==i){
-							$(".pagingArea").append('<button disabled>' + i + '</button>')
-						}else{
-							$(".pagingArea").append('<button onclick="location.href='
-									+ '$contextPath/qnaCategoryList.do?currentPage=' + i + '">'
-									+ i + '</button>'
-									)
-						}
-					}
-					
-					
-					
-					
-			},
-			error:function(e){
-				console.log("Ajax통신실패")
-			}
-		})
-	})
-})
-
-
-</script>
-<script>
+<script type="text/javascript">
 	if(!${empty list}){
 		$(function(){
 			$("#tbody>tr").click(function(){
@@ -264,6 +172,9 @@ $(function(){
 			})
 		})
 	}
-	
+	function serachQnaList2(){
+		var keyword2 = $('#search2').val();
+		location.href = "${contextPath}/searchQna.do?keyword="+keyword2;
+	}
 </script>
 </html>

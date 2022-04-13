@@ -38,7 +38,7 @@ public class ChatListServlet extends HttpServlet {
 		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();//채팅보내는 유저(로그인된 유저)
 		String toId = request.getParameter("toId");
 		String listType = request.getParameter("listType");
-		
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		//System.out.println("보낸사람 : " + fromId);
 		//System.out.println("받는사람 : " + toId);
 		
@@ -48,12 +48,12 @@ public class ChatListServlet extends HttpServlet {
 		if (toId == null || toId.equals("") || listType == null || listType.equals("")) {//보낼사람이랑 구분이 비어있으면
 			response.getWriter().write("");//공백 리턴
 		} else if (listType.equals("ten")){//처음 로딩될때 불러올 10개
-			list = new ChatService().getChatListByRecent(fromId, toId);//받는사람, 보내는사람으로 10개 받아옴
+			list = new ChatService().getChatListByRecent(fromId, toId, bno);//받는사람, 보내는사람으로 10개 받아옴
 			gson.toJson(list, response.getWriter());
 		} else {//갱신될때 불러올거
 			try {
 				//이때 listType은 마지막 채팅번호이므로 마지막 채팅이후로 3초마다 새로운 채팅이 올라왔는지 체크
-				list = new ChatService().getChatListById(fromId, toId, Integer.parseInt(listType));
+				list = new ChatService().getChatListById(fromId, toId, Integer.parseInt(listType), bno);
 				gson.toJson(list, response.getWriter());
 			} catch (Exception e) {
 				response.getWriter().write("");

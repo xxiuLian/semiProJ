@@ -436,4 +436,94 @@ public class QnaDao {
 		return list;
 	}
 
+	public int getSearchListCount(Connection conn, String keyword) {
+		int listCount = 0;
+		String afterKeyword = "%"+keyword+"%";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		// getSearchListCount=SELECT COUNT(*) FROM QNA_BOARD WHERE STATUS='Y' AND (QNA_TITLE LIKE ? OR QNA_CONTENT LIKE ?)
+		String sql = prop.getProperty("getSearchListCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, afterKeyword);
+			pstmt.setString(2, afterKeyword);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+				
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+
+	public ArrayList<Qna> selectSearchList(Connection conn, PageInfo pi, String keyword) {
+		ArrayList<Qna> list = new ArrayList<Qna>();
+		System.out.println("서치리스트 키워드 " + keyword);
+		String afterKeyword = "%"+keyword+"%";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+//		selectQnaSearchList=
+//				SELECT * FROM 
+//				(SELECT ROWNUM RNUM, A.* FROM 
+//				(SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
+//				FROM QNA_BOARD Q JOIN QNA_CATEGORY USING(QNA_CATEGORY_NO) 
+//				JOIN MEMBER ON (QNA_WRITER=USER_NO) 
+//				WHERE Q.STATUS='Y' AND (QNA_TITLE LIKE ? OR QNA_CONTENT LIKE ?)
+//				ORDER BY QNA_NO DESC) A) 
+//				WHERE RNUM BETWEEN ? AND ?
+		String sql = prop.getProperty("selectQnaSearchList");
+
+//		board 게시글 currentPage = 1 startRow = 1 endRow = 10; currentPage = 2 
+//		startRow = 11 endRow = 20; currentPage = 3 startRow = 21 endRow = 30;
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, afterKeyword);
+			pstmt.setString(2, afterKeyword);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+
+			rset = pstmt.executeQuery();
+			// QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
+			while (rset.next()) {
+				Qna q = new Qna();
+				q.setQnaNo(rset.getInt("QNA_NO"));
+				q.setCategory(rset.getString("QNA_CATEGORY_NAME"));
+				q.setQnaTitle(rset.getString("QNA_TITLE"));
+				q.setQnaWriter(rset.getString("USER_ID"));
+				q.setCount(rset.getInt("COUNT"));
+				q.setCreateDate(rset.getDate("CREATE_DATE"));
+
+				if (rset.getString("QNA_REPLY") != null) {
+					q.setQnaReply(rset.getString("QNA_REPLY"));
+				}
+
+				list.add(q);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	
+
 }
