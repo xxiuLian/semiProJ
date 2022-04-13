@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.admin.model.dto.Category;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
@@ -111,6 +112,8 @@ public class QnaSerachListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		ArrayList<Qna> list = new QnaService().selectSearchList(pi, keyword);
+		ArrayList<Category> category = new QnaService().getCategoryList();
+		request.setAttribute("category", category);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);

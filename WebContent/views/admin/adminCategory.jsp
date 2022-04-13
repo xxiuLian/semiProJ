@@ -124,7 +124,7 @@
 											<tr>
 												<td><input type="checkbox" id="categoryChecked" name="categoryChecked" value="${c.categoryNo}"></td>
 												<td>${c.categoryNo}</td>
-												<td id="test">${c.categoryName}</td>
+												<td>${c.categoryName}</td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>

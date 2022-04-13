@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.uni.admin.model.dto.Category;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
@@ -36,8 +37,9 @@ public class QnaCategoryListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int category = Integer.parseInt(request.getParameter("category"));
-
+		int categoryNo = Integer.parseInt(request.getParameter("category"));
+		
+		System.out.println("카테고리 번호 : " + categoryNo);
 		//페이징처리
 		
 		int listCount; 	 //총 게시글 개수
@@ -50,7 +52,7 @@ public class QnaCategoryListServlet extends HttpServlet {
 		int boardLimit;  //한페이지에 보여질 게시글 최대 개수
 		
 		//총 게시글 개수
-		listCount = new QnaService().getListCount();
+		listCount = new QnaService().getCategoryListCount(categoryNo);
 		System.out.println("listCount : " + listCount);
 		
 		//현재페이지
@@ -114,16 +116,13 @@ public class QnaCategoryListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
-		ArrayList<Qna> data = new QnaService().categoryList(category, pi);
-		JSONObject jsonMap = new JSONObject();
-		response.setContentType("application/json; charset=utf-8");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		
-		jsonMap.put("pi", gson.toJson(pi));
-		jsonMap.put("list", gson.toJson(data));
-		
-		response.getWriter().print(jsonMap);
-	
+		ArrayList<Qna> list = new QnaService().selectCategoryList(pi, categoryNo);
+		ArrayList<Category> category = new QnaService().getCategoryList();
+		request.setAttribute("category", category);
+		request.setAttribute("categoryNo", categoryNo);
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
+		request.getRequestDispatcher("views/qna/qnaCategoryListView.jsp").forward(request, response);
 	}
 
 	/**

@@ -5,6 +5,7 @@ import static com.uni.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.uni.admin.model.dto.Category;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dao.QnaDao;
 import com.uni.qna.model.dto.Qna;
@@ -186,6 +187,36 @@ public class QnaService {
 		
 		return list;
 	}
+
+	public ArrayList<Category> getCategoryList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Category> list = new QnaDao().getCategoryList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int getCategoryListCount(int category) {
+		Connection conn = getConnection();
+		
+		int listCount = new QnaDao().getCategoryListCount(conn, category);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Qna> selectCategoryList(PageInfo pi, int categoryNo) {
+		Connection conn = getConnection();
+		ArrayList<Qna> list = new QnaDao().selectCategoryList(conn, pi, categoryNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
 
 
 }

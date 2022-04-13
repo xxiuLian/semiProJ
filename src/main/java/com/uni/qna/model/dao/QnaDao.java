@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.admin.model.dto.Category;
 import com.uni.common.PageInfo;
 import com.uni.qna.model.dto.Qna;
 
@@ -495,6 +496,119 @@ public class QnaDao {
 			pstmt.setString(2, afterKeyword);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
+			
+
+			rset = pstmt.executeQuery();
+			// QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
+			while (rset.next()) {
+				Qna q = new Qna();
+				q.setQnaNo(rset.getInt("QNA_NO"));
+				q.setCategory(rset.getString("QNA_CATEGORY_NAME"));
+				q.setQnaTitle(rset.getString("QNA_TITLE"));
+				q.setQnaWriter(rset.getString("USER_ID"));
+				q.setCount(rset.getInt("COUNT"));
+				q.setCreateDate(rset.getDate("CREATE_DATE"));
+
+				if (rset.getString("QNA_REPLY") != null) {
+					q.setQnaReply(rset.getString("QNA_REPLY"));
+				}
+
+				list.add(q);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Category> getCategoryList(Connection conn) {
+		ArrayList<Category> list = new ArrayList<Category>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//getCategoryList=SELECT * FROM QNA_CATEGORY ORDER BY QNA_CATEGORY_NO
+		String sql = prop.getProperty("getCategoryList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+//			QNA_CATEGORY_NO	NUMBER
+//			QNA_CATEGORY_NAME	VARCHAR2(30 BYTE)
+			
+			while(rset.next()) {
+				list.add(new Category(rset.getInt("QNA_CATEGORY_NO"), rset.getString("QNA_CATEGORY_NAME")));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int getCategoryListCount(Connection conn, int category) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		// getCategoryListCount=SELECT COUNT(*) FROM QNA_BOARD WHERE STATUS='Y' AND QNA_CATEGORY_NO=?
+		String sql = prop.getProperty("getCategoryListCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, category);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+				
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+
+	public ArrayList<Qna> selectCategoryList(Connection conn, PageInfo pi, int categoryNo) {
+		ArrayList<Qna> list = new ArrayList<Qna>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+//		selectCategoryList=
+//				SELECT * FROM 
+//				(SELECT ROWNUM RNUM, A.* FROM 
+//				(SELECT QNA_NO, QNA_CATEGORY_NAME, QNA_TITLE, USER_ID, COUNT, CREATE_DATE, QNA_REPLY
+//				FROM QNA_BOARD Q JOIN QNA_CATEGORY USING(QNA_CATEGORY_NO) 
+//				JOIN MEMBER ON (QNA_WRITER=USER_NO) 
+//				WHERE Q.STATUS='Y' AND QNA_CATEGORY_NO=?
+//				ORDER BY QNA_NO DESC) A) 
+//				WHERE RNUM BETWEEN ? AND ?
+		String sql = prop.getProperty("selectCategoryList");
+
+//		board 게시글 currentPage = 1 startRow = 1 endRow = 10; currentPage = 2 
+//		startRow = 11 endRow = 20; currentPage = 3 startRow = 21 endRow = 30;
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, categoryNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 
 			rset = pstmt.executeQuery();
