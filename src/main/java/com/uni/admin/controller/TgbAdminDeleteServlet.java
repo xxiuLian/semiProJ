@@ -37,8 +37,9 @@ public class TgbAdminDeleteServlet extends HttpServlet {
 		
 		int result1 = new TgbService().deleteTgbs(bno);
 		int result2 = new TgbService().deleteTgbAttachments(bno);
+		String report = request.getParameter("report");
 		
-		if (result1*result2 > 0 && request.getParameter("report").equals("true")) {
+		if (result1*result2 > 0 && report != null) {
 			request.getSession().setAttribute("msg", "글이 삭제되었습니다.");
 			response.sendRedirect("adminReportTgb.do");
 		}
