@@ -76,9 +76,9 @@
 	        <!--  setInterval을 통한 이벤트 배너 넘기기 -->
 	        <div id="slider">
 	            <ul class="slide">
-	                <li><img src="assets/img/slide1.jpg" alt="슬라이드1"></li>
-	                <li><img src="assets/img/slide2.jpg" alt="슬라이드2"></li>
-	                <li><img src="assets/img/slide3.jpg" alt="슬라이드3"></li>
+	                <li><img src="assets/img/slide/slide1.jpg" alt="슬라이드1"></li>
+	                <li><img src="assets/img/slide/slide2.jpg" alt="슬라이드2"></li>
+	                <li><img src="assets/img/slide/slide3.jpg" alt="슬라이드3"></li>
 	            </ul>
 	        </div>
 	        <script type="text/javascript">

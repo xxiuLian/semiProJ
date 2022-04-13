@@ -164,7 +164,7 @@
 	
 	<c:choose>
 		<c:when test="${loginUser.userId eq t.tgbWriter}">
-			<button>참여자 정보</button>
+			<button type="button" onclick="memberdata_wook();">참여자 정보</button>
 		</c:when>
 		<c:otherwise>
 			<button type="button" onclick="memberdata1();">진행자 정보</button>
@@ -211,6 +211,8 @@
 		<jsp:param name="writer" value="${t.tgbWriter }"/>
 	</jsp:include>
 </div>	
+
+
 	<script>
 	
 	$(document).ready(function(){
@@ -265,11 +267,16 @@
 	  }
 	  setInterval(remaindTime,1000);
 	  
+	  function memberdata_wook(){
+		  $('.menu1').hide();
+		  $('.menu3').show();
+		  memberdataWook2();
+	  };
+	  
 	  function memberdata1(){
 		  $('.menu1').hide();
 		  $('.menu3').show();
 		  memberdata();
-		  
 	  };
 	  
 	  function progressdata(){
