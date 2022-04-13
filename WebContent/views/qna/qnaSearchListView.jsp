@@ -39,6 +39,7 @@
 		<br>
 		<div class="mb-3">
 			<select name="category" id="boardCategory">
+				<option value="non">카테고리 선택</option>
 				<c:forEach items="${category}" var="c">
 					<option value="${c.categoryNo}">${c.categoryName}</option>
 				</c:forEach>
@@ -175,6 +176,9 @@
 	$(function(){
 		$("#boardCategory").change(function(){
 		 	var selected = $("option:selected").val();
+		 	if(selected == 'non'){
+				return;
+			}
 		 	location.href = "${contextPath}/qnaCategoryList.do?category="+selected;
 		})
 	})
