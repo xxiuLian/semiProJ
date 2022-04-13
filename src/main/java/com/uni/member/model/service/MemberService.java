@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import com.uni.common.PageInfo;
 import com.uni.member.model.dao.MemberDao;
 import com.uni.member.model.dto.Member;
-import com.uni.tgb.model.dao.TgbDao;
 import com.uni.tgb.model.dto.Tgb;
 
 public class MemberService {
@@ -37,6 +36,7 @@ public class MemberService {
 	}
 
 	public Member selectMember(String userId) {
+		
 		Connection conn = getConnection();
 		Member member = new MemberDao().selectMember(conn, userId);
 		
@@ -228,6 +228,15 @@ public class MemberService {
 		return qnaCount;
 	}
 
+	//추가_재욱
+	public ArrayList<Member> WookselectList(int tno) {
+		Connection conn = getConnection();
+		ArrayList<Member> list = new MemberDao().WookselectList(conn, tno);
+		
+		close(conn);
+		return list;
+	}
+		
 	public ArrayList<Tgb> bestItem() {
 		Connection conn = getConnection();
 		

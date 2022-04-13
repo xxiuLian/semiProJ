@@ -27,6 +27,15 @@ public class Member {
 	public Member() {}
 
 	
+	//추가_재욱
+	public Member(int userNo, String userId, String phone, String email) {
+		super();
+		this.userId = userId;
+		this.phone = phone;
+		this.email = email;
+	}
+	
+		
 	public Member(String userId, String userPwd) {
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -88,6 +97,8 @@ public class Member {
 				+ ", address1=" + address1 + ", address2=" + address2 + ", enrollDate=" + enrollDate + ", modifyDate="
 				+ modifyDate + ", status=" + status + "]";
 	}
+
+	
 
 
 
