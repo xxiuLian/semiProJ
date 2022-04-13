@@ -39,6 +39,7 @@
 		<br>
 		<div class="mb-3">
 			<select name="category" id="boardCategory">
+				<option value="non">카테고리 선택</option>
 				<c:forEach items="${category}" var="c">
 					<option value="${c.categoryNo}" <c:if test="${categoryNo eq c.categoryNo}">selected</c:if>>${c.categoryName}</option>
 				</c:forEach>
@@ -169,13 +170,15 @@
 	}
 	function searchQnaList(){
 		var keyword3 = $('#search3').val();
-		console.log(keyword3)
 		location.href = "${contextPath}/searchQna.do?keyword="+keyword3;
 	}
 	
 	$(function(){
 		$("#boardCategory").change(function(){
 		 	var selected = $("option:selected").val();
+			if(selected == 'non'){
+				return;
+			}
 		 	location.href = "${contextPath}/qnaCategoryList.do?category="+selected;
 		})
 	})
