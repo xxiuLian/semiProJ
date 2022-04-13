@@ -40,7 +40,7 @@
 		<div class="mb-3">
 			<select name="category" id="boardCategory">
 				<c:forEach items="${category}" var="c">
-					<option value="${c.categoryNo}">${c.categoryName}</option>
+					<option value="${c.categoryNo}" <c:if test="${categoryNo eq c.categoryNo}">selected</c:if>>${c.categoryName}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -65,7 +65,7 @@
 				<c:choose>
 					<c:when test="${empty list}">
 						<tr>
-							<td colspan="7">${keyword}로 검색된 리스트가 없습니다.</td>
+							<td colspan="7">해당 카테고리에 등록된 글이 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -98,7 +98,7 @@
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
 			<button
-				onclick="location.href='${contextPath}/searchQna.do?currentPage=1&keyword=${keyword}'">
+				onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=1&category=${categoryNo}'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
@@ -108,7 +108,7 @@
 				</c:when>
 				<c:otherwise>
 					<button
-						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage - 1}&keyword=${keyword}'">
+						onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=${currentPage - 1}&category=${categoryNo}'">
 						&lt;</button>
 				</c:otherwise>
 			</c:choose>
@@ -120,7 +120,7 @@
 					</c:when>
 					<c:otherwise>
 						<button
-							onclick="location.href='${contextPath}/searchQna.do?currentPage=${p}&keyword=${keyword}'">
+							onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=${p}&category=${categoryNo}'">
 							${p}</button>
 					</c:otherwise>
 				</c:choose>
@@ -133,19 +133,19 @@
 				</c:when>
 				<c:otherwise>
 					<button
-						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage + 1}&keyword=${keyword}'">
+						onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=${currentPage + 1}&category=${categoryNo}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
 			<button
-				onclick="location.href='${contextPath}/searchQna.do?currentPage=${maxPage}&keyword=${keyword}'">
+				onclick="location.href='${contextPath}/qnaCategoryList.do?currentPage=${maxPage}&category=${categoryNo}'">
 				&gt;&gt;</button>
 		</div>
 		<br> <br>
 		<div align="center">
-			<input type="text" id="search2"><button type="button" onclick="searchQnaList();">검색</button>
+			<input type="text" id="search3"><button type="button" onclick="searchQnaList();">검색</button>
 		</div>
 		
 		<br> <br>
@@ -168,8 +168,9 @@
 		})
 	}
 	function searchQnaList(){
-		var keyword2 = $('#search2').val();
-		location.href = "${contextPath}/searchQna.do?keyword="+keyword2;
+		var keyword3 = $('#search3').val();
+		console.log(keyword3)
+		location.href = "${contextPath}/searchQna.do?keyword="+keyword3;
 	}
 	
 	$(function(){
@@ -178,5 +179,6 @@
 		 	location.href = "${contextPath}/qnaCategoryList.do?category="+selected;
 		})
 	})
+	
 </script>
 </html>

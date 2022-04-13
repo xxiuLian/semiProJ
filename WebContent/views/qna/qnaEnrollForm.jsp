@@ -24,14 +24,9 @@
 			<form id="insertForm" action="${contextPath}/insertQna.do" method="post">
 				<div class="mb-3">
 					<select name="category" id="boardCategory">
-						<option value="000">카테고리 선택</option>
-						<option value="10">공통</option>
-						<option value="20">회원</option>
-						<option value="30">주문/결제</option>
-						<option value="40">배송</option>
-						<option value="50">취소/반품/교환</option>
-						<option value="60">이벤트</option>
-						<option value="70">기타</option>
+						<c:forEach items="${category}" var="c">
+							<option value="${c.categoryNo}">${c.categoryName}</option>
+						</c:forEach>
 					</select>
 				</div>
 				<br>
