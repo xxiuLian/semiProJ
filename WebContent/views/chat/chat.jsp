@@ -111,7 +111,7 @@
 				})
 			}
 		})
-	}
+	}	
 	
 	function addChat(chatName, chatContent, chatTime) {
 		$("#chatList").append('<div class="row">'
@@ -152,32 +152,46 @@
 	
 	
 	function chatSubmit() {
-		var fromId = '${loginUser.userId}';
-		if (${loginUser.userId != t.tgbWriter}){//진행자가 아니면(참여자면)
-			toId = '${t.tgbWriter}'//보내는사람이 진행자로 고정
-		}
-		//console.log('보내는 사람 ' + fromId)
-		//console.log('받는사람 ' + toId)
-		var chatContent = $("#chatContent").val();
-
-		$.ajax({
-			type : "POST",
-			url : "${contextPath}/chatSubmit.do",
-			data : {
-				fromId : fromId,
-				toId : toId,
-				chatContent : chatContent,
-				bno : ${t.tgbNo}
-			},
-			success : function(result) {
-				//console.log('전송성공')
-			},
-			error:function(e){
-				alert("채팅 전송 실패")
+		if(chatStatus == true){
+			var fromId = '${loginUser.userId}';
+			if (${loginUser.userId != t.tgbWriter}){//진행자가 아니면(참여자면)
+				toId = '${t.tgbWriter}'//보내는사람이 진행자로 고정
 			}
-		});
-		$("#chatContent").val('');//전송뒤엔 실패하든 성공하든 작성된 채팅박스의 내용삭제
-	}
+			//console.log('보내는 사람 ' + fromId)
+			//console.log('받는사람 ' + toId)
+			var chatContent = $("#chatContent").val();
 	
+			$.ajax({
+				type : "POST",
+				url : "${contextPath}/chatSubmit.do",
+				data : {
+					fromId : fromId,
+					toId : toId,
+					chatContent : chatContent,
+					bno : ${t.tgbNo}
+				},
+				success : function(result) {
+					//console.log('전송성공')
+				},
+				error:function(e){
+					alert("채팅 전송 실패")
+				}
+			});
+			$("#chatContent").val('');//전송뒤엔 실패하든 성공하든 작성된 채팅박스의 내용삭제
+		}else{
+			alert("결제 뒤에 채팅 가능합니다.");
+			$("#chatContent").val('');
+		}
+	}
+</script>
+<script>
+	var chatStatus = false;
+	for(var i = 0; i < ${buyer}.length; i++){
+		if(${buyer}[i] == ${loginUser.userId}){
+			chatStatus = true;
+		}else if(${loginUser.userId eq t.tgbWriter}){
+			chatStatus = true;
+		}
+	}
 </script>
 </html>
