@@ -213,6 +213,7 @@
 <!-- 추가 재욱 -->
 <div class="menu4">
 	<jsp:include page = "tgbEnterView3.jsp">
+		
 		<jsp:param name="writer" value="${listMem[0].userId}"/>
 	</jsp:include>
 </div>	
