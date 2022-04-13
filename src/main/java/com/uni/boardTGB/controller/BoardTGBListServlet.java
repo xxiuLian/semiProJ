@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.uni.boardTGB.model.dto.BoardTGB_dto;
 import com.uni.boardTGB.model.service.BoardTGB_service;
-import com.uni.notice.model.dto.NoticeDto;
-import com.uni.notice.model.service.NoticeService;
 
 /**
  * Servlet implementation class test

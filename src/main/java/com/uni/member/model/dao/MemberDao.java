@@ -734,6 +734,36 @@ public class MemberDao {
 		return qnaCount;
 	}
 
+	public ArrayList<Member> WookselectList(Connection conn, int tno) {
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("WookselectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tno);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("USER_NO"),
+						rset.getString("USER_ID"),
+						rset.getString("PHONE"),
+						rset.getString("EMAIL")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 	
 
 }
