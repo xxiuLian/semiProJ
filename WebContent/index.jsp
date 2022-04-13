@@ -101,7 +101,7 @@
            </script>
         </header>
         
-    <%--   
+    
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
@@ -438,7 +438,7 @@
                 </div>
             </div>
         </div>
-        --%>  
+        
         <!-- Footer-->
         <%@ include file="views/common/footer.jsp" %>
         <!-- 부트스트랩 Footer
