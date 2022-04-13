@@ -1,5 +1,7 @@
 package com.uni.tgb.model.dao;
 
+import static com.uni.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,12 +12,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.uni.admin.dto.Category;
+import com.uni.admin.model.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
 import com.uni.member.model.dto.Member;
 import com.uni.tgb.model.dto.Tgb;
-import static com.uni.common.JDBCTemplate.*;
 
 
 public class TgbDao {
