@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.uni.tgb.model.dto.*, java.util.ArrayList, com.uni.common.Attachment, com.uni.admin.dto.*"%>
+    pageEncoding="UTF-8" import="com.uni.tgb.model.dto.*, java.util.ArrayList, com.uni.common.Attachment, com.uni.admin.model.dto.*"%>
 <%
 	Tgb t = (Tgb)request.getAttribute("t");
 	ArrayList<Attachment> list = (ArrayList<Attachment>)request.getAttribute("list");
@@ -287,10 +287,7 @@ td{
 		}
 		
 	})
-	
-	
-	
-	
+
 	
 	function loadImg(event){
         
@@ -304,10 +301,13 @@ td{
                         reader.onload = function(){
                             var dataURL = reader.result;
                             for(var i = 0; i<arr.length; i++){
-                            	if(arr[i]){
+                            	console.log(arr[i]);
+                            	if(!arr[i]){
+                            		console.log('이미지삽입')
                             		arr[i] = true;
-		                            $('#contentArea').append("<img id= file"+i+" src="+dataURL+">");
+		                            $('#contentArea').append("<img id= file"+(i+1)+" src="+dataURL+">");
 		                            $('#uploaded').append("<div><input type=checkbox class=uploadfile>"+file.name+"</div>");
+		                           	break;
                     			}
                             	
                             }

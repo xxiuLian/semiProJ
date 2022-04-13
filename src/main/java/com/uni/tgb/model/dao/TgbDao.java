@@ -860,6 +860,7 @@ public class TgbDao {
 		String sql = prop.getProperty("updateAt");
 		
 		try {
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, at.getOriginName());
 			pstmt.setString(2, at.getChangeName());
@@ -909,6 +910,39 @@ public class TgbDao {
 		
 		return result;
 	}
+
+	public int updateAtList(Connection conn, ArrayList<Attachment> fileList, String tno) {
+		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, SEQ_TGB.CURRVAL, ?)
+		//updateAtList=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, SYSDATE, DEFAULT, ?, ?)
+
+				int result = 0;
+				
+				PreparedStatement pstmt = null;
+				String sql = prop.getProperty("updateAtList");
+				
+				try {
+					for(Attachment f : fileList) {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, f.getOriginName());
+					pstmt.setString(2, f.getChangeName());
+					pstmt.setString(3, f.getFilePath());
+					pstmt.setInt(4, Integer.parseInt(tno));
+					pstmt.setString(5, f.getType());
+					System.out.println("머가 invalid 넘버인데 "+tno);
+					result = pstmt.executeUpdate();
+					
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+				}
+				
+				
+				return result;
+			}
 
 
 

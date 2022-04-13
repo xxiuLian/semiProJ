@@ -310,14 +310,30 @@ public class TgbService {
 		return result;
 	}
 
-	public int updateTgb(Tgb t, Attachment at, String tno) {
+	public int updateTgb(Tgb t, Attachment at, String tno, ArrayList<Attachment> fileList) {
 		Connection conn = getConnection();
 		
+		int finalresult = 0;
+		
 		int result1 = new TgbDao().updateTgb(conn, t);
-		int result2 = new TgbDao().updateAt(conn, at, tno);
+		System.out.println("글 수정 "+result1);
+		
+		finalresult = result1;
+		
+		if(at.getOriginName() != null) {
+			
+			int result2 = new TgbDao().updateAt(conn, at, tno);
+			finalresult *= result2;
+			System.out.println("대표이미지 수정 "+result2);
+		}
+		
+		int result3 = new TgbDao().updateAtList(conn, fileList, tno);
+		finalresult *= result3;
+		
+		System.out.println("수정된 첨부파일 : "+ result3);
 		
 		
-		if(result1*result2 >0) {
+		if(finalresult >0) {
 			commit(conn);
 			
 		}else {
@@ -325,7 +341,7 @@ public class TgbService {
 		}
 		close(conn);
 		
-		return result1*result2;
+		return finalresult;
 	}
 
 
