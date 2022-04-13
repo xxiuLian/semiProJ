@@ -168,5 +168,24 @@ public class QnaService {
 		return list;
 	}
 
+	public int getSearchListCount(String keyword) {
+		Connection conn = getConnection();
+		
+		int listCount = new QnaDao().getSearchListCount(conn, keyword);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Qna> selectSearchList(PageInfo pi, String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Qna> list = new QnaDao().selectSearchList(conn, pi, keyword);
+		
+		close(conn);
+		
+		return list;
+	}
+
 
 }

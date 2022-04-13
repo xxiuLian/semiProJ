@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 
 /**
@@ -29,13 +30,10 @@ public class PayViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = 8;//request들로 바꿔줄것
-		int price = 10000;
-		int amount = 4;
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		Tgb t = new TgbService().selectTgb(bno);
 		
-		request.setAttribute("bno", bno);
-		request.setAttribute("price", price);
-		request.setAttribute("amount", amount);
+		request.setAttribute("t", t);
 		String thumbnail = new TgbService().selectThumbnail(bno);
 		request.setAttribute("thumbnail", thumbnail);
 		
