@@ -16,6 +16,7 @@ import static com.uni.common.JDBCTemplate.*;
 import com.uni.admin.model.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
+import com.uni.member.model.dto.Member;
 import com.uni.notice.model.dto.NoticeDto;
 import com.uni.qna.model.dto.Qna;
 import com.uni.tgb_board.model.dto.TgbBoardReply;
@@ -678,6 +679,64 @@ public class TgbBoard_dao {
 		}
 		
 		return list;
+	}
+
+
+	public ArrayList<TgbBoard_dto> CheckselectList(Connection conn, PageInfo pi, String userId) {
+		ArrayList<TgbBoard_dto> list = new ArrayList<TgbBoard_dto>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("CheckselectTgbBoardList");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				TgbBoard_dto q = new TgbBoard_dto();
+					q.setTgbBoardNo(rset.getInt("BOARD_NO"));
+					q.setTgbBoardCategory(rset.getString("TGB_CATEGORY_NAME"));
+					q.setTgbBoardTitle(rset.getString("BOARD_TITLE"));
+					q.setTgbBoardWriter(rset.getString("USER_ID"));
+					q.setTgbBoardCount(rset.getInt("COUNT"));
+					q.setTgbBoardDate(rset.getDate("CREATE_DATE"));
+
+				list.add(q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	public int CheckgetListCount(Connection conn, int userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("CheckGetListCountTGBBoard");
+//CheckGetListCountTGBBoard=SELECT COUNT(BOARD_NO) FROM TGB_BOARD WHERE BOARD_WRITER=?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;	
 	}
 
 

@@ -59,19 +59,16 @@ TgbBoard_dto b = (TgbBoard_dto)request.getAttribute("b");
 		</table>
 		
 		<br>
-		
-		<div class="btns" align="center">
-		
-			<a href="tgbBoardSelect.do">목록으로</a> &nbsp;&nbsp;
-			
-			
-			<% 
-			if(loginUser != null && loginUser.getUserNo() == Integer.parseInt(b.getTgbBoardWriter())) { %>
-				<a href="tgbBoardUpdateForm.do?nno=<%=b.getTgbBoardNo()%>">수정하기</a> &nbsp;&nbsp;
-				<a href="ChecktgbBoardDelete.do?nno=<%=b.getTgbBoardNo()%>">삭제하기</a>
-			<% } %>
-			
-		</div>
+		<%--
+			<div class="btns" align="center">
+				<a href="tgbBoardSelect.do">목록으로</a> &nbsp;&nbsp;
+				<% 
+				if(loginUser != null && loginUser.getUserNo() == Integer.parseInt(b.getTgbBoardWriter())) { %>
+					<a href="tgbBoardUpdateForm.do?nno=<%=b.getTgbBoardNo()%>">수정하기</a> &nbsp;&nbsp;
+					<a href="ChecktgbBoardDelete.do?nno=<%=b.getTgbBoardNo()%>">삭제하기</a>
+				<% } %>
+			</div>
+		--%>
 	</div>
 </body>
 </html>
