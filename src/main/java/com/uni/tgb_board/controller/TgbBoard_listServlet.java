@@ -68,7 +68,7 @@ public class TgbBoard_listServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		//페이징끝
 
-		ArrayList<TgbBoard_dto> list = new TgbBoard_service().selectList(pi);
+		ArrayList<TgbBoard_dto> list = new TgbBoard_service().getBoardList(pi);
 		ArrayList<Category> category = new TgbBoard_service().getCategoryList();
 		
 		request.setAttribute("category", category);
