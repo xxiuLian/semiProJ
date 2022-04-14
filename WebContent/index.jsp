@@ -21,42 +21,50 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <style>
-        #popups {
-          display: none;
-          position: fixed; 
-          left: 0; right: 0; top: 0; bottom: 0;
-          background: rgba(0,0,0,0.5); z-index:1;
-      }
-      .modals {
-         margin-top:140px;
-         margin-left:600px;
-          position: relative;
-      }
-      .close {
-          position: absolute;
-         margin-left:1020px; top:140px;
-          color: #fff; border: none; 
-          padding: 10px 20px;
-      }
-      
-      #slider {
-          width: 1600px;
-          height: 700px; 
-          margin: 0 auto;
-          position: relative; 
-          overflow: hidden;
-      }
-      .slide{ width: 4830px; position: absolute; left: 0px; top: 0; }
-      .slide li { width: 1600px; float: left; }
-      .slide li img { width: 100%;}
-	/*best, new 상품 이미지 크기*/
-	.img-fluid {
-	 max-width: 100%;
-	 width: 450px;
-	 height: 250px;
-	 background-size:cover;
+<style>
+#popups {
+    display: none;
+    position: fixed; 
+    left: 0; right: 0; top: 0; bottom: 0;
+    background: rgba(0,0,0,0.5); z-index:1;
 }
+.modals {
+   margin-top:140px;
+   margin-left:600px;
+    position: relative;
+}
+.close {
+    position: absolute;
+   margin-left:1020px; top:140px;
+    color: #fff; border: none; 
+    padding: 10px 20px;
+}
+
+#slider {
+    width: 1600px;
+    height: 700px; 
+    margin: 0 auto;
+    position: relative; 
+    overflow: hidden;
+}
+.slide{ width: 4830px; position: absolute; left: 0px; top: 0; }
+.slide li { width: 1600px; float: left; }
+.slide li img { width: 100%;}
+/*best, new 상품 이미지 크기*/
+.img-fluid {
+ max-width: 100%;
+ width: 450px;
+ height: 250px;
+ background-size:cover;
+}
+#quick {
+    width: 50px; height: 50px;
+    text-align: center; position: fixed; left: 100%; bottom: 150px;
+    margin-left: -120px;
+   	border-radius: 50%;
+   	border: 2px solid #3036b4;
+}
+#quick a {line-height:25px;}
        </style>
     </head>      
     <body id="page-top">
@@ -456,7 +464,7 @@
         </div>
         <!-- Footer-->
         <%@ include file="views/common/footer.jsp" %>
-        
+        <div id="quick"><a href="#"><i class="fa-solid fa-angle-up" style="font-size:25px;"></i></a></div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
