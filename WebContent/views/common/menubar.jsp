@@ -46,9 +46,9 @@
 			 <input type="text" id="search"><button type="button" onclick="searching();">검색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공구</a></li>
-					<li class="nav-item"><a class="nav-link" href="eventList.do">재욱이벤트</a></li>
-					<li class="nav-item"><a class="nav-link" href="noticeList.do">재욱공지</a></li>
+					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">공구게시판</a></li>
+					<li class="nav-item"><a class="nav-link" href="eventList.do">이벤트</a></li>
+					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="login.do">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="enroll.do">회원가입</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
@@ -56,16 +56,30 @@
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li><!--  -->
 				</ul>
-			</div> 
+			</div>
+			<% }else if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
+			<input type="text" id="search"><button type="button" onclick="searching();">검색</button><br><br><!-- 검색창 -->
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>
+				</ul>
+			</div>
+			<div id = "userInfo">
+            <b style = "color:black;"><%=loginUser.getUserName() %> 님 </b>접속 완료
+            <br><br>
+            <div class ="btns" align="center">
+               <a href = "<%=contextPath %>/myPage.do">마이페이지</a>
+               <a href = "<%=contextPath %>/logoutMember.do">로그아웃</a>
+            </div>
+         </div>
 			<% }else{ %>
-				<input type="text" id="search"><button type="button" onclick="searching();">검색</button></form><br><br><!-- 검색창 -->
+				<input type="text" id="search"><button type="button" onclick="searching();">검색</button><br><br><!-- 검색창 -->
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">재욱공구</a></li>
-					<li class="nav-item"><a class="nav-link" href="eventList.do">재욱이벤트</a></li>
-					<li class="nav-item"><a class="nav-link" href="noticeList.do">재욱공지</a></li>
+					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">공구게시판</a></li>
+					<li class="nav-item"><a class="nav-link" href="eventList.do">이벤트</a></li>
+					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
-					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li>
 				</ul>
