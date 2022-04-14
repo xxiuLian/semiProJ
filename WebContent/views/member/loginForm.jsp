@@ -20,24 +20,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="${contextPath}/css/loginForm.css" rel="stylesheet" />
 <title>Insert title here</title>
 <style>
-.loginArea{border: 2px solid cornflowerblue; margin: 0 auto; padding: 20px; width: 500px; height: 500px; position: relative;}
-#kakaoLogin{margin-top:5px;}
-#loginAPI{margin-top:50px;}
-.divider .border {
-	background:#e7eaee;
-	height:1px;
-	position: absolute;
-	left:0;
-	width:40%;
-	top:40%;
-}
-.divider .border.right {
-	left:auto;
-	right:0;
-}
+
+.findEnroll {
+        box-sizing: border-box;
+        float: left;
+    }
+
+    #kakao-login-btn {
+        box-sizing: border-box;
+        float: right;
+    }
+
+    .form-control {
+        width: 100% !important;
+        height: 50px;
+    }
 </style>
 <!-- 카카오 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -68,47 +71,58 @@
 </head>
 <body>
 <%@ include file= "../common/menubar.jsp" %>
-<div class= "loginArea">
+  <div class="container">
+  <% if(loginUser == null){ %>
+        <div class="kpx_login">
+            <h3 class="kpx_authTitle"><a id="loginBtn" href="#">로그인</a></h3>
+            <div class="row kpx_row-md-offset-md-3">
+                <div class="col-12 col-md-6">
+                    <hr />
+                    <form id="loginForm" action="<%=request.getContextPath()%>/loginMember.do" method="post">
+                        <div class="input-group">
+                            <span class="input-group-addon">아이디 </span>
+                            <input type="text" class="form-control" name="userId" placeholder="아이디를 입력하세요">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">비밀번호</span>
+                            <input type="password" class="form-control" name="userPwd" placeholder="비밀번호를 입력하세요">
+                        </div>
+                        <br>
+                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit"><i
+                                class="fa fa-sign-in"></i> 로그인</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class="row kpx_row-md-offset-md-3">
+                <div class="col-6 col-md-6">
+                    <div class="findEnroll" style="width: 50%;">
+                        <a href="<%=request.getContextPath()%>/findId.do">아이디</a>/
+                        <a href="<%=request.getContextPath()%>/findPwd.do">비밀번호 찾기</a>
+                    </div>
 
-		 <% if(loginUser == null){ %>
-		<form id = "loginForm" action="<%=request.getContextPath()%>/loginMember.do" method="post" onsubmit="return loginValidate();">
-			<table>
-				<tr>
-					<th><label for = "userId" style="color:black;">아이디</label></th>
-					<td><input id="userId" type="text" name="userId"></td>
-				</tr>
-				<tr>
-					<th><label for = "userPwd" style="color:black;">비밀번호</label></th>
-					<td><input id="userPwd" type="text" name="userPwd"></td>
-				</tr>
-			</table>
-			<div class ="btns" align="center">
-				
-				<button id = "loginBtn" type="submit">로그인</button>
-				<button id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button><br>
-
-				 <a href="<%=request.getContextPath()%>/findId.do">아이디 찾기</a>
-				 <a href="<%=request.getContextPath()%>/findPwd.do">비밀번호 찾기</a>
-				
-			</div>
-			
-			<div class="divider">
-				<div class="border"></div>
-				<br>
-				<div class="border right"></div>
-			</div>
-			
-			<div id ="loginAPI">
-				<!-- 네이버 로그인 버튼 노출영역 -->
-				<a href="<%=apiURL%>"><img width="220" height="48" src="<%=contextPath%>/resources/smarteditor/img/naver.png"></a>
-				<br>
-				<!-- 카카오 버튼이 생기는 a태그 -->
-				<div id="kakaoLogin">  
-    				<a id="kakao-login-btn"></a>
-    				<a href="http://developers.kakao.com/logout"></a>
-				</div>
-			</div>
-		</form>
+                    <div class="findEnroll" style="width: 50%; text-align: right;">
+                        <a style="text-align: right;" href="javascript:void(0);" onclick="enrollPage();">회원가입</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row kpx_row-md-offset-md-3 kpx_loginOr">
+                <div class="col-12 col-md-6">
+                    <hr class="kpx_hrOr">
+                    <span class="kpx_spanOr">또는</span>
+                </div>
+            </div>
+            <div class="row kpx_row-lg-offset-lg-3 kpx_socialButtons">
+                <div class="col-lg-3">
+                   <a href="<%=apiURL%>"><img width="220" height="48" src="<%=contextPath%>/resources/smarteditor/img/naver.png"></a>
+                </div>
+                <div class="col-lg-3">
+                    <a id="kakao-login-btn"></a>
+                    <a href="http://developers.kakao.com/logout"></a>
+                </div>
+            </div><br>
+        </div>
 		<% }else{ %> 
 			<div id = "userInfo">
 				<b style = "color:black;"><%=loginUser.getUserName() %> 님 </b> 의 방문을 환영합니다.
@@ -120,13 +134,14 @@
 			</div>
 			
 		<% } %>
-		</div>
-		<script>
-			function enrollPage(){
-				location.href="<%=request.getContextPath()%>/enroll.do";
-			}
-			
-		</script>
+	</div>	
+</body>
+<script>
+	function enrollPage(){
+		location.href="<%=request.getContextPath()%>/enroll.do";
+	}
+	
+</script>
 
 		<script type='text/javascript'>
     	//가치사 javascript키
@@ -173,5 +188,4 @@
     });
 </script>  
 
-</body>
 </html>
