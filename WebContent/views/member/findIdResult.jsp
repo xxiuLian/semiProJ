@@ -12,21 +12,34 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    h1{text-align: center;}
-    .div1{border: 2px solid cornflowerblue; margin: 0 auto; padding: 20px; width: 400px; height: 300px; position: relative;}
-    .button1{border: none; padding: 20px; top: 150px; left: 100px; position: absolute;}
-	b{font-size:20px;}
-    </style>
+.card-body{
+	font-size: 35px
+}
+</style>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
-     <h1>아이디 찾기</h1>
-    <div class="div1">
-        <div>
-        <b><%=userName %>님</b>의<br>
-        아이디는 <b><%= userId %></b>입니다.<br>
-        <button class="button1" onclick= "history.go(-2)">로그인 화면으로 돌아가기</button>
+ <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">아이디 찾기 결과</div>
+                        <br>
+                    <div class="card-body" style="text-align: center;">
+                        <label class="col-md-6 col-form-label text-md-right"><b><%=userName %>&nbsp;님</b>의<br><br>아이디는&nbsp;<b><%= userId %>&nbsp;</b>입니다.<br></label>
+                    </div>
+                    <br><br>
+                    <div style="text-align: center">
+                    	<button type="button" class="btn btn-primary" style="width: 210px" onclick= "history.go(-2)">로그인 화면으로 돌아가기</button>
+                    </div>
+                     
+                    <br><br>
+                </div>
+            </div>
         </div>
     </div>
+   
+     
+       
 </body>
 </html>
