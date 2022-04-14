@@ -84,7 +84,7 @@ public class tgbBoard_insertServlet extends HttpServlet {
 			int result = new TgbBoard_service().insertTgbBoard(b, at);
 
 			if (result > 0) {
-				request.getSession().setAttribute("msg", "공구 등록에 성공했습니다.");
+				request.getSession().setAttribute("msg", "공구_게시판 등록에 성공했습니다.");
 				response.sendRedirect("tgbBoardSelect.do");
 			} else {
 				
@@ -93,7 +93,7 @@ public class tgbBoard_insertServlet extends HttpServlet {
 					failedFile.delete();
 				}
 
-				request.setAttribute("msg", "공구 등록에 실패했습니다.");
+				request.setAttribute("msg", "공구_게시판 등록에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}

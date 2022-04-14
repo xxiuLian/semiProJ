@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.uni.admin.model.dto.Category;
 import com.uni.common.PageInfo;
-import com.uni.notice.model.dto.NoticeDto;
 import com.uni.qna.model.service.QnaService;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
-import com.uni.tgb_board.model.dto.TgbBoard_pageInfo;
 import com.uni.tgb_board.model.service.TgbBoard_service;
 
 
@@ -48,7 +46,7 @@ public class TgbBoard_listServlet extends HttpServlet {
 		int pageLimit;   //한페이지 하단에 보여질 최대 개수
 		int boardLimit;  //한페이지에 보여질 게시글 최대 개수
 		//총 게시글 개수
-		listCount = new QnaService().getListCount();
+		listCount = new TgbBoard_service().getListCount(); //
 		System.out.println("listCount : " + listCount);
 		//현재페이지
 		currentPage = 1;
