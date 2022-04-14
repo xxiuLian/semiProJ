@@ -33,9 +33,9 @@ public class ReplyListTgbBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		ArrayList<TgbBoardReply> list = new TgbBoard_service().selectRlist(bno);
+		ArrayList<TgbBoardReply> list = new TgbBoard_service().selectRlist(nno);
 		
 		response.setContentType("application/json; charset=utf-8"); 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create();

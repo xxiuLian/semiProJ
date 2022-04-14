@@ -48,14 +48,14 @@ public class tgbBoard_updateServlet extends HttpServlet {
 
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 
-			int bno = Integer.parseInt(multiRequest.getParameter("bno"));
+			int nno = Integer.parseInt(multiRequest.getParameter("nno"));
 			
 			
 			TgbBoard_dto b = new TgbBoard_dto();
 			b.setTgbBoardTitle(multiRequest.getParameter("title"));
 			b.setTgbBoardContent(multiRequest.getParameter("content"));
 			b.setTgbBoardCategory(multiRequest.getParameter("category"));
-			b.setTgbBoardNo(bno);
+			b.setTgbBoardNo(nno);
 			
 			Attachment at = null;
 			
@@ -78,7 +78,7 @@ public class tgbBoard_updateServlet extends HttpServlet {
 					
 					at.setFileNo(Integer.parseInt(multiRequest.getParameter("originFileNo")));
 				}else {
-					at.setRefBoardNo(bno);
+					at.setRefBoardNo(nno);
 				}
 			}
 			System.out.println("b : " + b);
@@ -87,7 +87,7 @@ public class tgbBoard_updateServlet extends HttpServlet {
 			
 			if(result > 0) {
 				request.getSession().setAttribute("msg", "게시글 수정 완료");
-				response.sendRedirect("tgbBoardDetail.do?bno=" + bno);
+				response.sendRedirect("tgbBoardDetail.do?nno=" + nno);
 			}else {
 				request.setAttribute("msg", "게시글 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

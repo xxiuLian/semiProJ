@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.uni.common.PageInfo;
 import com.uni.event.model.dao.EventDao;
 import com.uni.event.model.dto.EventDto;
+import com.uni.tgb_board.model.dao.TgbBoard_dao;
 
 public class EventService {
 
@@ -91,5 +92,16 @@ public class EventService {
 		close(conn);
 		return result;
 	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new EventDao().getListCount(conn);
+		
+		close(conn);
+		return listCount;
+	}
+
+	
 
 }

@@ -237,8 +237,12 @@ public class TgbBoard_service {
 	}
 
 	public int getListCount() {
-		// TODO Auto-generated method stub //재욱재욱3
-		return 0;
+		Connection conn = getConnection();
+		
+		int listCount = new TgbBoard_dao().getTgbBoard_listCount(conn);
+		
+		close(conn);
+		return listCount;
 	}
 
 	

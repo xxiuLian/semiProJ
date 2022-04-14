@@ -58,7 +58,7 @@
 			<tbody>
 		 <% if(list.isEmpty()){ %>
 				 	<tr>
-						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+						<td colspan="5">존재하는 공동구매가 없습니다.</td>
 					</tr>
 				 <% }else{  %>
 				 	<% for(TgbBoard_dto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
