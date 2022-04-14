@@ -25,7 +25,7 @@ width: 1000px
                 <div class="card-body">
                     <form name="idfindscreen" method="POST">
                         <div class="form-group row">
-                            <label for="email_address" class="col-md-4 col-form-label text-md-right">이름</label>
+                            <label for="userName" class="col-md-4 col-form-label text-md-right">이름</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="userName" placeholder="등록한 이름"
                                     required autofocus>
@@ -33,7 +33,7 @@ width: 1000px
                         </div>
                         <br><br><br>
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">휴대전화</label>
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">휴대전화</label>
                             <div class="col-md-6">
                                 <input type="text" id="phone" class="form-control" name="phone" placeholder="'-' 없이 입력" required>
                             </div>
