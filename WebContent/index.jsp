@@ -13,7 +13,7 @@
         <meta name="author" content="" />
         <title>Agency - Start Bootstrap Theme</title>
         <!-- Favicon-->
-        <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"/>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -29,15 +29,22 @@
     background: rgba(0,0,0,0.5); z-index:1;
 }
 .modals {
-   margin-top:140px;
-   margin-left:600px;
+   margin-top:250px;
+   margin-left:1000px;
     position: relative;
 }
 .close {
     position: absolute;
-   margin-left:1020px; top:140px;
+    margin-left:1460px; top:260px;
     color: #fff; border: none; 
-    padding: 10px 20px;
+    padding: 2px 7px;
+    border-radius:2px;
+    background-color: #fff;
+    color: gray;
+}
+.close:hover{
+	background-color: #eee;
+	color: black;
 }
 
 #slider {
@@ -75,22 +82,9 @@
                <div class="modals" >
             <img alt="" src="https://cdn.imweb.me/upload/S20191226f354293cbbefc/7ff814128b9fa.png" width="500px" height="500px">
               </div>
-              <div class="close"><button >X</button></div>
+             <button class="close" >X</button>
            </div> 
-            <!-- 홈페이지 열리면 띄우는 팝업창 -->
-           <script>
-           window.onload=function(){ //팝업 오픈
-              $("#popups").fadeIn();
-           }
-           $("#popups").click(function(){ //다른곳을 클릭하면 닫기
-               $(this).fadeOut();
-           })
-           $(".close").click(function(){ //x버튼 눌러도 닫기
-               $("#popups").fadeOut();
-           })
-           </script>
-           
-           
+                  
            <!--  setInterval을 통한 이벤트 배너 넘기기 -->
            <div id="slider">
                <ul class="slide">
@@ -99,7 +93,20 @@
                    <li><img src="assets/img/slide/slide3.jpg" alt="슬라이드3"></li>
                </ul>
            </div>
+           
            <script type="text/javascript">
+           <!-- 홈페이지 열리면 띄우는 팝업창 -->
+           window.onload=function(){ //팝업 오픈
+               $("#popups").fadeIn();
+            }
+            $("#popups").click(function(){ //다른곳을 클릭하면 닫기
+                $(this).fadeOut();
+            })
+            $(".close").click(function(){ //x버튼 눌러도 닫기
+                $("#popups").fadeOut();
+            })
+            
+           <!--  setInterval을 통한 이벤트 배너 넘기기 -->
            let imgNum = $(".slide li").length;
            let imgWidth = $(".slide li").width();
            $(".slide").width( imgNum * imgWidth);

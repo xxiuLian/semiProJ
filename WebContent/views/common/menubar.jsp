@@ -83,7 +83,7 @@ a {
 a:hover {
   color: #1a1f71;
 }*/
-ul, li { list-style: none; }
+
 /* 공지 드롭다운 */
 .event {
     /*position: absolute;
