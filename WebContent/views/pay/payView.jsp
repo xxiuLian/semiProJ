@@ -59,7 +59,7 @@ $("#amount").change(function(){
 })
 	function pay(){
 	    IMP.request_pay({
-	    	pg: "kakaopay",
+	    	pg: "html5_inicis.INIBillTst",
 	        pay_method : 'card',
 	        merchant_uid: "order_${bno}_"+ Date.now(), //공구번호+현재시간을 붙여준다
 	        name : '상품 결제',
