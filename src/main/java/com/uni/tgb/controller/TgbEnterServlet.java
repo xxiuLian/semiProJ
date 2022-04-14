@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.uni.member.model.dto.Member;
 import com.uni.member.model.service.MemberService;
 import com.uni.chat.model.service.ChatService;
+import com.uni.common.PageInfo;
 import com.uni.tgb.model.dto.Tgb;
 import com.uni.tgb.model.service.TgbService;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
@@ -82,10 +83,9 @@ public class TgbEnterServlet extends HttpServlet {
 		request.setAttribute("t", t);
 		request.setAttribute("tper", tper);
 		
-		//추가_재욱
+		//추가_재욱1
 		System.out.println("tno123 : " + tno);
 		ArrayList<Member> listMem = new MemberService().WookselectList(tno);
-		System.out.println("listMem재욱테스트 : " + listMem);
 		request.setAttribute("listMem", listMem);
 		//까지_재욱
 		
@@ -105,9 +105,6 @@ public class TgbEnterServlet extends HttpServlet {
 		
 		//총 글 수
 		listCount = new TgbBoard_service().getTgbBoard_listCount();
-		
-		//게시글 목록
-		ArrayList<TgbBoard_dto> list = new TgbBoard_service().getBoardList(currentPage, listPageCount);
 		
 		//목록 마지막
 		// 총 124 한 페이지 10개 면 13개 바 개수
@@ -129,11 +126,13 @@ public class TgbEnterServlet extends HttpServlet {
 			barEnd = barMax; 
 		}
 
-		//pi 생성자로 생성
-		TgbBoard_pageInfo pi = new TgbBoard_pageInfo(listCount, currentPage, barStart, barEnd, barCount, listPageCount, barMax);
-		
+		//pi 생성자로 생성(수정_재욱1)
+		PageInfo pi = new PageInfo(listCount, currentPage, barStart, barEnd, barCount, listPageCount, barMax);
+		//게시글 목록(수정_재욱2)
+		ArrayList<TgbBoard_dto> list = new TgbBoard_service().getBoardList(pi);
 		
 		request.setAttribute("list", list);
+		
 		request.setAttribute("pi", pi);
 		//
 		System.out.println("썸네일 : "+t.getThumnail());

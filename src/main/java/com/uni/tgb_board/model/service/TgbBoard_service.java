@@ -227,7 +227,7 @@ public class TgbBoard_service {
 		return list;
 	}
 
-	public ArrayList<TgbBoard_dto> selectList(PageInfo pi) {
+	public ArrayList<TgbBoard_dto> getBoardList(PageInfo pi) {
 		Connection conn = getConnection();
 		ArrayList<TgbBoard_dto> list = new TgbBoard_dao().selectList(conn, pi);
 		
