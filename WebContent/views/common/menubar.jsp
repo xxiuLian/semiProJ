@@ -39,11 +39,12 @@
 .userWho{
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: #495057;
+  font-size: 18px;
 }
 #navbarResponsive{margin-right:30px;}
 #search{
-  margin-left:50px; 
-  margin-right:10px;
+  margin-left:80px; 
+  margin-right:15px;
   width: 250px;
   height: 40px;
   font-size: 15px;
@@ -72,6 +73,17 @@
   box-shadow: 0px 0px 0px 0px #2b6bc0;
 }
 
+a {
+  color: #2b69ee;
+  text-decoration: none;
+}
+/*
+a:hover {
+  color: #1a1f71;
+}*/
+
+
+
 </style>
 </head>
 <body>
@@ -90,22 +102,20 @@
 				</ul>
 			</div>
 			<% }else if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
-			<input type="text" id="search"><button type="button" onclick="searching();">검색</button><br><br><!-- 검색창 -->
+			<input type="text" id="search" style="width:500px; height:50px; margin-left:150px;"><button type="button" class="searchbutton" onclick="searching();">검색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="adminMember.do">관리자페이지</a></li>
-				</ul>
+
 			</div>
 			<div id = "userInfo">
-            <b class="userWho"><%=loginUser.getUserName() %> 님 </b>접속 완료
+            <b class="userWho"><%=loginUser.getUserName() %></b> 접속 완료
             <br><br>
             <div class ="btns" align="center">
-               <a href = "<%=contextPath %>/myPage.do">마이페이지</a>
+               <a href = "<%=contextPath %>/adminMember.do">관리자페이지</a> &nbsp;&nbsp;
                <a href = "<%=contextPath %>/logoutMember.do">로그아웃</a>
             </div>
          </div>
 			<% }else{ %>
-				<input type="text" id="search"><button type="button" onclick="searching();">검색</button><br><br><!-- 검색창 -->
+				<input type="text" id="search" style="margin-left:30px;"><button type="button" class="searchbutton" onclick="searching();">검색</button><br><br><!-- 검색창 -->
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
 					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">공구게시판</a></li>
@@ -119,7 +129,7 @@
 			<div id = "userInfo">
             <p class="userWho"><b class="userWho"><%=loginUser.getUserName() %></b> 님의 방문을 환영합니다.</p>
             <div class ="btns" align="center">
-               <a href = "<%=contextPath %>/myPage.do">마이페이지</a>
+               <a href = "<%=contextPath %>/myPage.do">마이페이지</a>&nbsp;&nbsp;
                <a href = "<%=contextPath %>/logoutMember.do">로그아웃</a>
             </div>
          </div>

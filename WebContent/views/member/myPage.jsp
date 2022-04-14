@@ -85,6 +85,7 @@
                 <!-- Top navigation-->
                 
                 
+<<<<<<< HEAD
                 
                 
                 <!-- 추가1_재욱boot -->
@@ -117,6 +118,22 @@
                 
                 
 			      <div class="row-md-6 px-0">
+                <!-- 추가1_재욱boot -->
+                <div class="p-4 p-md-5 mb-7 text-white rounded alert-danger id =" bg-all " >
+			      <div class="col-md-6 px-0">
+			      
+			      	<article class="card" style="width: 28rem; margin: 15px;">
+		                <img class="card-img-top" src="/resources/wookImg/hum.PNG" alt="Card image cap">
+		                
+		                <div class="card-body">
+		                    <h5 class="card-title">Card title</h5>
+		                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		                </div>
+		            </article>
+			        
+			        <p class="lead my-3">123</p>
+			        
+			        <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
 			        <button class="btn btn-primary" id="sidebarToggle">My Menu4</button>
 			      </div>
 			      

@@ -26,6 +26,7 @@ ul, li { list-style: none; }
 .nav-link:hover, .nav-link:focus {
   color: #1a1f71;
 }
+a{color:#3036b4;}
 </style>
 </head>
 <body>
