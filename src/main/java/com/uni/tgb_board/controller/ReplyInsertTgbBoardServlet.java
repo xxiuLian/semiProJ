@@ -32,7 +32,7 @@ public class ReplyInsertTgbBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String content = request.getParameter("content");
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int nno = Integer.parseInt(request.getParameter("nno"));
 	
 		
 		//임시 ★
@@ -41,7 +41,7 @@ public class ReplyInsertTgbBoardServlet extends HttpServlet {
 		
 		TgbBoardReply r = new TgbBoardReply();
 		r.setReplyContent(content);
-		r.setRefBoardId(bno);
+		r.setRefBoardId(nno);
 		r.setReplyWriter(String.valueOf(writer));
 		
 		int result = new TgbBoard_service().insertReply(r);

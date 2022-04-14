@@ -19,13 +19,13 @@ public class tgbBoard_FileDelete extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("???????");
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		int result = new TgbBoard_service().deleteFile(bno);
+		int result = new TgbBoard_service().deleteFile(nno);
 				
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "파일 삭제 완료");
-			response.sendRedirect("tgbBoardDetail.do?bno=" + bno);
+			response.sendRedirect("tgbBoardDetail.do?nno=" + nno);
 		}else {
 			request.setAttribute("msg", "파일 삭제 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

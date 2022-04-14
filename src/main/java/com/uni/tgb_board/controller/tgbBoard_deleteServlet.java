@@ -29,15 +29,15 @@ public class tgbBoard_deleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		int result = new TgbBoard_service().deletetgbBoard(bno);
+		int result = new TgbBoard_service().deletetgbBoard(nno);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("msg", "문의글 삭제 완료");
+			request.getSession().setAttribute("msg", "공구게시글 삭제 완료");
 			response.sendRedirect("tgbBoardSelect.do");
 		}else {
-			request.setAttribute("msg", "문의글 삭제 실패");
+			request.setAttribute("msg", "공구게시글 삭제 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

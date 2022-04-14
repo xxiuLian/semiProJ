@@ -60,29 +60,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- 
-				<tr>
-					<td>3</td>
-					<td>마지막 공지사항제목</td>
-					<td>admin</td>
-					<td>10</td>
-					<td>2020-02-10</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>두번째 공지사항제목</td>
-					<td>admin</td>
-					<td>100</td>
-					<td>2020-02-01</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>첫번째 공지사항 제목</td>
-					<td>admin</td>
-					<td>45</td>
-					<td>2019-12-25</td>
-				</tr>
-				 -->
 				 	 <% if(list.isEmpty()){ %>
 				 	<tr>
 						<td colspan="5">존재하는 이벤트가 없습니다.</td>

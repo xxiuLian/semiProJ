@@ -62,21 +62,21 @@
 				<!-- 
 				<tr>
 					<td>3</td>
-					<td>마지막 공지사항제목</td>
+					<td>마지막 제목</td>
 					<td>admin</td>
 					<td>10</td>
 					<td>2020-02-10</td>
 				</tr>
 				<tr>
 					<td>2</td>
-					<td>두번째 공지사항제목</td>
+					<td>두번째 제목</td>
 					<td>admin</td>
 					<td>100</td>
 					<td>2020-02-01</td>
 				</tr>
 				<tr>
 					<td>1</td>
-					<td>첫번째 공지사항 제목</td>
+					<td>첫번째 제목</td>
 					<td>admin</td>
 					<td>45</td>
 					<td>2019-12-25</td>
@@ -84,7 +84,7 @@
 				 -->
 				 	 <% if(list.isEmpty()){ %>
 				 	<tr>
-						<td colspan="5">존재하는 공지사항이 없습니다.</td>
+						<td colspan="5">존재하는 공구게시판이 없습니다.</td>
 					</tr>
 				 <% }else{  %>
 				 	<% for(TgbBoard_dto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
