@@ -113,7 +113,7 @@
 	  }
 	  
 	  function payment(){
-		  window.open("${contextPath}/payView.do?bno=${t.tgbNo}", "결제정보", "width=700, height=500 left=800, top=200" )
+		  window.open("${contextPath}/payView.do?bno=${t.tgbNo}", "결제정보", "width=1000, height=700 left=800, top=200" )
 		}
 	
 	</script>
