@@ -16,10 +16,10 @@
 body {
     font-family: 'Titillium Web', sans-serif; 
 }
-#loginBtn{
+a{
     color:#ff5400 ;
 }
-#loginBtn:hover {
+a:hover {
     opacity: 0.8;
     color:#ff5400;
     text-decoration:none;
