@@ -50,7 +50,13 @@
       .slide{ width: 4830px; position: absolute; left: 0px; top: 0; }
       .slide li { width: 1600px; float: left; }
       .slide li img { width: 100%;}
-
+	/*best, new 상품 이미지 크기*/
+	.img-fluid {
+	 max-width: 100%;
+	 width: 450px;
+	 height: 250px;
+	 background-size:cover;
+}
        </style>
     </head>      
     <body id="page-top">
