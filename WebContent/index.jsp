@@ -64,7 +64,7 @@
    	border-radius: 50%;
    	border: 2px solid #3036b4;
 }
-#quick a {line-height:25px;}
+#quick a {line-height:50px;}
        </style>
     </head>      
     <body id="page-top">
