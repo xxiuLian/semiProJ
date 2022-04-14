@@ -38,9 +38,23 @@
 	.userIng{margin-left:20px;}
 	
 	ul, li { list-style: none; }
+	
+	
+	
+	
 </style>
-    </head>
+
+<head>
+
+<!-- 재욱추가B -->
+<link rel="stylesheet" href="css/cssWook.css">
+ 
+</head>
+    
     <body>
+
+    
+    
     <%@ include file="../../views/common/menubar.jsp" %>
     
         <div class="d-flex" id="wrapper">
@@ -65,12 +79,41 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>
             </div>
+            
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
+                
+                
+                <!-- 추가1_재욱boot -->
+                <div class="p-4 p-md-5 mb-7 text-white rounded alert-danger id =" bg-all " >
+			      <div class="col-md-6 px-0">
+			      
+			      	<article class="card" style="width: 28rem; margin: 15px;">
+		                <img class="card-img-top" src="/resources/wookImg/hum.PNG" alt="Card image cap">
+		                
+		                <div class="card-body">
+		                    <h5 class="card-title">Card title</h5>
+		                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		                </div>
+		            </article>
+		          
+                
+			        
+			        <h5 class="display-4 fst-italic" >---님 환영</h5>
+			        <p class="lead my-3">123</p>
+			        
+			        <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+			        <button class="btn btn-primary" id="sidebarToggle">My Menu4</button>
+			      </div>
+			    </div>
+			    <!-- 까지1_재욱boot -->
+                
+                
                 <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
                     <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">My Menu</button>
+                    <div class="container">
+                        
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0 bg-light">
