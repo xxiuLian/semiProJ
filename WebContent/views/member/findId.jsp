@@ -6,17 +6,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.container{
-text-align: center;
-width: 1000px
-}
+
 </style>
 </head>
 <body>
 <%@ include file= "../common/menubar.jsp" %>
 
 
-<div class="container">
+<div class="container" style="text-align: center;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

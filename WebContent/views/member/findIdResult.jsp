@@ -19,7 +19,7 @@
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
- <div class="container">
+<div class="container" style="text-align: center;">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -32,7 +32,6 @@
                     <div style="text-align: center">
                     	<button type="button" class="btn btn-primary" style="width: 210px" onclick= "history.go(-2)">로그인 화면으로 돌아가기</button>
                     </div>
-                     
                     <br><br>
                 </div>
             </div>
