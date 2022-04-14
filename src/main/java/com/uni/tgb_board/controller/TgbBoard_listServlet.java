@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.admin.model.dto.Category;
+import com.uni.common.PageInfo;
+import com.uni.notice.model.dto.NoticeDto;
+import com.uni.qna.model.service.QnaService;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 import com.uni.tgb_board.model.dto.TgbBoard_pageInfo;
 import com.uni.tgb_board.model.service.TgbBoard_service;
@@ -35,54 +39,45 @@ public class TgbBoard_listServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
-		int listPageCount = 10; //한 페이지 내의 글 수
-		int listCount= 0 ; //총 글 수
-		int barStart = 1; //페이징바(한페이지 내에서)
-		int barEnd = 0; //페이징바(한페이지 내에서)
-		int barMax = 0; //페이징바 가장 마지막
-		int barCount = 5; //페이징바 5개
-		int currentPage = 1; //현재 페이지
-			
-		//파라미터 값에 따라서 페이지 변경
+		//페이징시작
+		int listCount; 	 //총 게시글 개수
+		int currentPage; //현재페이지(요청한페이지)
+		int startPage;   //현재페이지 하단에 보여지는 페이징 바의 시작 수
+		int endPage; 	 //현재페이지 하단에 보여지는 페이징 바의 끝 수
+		int maxPage;     //전체 페이지의 가장 마지막 페이지
+		int pageLimit;   //한페이지 하단에 보여질 최대 개수
+		int boardLimit;  //한페이지에 보여질 게시글 최대 개수
+		//총 게시글 개수
+		listCount = new QnaService().getListCount();
+		System.out.println("listCount : " + listCount);
+		//현재페이지
+		currentPage = 1;
+		//페이지 전환시 전달받은 페이지가 있을 경우 전달받은 페이지를 currentPage에 담기
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		pageLimit = 10;
+		boardLimit = 10;
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
 		
-		//총 글 수
-		listCount = new TgbBoard_service().getTgbBoard_listCount();
-		
-		//게시글 목록
-		ArrayList<TgbBoard_dto> list = new TgbBoard_service().getBoardList(currentPage, listPageCount);
-		
-		//목록 마지막
-		// 총 124 한 페이지 10개 면 13개 바 개수
-		barMax = listCount/listPageCount+1;
-	
-		// 이제 저기에 + 1 해주면, 1...2...3... 이런 식
-		// => a + (n-1)d = x (등차 어쩌고 공식)
-		// => 1 + (x-1)*5 => 1...6...11... 
-		
-		int x = 0;
-		x = (currentPage - 1) / barCount + 1 ; //1...2...3...
-		barStart = 1 + (x - 1) * barCount; //6...11...16...
-		
-		barEnd = barStart + barCount - 1;  //5...10...15...
-		
-		//마지막 페이지 일경우 //5...10..15(x)13(o)...
-		if((barStart <= barMax) && (barMax <= barEnd)){
-			System.out.println((barStart <= barMax) && (barMax <= barEnd));
-			barEnd = barMax; 
+		if(maxPage < endPage) {
+			endPage = maxPage;
 		}
+		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
+		//페이징끝
 
-		//pi 생성자로 생성
-		TgbBoard_pageInfo pi = new TgbBoard_pageInfo(listCount, currentPage, barStart, barEnd, barCount, listPageCount, barMax);
+		ArrayList<TgbBoard_dto> list = new TgbBoard_service().selectList(pi);
+		ArrayList<Category> category = new TgbBoard_service().getCategoryList();
 		
-		
+		request.setAttribute("category", category);
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 
-		RequestDispatcher view = request.getRequestDispatcher("views/tgbBoard/tgbBoardListView.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/tgb_Board/tgbBoardListView.jsp");
 		view.forward(request, response);
+
 	}
 
 	/**

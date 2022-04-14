@@ -8,16 +8,15 @@ import static com.uni.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.uni.common.PageInfo;
 import com.uni.event.model.dao.EventDao;
 import com.uni.event.model.dto.EventDto;
-import com.uni.notice.model.dao.NoticeDao;
-import com.uni.notice.model.dto.NoticeDto;
 
 public class EventService {
 
-	public ArrayList<EventDto> selectList() {
+	public ArrayList<EventDto> selectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<EventDto> list = new EventDao().selectList(conn);
+		ArrayList<EventDto> list = new EventDao().selectList(conn, pi);
 		
 		close(conn);
 		return list;
