@@ -100,14 +100,15 @@
 		          
                 
 			        
-			        <h5 class="display-4 fst-italic" >---님 환영</h5>
+			        <h5 class="display-4 fst-italic" >---님 환영123123</h5>
+			         <h5 class="display-4 fst-italic" >---님 환영123123</h5>
 			        <p class="lead my-3">123</p>
 			        
 			        <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
 			        <button class="btn btn-primary" id="sidebarToggle">My Menu4</button>
 			      </div>
 			    </div>
-			    <!-- 까지1_재욱boot -->
+			    <!-- 까지1_재욱boot 123-->
                 
                 
                 <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
