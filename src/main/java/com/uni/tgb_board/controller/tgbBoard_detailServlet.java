@@ -32,7 +32,6 @@ public class tgbBoard_detailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int nno = Integer.parseInt(request.getParameter("nno"));
-		System.out.println("재욱nno : " + nno);
 		TgbBoard_dto b = new TgbBoard_service().selectDetailTgbBoard(nno);
 		
 		String view = "";
@@ -40,7 +39,7 @@ public class tgbBoard_detailServlet extends HttpServlet {
 			request.setAttribute("b", b);
 			view = "views/tgb_Board/tgbBoardDetailView.jsp";
 		}else {
-			request.setAttribute("msg", "공지사항 조회에 실패했습니다.");
+			request.setAttribute("msg", "공구_게시판 조회에 실패했습니다.");
 			view = "views/common/errorPage.jsp";
 		}
 		request.getRequestDispatcher(view).forward(request, response);

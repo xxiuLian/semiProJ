@@ -43,7 +43,7 @@ public class EventListServlet extends HttpServlet {
 		int pageLimit;   //한페이지 하단에 보여질 최대 개수
 		int boardLimit;  //한페이지에 보여질 게시글 최대 개수
 		//총 게시글 개수
-		listCount = new QnaService().getListCount();
+		listCount = new EventService().getListCount(); //재욱재욱3
 		System.out.println("listCount : " + listCount);
 		//현재페이지
 		currentPage = 1;

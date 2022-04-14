@@ -236,6 +236,11 @@ public class TgbBoard_service {
 		return list;
 	}
 
+	public int getListCount() {
+		// TODO Auto-generated method stub //재욱재욱3
+		return 0;
+	}
+
 	
 	
 }
