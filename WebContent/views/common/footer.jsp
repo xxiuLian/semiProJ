@@ -23,6 +23,9 @@ footer {background-color: #fff; border-top: 1px solid #ccc; padding: 50px 0; mar
 .copyright .copytext {float: left; margin-left: 40px; width: 700px; font-size: 18px; line-height: 100px;}
 .clear::after {content: ""; display: block; clear:both;}
 ul, li { list-style: none; }
+.nav-link:hover, .nav-link:focus {
+  color: #1a1f71;
+}
 </style>
 </head>
 <body>

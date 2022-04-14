@@ -603,12 +603,6 @@ progress {
   content: "— ";
 }
 
-.img-fluid {
-  max-width: 100%;
-  width: 450px;
-  height: 250px;
-  background-size:cover;
-}
 
 .img-thumbnail {
   padding: 0.25rem;
@@ -3958,9 +3952,7 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-.nav-link:hover, .nav-link:focus {
-  color: #cca000;
-}
+
 .nav-link.disabled {
   color: #6c757d;
   pointer-events: none;
@@ -4040,8 +4032,8 @@ textarea.form-control-lg {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 .navbar > .container,
 .navbar > .container-fluid,
@@ -4056,8 +4048,8 @@ textarea.form-control-lg {
   justify-content: space-between;
 }
 .navbar-brand {
-  padding-top: 0.3125rem;
-  padding-bottom: 0.3125rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
   margin-right: 1rem;
   font-size: 1.25rem;
   text-decoration: none;
@@ -4480,7 +4472,7 @@ textarea.form-control-lg {
 }
 
 .navbar-dark .navbar-brand {
-  color: #fff;
+  color: #212529;
 }
 .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
   color: #fff;
@@ -11366,12 +11358,7 @@ p {
 #mainNav .navbar-brand img {
   height: 1.5rem;
 }
-#mainNav .navbar-nav .nav-item .nav-link {
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.95rem;
-  color: #fff;
-  letter-spacing: 0.0625em;
-}
+
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #ffc800;
 }
