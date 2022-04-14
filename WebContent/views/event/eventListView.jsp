@@ -1,6 +1,12 @@
 <%@page import="com.uni.event.model.dto.EventDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.event.model.dto.EventDto"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="listCount" value="${pi.listCount}" scope="request" />
+<c:set var="currentPage" value="${pi.currentPage}" scope="request" />
+<c:set var="maxPage" value="${pi.maxPage}" scope="request" />
+<c:set var="startPage" value="${pi.startPage}" scope="request" />
+<c:set var="endPage" value="${pi.endPage}" scope="request" />
     
 <%
 	ArrayList<EventDto> list = (ArrayList<EventDto>) request.getAttribute("list");
@@ -105,6 +111,58 @@
 			<input type="search" name="search">
 			<button type="submit">검색하기</button>
 		</form>
+		
+		
+		<!-- 페이징바 만들기 -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button
+				onclick="location.href='${contextPath}/eventList.do?currentPage=1'">
+				&lt;&lt;</button>
+
+			<!-- 이전페이지로(<) -->
+			<c:choose>
+				<c:when test="${currentPage eq 1}">
+					<button disabled>&lt;</button>
+				</c:when>
+				<c:otherwise>
+					<button
+						onclick="location.href='${contextPath}/eventList.do?currentPage=${currentPage - 1}'">
+						&lt;</button>
+				</c:otherwise>
+			</c:choose>
+			<!-- 페이지 목록 -->
+			<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
+				<c:choose>
+					<c:when test="${p eq currentPage}">
+						<button disabled>${p}</button>
+					</c:when>
+					<c:otherwise>
+						<button
+							onclick="location.href='${contextPath}/eventList.do?currentPage=${p}'">
+							${p}</button>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+
+			<!-- 다음페이지로(>) -->
+			<c:choose>
+				<c:when test="${currentPage eq maxPage}">
+					<button disabled>&gt;</button>
+				</c:when>
+				<c:otherwise>
+					<button
+						onclick="location.href='${contextPath}/eventList.do?currentPage=${currentPage + 1}'">
+						&gt;</button>
+				</c:otherwise>
+			</c:choose>
+
+			<!-- 맨 끝으로 (>>) -->
+			<button
+				onclick="location.href='${contextPath}/eventList.do?currentPage=${maxPage}'">
+				&gt;&gt;</button>
+				
+			<!-- 페이징끝 -->
 		
 		<br><br>
 		<div align="center">

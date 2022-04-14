@@ -42,7 +42,7 @@ public class EventUpdateForm extends HttpServlet {
 	         view = "views/event/eventUpdateForm.jsp";
 	         
 	      }else {
-	         request.setAttribute("msg", "공지사항 조회에 실패했습니다.");
+	         request.setAttribute("msg", "이벤트 조회에 실패했습니다.");
 	         view = "views/common/errorPage.jsp";
 
 	      }

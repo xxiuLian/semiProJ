@@ -30,19 +30,20 @@ public class tgbBoard_detailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		Attachment at = null;
 		
-		TgbBoard_dto b = new TgbBoard_service().selectDetailTgbBoard(bno);
+		int nno = Integer.parseInt(request.getParameter("nno"));
+		System.out.println("재욱nno : " + nno);
+		TgbBoard_dto b = new TgbBoard_service().selectDetailTgbBoard(nno);
 		
-		
-		if(b.getTgbBoardDate() != null) {
-			 at = new TgbBoard_service().selectAttachment(bno);
+		String view = "";
+		if(b != null) {
+			request.setAttribute("b", b);
+			view = "views/tgb_Board/tgbBoardDetailView.jsp";
+		}else {
+			request.setAttribute("msg", "공지사항 조회에 실패했습니다.");
+			view = "views/common/errorPage.jsp";
 		}
-		
-		request.setAttribute("b", b);
-		request.setAttribute("at", at);
-		request.getRequestDispatcher("views/tgbBoard/tgbBoardDetailView.jsp").forward(request, response);
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**

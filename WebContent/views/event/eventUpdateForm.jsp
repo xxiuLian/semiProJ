@@ -33,7 +33,7 @@
 	
 	<div class="outer">
 		<br>
-		<h2 align="center">공지사항 수정하기</h2>
+		<h2 align="center">이벤트 수정하기</h2>
 		
 		<form id="updateForm" action="<%= contextPath %>/updateEvent.do" method="post" >
 		<!-- 수정한 form을 등록하기 누르면 updateNotice.do url로 이동하는 서블릿UpdateNoticeFormServlet만들기 -->
