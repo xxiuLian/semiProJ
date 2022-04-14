@@ -39,7 +39,7 @@ width: 1000px
                             </div>
                         </div>
                             <br><br>
-                        <div class="col-md-6 offset-md-4" style="text-align: center;">
+                        <div class="col-md-6 offset-md-3" style="text-align: center;">
                             <button type="submit" class="btn btn-primary" onClick="idSearch()">
                                 찾기
                             </button>
