@@ -74,7 +74,7 @@
   <div class="container">
   <% if(loginUser == null){ %>
         <div class="kpx_login">
-            <h3 class="kpx_authTitle"><a id="loginBtn" href="#">로그인</a></h3>
+            <h3 class="kpx_authTitle"><a id="loginBtn">로그인</a></h3>
             <div class="row kpx_row-md-offset-md-3">
                 <div class="col-12 col-md-6">
                     <hr />
