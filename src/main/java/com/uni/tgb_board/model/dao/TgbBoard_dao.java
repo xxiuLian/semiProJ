@@ -13,7 +13,11 @@ import java.util.Properties;
 
 import static com.uni.common.JDBCTemplate.*;
 
+import com.uni.admin.model.dto.Category;
 import com.uni.common.Attachment;
+import com.uni.common.PageInfo;
+import com.uni.notice.model.dto.NoticeDto;
+import com.uni.qna.model.dto.Qna;
 import com.uni.tgb_board.model.dto.TgbBoardReply;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 
@@ -570,6 +574,110 @@ public class TgbBoard_dao {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+
+	public ArrayList<TgbBoard_dto> CHECKselectList(Connection conn, int writer) {
+		ArrayList<TgbBoard_dto> list = new ArrayList<TgbBoard_dto>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		System.out.println("되냐 안되냥ㄹㄴ이러마니; : " + writer);
+		String sql = prop.getProperty("CHECKselectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, writer);
+			
+			rset = pstmt.executeQuery();
+
+		
+		while(rset.next()) {
+			list.add(new TgbBoard_dto(rset.getInt("BOARD_NO"),
+				rset.getString("BOARD_TITLE"),
+				rset.getString("USER_ID"),
+				rset.getInt("COUNT"),
+				rset.getDate("CREATE_DATE")
+				));
+		}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+	return list;
+	}
+
+
+	public ArrayList<TgbBoard_dto> selectList(Connection conn, PageInfo pi) {
+		
+		ArrayList<TgbBoard_dto> list = new ArrayList<TgbBoard_dto>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTgbBoardList2");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				TgbBoard_dto q = new TgbBoard_dto();
+					q.setTgbBoardNo(rset.getInt("BOARD_NO"));
+					q.setTgbBoardCategory(rset.getString("TGB_CATEGORY_NAME"));
+					q.setTgbBoardTitle(rset.getString("BOARD_TITLE"));
+					q.setTgbBoardWriter(rset.getString("USER_ID"));
+					q.setTgbBoardCount(rset.getInt("COUNT"));
+					q.setTgbBoardDate(rset.getDate("CREATE_DATE"));
+
+				list.add(q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	public ArrayList<Category> getCategoryList(Connection conn) {
+		
+		ArrayList<Category> list = new ArrayList<Category>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//getCategoryList=SELECT * FROM QNA_CATEGORY ORDER BY QNA_CATEGORY_NO
+		String sql = prop.getProperty("getCategoryList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+//			QNA_CATEGORY_NO	NUMBER
+//			QNA_CATEGORY_NAME	VARCHAR2(30 BYTE)
+			
+			while(rset.next()) {
+				list.add(new Category(rset.getInt("TGB_CATEGORY_NO"), rset.getString("TGB_CATEGORY_NAME")));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 

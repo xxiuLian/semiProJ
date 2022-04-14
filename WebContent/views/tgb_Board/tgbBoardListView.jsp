@@ -1,6 +1,6 @@
-<%@page import="com.uni.notice.model.dto.NoticeDto"%>
+<%@page import="com.uni.tgb_board.model.dto.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.notice.model.dto.NoticeDto"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb_board.model.dto.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="listCount" value="${pi.listCount}" scope="request" />
 <c:set var="currentPage" value="${pi.currentPage}" scope="request" />
@@ -8,7 +8,7 @@
 <c:set var="startPage" value="${pi.startPage}" scope="request" />
 <c:set var="endPage" value="${pi.endPage}" scope="request" />
 <%
-	ArrayList<NoticeDto> list = (ArrayList<NoticeDto>) request.getAttribute("list");
+	ArrayList<TgbBoard_dto> list = (ArrayList<TgbBoard_dto>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -45,7 +45,7 @@
 
 	<div class="outer">
 		<br>
-		<h2 align="center">공지사항</h2>
+		<h2 align="center">공구_게시판</h2>
 		<br>
 		        
 		<table class="listArea" align="center">
@@ -87,13 +87,13 @@
 						<td colspan="5">존재하는 공지사항이 없습니다.</td>
 					</tr>
 				 <% }else{  %>
-				 	<% for(NoticeDto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
+				 	<% for(TgbBoard_dto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
 				 		<tr>
-				 			<td><%= n.getNoticeNo() %></td>
-							<td><%= n.getNoticeTitle() %></td>
-							<td><%= n.getNoticeWriter() %></td>
-							<td><%= n.getCount() %></td>
-							<td><%= n.getCreateDate() %></td>
+				 			<td><%= n.getTgbBoardNo() %></td>
+							<td><%= n.getTgbBoardTitle() %></td>
+							<td><%= n.getTgbBoardWriter() %></td>
+							<td><%= n.getTgbBoardCount() %></td>
+							<td><%= n.getTgbBoardDate() %></td>
 				 		</tr>
 				 	<% } %>
 				 <% } %>
@@ -115,7 +115,7 @@
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
 			<button
-				onclick="location.href='${contextPath}/noticeList.do?currentPage=1'">
+				onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=1'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
@@ -125,7 +125,7 @@
 				</c:when>
 				<c:otherwise>
 					<button
-						onclick="location.href='${contextPath}/noticeList.do?currentPage=${currentPage - 1}'">
+						onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=${currentPage - 1}'">
 						&lt;</button>
 				</c:otherwise>
 			</c:choose>
@@ -137,7 +137,7 @@
 					</c:when>
 					<c:otherwise>
 						<button
-							onclick="location.href='${contextPath}/noticeList.do?currentPage=${p}'">
+							onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=${p}'">
 							${p}</button>
 					</c:otherwise>
 				</c:choose>
@@ -150,14 +150,14 @@
 				</c:when>
 				<c:otherwise>
 					<button
-						onclick="location.href='${contextPath}/noticeList.do?currentPage=${currentPage + 1}'">
+						onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=${currentPage + 1}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
 			<button
-				onclick="location.href='${contextPath}/noticeList.do?currentPage=${maxPage}'">
+				onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=${maxPage}'">
 				&gt;&gt;</button>
 		
 		<br><br>
@@ -176,7 +176,7 @@
 				$(".listArea>tbody>tr").click(function(){
 					var nno = $(this).children().eq(0).text();
 					
-					location.href="<%=contextPath%>/noticeDetail.do?nno="+nno;
+					location.href="<%=contextPath%>/tgbBoardDetail.do?nno="+nno;
 				})
 			})
 		<%}%>

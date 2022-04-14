@@ -18,7 +18,14 @@ public class TgbBoard_dto {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	public TgbBoard_dto(int tgbBoardNo, String tgbBoardTitle, String tgbBoardWriter, int tgbBoardCount, Date tgbBoardDate) {
+		super();
+		this.tgbBoardNo = tgbBoardNo;
+		this.tgbBoardTitle = tgbBoardTitle;
+		this.tgbBoardWriter = tgbBoardWriter;
+		this.tgbBoardCount = tgbBoardCount;
+		this.tgbBoardDate = tgbBoardDate;
+	}
 
 	public TgbBoard_dto(int tgbBoardNo, String tgbBoardCategory, String tgbBoardWriter, String tgbBoardTitle,
 			String tgbBoardContent, int tgbBoardCount, Date tgbBoardDate, String tgbBoardStatus) {

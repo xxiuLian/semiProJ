@@ -5,13 +5,19 @@ import static com.uni.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.uni.admin.model.dto.Category;
 import com.uni.common.Attachment;
+import com.uni.common.PageInfo;
+import com.uni.notice.model.dto.NoticeDto;
+import com.uni.qna.model.dao.QnaDao;
+import com.uni.qna.model.dto.Qna;
 import com.uni.tgb_board.model.dao.TgbBoard_dao;
 import com.uni.tgb_board.model.dto.TgbBoardReply;
 import com.uni.tgb_board.model.dto.TgbBoard_dto;
 
 public class TgbBoard_service {
 
+	/*
 	//페이지별 게시글
 	public ArrayList<TgbBoard_dto> getBoardList(int currentPage, int listPageCount){
 		Connection conn = getConnection();
@@ -21,6 +27,7 @@ public class TgbBoard_service {
 		close(conn);	
 		return list;
 	}
+	*/
 
 	//총 글 수
 	public int getTgbBoard_listCount() {
@@ -199,6 +206,34 @@ public class TgbBoard_service {
 		close(conn);
 		
 		return result;
+	}
+
+	public ArrayList<TgbBoard_dto> CHECKSelectList(int writer) {
+		Connection conn = getConnection();
+		ArrayList<TgbBoard_dto> list = new TgbBoard_dao().CHECKselectList(conn, writer);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Category> getCategoryList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Category> list = new TgbBoard_dao().getCategoryList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<TgbBoard_dto> getBoardList(PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<TgbBoard_dto> list = new TgbBoard_dao().selectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
 	}
 
 	

@@ -15,7 +15,7 @@ import com.uni.notice.model.service.NoticeService;
 /**
  * Servlet implementation class EventUpdateServlet
  */
-@WebServlet("/updateEvent.so")
+@WebServlet("/updateEvent.do")
 public class EventUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

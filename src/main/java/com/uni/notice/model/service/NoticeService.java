@@ -8,14 +8,15 @@ import static com.uni.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.uni.common.PageInfo;
 import com.uni.notice.model.dao.NoticeDao;
 import com.uni.notice.model.dto.NoticeDto;
 
 public class NoticeService {
 
-	public ArrayList<NoticeDto> selectList() {
+	public ArrayList<NoticeDto> selectList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<NoticeDto> list = new NoticeDao().selectList(conn);
+		ArrayList<NoticeDto> list = new NoticeDao().selectList(conn, pi);
 		
 		close(conn);
 		return list;

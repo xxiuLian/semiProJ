@@ -1,9 +1,6 @@
 package com.uni.event.model.dao;
 
 import static com.uni.common.JDBCTemplate.close;
-import static com.uni.common.JDBCTemplate.commit;
-import static com.uni.common.JDBCTemplate.getConnection;
-import static com.uni.common.JDBCTemplate.rollback;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,8 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.common.PageInfo;
 import com.uni.event.model.dto.EventDto;
-import com.uni.notice.model.dao.NoticeDao;
 
 public class EventDao {
 	
@@ -34,19 +31,21 @@ public class EventDao {
 		}
 		
 	}
-	public ArrayList<EventDto> selectList(Connection conn) {
+	public ArrayList<EventDto> selectList(Connection conn, PageInfo pi) {
 		ArrayList<EventDto> list = new ArrayList<EventDto>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		//selectList=SELECT NOTICE_NO, NOTICE_TITLE, USER_ID, COUNT, CREATE_DATE FROM NOTICE N JOIN MEMBER ON (NOTICE_WRITER=USER_NO) WHERE N.STATUS='Y' ORDER BY NOTICE_NO DESC
-
+//selectList=SELECT * FROM(SELECT ROWNUM RNUM, A.* FROM(SELECT NOTICE_NO, NOTICE_TITLE, USER_ID, COUNT, CREATE_DATE FROM NOTICE_EVENT Q JOIN MEMBER ON (NOTICE_WRITER=USER_NO) WHERE Q.STATUS='Y' AND NOTICE_TYPE = 2 ORDER BY NOTICE_NO DESC)A) WHERE RNUM BETWEEN ? AND ?
 		String sql = prop.getProperty("selectList");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
-			
 			
 			while(rset.next()) {
 				list.add(new EventDto(rset.getInt("NOTICE_NO"),

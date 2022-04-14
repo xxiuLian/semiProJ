@@ -9,36 +9,51 @@
 <body>
 <%@ include file="../common/menubar.jsp" %>
 <jsp:include page = "tgbEnterView.jsp"/>
-<div class="content3">진행자 id : ${t.tgbWriter}</div>
 
+<div class="content3">참여자정보
+<c:forEach items="${listMem}" var="list"  varStatus="st">
+<tr class="">
+	<td><c:out value="아이디 : ${list.userId}"/><br>
+	<td><c:out value="휴대폰 : ${list.phone}"/><br>
+	<td><c:out value="이메일 : ${list.email}"/><br>
+	
+</tr>
+</c:forEach>
+</div>
+
+
+<%--
 <script>
 $(document).ready(function(){
 	memberdataWook2();
 })
 
-//추가_재욱
 function memberdataWook2(){
 	
 	$.ajax({
 		url : "member1.do",
 		data : {
-			writer : "${t.tgbWriter}"
+			writer : "${listMem.userId}"
 		},
 		type :"post",
-		success : function(m){
-			console.log(m);
-			var a = '<h6>참여자22 아이디 : '+ m.userId+'</h6>';
-			a += '<h6> 핸드폰 번호 : '+ m.phone+'</h6>';
-			a += '<h6> 이메일 주소 : '+ m.email+'</h6>';
+		success : function(listMem){
+			
+			console.log("test다 : "listMem);
+			var a = '<h6>참여자22 아이디 : '+ listMem.userId+'</h6>';
+			a += '<h6> 핸드폰 번호 : '+ listMem.phone+'</h6>';
+			a += '<h6> 이메일 주소 : '+ listMem.email+'</h6>';
 			
 			$('.content3').html(a);
+			
 		},
 		error : function(){
 			
 		}
 	})
+	
 };
-//까지_재욱
+--%>
+
 
 </script>
 </body>
