@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.uni.admin.model.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.common.PageInfo;
+import com.uni.member.model.dto.Member;
 import com.uni.notice.model.dto.NoticeDto;
 import com.uni.qna.model.dao.QnaDao;
 import com.uni.qna.model.dto.Qna;
@@ -240,6 +241,24 @@ public class TgbBoard_service {
 		Connection conn = getConnection();
 		
 		int listCount = new TgbBoard_dao().getTgbBoard_listCount(conn);
+		
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<TgbBoard_dto> getCheckBoardList(PageInfo pi, String userId) {
+		Connection conn = getConnection();
+		ArrayList<TgbBoard_dto> list = new TgbBoard_dao().CheckselectList(conn, pi, userId);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int CheckgetListCount(int userId) {
+		Connection conn = getConnection();
+		
+		int listCount = new TgbBoard_dao().CheckgetListCount(conn, userId);
 		
 		close(conn);
 		return listCount;
