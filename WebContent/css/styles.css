@@ -239,18 +239,6 @@ sup {
   top: -0.5em;
 }
 
-a {
-  color: #ffc800;
-  text-decoration: underline;
-}
-a:hover {
-  color: #cca000;
-}
-
-a:not([href]):not([class]), a:not([href]):not([class]):hover {
-  color: inherit;
-  text-decoration: none;
-}
 
 pre,
 code,
@@ -3943,7 +3931,6 @@ textarea.form-control-lg {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #ffc800;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -3969,10 +3956,7 @@ textarea.form-control-lg {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
-.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: #e9ecef #e9ecef #dee2e6;
-  isolation: isolate;
-}
+
 .nav-tabs .nav-link.disabled {
   color: #6c757d;
   background-color: transparent;
@@ -11360,7 +11344,7 @@ p {
 }
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #ffc800;
+  color: #3036b4;
 }
 
 @media (min-width: 992px) {
