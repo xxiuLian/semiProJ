@@ -30,15 +30,15 @@ public class tgbBoard_updateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		TgbBoard_dto b = new TgbBoard_service().selectUpdateTgbBoard(bno);
-		Attachment at = new TgbBoard_service().selectAttachment(bno);
+		TgbBoard_dto b = new TgbBoard_service().selectUpdateTgbBoard(nno);
+		Attachment at = new TgbBoard_service().selectAttachment(nno);
 		
 		if(b != null) {
 			request.setAttribute("b", b);
 			request.setAttribute("at", at);
-			request.getRequestDispatcher("views/tgbBoard/tgbBoardUpdateForm.jsp").forward(request, response);
+			request.getRequestDispatcher("views/tgb_Board/tgbBoardUpdateForm.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "tgbBoard의 게시글을 불러오는데 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

@@ -41,10 +41,10 @@ public class EventInsertServlet extends HttpServlet {
 		int result = new EventService().insertNotice(n);
 		
 		if(result > 0 ) {
-			request.getSession().setAttribute("msg", "공지사항이 등록되었습니다.");
+			request.getSession().setAttribute("msg", "이벤트가 등록되었습니다.");
 			response.sendRedirect("eventList.do");
 		}else {
-			request.setAttribute("msg", "공지사항 실패하였습니다. ");
+			request.setAttribute("msg", "이벤트 등록이 실패하였습니다. ");
 		
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);

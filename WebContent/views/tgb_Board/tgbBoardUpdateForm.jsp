@@ -32,7 +32,7 @@
 	<h2 align="center">게시판 수정하기</h2>
 	
 	<form id="updateForm" action="<%= request.getContextPath()%>/tgbBoardUpdate.do" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="bno" value="<%= b.getTgbBoardNo() %>">
+		<input type="hidden" name="nno" value="<%= b.getTgbBoardNo() %>">
 	
 		<table align="center">
 			<tr>
@@ -82,7 +82,7 @@
 	</div>
 	
 	<form action="" id="postForm" method="post">
-		<input type="hidden" name="bno" value="<%= b.getTgbBoardNo() %>">
+		<input type="hidden" name="nno" value="<%= b.getTgbBoardNo() %>">
 	</form>
 	
 	<script>

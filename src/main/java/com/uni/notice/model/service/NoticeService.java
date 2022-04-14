@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.uni.common.PageInfo;
 import com.uni.notice.model.dao.NoticeDao;
 import com.uni.notice.model.dto.NoticeDto;
+import com.uni.tgb_board.model.dao.TgbBoard_dao;
 
 public class NoticeService {
 
@@ -91,5 +92,16 @@ public class NoticeService {
 		close(conn);
 		return result;
 	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new NoticeDao().getListCount(conn);
+		
+		close(conn);
+		return listCount;
+	}
+
+
 
 }
