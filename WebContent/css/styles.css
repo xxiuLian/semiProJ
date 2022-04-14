@@ -208,6 +208,7 @@ dd {
 blockquote {
   margin: 0 0 1rem;
 }
+ul, li { list-style: none; }
 
 b,
 strong {

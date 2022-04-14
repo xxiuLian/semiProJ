@@ -13,7 +13,7 @@
         <meta name="author" content="" />
         <title>Agency - Start Bootstrap Theme</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"/>
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -64,7 +64,7 @@
    	border-radius: 50%;
    	border: 2px solid #3036b4;
 }
-#quick a {line-height:25px;}
+#quick a {line-height:50px;}
        </style>
     </head>      
     <body id="page-top">

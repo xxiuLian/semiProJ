@@ -15,6 +15,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  <link href="css/styles.css" rel="stylesheet" />
  <script type="text/javascript">
@@ -81,8 +83,15 @@ a {
 a:hover {
   color: #1a1f71;
 }*/
-
-
+ul, li { list-style: none; }
+/* 공지 드롭다운 */
+.event {
+    /*position: absolute;
+	left: 1150px; */
+    margin-left:-30px;
+    display: none;
+}
+.event.on { visibility: visible; }
 
 </style>
 </head>
@@ -95,14 +104,19 @@ a:hover {
 			<% if(loginUser == null){ %>
 			 <input type="text" id="search" style="width:500px; height:50px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0" style="margin-right:20px;">
-					<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:30px; margin-right:10px;">공지</a></li>
+				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0" style="margin-right:20px;">					
+					<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:30px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
+					<ul class="event">
+						<li class="nav-item"><a class="nav-link" href="eventList.do" style="font-size:20px;">이벤트</a></li>
+						<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:20px;">공지</a></li>
+					</ul>
 					<li class="nav-item"><a class="nav-link" href="login.do" style="font-size:30px; margin-right:10px;">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="enroll.do" style="font-size:30px; margin-right:10px;">회원가입</a></li>
 				</ul>
 			</div>
+
 			<% }else if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
-			<input type="text" id="search" style="width:500px; height:50px; margin-left:150px;"><button type="button" class="searchbutton" onclick="searching();">검색</button><br><br><!-- 검색창 -->
+			<input type="text" id="search" style="width:500px; height:50px; margin-left:150px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 
 			</div>
@@ -115,12 +129,15 @@ a:hover {
             </div>
          </div>
 			<% }else{ %>
-				<input type="text" id="search" style="margin-left:30px;"><button type="button" class="searchbutton" onclick="searching();">검색</button><br><br><!-- 검색창 -->
+				<input type="text" id="search" style="margin-left:30px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지 <i class="fa-solid fa-angle-down"></i></a>
+					<ul class="event">
+						<li class="nav-item"><a class="nav-link" href="eventList.do">이벤트</a></li>
+						<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
+					</ul>
 					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">공구게시판</a></li>
-					<li class="nav-item"><a class="nav-link" href="eventList.do">이벤트</a></li>
-					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li>
@@ -147,7 +164,17 @@ a:hover {
 	function main(){
 		location.href = "<%=contextPath%>";
 	}
-	
+	//서브메뉴 슬라이드다운
+	$(".navbar-nav>li").on({
+	    "mouseenter" : function(){ //공지에 마우스를 올리면 1. ul event에 on이라는 클래스를 적용(94행) 2. 슬라이드다운
+	        $(this).children(".event").addClass("on").slideDown()
+	    },
+		"mouseleave" :function(){//마우스가 떠나면 1. 슬라이드업 2.on클래스 삭제
+	        $(".event").slideUp().removeClass("on");
+	    },
+	    
+	})
+
 	</script>
 </body>
 </html>
