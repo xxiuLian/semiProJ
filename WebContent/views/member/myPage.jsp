@@ -97,11 +97,7 @@
 		                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 		                </div>
 		            </article>
-		          
-                
 			        
-			        <h5 class="display-4 fst-italic" >---님 환영123123</h5>
-			         <h5 class="display-4 fst-italic" >---님 환영123123</h5>
 			        <p class="lead my-3">123</p>
 			        
 			        <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
