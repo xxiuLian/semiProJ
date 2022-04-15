@@ -19,6 +19,8 @@ public class Tgb {
 	private Date createDate;     // 공구 글 작성일
 	private String status;       // 상태값 
 	
+	private String price;
+	
 	private String thumnail;    //썸네일
 	
 	public Tgb() {}
@@ -80,7 +82,19 @@ public class Tgb {
 	}
 
 	
-	
+	public Tgb(int tgbNo, String tgbCategory, String tgbTitle, String tgbWriter, int count, Date tgbTerm, String price,
+			Date createDate, String thumnail) {
+		super();
+		this.tgbNo = tgbNo;
+		this.tgbCategory = tgbCategory;
+		this.tgbTitle = tgbTitle;
+		this.tgbWriter = tgbWriter;
+		this.count = count;
+		this.tgbTerm = tgbTerm;
+		this.price = price;
+		this.createDate = createDate;
+		this.thumnail = thumnail;
+	}
 	
 
 
