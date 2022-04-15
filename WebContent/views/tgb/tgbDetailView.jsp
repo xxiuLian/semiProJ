@@ -50,17 +50,17 @@ td{
 	
 }
 #titleImg{
-	width:300px;
-	height:300px;
-	border: 0.2px solid black;
+	height: auto;
+	width: 300px;
+	border: 1px solid rgb(223, 220, 220);
+	border-radius: 7px;
 	overflow:hidden;
 	margin : 0 auto;
-	display:inline-block;
+	
 	float : left;
-   overflow: hidden;
-   display: flex;
-   align-items: center;
-   justify-content: center;
+	color: rgb(128, 128, 128);
+	display: flex;
+    align-items: center
 	
 }
 /*#titleImg img{
