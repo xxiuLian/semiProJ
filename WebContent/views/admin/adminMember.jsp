@@ -185,7 +185,8 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var userNo = $(this).parent().children().eq(1).text();
 				console.log(userNo)
-				window.open("${contextPath}/memberView.do?userNo="+userNo, "정보조회","width=700, height=600")
+				var option = "width=700, height=600, left=100, top=100, location=no, toolbars=no"
+				window.open("${contextPath}/memberView.do?userNo="+userNo, "정보조회", option)
 			})
 		})
 	}
