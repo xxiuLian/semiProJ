@@ -35,11 +35,11 @@
 		border: 1px solid lightgray;
 		border-radius: 5px;
 	}
-	.grayBtn,  #resetBtn{
+	#deleteBtn,  #resetBtn{
 		border: 1px solid black;
 		
 	}
-	 .grayBtn:hover{
+	 #deleteBtn:hover{
 		background-color:#eee;
 	}
 	#resetBtn:hover{
@@ -58,28 +58,29 @@
 	font-weight: 700;
 	font-size: 15px;
    }
-     .grayBtn{
+   #deleteBtn{
 	background:rgb(216, 216, 216); 
 	color:rgb(85, 85, 85); 
 	font-size:20px; 
-	width: 200px; 
-	height: 50px;
+	width: 250px; 
+	height: 60px;
 	border-radius:5px;
 	border: 0.2px solid rgb(216, 216, 216);
 	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 700;
-	font-size: 15px;
+	font-size: 25px;
    }
+   
    #blueBtn{
 	   background:rgb(11, 100, 159); 
 	   color:white; 
-	   width: 100px; 
+	   width: 140px; 
 	   height: 40px;
 	   border-radius:5px;
 	   border: 0.2px solid rgb(216, 216, 216);
 	   font-family: 'Noto Sans KR', sans-serif;
 	   font-weight: 700;
-	   font-size: 13px;
+	   font-size: 17px;
 	}
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -195,7 +196,7 @@
 						<br>
 						<div class="btns" align="center">
 							<c:if test="${!empty category}">
-								<button type="button" class="grayBtn" onclick="deleteCategorys()">선택 카테고리 삭제</button>
+								<button type="button" id="deleteBtn" onclick="deleteCategorys()">선택 카테고리 삭제</button>
 							</c:if>
 						</div>
 						</form>
