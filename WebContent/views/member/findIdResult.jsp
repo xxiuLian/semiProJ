@@ -23,7 +23,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">아이디 찾기 결과</div>
+                    <div class="card-header"><b>아이디 찾기 결과</b></div>
                         <br>
                     <div class="card-body" style="text-align: center;">
                         <label class="col-md-6 col-form-label text-md-right"><b><%=userName %>&nbsp;님</b>의<br><br>아이디는&nbsp;<b><%= userId %>&nbsp;</b>입니다.<br></label>
