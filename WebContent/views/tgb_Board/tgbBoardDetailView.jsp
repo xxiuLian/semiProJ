@@ -4,11 +4,20 @@
 <%@ page import="com.uni.tgb_board.model.dto.*" %>
 <%
 TgbBoard_dto b = (TgbBoard_dto)request.getAttribute("b");
+String admin = (String)request.getAttribute("admin");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+<link href="css/styles.css" rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -30,8 +39,9 @@ TgbBoard_dto b = (TgbBoard_dto)request.getAttribute("b");
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp" %>
-	
+	<%if(admin == null){ %>
+		 <%@ include file="../../views/common/menubar.jsp" %>
+	<%}%>
 	<div class="outer">
 		<br>
 		
@@ -64,12 +74,13 @@ TgbBoard_dto b = (TgbBoard_dto)request.getAttribute("b");
 		<br>
 		
 		<div class="btns" align="center">
-		
+		<%if(admin == null){ %>
+	
 			<a href="tgbBoardSelect.do">목록으로</a> &nbsp;&nbsp;
-			
+		<%}%>
 			
 			<% 
-			if(loginUser != null && loginUser.getUserNo() == Integer.parseInt(b.getTgbBoardWriter())) { %>
+			if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getUserNo() == Integer.parseInt(b.getTgbBoardWriter())) { %>
 				<a href="tgbBoardUpdateForm.do?nno=<%=b.getTgbBoardNo()%>">수정하기</a> &nbsp;&nbsp;
 				<a href="ChecktgbBoardDelete.do?nno=<%=b.getTgbBoardNo()%>">삭제하기</a>
 			<% } %>
