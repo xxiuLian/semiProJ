@@ -121,7 +121,13 @@ a:hover {
 			<% }else if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
 			<input type="text" id="search" style="width:500px; height:50px; margin-left:150px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
-
+					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+						<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:30px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
+							<ul class="event">
+								<li class="nav-item"><a class="nav-link" href="eventList.do">이벤트</a></li>
+								<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
+							</ul>
+					</ul>
 			</div>
 			<div id = "userInfo">
             <b class="userWho"><%=loginUser.getUserName() %></b> 접속 완료
@@ -170,11 +176,11 @@ a:hover {
 	//서브메뉴 슬라이드다운
 	$(".navbar-nav>li").on({
 	    "mouseenter" : function(){ //공지에 마우스를 올리면 1. ul event에 on이라는 클래스를 적용(94행) 2. 슬라이드다운
-	        $(this).children(".event").addClass("on").slideDown()
+	        $(this).children(".event").stop().addClass("on").slideDown()
 	    },
 		"mouseleave" :function(){//마우스가 떠나면 1. 슬라이드업 2.on클래스 삭제
-	        $(".event").slideUp().removeClass("on");
-	    },
+	        $(".event").stop().slideUp().removeClass("on");
+	    } //마우스enter,leave 반복하면 연속적으로 이벤트가 실행됨 .stop()으로 막기 
 	    
 	})
 
