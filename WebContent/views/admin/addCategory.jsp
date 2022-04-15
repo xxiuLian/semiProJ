@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <form id="addCategory" action="${contextPath}/addCategory.do?keyword=${keyword}" method="post">
                         <div class="form-group row">
-                            <label for="cno" class="col-md-4 col-form-label text-md-right">이름</label>
+                            <label for="cno" class="col-md-4 col-form-label text-md-right">카테고리 이름</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="cno" placeholder="번호를 입력하세요"
                                     required autofocus>
