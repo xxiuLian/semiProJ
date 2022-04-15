@@ -92,8 +92,6 @@ table td{font-size: 18px;}
 		</form>
 
 
-
-
 		<!-- 댓글 리스트들 보여주는 div -->
 		<div id="replyListArea">
 			<table class="table table-condensed" id="replyList" align="center">
