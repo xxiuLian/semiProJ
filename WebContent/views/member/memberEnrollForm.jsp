@@ -48,7 +48,7 @@
    }
    td{
 	   height: 60px;
-	   border: 1px solid red;
+	   
    }
    .labelText{
 	font-family: 'Noto Sans KR', sans-serif;
