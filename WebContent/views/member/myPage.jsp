@@ -94,40 +94,40 @@
             
                     <ul class="thumbnails">
                     
-                        <li class="col-sm-3" id="pading0">
-							<div class="thumbnail" >
+                        <li class="col-sm-3 " id="pading0">
+							<div class="thumbnail upsize" >
 								<img src="resources/wookImg/hum.png" id="imgWook" >
 								<h4 class="whiteback">${loginUser.userName}</h4>
 								<p class="whiteback">${loginUser.userName}님 환영합니다.</p>
 								<%-- <a class="btn btn-mini" href="#">» Read More</a> --%>
                             </div>
                         </li>
-                        <li class="col-sm-3 " >
+                        <li class="col-sm-3 upsize">
 							<div class="casing whiteback wooksize" >
 								<div class="caption whiteback" >
-									<h1>구 매</h1>
+									<h1 class="chatSize">구 매</h1>
 									<p>────────────</p>
-									<p><%= payCount %>건</p>
+									<h3><%= payCount %>건</h3>
 									<%--<a class="btn btn-mini" href="#">» Read More</a> --%>
 								</div>
                             </div>
                         </li>
-                        <li class="col-sm-3">
+                        <li class="col-sm-3 upsize">
 							<div class="casing whiteback wooksize" >
 								<div class="caption ">
-									<h1>진 행</h1>
+									<h1 class="chatSize">진 행</h1>
 									<p>────────────</p>
-									<p><%= payCount %>건</p>
+									<h3><%= payCount %>건</h3>
 									<%--<a class="btn btn-mini" href="#">» Read More</a> --%>
 								</div>
                             </div>
                         </li>
-                        <li class="col-sm-3">
+                        <li class="col-sm-3 upsize">
 							<div class="casing whiteback wooksize">
 								<div class="caption">
-									<h1>문 의</h1>
+									<h1 class="chatSize">문 의</h1>
 									<p>────────────</p>
-									<p><%= payCount %>건</p>
+									<h3><%= payCount %>건</h3>
 									<%--<a class="btn btn-mini" href="#">» Read More</a> --%>
 								</div>
                             </div>
