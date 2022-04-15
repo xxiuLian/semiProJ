@@ -12,15 +12,82 @@
 <link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
 <style type="text/css">
-.listArea {
-	border: 1px solid black;
-	text-align: center;
-}
-
-.listArea>tbody>tr:hover {
-	background: darkgrey;
-	cursor: pointer
-}
+	.outer{
+		width:1000px;
+		height:500px;
+		background:#fff;
+		color:black;
+		margin:auto;
+		margin-top:50px;
+	}
+	.listArea{
+		border:1px solid white;
+		text-align:center;
+	}
+	.searchArea{
+		margin-top:50px;
+	}
+	
+	.pagingArea{
+		margin-top:15px;
+	}
+	.pagingicon{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#writeadmin, #searchbtn{
+		border: 1px solid black;
+		
+	}
+	#writeadmin:hover{
+		background-color:#eee;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
+	}
+	.qnaCategory{
+		float: left;
+	}
+	
+	.btnsArea{
+	   width: 100%;
+	   height: 80px;
+	   justify-content: center;
+	   display: flex;
+	   align-items: center;
+	   
+   }
+   #search1{
+   		padding-top: 10px;
+   		width: 200px; 
+   		height: 40px;
+   		border-radius:5px;
+   		border: 0.2px solid rgb(150, 150, 150);
+   }
+   
+    #searchbtn{
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 70px; 
+	height: 40px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 25px;
+   }
+   #enrollBtn{
+	   background:rgb(11, 100, 159); 
+	   color:white; font-size:20px; 
+	   width: 140px; 
+		height: 50px;
+	   border-radius:5px;
+	   border: 0.2px solid rgb(216, 216, 216);
+	   font-family: 'Noto Sans KR', sans-serif;
+	   font-weight: 700;
+	   font-size: 20px;
+	}
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
@@ -98,13 +165,14 @@
 						</div>
 					</div>
 					<br>
+				<div class="outer">
 					<div class="btns" align="right">
 						<button type="button" onclick="addCategory()">카테고리 추가</button>
 					</div>
 					<form id="deleteCategory" action="${contextPath}/deleteCategory.do?keyword=${keyword}"
 						method="post">
 
-						<table class="listArea" align="center">
+						<table class="listArea table table-hover" align="center">
 							<thead>
 								<tr>
 									<th width="100"><button type="reset">전체취소</button></th>
@@ -154,6 +222,7 @@
 					</div>
 				</div>
 			</footer>
+			</div>
 		</div>
 	</div>
 </body>
