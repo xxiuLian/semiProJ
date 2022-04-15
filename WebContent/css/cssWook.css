@@ -1,11 +1,8 @@
 @charset "UTF-8";
 
-/*재욱추가B */
-.card-title{text-align: center;}
-#asdf{background-color : white; color:balck;}
-#imgWook{border-color:"white";}
-/*재욱까지B */
-img { max-width:100%; }
+
+
+img { max-width:100;}
 
 a {
     -webkit-transition: all 150ms ease;
@@ -131,3 +128,16 @@ li { list-style-type:none;}
     border-radius: 23px !important;
     padding: 11px 14px !important;  
 }
+
+
+/*재욱추가B */
+.card-title{text-align: center;}
+#asdf{background-color : white; color:balck;}
+#imgWook{border-color:"white"; width:100px; margin:1px;}
+#wook{background-color:pink;}
+#pading0{padding:0px;}
+#backgPink{background-color: rgb(255, 242, 242);}
+.whiteback{background-color:white !important; text-align: center;}
+.wooksize{height:140px !important; margint:100px important;}
+#myImgL{height:200px !important; float: left; }
+/*재욱까지B */

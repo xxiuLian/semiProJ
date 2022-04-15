@@ -52,16 +52,18 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- 재욱추가B -->
 <link rel="stylesheet" href="css/cssWook.css">
- 
+
 </head>
     
 <body>
 
     <%@ include file="../../views/common/menubar.jsp" %>
+    
+
 
    <div class="d-flex" id="wrapper">
        <!-- Sidebar-->
-       <div class="border-end bg-white" id="sidebar-wrapper">
+       <div class="border-end bg-white" id="sidebar-wrapper" >
            <div class="sidebar-heading border-bottom bg-light"><a href="<%=contextPath %>/myPage.do">Start Bootstrap</a></div>
            <div class="list-group list-group-flush">
                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do" id="myInfo">내 정보</a>
@@ -82,179 +84,55 @@
            </div>
        </div>
        
-
-    <div class="page-header">
-        
-    </div>
-<div class="container">
-<div class="col-xs-12">
+<div class="container" id="pading0">
+<div class="col-xs-12" id="pading0" >
     <div class="carousel slide" id="myCarousel">
-        <div class="carousel-inner">
-            <div class="item active">
-                    <ul class="thumbnails">
-                        <li class="col-sm-3">
-    						<div class="casing">
-								<div class="thumbnail">
-									<img class="card-img-top" src="resources/wookImg/hum.png" id="imgWook" >
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                    </ul>
-              </div><!-- /Slide1 --> 
-            <div class="item">
-                    <ul class="thumbnails">
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                    </ul>
-              </div><!-- /Slide2 --> 
-            <div class="item">
-                    <ul class="thumbnails">
-                        <li class="col-sm-3">	
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                        <li class="col-sm-3">
-							<div class="casing">
-								<div class="thumbnail">
-									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-								</div>
-								<div class="caption">
-									<h4>Item Title</h4>
-									<p>Hello world, something nice to develop</p>
-									<a class="btn btn-mini" href="#">» Read More</a>
-								</div>
-                            </div>
-                        </li>
-                    </ul>
-              </div><!-- /Slide3 --> 
-        </div>
+    <button class="btn btn-primary" id="sidebarToggle">My Menu3</button>
+        <div class="carousel-inner" id="backgPink" >
         
-       
-	   <nav>
-			<ul class="control-box pager">
-				<li class="left"><a data-slide="prev" href="#myCarousel" class="arrowStil"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
-				<li class="right"><a data-slide="next" href="#myCarousel" class="arrowStil"><i class="glyphicon glyphicon-chevron-right"></i></li>
-			</ul>
-		</nav>
+            <div class="item active" >
+            
+                    <ul class="thumbnails">
+                    
+                        <li class="col-sm-3" id="pading0">
+							<div class="thumbnail" >
+								<img src="resources/wookImg/hum.png" id="imgWook" >
+								<h4 class="whiteback">${loginUser.userName}</h4>
+								<p class="whiteback">${loginUser.userName}님 환영합니다.</p>
+								<%-- <a class="btn btn-mini" href="#">» Read More</a> --%>
+                            </div>
+                        </li>
+                        <li class="col-sm-3 " >
+							<div class="casing whiteback wooksize" >
+								<div class="caption whiteback" >
+									<h1>구 매</h1>
+									<p>────────────</p>
+									<p><%= payCount %>건</p>
+									<%--<a class="btn btn-mini" href="#">» Read More</a> --%>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing whiteback wooksize" >
+								<div class="caption ">
+									<h1>진 행</h1>
+									<p>────────────</p>
+									<p><%= payCount %>건</p>
+									<%--<a class="btn btn-mini" href="#">» Read More</a> --%>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing whiteback wooksize">
+								<div class="caption">
+									<h1>문 의</h1>
+									<p>────────────</p>
+									<p><%= payCount %>건</p>
+									<%--<a class="btn btn-mini" href="#">» Read More</a> --%>
+								</div>
+                            </div>
+                        </li>
+                    </ul>
 	   <!-- /.control-box -->   
                               
     </div><!-- /#myCarousel -->
@@ -273,7 +151,7 @@
                 
                 <div class="p-3 p-md-5 text-white rounded alert-danger" >
                 
-	                <div class="container show-grid ">
+	                <div class="container show-grid">
 		                <div class="row">
 					      <div class="col-md-2 " id="asdf">
 					      	<article class="card" style="color:black">
