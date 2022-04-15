@@ -227,7 +227,8 @@
 	}
 	
 	function addCategory(){
-		window.open("${contextPath}/addCategoryForm.do?keyword=${keyword}", "카테고리 추가", "width=500, height=170 left=800, top=200" );
+		var option = "width=500, height=450, left=700, top=300, location=no, toolbars=no"
+		window.open("${contextPath}/addCategoryForm.do?keyword=${keyword}", "카테고리 추가", option );
 	}
 
 	if(!${empty category}){
