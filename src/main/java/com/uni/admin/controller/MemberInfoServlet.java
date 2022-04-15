@@ -37,7 +37,9 @@ public class MemberInfoServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		if(member != null) {
+			String admin = "admin";
 			request.setAttribute("loginUser", member);
+			request.setAttribute("admin", admin);
 			view = request.getRequestDispatcher("views/member/myInfo.jsp");
 		}else {
 			request.setAttribute("msg", "조회 실패하였습니다."); //조회 한 결과 해당 유저 정보가 없을때

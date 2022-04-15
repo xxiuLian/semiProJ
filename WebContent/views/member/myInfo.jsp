@@ -4,6 +4,10 @@
 <c:set var="loginUser" value="${sessionScope.loginUser}" scope="session"/>
 <c:set var="msg" value="${sessionScope.msg}" scope="session"/>
 <c:set var="contextPath" value="<%= request.getContextPath()%>" scope="session"/>
+<%
+	String admin = (String)request.getAttribute("admin");
+	System.out.println("어드민 " + admin);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,12 +113,17 @@ td{
 </style>
     </head>
     <body>
-    <%@ include file="../../views/common/menubar.jsp" %>
-    <div class="container" >
+	<%if(admin == null){ %>
+		 <%@ include file="../../views/common/menubar.jsp" %>
+	<%}%>
+    <div class="container">
+   
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
+             <%if(admin == null){ %>
+
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light"><a href="<%=contextPath %>/myPage.do">Start Bootstrap</a></div>
+                <div class="sidebar-heading border-bottom bg-light"><a href="${contextPath}/myPage.do">Start Bootstrap</a></div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do" id="myInfo">내 정보</a>
                         <div>
@@ -141,11 +150,16 @@ td{
 				<!-- <div class="content">
 				
 				</div> -->
-				
+					<%}%>
 				<div class="content">
+				<%if(admin == null){ %>
+	
 					<div id="titletext" align="center">마이페이지</div>
+					<%}else {%>
+					<div id="titletext" align="center">회원 정보</div>
+					<%}%>
 					<form id="updateForm" action="<%=request.getContextPath() %>/updateMember.do" method="post">
-															
+										
 					<table>
 						<tr>
 							<td class="labelText" width="200px"> 아이디</td>
@@ -190,7 +204,7 @@ td{
 						<tr>
 							<td class="labelText"> 우편번호</td>
 							<td><input type="text"  class="inputcss" name="post" value= "${loginUser.post }" class="form-control mr-2 postcodify_postcode5" size="6"></td> 
-							<td><button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button></td>
+							<td><%if(admin == null){ %><button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button><%} %></td>
 							
 							
 							<td></td>
@@ -209,7 +223,8 @@ td{
 						</tr>
 					</table>
 					<br>
-			
+			<%if(admin == null){ %>
+
 						<div class="btns" align="center">
 							<button type="submit" class="Allbtns" id="updateBtn">수정하기</button>
 							
@@ -217,6 +232,7 @@ td{
 							<button type="button" class="Allbtns" id = "deleteBtn" onclick="deleteMember();">탈퇴하기</button>
 							
 						</div>
+			<%}%>
 						<!-- jQuery와 Postcodify를 로딩한다. -->
 						<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 						<script>
@@ -232,9 +248,11 @@ td{
 	</div>
 	</div>
 	<script>
-	
+	if(window.opener){
+		console.log('진입')
+	}
 		function updatePwd(){
-			window.open("<%= contextPath %>/updatePwdForm.do","비밀번호 변경창 ","width=500, height=300")
+			window.open("${contextPath}/updatePwdForm.do","비밀번호 변경창 ","width=500, height=300")
 		} //window.open : 새창 열기
 
 		function deleteMember(){
@@ -244,7 +262,7 @@ td{
 			if(op === pwd){
 				var val = confirm("정말로 가치사를 탈퇴 하시겠습니까?");
 				if(val){ //true(확인) : 삭제하겠따
-					$("#updateForm").attr("action","<%= contextPath %>/deleteMember.do"); 
+					$("#updateForm").attr("action","${contextPath}/deleteMember.do"); 
 					                                                            //MemberDeleteServlet.java로 이동
 					$("#updateForm").submit();
 					alert("탈퇴 완료 되었습니다.");
