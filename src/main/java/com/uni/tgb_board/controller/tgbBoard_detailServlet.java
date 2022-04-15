@@ -33,9 +33,10 @@ public class tgbBoard_detailServlet extends HttpServlet {
 		
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		TgbBoard_dto b = new TgbBoard_service().selectDetailTgbBoard(nno);
-		
+		String admin = request.getParameter("admin");
 		String view = "";
 		if(b != null) {
+			request.setAttribute("admin", admin);
 			request.setAttribute("b", b);
 			view = "views/tgb_Board/tgbBoardDetailView.jsp";
 		}else {
