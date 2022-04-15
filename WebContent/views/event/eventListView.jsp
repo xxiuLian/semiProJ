@@ -94,7 +94,6 @@
 				 	<% } %>
 				 <% } %>
 			</tbody>
-			
 		</table>
 		
 		<form class="searchArea" align="center">
@@ -168,6 +167,7 @@
 		<% } %>
 		</div>
 		
+	</div>
 	</div>
 	<script type="text/javascript">
 		<% if(!list.isEmpty()){%>
