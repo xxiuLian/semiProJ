@@ -11,6 +11,7 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
@@ -24,9 +25,10 @@
 			<form id="insertForm" action="${contextPath}/insertQna.do" method="post">
 				<div class="mb-3">
 					<select name="category" id="boardCategory">
-						<c:forEach items="${category}" var="c">
-							<option value="${c.categoryNo}">${c.categoryName}</option>
-						</c:forEach>
+							<option value="non">카테고리 선택</option>
+							<c:forEach items="${category}" var="c">
+								<option value="${c.categoryNo}">${c.categoryName}</option>
+							</c:forEach>
 					</select>
 				</div>
 				<br>
@@ -68,7 +70,7 @@
 	$("#save").click(function() {
 		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 		
-		if($("#boardCategory").val() == 000){
+		if($("#boardCategory").val() == 'non'){
 			alert("카테고리를 선택해주세요");
 			return;
 		}

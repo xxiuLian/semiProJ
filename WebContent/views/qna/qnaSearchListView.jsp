@@ -15,29 +15,55 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>문의 게시판</title>
 <style>
-.outer {
-	width: 1000px;
-	height: 500px;
-	margin: auto;
-	margin-top: 50px;
-}
-
-.listArea {
-	border: 1px solid black;
-	text-align: center;
-}
-
-.listArea>tbody>tr:hover {
-	background: darkgrey;
-	cursor: pointer
-}
+	.outer{
+		width:1000px;
+		height:500px;
+		background:#fff;
+		color:black;
+		margin:auto;
+		margin-top:50px;
+	}
+	.listArea{
+		border:1px solid white;
+		text-align:center;
+	}
+	.searchArea{
+		margin-top:50px;
+	}
+	
+	/* .listArea>tbody>tr:hover{
+		background:lightgrey;
+		cursor:pointer
+	} */
+	
+	.pagingArea{
+		margin-top:15px;
+	}
+	.pagingicon{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#writeadmin, #searchbtn{
+		border: 1px solid black;
+		
+	}
+	#writeadmin:hover{
+		background-color:#eee;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
+	}
+	.qnaCategory{
+		float: left;
+	}
 </style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
 	<div class="outer">
 		<br>
-		<div class="mb-3">
+		<h2 align="center">문의 게시판</h2>
+		<div class="qnaCategory">
 			<select name="category" id="boardCategory">
 				<option value="non">카테고리 선택</option>
 				<c:forEach items="${category}" var="c">
@@ -45,17 +71,13 @@
 				</c:forEach>
 			</select>
 		</div>
-		<h2 align="center">문의 게시판</h2>
-		<%-- <c:out value="<p>${sessionScope.contextPath}</p>" escapeXml="false"><br></c:out>
-		<c:out value="<p>${sessionScope.loginUser}</p>" escapeXml="false"><br></c:out>
-		<c:out value="<p>${sessionScope.msg}</p>" escapeXml="false"><br></c:out>--%>
 		<br>
-		<table class="listArea" align="center">
+		<table class="listArea table table-hover" align="center">
 			<thead>
 				<tr>
 					<th width="100">글번호</th>
-					<th width="150">카테고리</th>
-					<th width="300">글제목</th>
+					<th width="200">카테고리</th>
+					<th width="250">글제목</th>
 					<th width="100">작성자</th>
 					<th width="100">조회수</th>
 					<th width="150">작성일</th>
@@ -94,21 +116,31 @@
 		</table>
 
 		<br> <br>
-
+		<div align="center">
+			<c:if test="${loginUser != null}">
+				<button class="pagingicon" onclick="location.href='enrollFormQna.do'">작성하기</button>
+			</c:if>
+		</div>
+		<br> <br>
+		<div align="center">
+			<input type="text" id="search2"><button type="button" class="pagingicon" onclick="searchQnaList();">검색</button>
+		</div>
+		
+		<br> <br>
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button
+			<button class="pagingicon"
 				onclick="location.href='${contextPath}/searchQna.do?currentPage=1&keyword=${keyword}'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
 			<c:choose>
 				<c:when test="${currentPage eq 1}">
-					<button disabled>&lt;</button>
+					<button class="pagingicon" disabled>&lt;</button>
 				</c:when>
 				<c:otherwise>
-					<button
+					<button class="pagingicon"
 						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage - 1}&keyword=${keyword}'">
 						&lt;</button>
 				</c:otherwise>
@@ -117,10 +149,10 @@
 			<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
 				<c:choose>
 					<c:when test="${p eq currentPage}">
-						<button disabled>${p}</button>
+						<button class="pagingicon" disabled>${p}</button>
 					</c:when>
 					<c:otherwise>
-						<button
+						<button class="pagingicon"
 							onclick="location.href='${contextPath}/searchQna.do?currentPage=${p}&keyword=${keyword}'">
 							${p}</button>
 					</c:otherwise>
@@ -130,31 +162,22 @@
 			<!-- 다음페이지로(>) -->
 			<c:choose>
 				<c:when test="${currentPage eq maxPage}">
-					<button disabled>&gt;</button>
+					<button class="pagingicon" disabled>&gt;</button>
 				</c:when>
 				<c:otherwise>
-					<button
+					<button class="pagingicon"
 						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage + 1}&keyword=${keyword}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
-			<button
+			<button class="pagingicon"
 				onclick="location.href='${contextPath}/searchQna.do?currentPage=${maxPage}&keyword=${keyword}'">
 				&gt;&gt;</button>
 		</div>
-		<br> <br>
-		<div align="center">
-			<input type="text" id="search2"><button type="button" onclick="searchQnaList();">검색</button>
-		</div>
+		<br><br>
 		
-		<br> <br>
-		<div align="center">
-			<c:if test="${loginUser != null}">
-				<button onclick="location.href='enrollFormQna.do'">작성하기</button>
-			</c:if>
-		</div>
 	</div>
 
 
