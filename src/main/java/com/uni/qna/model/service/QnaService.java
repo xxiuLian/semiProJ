@@ -217,6 +217,23 @@ public class QnaService {
 		return list;
 	}
 
+	public int deleteReply(int qId) {
+		Connection conn = getConnection();
+		
+		int result = new QnaDao().deleteReply(conn, qId);
+		
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 
 
 }
