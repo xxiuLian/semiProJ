@@ -39,8 +39,7 @@ public class TgbBoard_dto {
 		this.tgbBoardDate = tgbBoardDate;
 		this.tgbBoardStatus = tgbBoardStatus;
 	}
-
-
+	
 
 	public int getTgbBoardNo() {
 		return tgbBoardNo;
