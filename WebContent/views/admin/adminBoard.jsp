@@ -1,20 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
-<%@page import="com.uni.tgb_board.model.dto.TgbBoard_pageInfo"%>
-<%@page import="com.uni.tgb_board.model.dto.TgbBoard_dto"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.uni.member.model.dto.Member"%>
+	import="java.util.ArrayList, com.uni.tgb_board.model.dto.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-ArrayList<TgbBoard_dto> list = (ArrayList<TgbBoard_dto>) request.getAttribute("list");
-TgbBoard_pageInfo pi = (TgbBoard_pageInfo) request.getAttribute("pi");
-
-int listCount = pi.getListCount();
-int currentPage = pi.getCurrentPage();
-int barStart = pi.getBarStart();
-int barEnd = pi.getBarEnd();
-int barCount = pi.getBarCount();
-int barMax = pi.getBarMax();
+	ArrayList<TgbBoard_dto> list = (ArrayList<TgbBoard_dto>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,22 +18,33 @@ int barMax = pi.getBarMax();
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-.listArea {
-	border: 1px solid black;
-	text-align: center;
-}
-
-.listArea>tbody>tr:hover {
-	background: darkgrey;
-	cursor: pointer
-}
+	.outer{
+		width:800px;
+		height:500px;
+		background:black;
+		color:white;
+		margin:auto;
+		margin-top:50px;
+	}
+	.listArea{
+		border:1px solid white;
+		text-align:center;
+	}
+	.searchArea{
+		margin-top:50px;
+	}
+	
+	.listArea>tbody>tr:hover{
+		background:darkgrey;
+		cursor:pointer
+	}
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="listCount" value="${pi.listCount}" scope="request" />
 <c:set var="currentPage" value="${pi.currentPage}" scope="request" />
-<c:set var="barMax" value="${pi.barMax}" scope="request" />
-<c:set var="barStart" value="${pi.barStart}" scope="request" />
-<c:set var="barEnd" value="${pi.barEnd}" scope="request" />
+<c:set var="maxPage" value="${pi.maxPage}" scope="request" />
+<c:set var="startPage" value="${pi.startPage}" scope="request" />
+<c:set var="endPage" value="${pi.endPage}" scope="request" />
 
 </head>
 <body>
@@ -124,87 +124,93 @@ int barMax = pi.getBarMax();
 					<form id="deleteBoard" action="${contextPath}/deleteBoards.do"
 						method="post">
 
-						<table class="tgbBoardArea">
-							<thead>
-								<tr>
-									<td>번호</td>
-									<td>카테고리</td>
-									<td>작성자</td>
-									<td>제목</td>
-									<td>내용</td>
-									<td>조회수</td>
-									<td>작성일</td>
-									<td>상태값</td>
-								</tr>
-							</thead>
-							<tbody>
-								<%
-								if (list.isEmpty()) {
-								%>
-								<tr>
-									<td>조회된 리스트가 없습니다.</td>
-								</tr>
-								<%
-								} else {
-								%>
+							        
+		<table class="listArea" align="center">
+			<thead>
+				<tr>
+					<th width="100"><button type="reset">전체취소</button></th>
+					<th>글번호</th>
+					<th width="300">글제목</th>
+					<th width="100">작성자</th>
+					<th>조회수</th>
+					<th width="100">작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				 	 <% if(list.isEmpty()){ %>
+				 	<tr>
+						<td colspan="5">존재하는 공구게시판이 없습니다.</td>
+					</tr>
+				 <% }else{  %>
+				 	<% for(TgbBoard_dto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
+				 		<tr>
+				 		<td><input type="checkbox" id="boardChecked" name="boardChecked" value="<%= n.getTgbBoardNo() %>"></td>
+				 			<td><%= n.getTgbBoardNo() %></td>
+							<td><%= n.getTgbBoardTitle() %></td>
+							<td><%= n.getTgbBoardWriter() %></td>
+							<td><%= n.getTgbBoardCount() %></td>
+							<td><%= n.getTgbBoardDate() %></td>
+				 		</tr>
+				 	<% } %>
+				 <% } %>
+			</tbody>
+			
+		</table>
+		<div class="btns" align="center">
+			<c:if test="${!empty list}">
+				<button type="button" onclick="deleteBoards()">해당 게시글 삭제</button>
+			</c:if>
+		</div>
+		
+		<!-- 페이징바 만들기 -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button
+				onclick="location.href='${contextPath}/adminBoard.do.do?currentPage=1'">
+				&lt;&lt;</button>
 
-								<%
-								for (TgbBoard_dto b : list) {
-								%>
-								<tr>
-									<td><input type="checkbox" id="boardChecked"
-										name="boardChecked" value="<%=b.getTgbBoardNo()%>"></td>
-									<td><%=b.getTgbBoardNo()%></td>
-									<td><%=b.getTgbBoardCategory()%></td>
-									<td><%=b.getTgbBoardWriter()%></td>
-									<td><%=b.getTgbBoardTitle()%></td>
-									<td><%=b.getTgbBoardContent()%></td>
-									<td><%=b.getTgbBoardCount()%></td>
-									<td><%=b.getTgbBoardDate()%></td>
-									<td><%=b.getTgbBoardStatus()%></td>
-								</tr>
-								<%
-								}
-								%>
-								<%
-								}
-								%>
-							</tbody>
-						</table>
+			<!-- 이전페이지로(<) -->
+			<c:choose>
+				<c:when test="${currentPage eq 1}">
+					<button disabled>&lt;</button>
+				</c:when>
+				<c:otherwise>
+					<button
+						onclick="location.href='${contextPath}/adminBoard.do.do?currentPage=${currentPage - 1}'">
+						&lt;</button>
+				</c:otherwise>
+			</c:choose>
+			<!-- 페이지 목록 -->
+			<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
+				<c:choose>
+					<c:when test="${p eq currentPage}">
+						<button disabled>${p}</button>
+					</c:when>
+					<c:otherwise>
+						<button
+							onclick="location.href='${contextPath}/adminBoard.do?currentPage=${p}'">
+							${p}</button>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 
-						<div class="btns" align="center">
-							<c:if test="${!empty list}">
-								<button type="button" onclick="deleteBoards()">선택 게시글
-									삭제</button>
-							</c:if>
-						</div>
-					</form>
-					<br> <br>
+			<!-- 다음페이지로(>) -->
+			<c:choose>
+				<c:when test="${currentPage eq maxPage}">
+					<button disabled>&gt;</button>
+				</c:when>
+				<c:otherwise>
+					<button
+						onclick="location.href='${contextPath}/adminBoard.do.do?currentPage=${currentPage + 1}'">
+						&gt;</button>
+				</c:otherwise>
+			</c:choose>
 
-					<!-- 2.페이징바 -->
-					<div class="pagingArea" align="center">
-						<button
-							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=1%>'">
-							&lt;&lt;</button>
-						<button
-							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=currentPage - barCount%>'">&lt;</button>
-
-						<!-- 페이징바 이동 -->
-						<%
-						for (int i = barStart; i <= barEnd; i++) {
-						%>
-						<button
-							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=i%>'"><%=i%></button>
-						<%
-						}
-						%>
-
-						<button
-							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=currentPage + barCount%>'">&gt;</button>
-						<button
-							onclick="location.href='<%=contextPath%>/adminBoard.do?currentPage=<%=barMax%>'">
-							&gt;&gt;</button>
-					</div>
+			<!-- 맨 끝으로 (>>) -->
+			<button
+				onclick="location.href='${contextPath}/adminBoard.do.do?currentPage=${maxPage}'">
+				&gt;&gt;</button>
+		
 					<br> <br>
 				</div>
 			</main>

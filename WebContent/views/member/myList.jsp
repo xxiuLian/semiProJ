@@ -55,10 +55,11 @@
 	}
 	
 </style>
+
     </head>
     <body>
     <%@ include file="../../views/common/menubar.jsp" %>
-    
+    <div class="container">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -193,6 +194,7 @@
 		<br> <br>
 		</div>
 	   </div>
+	</div>
 	</div>
 <script>
 if(!${empty list}){

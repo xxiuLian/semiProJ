@@ -637,7 +637,6 @@ public class TgbBoard_dao {
 					q.setTgbBoardWriter(rset.getString("USER_ID"));
 					q.setTgbBoardCount(rset.getInt("COUNT"));
 					q.setTgbBoardDate(rset.getDate("CREATE_DATE"));
-
 				list.add(q);
 			}
 		} catch (SQLException e) {
