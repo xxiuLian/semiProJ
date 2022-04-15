@@ -37,7 +37,7 @@
     position: absolute;
     margin-left:1460px; top:260px;
     color: #fff; border: none; 
-    padding: 2px 7px;
+    padding: 0 7px;
     border-radius:2px;
     background-color: #fff;
     color: gray;
