@@ -22,8 +22,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../../css/styles.css" rel="stylesheet" />
-</head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
 <style>
 
 .listArea{
@@ -36,43 +40,72 @@
 	display: inline-block;
 	margin:20px;
 }
+h2{
+	border-bottom: 1px solid rgb(201, 200, 200) ;
+	width: fit-content;
+	padding-bottom: 10px;
+}
+.list p{
+	font-family: 'Noto Sans KR', sans-serif;
+	
+	font-size: 20px;
+	margin: 0px;
+	
+}
+.proTitle{
+	font-size: 23px;
+	font-weight: 700;
+}
+.proPrice{
+	font-weight: bold;
+	color: rgb(44, 44, 160);
+}
+.proTerm{
+	font-size: 13px;
+	color: rgb(136, 136, 136);
+	font-weight: 300;
+}
+.paging button{
+	border: 0.2px solid rgb(255, 255, 255);
+	background-color: rgb(223, 223, 223);
+	border-radius: 7px;
+	color: rgb(75, 75, 75);
+	font-weight: bold;
+}
+.listcount{
+	font-family: 'Noto Sans KR', sans-serif;
+	color: rgb(176, 176, 177);
+}
 
 </style>
 <body>
 <%@ include file="../common/menubar.jsp" %>
-
-<h2 align="center">공구 검색결과</h2>
+<div class="container">
+<h2>"${keyword}" 검색결과</h2>
+<p class="listcount"> 총 ${listCount}개</p>
 		<br>
 		
 		<div class="listArea" align="center">
-			
-				<%if(list.isEmpty()){ %>
-				
-					<h2 >"<%=keyword%>"로 검색된 리스트가 없습니다.</h2>
-				
-				<%}else{ %>
-					<% for( Tgb t : list){ %>
+			<div class ="container" >
+			<%if(list.isEmpty()){ %>
+			<h2>"${keyword}"로 검색된 결과가 없습니다.</h2>
+			<%}else{ %>
+				<% for( Tgb t : list){ %>
+				<div class="list col-lg-3 col-md-4 col-sm-6" align = "center">
+					<input type="hidden" value="<%=t.getTgbNo() %>">
+					<img src="<%=contextPath %>/assets/img_upfile/<%=t.getThumnail()%>" width="300px" height="200px"><br>
+					<p class="proTitle"><%=t.getTgbTitle() %></p>
+					<p class="proPrice"><%=t.getPrice() %> 원</p>
 					
-					<div class="list" align = "center">
-						<input type="hidden" value="<%=t.getTgbNo() %>">
-						<img src="<%=contextPath %>/assets/img_upfile/<%=t.getThumnail()%>" width="300px" height="200px"><br>
-						<p>제목 : <%=t.getTgbTitle() %></p>
-						<p><%=t.getTgb_Price() %>원</p>
-						<%if(t.getCount() != 00){ %>
-						<p><%=t.getCount() %>명(진행도로 표시)</p>
-						<%}else{ %>
-						<p>무제한(진행도로 표시)</p>
-						<%} %>
-					 <%if(t.getTgbTerm() != null){ %><!-- Date라 조정필요 -->
-						<p><%=t.getTgbTerm() %>일(진행도로 표시)</p>
-						<%}else{ %>
-						<p>무제한(진행도로 표시)</p>
-						<%} %>	
-
-					</div>
-					<%} %><!-- for문 끝 -->
+				 <%if(t.getTgbTerm() != null){ %><!-- Date라 조정필요 -->
+					<p class="proTerm"><%=t.getTgbTerm() %>일까지</p>
+					<%}%>
+					
+	
+				</div>
 				<%} %>
-		
+		<%} %>
+	</div>	
 		</div>
 		<script>
 			$(function(){
@@ -93,9 +126,9 @@
 		<%if(currentPage == 1) {%>
 		<button disabled>&lt;</button>
 		<%}else{ %>
-		<div>
+		
 			<button onclick="location.href='<%=contextPath %>/searchTgb.do?currentPage=<%=currentPage-1 %>&keyword=<%=keyword%>'">&lt;</button>
-		</div>
+		
 		<%} %>
 		
 		<!-- 페이지 목록 -->
@@ -111,13 +144,14 @@
 		<%if(currentPage == maxPage) {%>
 		<button disabled>&gt;</button>
 		<%}else{ %>
-		<div>
+		
 			<button onclick="location.href='<%= contextPath %>/searchTgb.do?currentPage=<%= currentPage+1 %>&keyword=<%=keyword%>'"> &gt; </button>
-		</div>
+		
 		<%} %>
 		
 		<button onclick="location.href='<%=contextPath%>/searchTgb.do?currentPage=<%=maxPage%>&keyword=<%=keyword%>'"> &gt;&gt; </button>
 		
 		</div>
+</div>
 </body>
 </html>

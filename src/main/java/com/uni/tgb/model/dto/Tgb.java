@@ -19,7 +19,7 @@ public class Tgb {
 	private Date createDate;     // 공구 글 작성일
 	private String status;       // 상태값 
 	
-	private String price;
+	private String price;//가격에 쉼표 붙일라고 
 	
 	private String thumnail;    //썸네일
 	
