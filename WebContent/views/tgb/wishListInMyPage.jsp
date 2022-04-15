@@ -57,11 +57,13 @@ td>img {
 
 }
 </style>
+<link href="css/myPageStyles.css" rel="stylesheet" />
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
+	
 	<div class="container">
-		<div class="d-flex" id="wrapper">
+		<div class="d-flex" id="wrapper"> 
 			<!-- Sidebar-->
 			<div class="border-end bg-white" id="sidebar-wrapper">
 				<div class="sidebar-heading border-bottom bg-light">
@@ -97,7 +99,10 @@ td>img {
 				</div>
 			</div>
 			<!-- Sidebar End -->
-
+<!-- Page content wrapper-->
+			
+			<div id="page-content-wrapper">
+				<!-- Top navigation-->
 	
 			<div class="outer styleCheck">
 				<br>
@@ -246,7 +251,7 @@ td>img {
 
 	</div>
 
-
+</div>
 
 </body>
 </html>

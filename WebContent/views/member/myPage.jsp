@@ -52,6 +52,39 @@ ul, li {
 </style>
 
 
+<style>
+.outer {
+	width: 800px;
+	height: 500px;
+	margin: auto;
+	margin-top: 50px;
+}
+
+.listArea {
+	border: 1px solid white;
+	text-align: center;
+}
+
+.searchArea {
+	margin-top: 50px;
+}
+
+.listArea>tbody>tr:hover {
+	background: darkgrey;
+	cursor: pointer
+}
+
+td>img {
+	width: 300px;
+	height: 150px;
+}
+.styleCheck{
+
+}
+</style>
+
+
+
 <link rel="stylesheet" href="css/cssWook.css">
 </head>
 <body>
@@ -96,6 +129,7 @@ ul, li {
 			<!-- Sidebar End -->
 		
 			<!-- Page content wrapper-->
+			
 			<div id="page-content-wrapper">
 				<!-- Top navigation-->
 				<div class="row container-fluid back1">
