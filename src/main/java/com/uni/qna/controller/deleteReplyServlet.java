@@ -1,6 +1,7 @@
 package com.uni.qna.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class qnaDetailServlet
+ * Servlet implementation class deleteReplyServlet
  */
-@WebServlet("/detailQna.do")
-public class QnaDetailServlet extends HttpServlet {
+@WebServlet("/rdelete.do")
+public class deleteReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDetailServlet() {
+    public deleteReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +30,20 @@ public class QnaDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int qno = Integer.parseInt(request.getParameter("qno"));
-		String admin = request.getParameter("admin");
-		Qna q = new QnaService().selectQna(qno);
+		int qId = Integer.parseInt(request.getParameter("qId"));
 		
-		if(q != null) {
-			request.setAttribute("admin", admin);
-			request.setAttribute("q", q);
-			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);
+		
+		int result = new QnaService().deleteReply(qId);
+		
+		PrintWriter out = response.getWriter();
+		if(result > 0) {
+			out.print("success");
 		}else {
-			request.setAttribute("msg", "게시글 상세조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			out.print("fail");
 		}
+		
+		out.flush();
+		out.close();
 	}
 
 	/**

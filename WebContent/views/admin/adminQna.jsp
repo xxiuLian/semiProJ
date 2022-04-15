@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 <link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
 .listArea {
 	border: 1px solid black;
@@ -90,17 +91,9 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">문의 게시판 관리</h1>
 					<div class="card mb-4">
-						<div class="card-body">
-							This page is an example of using the light side navigation
-							option. By appending the
-							<code>.sb-sidenav-light</code>
-							class to the
-							<code>.sb-sidenav</code>
-							class, the side navigation will take on a light color scheme. The
-							<code>.sb-sidenav-dark</code>
-							is also available for a darker option.
+						<div class="card-body" align="center">
+							<code><h2>문의게시판 관리</h2></code>
 						</div>
 					</div>
 					<br>
@@ -239,7 +232,8 @@
 		$(function(){
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var qno = $(this).parent().children().eq(1).text();
-				window.open("${contextPath}/detailQna.do?qno="+qno, "문의글조회", "width=1000, height=600")
+				var option = "width=1000, height=800, left=400, top=100, location=no, toolbars=no"
+				window.open("${contextPath}/detailQna.do?admin=admin&qno="+qno, "문의글조회", option)
 			})
 		})
 	}

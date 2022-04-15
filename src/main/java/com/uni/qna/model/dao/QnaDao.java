@@ -386,6 +386,8 @@ public class QnaDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
@@ -636,6 +638,27 @@ public class QnaDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int deleteReply(Connection conn, int qId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		//deleteReply=UPDATE QNA_BOARD SET QNA_REPLY=NULL WHERE QNA_NO=?
+		String sql = prop.getProperty("deleteReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 	
