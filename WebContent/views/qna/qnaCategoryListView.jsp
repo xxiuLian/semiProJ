@@ -16,7 +16,7 @@
 <title>문의 게시판</title>
 <style>
 	.outer{
-		width:800px;
+		width:1000px;
 		height:500px;
 		background:#fff;
 		color:black;
@@ -62,6 +62,7 @@
 	<%@ include file="../common/menubar.jsp"%>
 	<div class="outer">
 		<br>
+		<h2 align="center">문의 게시판</h2>
 		<div class="qnaCategory">
 			<select name="category" id="boardCategory">
 				<option value="non">카테고리 선택</option>
@@ -70,17 +71,13 @@
 				</c:forEach>
 			</select>
 		</div>
-		<h2 align="center">문의 게시판</h2>
-		<%-- <c:out value="<p>${sessionScope.contextPath}</p>" escapeXml="false"><br></c:out>
-		<c:out value="<p>${sessionScope.loginUser}</p>" escapeXml="false"><br></c:out>
-		<c:out value="<p>${sessionScope.msg}</p>" escapeXml="false"><br></c:out>--%>
 		<br>
 		<table class="listArea table table-hover" align="center">
 			<thead>
 				<tr>
 					<th width="100">글번호</th>
-					<th width="150">카테고리</th>
-					<th width="300">글제목</th>
+					<th width="200">카테고리</th>
+					<th width="250">글제목</th>
 					<th width="100">작성자</th>
 					<th width="100">조회수</th>
 					<th width="150">작성일</th>

@@ -1,6 +1,7 @@
 package com.uni.qna.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.admin.model.dto.Category;
 import com.uni.common.Attachment;
 import com.uni.qna.model.dto.Qna;
 import com.uni.qna.model.service.QnaService;
@@ -35,7 +37,10 @@ public class QnaUpdateFormServlet extends HttpServlet {
 		
 		Qna q = new QnaService().selectUpdateQna(qno);
 		
+		
 		if(q != null) {
+			ArrayList<Category> category = new QnaService().getCategoryList();
+			request.setAttribute("category", category);
 			request.setAttribute("q", q);
 			request.getRequestDispatcher("views/qna/qnaUpdateForm.jsp").forward(request, response);
 		}else {

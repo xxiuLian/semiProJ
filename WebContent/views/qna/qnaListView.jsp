@@ -17,7 +17,7 @@
 <link href="css/styles.css" rel="stylesheet" />
 <style>
 	.outer{
-		width:800px;
+		width:1000px;
 		height:500px;
 		background:#fff;
 		color:black;
@@ -73,16 +73,13 @@
 				</c:forEach>
 			</select>
 		</div>
-		<%-- <c:out value="<p>${sessionScope.contextPath}</p>" escapeXml="false"><br></c:out>
-		<c:out value="<p>${sessionScope.loginUser}</p>" escapeXml="false"><br></c:out>
-		<c:out value="<p>${sessionScope.msg}</p>" escapeXml="false"><br></c:out>--%>
 		<br>
 		<table class="listArea table table-hover" align="center">
 			<thead>
 				<tr>
 					<th width="100">글번호</th>
-					<th width="150">카테고리</th>
-					<th width="300">글제목</th>
+					<th width="200">카테고리</th>
+					<th width="250">글제목</th>
 					<th width="100">작성자</th>
 					<th width="100">조회수</th>
 					<th width="150">작성일</th>
@@ -181,6 +178,7 @@
 			<c:if test="${loginUser != null}">
 				<button class="pagingicon" onclick="location.href='enrollFormQna.do'">작성하기</button>
 			</c:if>
+			<br><br>
 		</div>
 	</div>
 
