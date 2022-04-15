@@ -6,6 +6,49 @@
 <head>
 <meta charset="UTF-8">
 <title>문의 글 조회</title>
+<style>
+	.outer{
+		width:800px;
+		height:500px;
+		background:#fff;
+		color:black;
+		margin:auto;
+		margin-top:50px;
+	}
+	.listArea {
+		border:1px solid white;
+		text-align:center;
+	}
+	.searchArea{
+		margin-top:50px;
+	}
+	
+	/* .listArea>tbody>tr:hover{
+		background:lightgrey;
+		cursor:pointer
+	} */
+	
+	.pagingArea{
+		margin-top:15px;
+	}
+	.pagingicon{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#writeadmin, #searchbtn{
+		border: 1px solid black;
+		
+	}
+	#writeadmin:hover{
+		background-color:#eee;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
+	}
+	.qnaCategory{
+		float: left;
+	}
+</style>
 </head>
 <body>
 <%@ include file="../common/menubar.jsp" %>
@@ -16,7 +59,7 @@
 		<h2 align="center">게시판 상세보기</h2>
 		<br>
 		
-		<table align="center">
+		<table class="listArea table" align="center">
 			<tr>
 				<th width="100">분야</th>
 				<td>${q.category}</td>
@@ -41,11 +84,11 @@
 		<br>
 		
 		<div class="btns" align="center">
-			<button type="button" onclick="location.href='${contextPath}/qnaList.do?currentPage=1';">목록으로</button>
+			<button type="button" class="pagingicon" onclick="location.href='${contextPath}/qnaList.do?currentPage=1';">목록으로</button>
 			
 			<c:if test="${sessionScope.loginUser.userId eq q.qnaWriter}">
-				<button type="button" onclick="updateForm();">수정하기</button>
-				<button type="button" onclick="deleteQna();">삭제하기</button>
+				<button type="button" class="pagingicon" onclick="updateForm();">수정하기</button>
+				<button type="button" class="pagingicon" onclick="deleteQna();">삭제하기</button>
 			</c:if>	
 		</div>
 		
@@ -65,27 +108,14 @@
 			}
 		</script>
 	</div>
-	
+		<br> <br>
 		<!-- 댓글 리스트들 보여주는 div -->
 		<div id="replyListArea">
 			<table id="replyList" border="1" align="center">
-				<!-- <tr>
-					<td width="100px">admin</td>
-					<td width="330px">댓글작성내용</td>
-					<td width="150px">2020년 1월 23일</td>
-				</tr>
-				<tr>
-					<td width="100px">user01</td>
-					<td width="330px">댓글작성내용</td>
-					<td width="150px">2020년 1월 22일</td>
-				</tr>
-				<tr>
-					<td width="100px">test01</td>
-					<td width="330px">댓글작성내용</td>
-					<td width="150px">2020년 1월 20일</td>
-				</tr> -->
+				
 			</table>
 		</div>
+		<br><br>
 		<div class="replyArea">
 		<!-- 댓글 작성하는 div -->
 		<table border="1" align="center">
@@ -93,7 +123,7 @@
 				<c:if test="${sessionScope.loginUser.userId == 'admin'}">
 					<th>답변작성</th>
 						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-						<td><button id="addReply">답변등록</button></td>
+						<td><button class="pagingicon" id="addReply">답변등록</button></td>
 				</c:if>
 			</tr>
 		</table>
