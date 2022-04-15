@@ -240,7 +240,7 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var bno = $(this).parent().children().eq(1).text();
 				console.log(bno)
-				window.open("${contextPath}/tgbBoardDetail.do?bno="+bno, "문의글조회", "width=1000, height=600")
+				window.open("${contextPath}/tgbBoardDetail.do?nno="+bno, "문의글조회", "width=1000, height=600")
 			})
 		})
 	}

@@ -32,11 +32,10 @@ public class QnaDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int qno = Integer.parseInt(request.getParameter("qno"));
-		
+		String admin = request.getParameter("admin");
 		Qna q = new QnaService().selectQna(qno);
 		
 		if(q != null) {
-			String admin = request.getParameter("admin");
 			request.setAttribute("admin", admin);
 			request.setAttribute("q", q);
 			request.getRequestDispatcher("views/qna/qnaDetailView.jsp").forward(request, response);

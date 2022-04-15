@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"
 	import="com.uni.qna.model.dto.*, com.uni.common.Attachment"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%String admin = (String)request.getAttribute("admin"); %>	
+<%	String admin = (String)request.getAttribute("admin"); %>
 <!DOCTYPE html>
 <html>
 <head>
