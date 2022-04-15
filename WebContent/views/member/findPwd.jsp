@@ -14,7 +14,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">비밀번호 찾기</div>
+                <div class="card-header"><b>비밀번호 찾기</b></div>
                     <br><br>
                 <div class="card-body">
                     <form name="pwdfindscreen" method = "POST">
