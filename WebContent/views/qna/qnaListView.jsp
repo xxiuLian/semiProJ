@@ -96,9 +96,9 @@
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
+
 	<div class="outer">
 		<br>
-		
 		<h2 align="center">문의 게시판</h2>
 		<div class="qnaCategory">
 			<select name="category" id="boardCategory">
@@ -215,7 +215,7 @@
 		<br> <br>
 		
 	</div>
-
+</div></div></div>
 
 </body>
 <script>
