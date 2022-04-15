@@ -42,7 +42,7 @@
 	.pagingArea{
 		margin-top:15px;
 	}
-	.pagingicon{
+	.pagingArea button{
 		border: 1px solid lightgray;
 		border-radius: 5px;
 	}
@@ -108,17 +108,17 @@
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button class="pagingicon"
+			<button
 				onclick="location.href='${contextPath}/noticeList.do?currentPage=1'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
 			<c:choose>
 				<c:when test="${currentPage eq 1}">
-					<button  class="pagingicon" disabled>&lt;</button>
+					<button disabled>&lt;</button>
 				</c:when>
 				<c:otherwise>
-					<button class="pagingicon"
+					<button
 						onclick="location.href='${contextPath}/noticeList.do?currentPage=${currentPage - 1}'">
 						&lt;</button>
 				</c:otherwise>
@@ -127,10 +127,10 @@
 			<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
 				<c:choose>
 					<c:when test="${p eq currentPage}">
-						<button class="pagingicon" disabled>${p}</button>
+						<button disabled>${p}</button>
 					</c:when>
 					<c:otherwise>
-						<button class="pagingicon"
+						<button
 							onclick="location.href='${contextPath}/noticeList.do?currentPage=${p}'">
 							${p}</button>
 					</c:otherwise>
@@ -140,17 +140,17 @@
 			<!-- 다음페이지로(>) -->
 			<c:choose>
 				<c:when test="${currentPage eq maxPage}">
-					<button class="pagingicon" disabled>&gt;</button>
+					<button disabled>&gt;</button>
 				</c:when>
 				<c:otherwise>
-					<button class="pagingicon"
+					<button 
 						onclick="location.href='${contextPath}/noticeList.do?currentPage=${currentPage + 1}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
-			<button class="pagingicon"
+			<button
 				onclick="location.href='${contextPath}/noticeList.do?currentPage=${maxPage}'">
 				&gt;&gt;</button>
 		
