@@ -42,7 +42,7 @@
 	                    </div>
 	                    <div class="clearfix"></div>
 	                </div>
-	                <div id="chat" class="panel-collapse collapse in">
+	                <div id="chat" class="panel-collapse collapse">
 	                    <div>
 	                    <div class="portlet-body chat-widget" id="chatList" style="overflow-y: auto; width: auto; height: 300px;">
 	                      
@@ -203,5 +203,6 @@
 		$("#chatContent").val('');//전송뒤엔 실패하든 성공하든 작성된 채팅박스의 내용삭제
 		
 	}
+
 </script>
 </html>
