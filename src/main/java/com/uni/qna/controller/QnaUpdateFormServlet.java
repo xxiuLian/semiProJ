@@ -36,9 +36,10 @@ public class QnaUpdateFormServlet extends HttpServlet {
 		int qno = Integer.parseInt(request.getParameter("qno"));
 		
 		Qna q = new QnaService().selectUpdateQna(qno);
-		
+	
 		
 		if(q != null) {
+			q.setQnaContent(q.getQnaContent().replaceAll(System.lineSeparator(), ""));
 			ArrayList<Category> category = new QnaService().getCategoryList();
 			request.setAttribute("category", category);
 			request.setAttribute("q", q);

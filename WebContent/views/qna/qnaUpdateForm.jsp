@@ -77,7 +77,11 @@
 					bUseVerticalResizer : true,
 					// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
 					bUseModeChanger : true
-				}
+				},
+				  fOnAppLoad : function(){
+			          //textarea 내용을 에디터상에 바로 뿌려주고자 할때 사용
+			          //oEditors.getById["ir1"].exec("PASTE_HTML", []);
+			      }
 			});
 
 	$("#save").click(function() {

@@ -37,8 +37,8 @@
 						id="boardTitle" placeholder="제목을 입력해 주세요">
 				</div>
 				<div class="mb-3">
-					<textarea class="form-control" id="ir1" rows="15" name="content"
-						style="width: 100%;" placeholder="내용을 입력해 주세요"></textarea>
+					<textarea placeholder="내용을 입력해 주세요" class="form-control" id="ir1" rows="15" name="content"
+						style="width: 100%;"></textarea>
 				</div>
 
 				<div id="se2_sample" style="margin: 10px 0;">
@@ -93,7 +93,6 @@
 		
 		$("#insertForm").submit();
 	})
-	
 </script>
 
 </html>
