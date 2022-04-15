@@ -79,6 +79,7 @@
 				</div>
 
 				<div class="mb-3">
+					<span>내용</span>
 					<textarea class="form-control" id="ir1" rows="15" name="content"
 						style="width: 100%;">${q.qnaContent}</textarea>
 				</div>
