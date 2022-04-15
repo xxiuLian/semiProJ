@@ -77,12 +77,22 @@
 .searchbutton:hover {
   margin-top: 15px;
   margin-bottom: 5px;
-  box-shadow: 0px 0px 0px 0px #2b6bc0;
+  box-shadow: 0px 0px 0px 0px #e9677de1;
 }
 
 a {
   color: #2b69ee;
   text-decoration: none;
+}
+a:hover {
+  color: #e9677de1;
+}
+.navbar-nav{
+	margin-left:20px;
+	padding: 0 10px;
+}
+.navbar-nav li{
+	margin-left: 20px;
 }
 /*
 a:hover {
@@ -109,30 +119,31 @@ a:hover {
 			<% if(loginUser == null){ %>
 			 <input type="text" id="search" style="width:500px; height:50px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0" style="margin-right:20px;">					
-					<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:30px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
+				<ul class="navbar-nav" style="">					
+					<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:28px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
 					<ul class="event">
 						<li class="nav-item"><a class="nav-link" href="eventList.do" style="font-size:20px;">이벤트</a></li>
 						<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:20px;">공지</a></li>
 					</ul>
-					<li class="nav-item"><a class="nav-link" href="login.do" style="font-size:30px; margin-right:10px;">로그인</a></li>
-					<li class="nav-item"><a class="nav-link" href="enroll.do" style="font-size:30px; margin-right:10px;">회원가입</a></li>
+					<li class="nav-item"><a class="nav-link" href="login.do" style="font-size:28px; margin-right:10px;">로그인</a></li>
+					<li class="nav-item"><a class="nav-link" href="enroll.do" style="font-size:28px; margin-right:10px;">회원가입</a></li>
 				</ul>
 			</div>
 
 			<% }else if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
 			<input type="text" id="search" style="width:500px; height:50px; margin-left:150px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
-					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-						<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:30px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:28px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
 							<ul class="event">
 								<li class="nav-item"><a class="nav-link" href="eventList.do">이벤트</a></li>
 								<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
+								<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">공동구매게시판</a></li>
 							</ul>
 					</ul>
 			</div>
 			<div id = "userInfo">
-            <b class="userWho"><%=loginUser.getUserName() %></b> 접속 완료
+            <b class="userWho"><%=loginUser.getUserName() %></b> 접속중
             <br><br>
             <div class ="btns" align="center">
                <a href = "<%=contextPath %>/adminMember.do">관리자페이지</a> &nbsp;&nbsp;
@@ -142,13 +153,12 @@ a:hover {
 			<% }else{ %>
 				<input type="text" id="search" style="margin-left:30px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 				<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="noticeList.do">공지 <i class="fa-solid fa-angle-down"></i></a>
 					<ul class="event">
 						<li class="nav-item"><a class="nav-link" href="eventList.do">이벤트</a></li>
 						<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
 					</ul>
-					<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">공구게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="qnaList.do">문의게시판</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbInsert.do">공동구매 등록</a></li>
 					<li class="nav-item"><a class="nav-link" href="tgbList.do">공동구매 조회</a></li>

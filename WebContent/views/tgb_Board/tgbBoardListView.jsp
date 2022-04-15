@@ -21,8 +21,8 @@
 	.outer{
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:#fff;
+		color:black;
 		margin:auto;
 		margin-top:50px;
 	}
@@ -34,10 +34,29 @@
 		margin-top:50px;
 	}
 	
-	.listArea>tbody>tr:hover{
-		background:darkgrey;
+	/* .listArea>tbody>tr:hover{
+		background:lightgrey;
 		cursor:pointer
+	} */
+	
+	.pagingArea{
+		margin-top:15px;
 	}
+	.pagingArea button{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#writeadmin, #searchbtn{
+		border: 1px solid black;
+		
+	}
+	#writeadmin:hover{
+		background-color:#eee;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
+	}
+
 </style>
 </head>
 <body>
@@ -48,14 +67,14 @@
 		<h2 align="center">공구_게시판</h2>
 		<br>
 		        
-		<table class="listArea" align="center">
+		<table class="listArea table table-hover" align="center">
 			<thead>
 				<tr>
 					<th>글번호</th>
 					<th width="300">글제목</th>
 					<th width="100">작성자</th>
 					<th>조회수</th>
-					<th width="100">작성일</th>
+					<th width="200">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -108,7 +127,7 @@
 				<option value="content">내용</option>
 			</select>
 			<input type="search" name="search">
-			<button type="submit">검색하기</button>
+			<button class="btn btn-default" id="searchbtn" type="submit">검색하기</button>
 		</form>
 		
 		<!-- 페이징바 만들기 -->
@@ -165,7 +184,7 @@
 			<% if(loginUser != null) { %> 
 			<!-- admin일 경우 컨트롤/NoticeEnrollFormServlet -->
 			
-			<button onclick="location.href='<%=contextPath%>/EnrollTgbBoard.do'">작성하기</button> 
+			<button class="btn btn-default" id="writeadmin" onclick="location.href='<%=contextPath%>/EnrollTgbBoard.do'">작성하기</button> 
 		<% } %>
 		</div>
 		
