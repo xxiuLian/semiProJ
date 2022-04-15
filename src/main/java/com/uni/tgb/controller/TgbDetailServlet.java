@@ -46,7 +46,7 @@ public class TgbDetailServlet extends HttpServlet {
 			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 			
 			int result = new TgbService().selectWish(userNo, bno);//찜한 내역 1 아니면 0 
-			System.out.println(result);
+			
 			if(result == 1) {
 				wish = true;
 			}
