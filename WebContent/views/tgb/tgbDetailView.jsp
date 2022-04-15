@@ -5,7 +5,7 @@
  	Tgb t = (Tgb)request.getAttribute("t");
  	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("aList");
  	boolean wish = (boolean)request.getAttribute("wish");
- 	
+ 	String admin = (String)request.getAttribute("admin");
  	ArrayList<Member> listMem = (ArrayList<Member>)request.getAttribute("listMem");
  %>
 <!DOCTYPE html>
@@ -101,7 +101,9 @@ td{
 </style>
 </head>
 <body>
-<%@ include file="../common/menubar.jsp" %>
+<%if(admin == null){ %>
+		 <%@ include file="../../views/common/menubar.jsp" %>
+	<%}%>
 <div class="outer">
 
 	<br>
