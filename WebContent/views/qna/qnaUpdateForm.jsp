@@ -39,7 +39,7 @@
 					<select name="category" id="boardCategory">
 						<option value="non">카테고리 선택</option>
 						<c:forEach items="${category}" var="c">
-							<option value="${c.categoryNo}" <c:if test="${categoryNo eq c.categoryNo}">selected</c:if>>${c.categoryName}</option>
+							<option value="${c.categoryNo}" <c:if test="${q.category eq c.categoryName}">selected</c:if>>${c.categoryName}</option>
 						</c:forEach>
 					</select>
 				</div>

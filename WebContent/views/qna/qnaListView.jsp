@@ -118,7 +118,17 @@
 		</table>
 
 		<br> <br>
-
+		<div align="center">
+			<c:if test="${loginUser != null}">
+				<button class="pagingicon" onclick="location.href='enrollFormQna.do'">작성하기</button>
+			</c:if>
+			<br><br>
+		</div>
+		<div class="searchArea" align="center">
+			<input type="text" id="search1">
+			<button type="button" class="pagingicon" onclick="searchQnaList();">검색</button>
+		</div>
+			<br><br>
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
@@ -168,18 +178,9 @@
 				onclick="location.href='${contextPath}/qnaList.do?currentPage=${maxPage}'">
 				&gt;&gt;</button>
 		</div>
-		
-		<div class="searchArea" align="center">
-			<input type="text" id="search1">
-			<button type="button" class="pagingicon" onclick="searchQnaList();">검색</button>
-		</div>
+	
 		<br> <br>
-		<div align="center">
-			<c:if test="${loginUser != null}">
-				<button class="pagingicon" onclick="location.href='enrollFormQna.do'">작성하기</button>
-			</c:if>
-			<br><br>
-		</div>
+		
 	</div>
 
 
