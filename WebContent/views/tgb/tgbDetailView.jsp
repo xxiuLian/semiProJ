@@ -5,7 +5,7 @@
  	Tgb t = (Tgb)request.getAttribute("t");
  	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("aList");
  	boolean wish = (boolean)request.getAttribute("wish");
- 	String admin = (String)request.getAttribute("admin");
+ 	String admin = (String)request.getAttribute("admin");	
  	ArrayList<Member> listMem = (ArrayList<Member>)request.getAttribute("listMem");
  %>
 <!DOCTYPE html>
@@ -101,7 +101,8 @@ td{
 </style>
 </head>
 <body>
-<%if(admin == null){ %>
+	
+	<%if(admin == null){ %>
 		 <%@ include file="../../views/common/menubar.jsp" %>
 	<%}%>
 <div class="outer">
@@ -110,7 +111,7 @@ td{
 	<h2 align="center">공구 등록 글 상세 보기</h2>
 	<br>
 	<input type="hidden">
-	<div id="titleImg">대표 이미지<img id="thumb" src="<%=contextPath%>/assets/img_upfile/<%=alist.get(0).getChangeName()%>"></div>
+	<div id="titleImg">대표 이미지<img id="thumb" src="${contextPath}/assets/img_upfile/<%=alist.get(0).getChangeName()%>"></div>
 
 	<div class="option">
 		<table >
@@ -139,23 +140,23 @@ td{
 			
 		</table>
 		
-		<button type="button" id='wish' value=""><img src="<%=contextPath%>/assets/TgbAssets/undib.png"></button>
+		<%if(admin == null){ %>	<button type="button" id='wish' value=""><img src="${contextPath}/assets/TgbAssets/undib.png"></button>
 		<button type="button" id="ptici" onclick="participation();">참여하기</button>
-		<button type="button" onclick="reportTgb();">상품 신고</button>
+	<button type="button" onclick="reportTgb();">상품 신고</button><%}%>
 	</div>
 	<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
 	<div id="contentArea" class="textarea" ><%=t.getTgbContent() %></div>
    	<div id="guidArea" class="textarea" hidden><%=t.getTgbGuide() %></div>
 	
-
 	
-	<%if(loginUser != null && loginUser.getUserId().equals(t.getTgbWriter())){ %><!-- 아이디를 갖고 오자 -->
+	<c:if test="${loginUser.userId eq t.tgbWriter}">
+	<%//if(loginUser != null && loginUser.getUserId().equals(t.getTgbWriter())){ %><!-- 아이디를 갖고 오자 -->
 	
 	<button type="button" onclick="tgbUpdateForm(<%= t.getTgbNo()%>)">수정하기</button>
 	<button type="button" onclick= "tgbDelete(<%= t.getTgbNo()%>)">삭제하기</button>
-	
-	<%} %>
-	<button type="button" onclick="history.back();">목록으로</button>
+	</c:if>
+	<%//} %>
+	<%if(admin == null){ %><button type="button" onclick="history.back();">목록으로</button><%}%>
 	
 	
 	<script>
@@ -173,7 +174,7 @@ td{
 			<%};%>
 			
 			<%if(wish){%>
-			$('#wish').children('img').attr("src", "<%=contextPath%>/assets/TgbAssets/dib.png");
+			$('#wish').children('img').attr("src", "${contextPath}/assets/TgbAssets/dib.png");
 			$('#wish').val('true');// 찜한 내역이면 TRUE
 			<%}else{%>
 			$('#wish').val('false');
@@ -182,7 +183,7 @@ td{
 		
 		
 		$('#wish').click(function(){
-			var loginUser = "<%=loginUser%>";
+			var loginUser = "${loginuser}";
 			<%--
 			console.log(typeof(loginUser));//String
 			console.log(loginUser);//null, 객체 toString
@@ -194,8 +195,8 @@ td{
 			--%>
 			
 			//스트릿태그에서 선언한 자바변수를 자바스트립트 if문에서 비교할 수 없는 건가? 
-			
-		<%	if(loginUser != null){%>	
+		if(${loginUser != null}){
+		<%	//if(loginUser != null){%>	
 		var tgbNo = "<%=t.getTgbNo()%>";
 			
 				console.log("tgbNO :"+tgbNo);
@@ -213,7 +214,7 @@ td{
 					success : function(result){
 						console.log("찜 결과 :"+result)
 						if(result){
-						$('#wish').children('img').attr("src", "<%=contextPath%>/assets/TgbAssets/dib.png");
+						$('#wish').children('img').attr("src", "${contextPath}/assets/TgbAssets/dib.png");
 						$('#wish').val('true');
 							alert("찜한 내역에 저장되었습니다.");
 						}else{
@@ -235,7 +236,7 @@ td{
 						success : function(result){
 							console.log("찜 결과 :"+result);
 							if(result){
-							$('#wish').children('img').attr("src", "<%=contextPath%>/assets/TgbAssets/undib.png");
+							$('#wish').children('img').attr("src", "${contextPath}/assets/TgbAssets/undib.png");
 							$('#wish').val('false');
 								alert("찜한 내역에서 삭제되었습니다.");
 							}else{
@@ -248,16 +249,16 @@ td{
 					});
 		
 				}
-				
-		<%	}else{%>
+		}else{
+		<%//	}else{%>
 				var a = confirm("로그인을 해야 합니다. 로그인창으로 이동하시겠습니까?");
 				
 				if(a){
-					location.href="<%=contextPath%>/login.do";
+					location.href="${contextPath}/login.do";
 				}
+		}
 				
-				
-			<%}%>
+			<%//}%>
 		
 		});
 		
@@ -313,10 +314,10 @@ td{
 				 var a = confirm("로그인을 해야 합니다. 로그인창으로 이동하시겠습니까?");
 					
 					if(a){
-						location.href="<%=contextPath%>/login.do";
+						location.href="${contextPath}/login.do";
 					}
 			 }else{
-				 location.href="<%=contextPath%>/tgbEnter.do?tmenu=1&tno=${t.tgbNo}";
+				 location.href="${contextPath}/tgbEnter.do?tmenu=1&tno=${t.tgbNo}";
 				 
 			 }
 		 }
