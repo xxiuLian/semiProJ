@@ -40,6 +40,21 @@ public class Tgb {
 		this.createDate = createDate;
 		this.status = status;
 	}
+	public Tgb(int tgbNo, String tgbCategory, String tgbTitle, String tgbContent, String tgbGuide, String tgbWriter,
+			int count, Date tgbTerm, String price, Date createDate) {
+		super();
+		this.tgbNo = tgbNo;
+		this.tgbCategory = tgbCategory;
+		this.tgbTitle = tgbTitle;
+		this.tgbContent = tgbContent;
+		this.tgbGuide = tgbGuide;
+		this.tgbWriter = tgbWriter;
+		this.count = count;
+		this.tgbTerm = tgbTerm;
+		this.price = price;
+		this.createDate = createDate;
+		this.status = status;
+	}
 
 	public Tgb(String tgbCategory, String tgbTitle, String tgbContent, String tgbGuide, String tgbWriter,int count, Date tgbTerm,
 			int tgb_Price) {

@@ -6,122 +6,107 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
 </head>
 <style>
-
-.title{
+	.imgdiv{
+		display: inline-block;
+	width: 300px;
+	height: auto;
+}
+#title{
 	text-align:center;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+#price{
+	font-weight: bold;
+	color: rgb(44, 44, 160);
+	font-size: 25px;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-bottom: 30px;
 }
 .outer{
 	width:800px;
-	height:300px;
-	color:black;
-	margin:auto;
-	margin-top:50px;
-	text-align : center;
-	
-}
-.menu1{
-	width:80%;
 	height:auto;
 	color:black;
 	margin:auto;
 	margin-top:50px;
 	text-align : center;
-	
+	background-color: rgb(217, 237, 255);
+	padding: 20px;
+	border-radius: 7px;
 }
 
-.menu1>.*{
-	display : inline-block;
-}
-#titleImg{
+
+#titleImgTag{
 	width:300px;
 	height:200px;
-	border: 0.2px solid black;
+	border: 0.2px solid rgb(201, 201, 201);
 	overflow:hidden;
-	margin : 0 auto;
 	display:inline-block;
-	float : left;
+	margin-bottom: 20px;
+	border-radius: 7px;
+	
 }
 
-#thumb{
-	max-width:100%;
-	max-height: 100%;
-	object-fit:cover;
-}
 .option{
 	width:350px;
-	height:200px;
-	margin : 10px;
+	height: auto;
+	background-color: aliceblue;
+	border-radius: 7px;
 	display:inline-block;
 }
-.textarea{
-	overflow: hidden;
-	height : auto;
-	text-align : left;
-	border : 1px solid black;
-	padding : 30px;
+.paytext{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 16px;
+	
+	color: rgb(133, 133, 133);
 }
 .btns{
+
 	text-align: left;
 }
-#ctnbtn{
-	background-color: rgb(2, 2, 59);
+
+.btns button{
+	border-radius: 7px;
+	border: 0px;
+	padding: 10px;
+	background-color: rgb(75, 125, 168);
+	padding-left: 20px;
+	padding-right: 20px;
 	color: white;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 5px;
 }
-#gidbtn{
-	background-color: rgb(190, 190, 190);
-	color: rgb(199, 197, 197);
-}
-
-.detail td{
-	text-align:center;
-	border:1px solid white;
-}
-.detailImgArea{
-	width:220px;
-	height:190px;
-}
-#wish{
-	border:0px;
-	background-color:white;
-	margin : 10px;
-}
-#wish>img{
-	width:100px;
-	height:100px;
-
-}
-#ptici{
-	width:150px;
-	height:100px;
+.btns button:hover{
+	background-color: rgb(17, 69, 114);
 	
-	margin:10px;
 }
-.time{
-	display : inline-block;
+.option button{
+	background-color: rgb(78, 78, 185);
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 7px;
+	border: 0px;
+	font-weight: bold;
+	font-family: 'Noto Sans KR', sans-serif;
+	color: white;
+	
 }
-
-.mg{
-	margin : 30px;
-}
-
-.progress {
-
-     border-radius: 10px;
-    
-}
-
-.progress-bar {
-    -webkit-transition: width 2.5s ease;
-    transition: width 2.5s ease;
-     border-radius: 20px;
-     background-color : #00003F;
-     color :white;
+#report{
+	background-color: rgb(198, 199, 199);
+	color: rgb(80, 80, 80);
 }
 
-
-
+#outer{
+	background-color: white;
+}
 </style>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
@@ -130,33 +115,46 @@
 
 
 <br><br>
-<div id="menu1">
+<div class="container">
 	<div class="outer">
 	
 		<br>
-		<h2 align="center">공구 등록 글 상세 보기</h2>
+		
 		<br>
 		<input type="hidden">
-		<div id="titleImg">대표 이미지<img id="titleImgTag" src = "${contextPath }/assets/img_upfile/${t.thumnail}"></div>
+		<div class="container">
+			<div class="row">
+		<div class="col-4 imgdiv"><img id="titleImgTag" src = "${contextPath }/assets/img_upfile/${t.thumnail}"></div>
 	
-		<div class="option">
+		<div class="col-4 option">
 			
 			<div id="title">
 				<h2>${t.tgbTitle}</h2>
-				<p>${t.thumnail}왜안돼</p>
-				<p>${t.tgb_Price }</p>
+				<p id="price">${t.price }원</p>
 			</div>
 			
 			<c:choose>
 				<c:when test="${loginUser.userId eq t.tgbWriter}">
-					<button type="button" onclick="deadline();">마감완료</button>
+					<button type="button"  onclick="deadline();">마감완료</button>
 				</c:when>
 				<c:when test = "${t.status eq 'YN'}">
 					<button disabled>마감완료된 상품입니다.</button>
 				</c:when>
 				<c:otherwise>
-					<button type="button" onclick="payment();">결제</button>
-					<button type="button" onclick="reportTgb();">상품 신고</button>
+					<c:forEach var="b" items="${buyer}">
+						<c:if test="${b eq loginUser.userId}">
+							<c:set var="status" value="true"/>
+						</c:if>
+					</c:forEach>
+					<c:choose>
+							<c:when test="${status eq 'true'}">
+								<p class="paytext">이미 결제된 상품입니다.</p>
+	                        </c:when>
+					     	<c:otherwise>
+								 <button type="button" onclick="payment();">결제</button>
+					     	</c:otherwise>
+			     	  	</c:choose>
+					<button type="button" id="report" onclick="reportTgb();">상품 신고</button>
 				</c:otherwise>
 			</c:choose>
 			
@@ -174,6 +172,8 @@
 			</c:otherwise>
 		</c:choose>
 		</div>
+	</div>
+	</div>
 	</div>
 
 </div>
