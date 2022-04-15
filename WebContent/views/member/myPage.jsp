@@ -7,7 +7,9 @@
 	int qnaCount = (int)request.getAttribute("qnaCount");
 %>
 
+
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -45,47 +47,232 @@
 </style>
 
 <head>
-
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- 재욱추가B -->
 <link rel="stylesheet" href="css/cssWook.css">
  
 </head>
     
-    <body>
+<body>
 
-    
-    
     <%@ include file="../../views/common/menubar.jsp" %>
-    
-        <div class="d-flex" id="wrapper">
-            <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light"><a href="<%=contextPath %>/myPage.do">Start Bootstrap</a></div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do" id="myInfo">내 정보</a>
-                    <div>
-                    	<a id="myList" class="list-group-item list-group-item-action list-group-item-light p-3" href="myList.do">공동구매 내역 조회</a>
-                    	<ul>
-							<li><a class="nav-link" href="myList.do">나의 진행 상품</a></li>
-							<li><a class="nav-link" href="myPayList.do">나의 참여 상품</a></li> 
-							<li><a class="nav-link" href="myFinishList.do">이전 상품</a></li>
-						</ul>
-                    </div>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="wishList.do">찜내역관리</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="checkQnaList.do">문의내역조회</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="checkBoardTGBList.do">공동구매게시판조회</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
-                </div>
-            </div>
-            
+
+   <div class="d-flex" id="wrapper">
+       <!-- Sidebar-->
+       <div class="border-end bg-white" id="sidebar-wrapper">
+           <div class="sidebar-heading border-bottom bg-light"><a href="<%=contextPath %>/myPage.do">Start Bootstrap</a></div>
+           <div class="list-group list-group-flush">
+               <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myInfo.do" id="myInfo">내 정보</a>
+               <div>
+               	<a id="myList" class="list-group-item list-group-item-action list-group-item-light p-3" href="myList.do">공동구매 내역 조회</a>
+               	<ul>
+					<li><a class="nav-link" href="myList.do">나의 진행 상품</a></li>
+					<li><a class="nav-link" href="myPayList.do">나의 참여 상품</a></li> 
+					<li><a class="nav-link" href="myFinishList.do">이전 상품</a></li>
+				</ul>
+               </div>
+               <a class="list-group-item list-group-item-action list-group-item-light p-3" href="wishList.do">찜내역관리3</a>
+               <a class="list-group-item list-group-item-action list-group-item-light p-3" href="checkQnaList.do">문의내역조회</a>
+               <a class="list-group-item list-group-item-action list-group-item-light p-3" href="checkBoardTGBList.do">공동구매게시판조회</a>
+               <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
+               <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+               <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+           </div>
+       </div>
+       
+
+    <div class="page-header">
+        
+    </div>
+<div class="container">
+<div class="col-xs-12">
+    <div class="carousel slide" id="myCarousel">
+        <div class="carousel-inner">
+            <div class="item active">
+                    <ul class="thumbnails">
+                        <li class="col-sm-3">
+    						<div class="casing">
+								<div class="thumbnail">
+									<img class="card-img-top" src="resources/wookImg/hum.png" id="imgWook" >
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                    </ul>
+              </div><!-- /Slide1 --> 
+            <div class="item">
+                    <ul class="thumbnails">
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                    </ul>
+              </div><!-- /Slide2 --> 
+            <div class="item">
+                    <ul class="thumbnails">
+                        <li class="col-sm-3">	
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-3">
+							<div class="casing">
+								<div class="thumbnail">
+									<a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+								</div>
+								<div class="caption">
+									<h4>Item Title</h4>
+									<p>Hello world, something nice to develop</p>
+									<a class="btn btn-mini" href="#">» Read More</a>
+								</div>
+                            </div>
+                        </li>
+                    </ul>
+              </div><!-- /Slide3 --> 
+        </div>
+        
+       
+	   <nav>
+			<ul class="control-box pager">
+				<li class="left"><a data-slide="prev" href="#myCarousel" class="arrowStil"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+				<li class="right"><a data-slide="next" href="#myCarousel" class="arrowStil"><i class="glyphicon glyphicon-chevron-right"></i></li>
+			</ul>
+		</nav>
+	   <!-- /.control-box -->   
+                              
+    </div><!-- /#myCarousel -->
+        
+</div><!-- /.col-xs-12 -->          
+
+</div><!-- /.container -->
+
+            <%--까지 --%>
+   	 		<%--  
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
                 
                 <!-- 추가1_재욱boot -->
+                
                 <div class="p-3 p-md-5 text-white rounded alert-danger" >
+                
 	                <div class="container show-grid ">
 		                <div class="row">
 					      <div class="col-md-2 " id="asdf">
@@ -100,8 +287,11 @@
 					      <div class="col-md-2 mr-3" id="asdf">
 					      	환영
 					      </div>
-					      <div class="col-md-2 mx-3" id="asdf" >
-					      	구매sdf
+					      <div class="col-lg-2 mx-3" id="asdf" >
+					      	<div class="userIng" style = border:2px solid red">
+								<%= payCount %>건
+								<b>구 매</b>
+							</div>
 					      </div>
 					      <div class="col-md-2 mx-3" id="asdf">
 					      	진행sdf
@@ -145,7 +335,7 @@
 				
 				<div>
 				<h2 align="center">마이페이지</h2>
-								
+					<!-- 			
 			<table>
 				<tr>
 					<td><b id="user">${loginUser.userName }님 환영합니다.</b></td>
@@ -171,9 +361,12 @@
 					<td></td>
 				</tr>
 			</table>
+			  -->
 				</div>
 			</div>
+			<button class="btn btn-primary" id="sidebarToggle">My Menu3</button>
 		</div>
+		--%>
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
