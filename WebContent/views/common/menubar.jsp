@@ -87,8 +87,10 @@ a {
 a:hover {
   color: #e9677de1;
 }
+
+
 .navbar-nav{
-	margin-left:20px;
+	margin-left:10px;
 	padding: 0 10px;
 }
 .navbar-nav li{

@@ -47,6 +47,7 @@ public class TgbBoard_listServlet extends HttpServlet {
 		int boardLimit;  //한페이지에 보여질 게시글 최대 개수
 		//총 게시글 개수
 		listCount = new TgbBoard_service().getListCount(); //
+		
 		System.out.println("listCount : " + listCount);
 		//현재페이지
 		currentPage = 1;
@@ -56,7 +57,7 @@ public class TgbBoard_listServlet extends HttpServlet {
 		}
 		pageLimit = 10;
 		boardLimit = 10;
-		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		maxPage = (int)Math.ceil((double)listCount/boardLimit) - 1;
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		endPage = startPage + pageLimit - 1;
 		
