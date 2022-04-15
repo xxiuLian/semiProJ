@@ -11,6 +11,7 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>

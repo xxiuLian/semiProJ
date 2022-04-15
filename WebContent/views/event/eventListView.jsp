@@ -169,6 +169,7 @@
 		</div>
 		
 	</div>
+	</div>
 	<script type="text/javascript">
 		<% if(!list.isEmpty()){%>
 			$(function(){

@@ -15,29 +15,54 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>문의 게시판</title>
 <style>
-.outer {
-	width: 1000px;
-	height: 500px;
-	margin: auto;
-	margin-top: 50px;
-}
-
-.listArea {
-	border: 1px solid black;
-	text-align: center;
-}
-
-.listArea>tbody>tr:hover {
-	background: darkgrey;
-	cursor: pointer
-}
+	.outer{
+		width:800px;
+		height:500px;
+		background:#fff;
+		color:black;
+		margin:auto;
+		margin-top:50px;
+	}
+	.listArea{
+		border:1px solid white;
+		text-align:center;
+	}
+	.searchArea{
+		margin-top:50px;
+	}
+	
+	/* .listArea>tbody>tr:hover{
+		background:lightgrey;
+		cursor:pointer
+	} */
+	
+	.pagingArea{
+		margin-top:15px;
+	}
+	.pagingicon{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#writeadmin, #searchbtn{
+		border: 1px solid black;
+		
+	}
+	#writeadmin:hover{
+		background-color:#eee;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
+	}
+	.qnaCategory{
+		float: left;
+	}
 </style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
 	<div class="outer">
 		<br>
-		<div class="mb-3">
+		<div class="qnaCategory">
 			<select name="category" id="boardCategory">
 				<option value="non">카테고리 선택</option>
 				<c:forEach items="${category}" var="c">
@@ -50,7 +75,7 @@
 		<c:out value="<p>${sessionScope.loginUser}</p>" escapeXml="false"><br></c:out>
 		<c:out value="<p>${sessionScope.msg}</p>" escapeXml="false"><br></c:out>--%>
 		<br>
-		<table class="listArea" align="center">
+		<table class="listArea table table-hover" align="center">
 			<thead>
 				<tr>
 					<th width="100">글번호</th>
