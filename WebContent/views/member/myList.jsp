@@ -26,20 +26,34 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/myPageStyles.css" rel="stylesheet" />
-        <style>
-
-	#updateForm{
-		/* border:1px solid white; */
-		width:100%;
-		margin-left:auto;
-		margin-right:auto;
+         <!-- Google fonts-->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<style>
+	.myGoods{
+		width:1000px;
+		margin: 0 auto;
 	}
-	#updateForm td:nth-child(1){text-align:right;}
-	#updateForm input{margin:3px;}
-	
-	#joinBtn{background:yellowgreen;}
-	#goMain{background:orangered;}
+
 	ul, li { list-style: none; }
+	.pagingArea>button{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	.listArea tr{
+	  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	  font-size: 20px;
+  	  color: #495057;
+      letter-spacing: 0.0625em;
+	}
+	.listArea td{
+	  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	  font-size: 20px;
+  	  color: #495057;
+      letter-spacing: 0.0625em;
+      vertical-align:middle;
+	}
+	
 </style>
     </head>
     <body>
@@ -93,15 +107,15 @@
                 </nav>
                 <!-- Page content-->
 				<!-- <div class="content"></div> -->
-		<h2 align="center">나의 진행 상품</h2>
+		<h2 align="center" style="margin-top:25px;">나의 진행 상품</h2>
 		<br>
 		<div class="myGoods" align="center">
-		<table class="listArea" align="center">
+		<table class="listArea table table-hover" align="center">
 			<thead>
-				<tr>
-					<th width="50">글번호</th>
-					<th width="100">썸네일</th>
-					<th width="300">글제목</th>
+				<tr align="left">
+					<th width="100">번호</th>
+					<th width="100"></th>
+					<th width="300">제목</th>
 					<th width="150">작성일</th>
 				</tr>
 			<thead>
@@ -114,10 +128,10 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${list}" var="list" varStatus="status">
-						<c:out value="${status.index}" /> / <c:out value="${status.end}" />
+						<!-- <c:out value="${status.index}" /> / <c:out value="${status.end}" /> -->
 							<tr class="list">
 								<td>${list.tgbNo}</td>
-								<td><img src="<%=contextPath%>/assets/img_upfile/${list.thumnail}" width="100px" height="100px"></td>
+								<td><img src="<%=contextPath%>/assets/img_upfile/${list.thumnail}" width="200px" height="200px"></td>
 								<td>${list.tgbTitle }</td>
 								<td>${list.createDate }</td>
 							</tr>
@@ -178,14 +192,19 @@
 		</div>
 		<br> <br>
 		</div>
-		
-		<!--<h2 align="center">진행</h2>
-		<br>
-		<div class="listArea" align="center">
-		</div>-->
-		</div>
-		</div>
-
+	   </div>
+	</div>
+<script>
+if(!${empty list}){
+	$(function(){
+		$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
+			var bno = $(this).parent().children().eq(0).text();
+			console.log(bno)
+			location.href="${contextPath}/detailTgb.do?bno="+bno;
+		})
+	})
+}
+</script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
