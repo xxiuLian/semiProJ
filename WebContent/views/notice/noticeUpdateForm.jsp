@@ -10,19 +10,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	.outer{
+.outer{
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:#fff;
+		color:black;
 		margin:auto;
 		margin-top:50px;
 	}
-	#updateForm{width:60%; margin:auto;}
+	#updateForm{width:100%; margin: 15px auto;}
 	#updateForm>table{border:1px solid white;}
 	#updateForm>table input{
 		width:100%;
 		box-sizing:border-box;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
 	}
 	
 </style>
@@ -40,24 +43,18 @@
 			<input type="hidden" name="nno" value="<%= n.getNoticeNo() %>">
 			<table align="center">
 				<tr>
-					<td>제목</td>
-					<td colspan="3"><input type="text" name="title" value="<%= n.getNoticeTitle() %>"></td>
-				</tr>
-				
-				<tr>
-					<td>내용</td>
-					<td colspan="3"></td>
+					<td colspan="3"><input type="text" name="title" class="form-control" value="<%= n.getNoticeTitle() %>"></td>
 				</tr>
 				<tr>
 					<td colspan="4">
-						<textarea name="content" cols="60" rows="15" style="resize:none;"><%= n.getNoticeContent() %></textarea>
+						<textarea name="content" cols="60" rows="15" class="form-control" style="resize:none;"><%= n.getNoticeContent() %></textarea>
 					</td>
 				</tr>	
 			</table>
 			<br>
 			
 			<div class="btns" align="center">
-				<button type="submit">수정하기</button>
+				<button class="btn btn-default" id="searchbtn" type="submit" style="border:1px solid grey">수정하기</button>
 			</div>
 		</form>
 	</div>

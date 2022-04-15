@@ -16,14 +16,14 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<link href="css/styles.css" rel="stylesheet" />
 <title>Insert title here</title>
 <style>
 	.outer{
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:#fff;
+		color:black;
 		margin:auto;
 		margin-top:50px;
 	}
@@ -35,9 +35,27 @@
 		margin-top:50px;
 	}
 	
-	.listArea>tbody>tr:hover{
-		background:darkgrey;
+	/* .listArea>tbody>tr:hover{
+		background:lightgrey;
 		cursor:pointer
+	} */
+	
+	.pagingArea{
+		margin-top:15px;
+	}
+	.pagingicon{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#writeadmin, #searchbtn{
+		border: 1px solid black;
+		
+	}
+	#writeadmin:hover{
+		background-color:#eee;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
 	}
 </style>
 </head>
@@ -49,14 +67,14 @@
 		<h2 align="center">이벤트</h2>
 		<br>
 		        
-		<table class="listArea" align="center">
+		<table class="listArea table table-hover" align="center">
 			<thead>
 				<tr>
 					<th>글번호</th>
 					<th width="300">글제목</th>
 					<th width="100">작성자</th>
 					<th>조회수</th>
-					<th width="100">작성일</th>
+					<th width="200">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -76,7 +94,6 @@
 				 	<% } %>
 				 <% } %>
 			</tbody>
-			
 		</table>
 		
 		<form class="searchArea" align="center">
@@ -86,24 +103,24 @@
 				<option value="content">내용</option>
 			</select>
 			<input type="search" name="search">
-			<button type="submit">검색하기</button>
+			<button class="btn btn-default" id="searchbtn" type="submit">검색하기</button>
 		</form>
 		
 		
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button
+			<button class="pagingicon"
 				onclick="location.href='${contextPath}/eventList.do?currentPage=1'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
 			<c:choose>
 				<c:when test="${currentPage eq 1}">
-					<button disabled>&lt;</button>
+					<button class="pagingicon" disabled>&lt;</button>
 				</c:when>
 				<c:otherwise>
-					<button
+					<button class="pagingicon"
 						onclick="location.href='${contextPath}/eventList.do?currentPage=${currentPage - 1}'">
 						&lt;</button>
 				</c:otherwise>
@@ -112,10 +129,10 @@
 			<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
 				<c:choose>
 					<c:when test="${p eq currentPage}">
-						<button disabled>${p}</button>
+						<button class="pagingicon" disabled>${p}</button>
 					</c:when>
 					<c:otherwise>
-						<button
+						<button class="pagingicon"
 							onclick="location.href='${contextPath}/eventList.do?currentPage=${p}'">
 							${p}</button>
 					</c:otherwise>
@@ -125,17 +142,17 @@
 			<!-- 다음페이지로(>) -->
 			<c:choose>
 				<c:when test="${currentPage eq maxPage}">
-					<button disabled>&gt;</button>
+					<button class="pagingicon" disabled>&gt;</button>
 				</c:when>
 				<c:otherwise>
-					<button
+					<button class="pagingicon"
 						onclick="location.href='${contextPath}/eventList.do?currentPage=${currentPage + 1}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
-			<button
+			<button class="pagingicon"
 				onclick="location.href='${contextPath}/eventList.do?currentPage=${maxPage}'">
 				&gt;&gt;</button>
 				
@@ -146,10 +163,11 @@
 			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %> 
 			<!-- admin일 경우 컨트롤/NoticeEnrollFormServlet -->
 			
-			<button onclick="location.href='<%=contextPath%>/enrollFormEvent.do'">작성하기</button> 
+			<button class="btn btn-default" id="writeadmin" onclick="location.href='<%=contextPath%>/enrollFormEvent.do'">작성하기</button> 
 		<% } %>
 		</div>
 		
+	</div>
 	</div>
 	<script type="text/javascript">
 		<% if(!list.isEmpty()){%>
@@ -162,6 +180,14 @@
 			})
 		<%}%>
 	</script>
-	
+	 <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>
