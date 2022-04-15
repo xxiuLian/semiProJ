@@ -123,17 +123,17 @@
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button
+			<button class="pagingicon"
 				onclick="location.href='${contextPath}/searchQna.do?currentPage=1&keyword=${keyword}'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
 			<c:choose>
 				<c:when test="${currentPage eq 1}">
-					<button disabled>&lt;</button>
+					<button class="pagingicon" disabled>&lt;</button>
 				</c:when>
 				<c:otherwise>
-					<button
+					<button class="pagingicon"
 						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage - 1}&keyword=${keyword}'">
 						&lt;</button>
 				</c:otherwise>
@@ -142,10 +142,10 @@
 			<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
 				<c:choose>
 					<c:when test="${p eq currentPage}">
-						<button disabled>${p}</button>
+						<button class="pagingicon" disabled>${p}</button>
 					</c:when>
 					<c:otherwise>
-						<button
+						<button class="pagingicon"
 							onclick="location.href='${contextPath}/searchQna.do?currentPage=${p}&keyword=${keyword}'">
 							${p}</button>
 					</c:otherwise>
@@ -155,29 +155,29 @@
 			<!-- 다음페이지로(>) -->
 			<c:choose>
 				<c:when test="${currentPage eq maxPage}">
-					<button disabled>&gt;</button>
+					<button class="pagingicon" disabled>&gt;</button>
 				</c:when>
 				<c:otherwise>
-					<button
+					<button class="pagingicon"
 						onclick="location.href='${contextPath}/searchQna.do?currentPage=${currentPage + 1}&keyword=${keyword}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
-			<button
+			<button class="pagingicon"
 				onclick="location.href='${contextPath}/searchQna.do?currentPage=${maxPage}&keyword=${keyword}'">
 				&gt;&gt;</button>
 		</div>
 		<br> <br>
 		<div align="center">
-			<input type="text" id="search2"><button type="button" onclick="searchQnaList();">검색</button>
+			<input type="text" id="search2"><button type="button" class="pagingicon" onclick="searchQnaList();">검색</button>
 		</div>
 		
 		<br> <br>
 		<div align="center">
 			<c:if test="${loginUser != null}">
-				<button onclick="location.href='enrollFormQna.do'">작성하기</button>
+				<button class="pagingicon" onclick="location.href='enrollFormQna.do'">작성하기</button>
 			</c:if>
 		</div>
 	</div>
