@@ -6,44 +6,54 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"> 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
 </head>
 <style>
-
-div tr td{
-
+.container{
+	margin-bottom: 50px;
 }
+.outer{
+		width:800px;
+		height:auto;
+		margin: auto;
+	}
 td{
 	height: 50px;
 	text-align: left;
 }
 .tdfirst{
 	width: 100px;
-	border-right: 0.5px solid black;
+	border-right: 0.5px solid rgb(170, 170, 170);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 20px;
 }
 .tdsecond{
 	padding-left: 10px;
 }
-.outer{
-		width:800px;
-		height:300px;
-		color:black;
-		margin:auto;
-		margin-top:50px;
-		text-align : center;
-		
-	}
+.optionWrap{
+	height: 330px;
+}
 #titleImg{
 	width:300px;
-	height:400px;
-	border: 0.2px solid black;
+	height:300px;
+	border: 1px solid rgb(223, 220, 220);
+	border-radius: 7px;
 	overflow:hidden;
 	margin : 0 auto;
-	display:inline-block;
+	
 	float : left;
+	color: rgb(128, 128, 128);
+	display: flex;
+    align-items: center
+}
+#titleImgText{
+	width:300px;
+	text-align: center;
 }
 #thumb{
 	max-width:100%;
@@ -51,58 +61,127 @@ td{
 	object-fit:cover;
 }
 .option{
-	width:350px;
-	height:400px;
+	width:60%;
+	height:auto;
 	margin : 10px;
 	display:inline-block;
 }
+
+.editor-menu{
+	border: 0px solid white;
+	display: inline-block;
+	background-color:rgb(239, 239, 239);
+	width: 640px;
+	margin-top: 10px;
+	height: 30px;
+	padding-left: 10px;
+	padding-top: 5px;
+
+	
+}
+.editor-menu button{
+	border: 0px solid rgb(150, 150, 150);
+	height: 25px;
+	margin-right: 5px;
+	margin-left: 5px;
+	
+	
+}
+.editor-menu select{
+	background-color: rgb(239, 239, 239);
+	border: 0px;
+}
+
 .textarea{
-	width:766px; 
+	width:100%; 
 	height:412px;
 	overflow-y : scroll;
 	text-align : left;
-	border : 1px solid black;
+	border : 1px solid rgb(216, 216, 216);
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 	padding : 30px;
 }
 .btns{
 	text-align: left;
+	display: inline-block;
+	float: left;
+	width: fit-content;
+	
+	
+	
 }
 #ctnbtn{
 	background-color: rgb(2, 2, 59);
 	color: white;
+	border: 0px solid white;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	width: 80px;
+	height: 40px;
+	font-weight: bold;
+
 }
 #gidbtn{
 	background-color: rgb(190, 190, 190);
-	color: rgb(199, 197, 197);
+	color: rgb(241, 241, 241);
+	border: 0px solid white;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	width: 80px;
+	height: 40px;
+	font-weight: bold;
 }
 #uploaded{
-	width:766px; 
+	width:100%; 
 	height:80px;
-	border : 1px solid rgb(110, 110, 110);
+	border : 1px solid rgb(192, 191, 191);
 	margin-top: 20px;
 	overflow-y : scroll;
+	border-radius: 5px;
 }
-#fileinput{
-	text-align: left;
-	margin-top: 20px;
-}
+
 #contentArea{
 	max-width: 100%;
 }
-
+.inputcss{
+	border: 0.2px solid rgb(197, 195, 195);
+	border-radius: 5px;
+	height: 30px;
+	width: 250px;
+}
+.inputcss:focus{
+outline: none;
+border-color: #9ecaed;
+box-shadow: 0 0 10px #d2cef5;
+}
+.bottombtns{
+	background-color: rgb(11, 100, 159);
+	border-radius: 7px;
+	border: 1px solid rgb(255, 255, 255);
+	color: white;
+	font-weight: bold;
+	margin-top: 30px;
+	width: 120px;
+	height: 40px;
+}
+#deletimgbtn{
+	background-color: #c2c3c4;
+}
 </style>
 
 <body>
 <%@ include file="../common/menubar.jsp" %>
 
 <%if(loginUser != null){ %>
-
-<div class="outer">
+<div class="container">
+<div class="outer" align="center">
 <br>
 <h2>공동구매 등록</h2>
 <hr>
 	<form action="<%= contextPath %>/tgbInsertServlet.do" method="post" id="frm" enctype="multipart/form-data" onsubmit="return insertTgb();"> 
-		<div id="titleImg">대표 이미지<img id="thumb"></div>
+		<div class="optionWrap">
+		<div id="titleImg"><div id="titleImgText">대표이미지</div> <img id="thumb"></div>
 			
 		<div class="option">
 		<input type="file" id="thumbImg" name="file0" onchange="loadThumbImg(event)" hidden>
@@ -111,7 +190,7 @@ td{
 					<td class="tdfirst">카테고리  </td>
 					<td class="tdsecond">
 						<div>
-							<select name="category" id="tgbCategory">
+							<select name="category" class="inputcss" id="tgbCategory">
 								<c:forEach items="${catelist}" var="category" varStatus="st">
 									<option value="${category.categoryNo}"><c:out value="${category.categoryName}"/></option>
 								</c:forEach>
@@ -121,19 +200,19 @@ td{
 				</tr>
 				<tr>
 					<td class="tdfirst"> 제목  </td>
-					<td class="tdsecond"><input type="text" name="title" id="titleId"></td>
+					<td class="tdsecond"><input type="text" class="inputcss" name="title" id="titleId"></td>
 				</tr>
 				<tr>
 					<td class="tdfirst">공구 인원  </td>
-					<td class="tdsecond"><input type="number" name="pcont"> 명</td>
+					<td class="tdsecond"><input type="number" class="inputcss" name="pcont"> 명</td>
 				</tr>
 				<tr>
 					<td class="tdfirst">공구 기간  </td>
-					<td class="tdsecond"><input type="date" name="term"></td>
+					<td class="tdsecond"><input type="date" class="inputcss" name="term"></td>
 				</tr>
 				<tr>
 					<td class="tdfirst">가격  </td>
-					<td class="tdsecond"><input type="number" name="price" value="0" step ="1000" id="priceId"> 원</td>
+					<td class="tdsecond"><input type="number" class="inputcss" name="price" value="0" step ="1000" id="priceId"> 원</td>
 				</tr>
 				<tr>
 					
@@ -142,18 +221,14 @@ td{
 			</table>
 
 		</div>
+		</div>
 		
 
+		
 		<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
-		<div class="editor-menu"> 
-			<button id="bold" type="button"> <b>B</b> </button> 
-			<button id="italic" type="button"> <i>I</i> </button> 
-			<button id="underline" type="button"> <u>U</u> </button> 
-			<button id="strike" type="button"> <s>S</s> </button> 
-			<button id="ordered-list" type="button"> OL </button> 
-			<button id="unordered-list" type="button"> UL </button>  
+		<div class="editor-menu" align="left">
 			<select id="select-font-size">
-				<option value="">폰트 사이즈</option> 
+				<option value="">글자 사이즈</option> 
 				<option value="1">10px</option> 
 				<option value="2">13px</option> 
 				<option value="3">16px</option> 
@@ -162,9 +237,14 @@ td{
 				<option value="6">32px</option> 
 				<option value="7">38px</option> 
 			</select> 
-			
+			<button id="bold" type="button"> <b>B</b> </button> 
+			<button id="italic" type="button"> <i>I</i> </button> 
+			<button id="underline" type="button"> <u>U</u> </button> 
+			<button id="strike" type="button"> <s>S</s> </button> 
+			<button id="ordered-list" type="button"> OL </button> 
+			<button id="unordered-list" type="button"> UL </button>  
 			<select id="select-font-color"> 
-				<option value="">폰트 색상</option> 
+				<option value="">글자 색</option> 
 				<option value="#000000">검정</option> 
 				<option value="#FFFFFF">흰색</option> 
 				<option value="#CCCCCC">회색</option> 
@@ -173,7 +253,7 @@ td{
 				<option value="#37B24D">녹색</option> 
 			</select> 
 			<select id="select-font-background"> 
-				<option value="rgba(0, 0, 0, 0)">폰트 백그라운드</option> 
+				<option value="rgba(0, 0, 0, 0)">바탕색</option> 
 				<option value="#000000">검정</option> 
 				<option value="#FFFFFF">흰색</option> 
 				<option value="#CCCCCC">회색</option> 
@@ -181,12 +261,8 @@ td{
 				<option value="#1971C2">파랑</option> 
 				<option value="#37B24D">녹색</option> 
 			</select>
-			
-
-
-
-		</div> 
-
+	
+			</div>
 
 <script> 
 const fontSizeList = [10, 13, 16, 18, 24, 32, 48];
@@ -282,13 +358,13 @@ if($('#contentArea').is(":visible")){
 		<textarea name="content" id="content" hidden></textarea> 
 		<textarea name="guide" id="guide" hidden></textarea> 
 
-		<div class="btns"><button type="button" id="fileinput">이미지 삽입</button></div>
+		<div class="btns"><button type="button" class="bottombtns" id="fileinput">이미지 삽입</button></div>
 		
-		<div id="uploaded"></div><button type="button" onclick="deleteImg();">선택파일 삭제</button>
+		<div id="uploaded"></div><button type="button" class="bottombtns" id="deletimgbtn" onclick="deleteImg();">선택파일 삭제</button>
 		
 		<input type="hidden" name="writer" value=<%=loginUser.getUserNo() %> ><!--writer_NO-->
 		
-		<button id="btn1" type="button">작성완료</button>
+		<button id="btn1" class="bottombtns" type="button">작성완료</button>
 		
 		<div id = "inputFileArea" hidden>
 			<input type="file" class="inputFile" name="file1" onchange="loadImg(event)">
@@ -330,6 +406,8 @@ if($('#contentArea').is(":visible")){
 	});
 	
 	function loadThumbImg(event){
+		$('#titleImgText').remove();
+		$('#titleImg').css("height", "auto");
 
         let fileInputControl = event.target;
         let files = Array.from(fileInputControl.files);
@@ -476,7 +554,9 @@ if($('#contentArea').is(":visible")){
     
 	</script>
 </div>
-<script>
+</div>
+<%@ include file="../../views/common/footer.jsp" %>
+
 </script>
 
 </body>
