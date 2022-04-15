@@ -94,7 +94,6 @@
 				 	<% } %>
 				 <% } %>
 			</tbody>
-			
 		</table>
 		
 		<form class="searchArea" align="center">

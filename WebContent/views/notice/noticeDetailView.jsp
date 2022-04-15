@@ -14,16 +14,16 @@
 	.outer{
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:#fff;
+		color:black;
 		margin:auto;
 		margin-top:50px;
 	}
-	#detailArea{width:60%; margin:auto;border-color:white;}
+	#detailArea{width:100%; margin: 15px auto;border-color:black;}
 	#detailArea p{height:150px;}
-	.btns a{text-decoration:none; color:white;}
-	
-	
+	#detailArea th{font-size:20px;}
+	#detailArea td{font-size:18px;}
+	.btns a{text-decoration:none; color:black;}
 </style>
 </head>
 <body>
@@ -35,23 +35,23 @@
 		<h2 align="center">공지사항 상세보기</h2>
 		
 
-		<table id="detailArea" border="1">
+		<table class="table table-condensed" id="detailArea">
 			<tr>
-				<td>제목</td>
-				<td colspan="3"><%= n.getNoticeTitle() %></td>
+				<th>제목</th>
+				<th colspan="4"><%= n.getNoticeTitle() %></th>
 			</tr>
 			<tr>
-				<td>작성자</td>
+				<th>작성자</th>
 				<td><%= n.getNoticeWriter() %></td>
 				<td>작성일</td>
 				<td><%= n.getCreateDate() %></td>
 			</tr>
 			<tr>
-				<td colspan="4">내용</td>
+				<th colspan="5">내용</th>
 			
 			</tr>
 			<tr>
-				<td colspan="4">
+				<td colspan="5">
 					<p><%= n.getNoticeContent() %></p>
 				</td>
 			</tr>	

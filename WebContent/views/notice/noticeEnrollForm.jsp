@@ -9,16 +9,19 @@
 	.outer{
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:#fff;
+		color:black;
 		margin:auto;
 		margin-top:50px;
 	}
-	#enrollForm{width:60%; margin:auto;}
+	#enrollForm{width:100%; margin: 15px auto;}
 	#enrollForm>table{border:1px solid white;}
 	#enrollForm>table input{
 		width:100%;
 		box-sizing:border-box;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
 	}
 </style>
 </head>
@@ -33,24 +36,18 @@
 		<form id="enrollForm" action="<%= contextPath %>/insertNotice.do" method="post" >
 			<table align="center">
 				<tr>
-					<td>제목</td>
-					<td colspan="3"><input type="text" name="title"></td>
-				</tr>
-				
-				<tr>
-					<td>내용</td>
-					<td colspan="3"></td>
+					<td colspan="3"><input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." required></td>
 				</tr>
 				<tr>
 					<td colspan="4">
-						<textarea name="content" cols="60" rows="15" style="resize:none;"></textarea>
+						<textarea name="content" cols="60" rows="15"  style="resize:none;" class="form-control" placeholder="내용을 입력하세요." required></textarea>
 					</td>
 				</tr>	
 			</table>
 			<br>
 			
 			<div class="btns" align="center">
-				<button type="submit">등록하기</button>
+				<button class="btn btn-default" id="searchbtn" type="submit" style="border:1px solid grey">등록하기</button>
 				
 			</div>
 		</form>
