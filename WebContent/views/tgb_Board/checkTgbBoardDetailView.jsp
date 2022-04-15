@@ -15,16 +15,16 @@ TgbBoard_dto b = (TgbBoard_dto)request.getAttribute("b");
 	.outer{
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:#fff;
+		color:black;
 		margin:auto;
 		margin-top:50px;
 	}
-	#detailArea{width:60%; margin:auto;border-color:white;}
+	#detailArea{width:100%; margin: 15px auto;border-color:black;}
 	#detailArea p{height:150px;}
-	.btns a{text-decoration:none; color:white;}
-	
-	
+	#detailArea th{font-size:20px;}
+	#detailArea td{font-size:18px;}
+	.btns a{text-decoration:none; color:black;}
 </style>
 </head>
 <body>
@@ -36,29 +36,31 @@ TgbBoard_dto b = (TgbBoard_dto)request.getAttribute("b");
 		<h2 align="center">공구_게시판 상세보기</h2>
 		
 
-		<table id="detailArea" border="1">
+		<table class="table table-condensed" id="detailArea">
 			<tr>
 				<td>제목</td>
-				<td colspan="3"><%= b.getTgbBoardTitle() %></td>
+				<td colspan="4"><%= b.getTgbBoardTitle() %></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
 				<td><%= b.getTgbBoardWriter() %></td>
+				<td></td>
 				<td>작성일</td>
 				<td><%= b.getTgbBoardDate() %></td>
 			</tr>
 			<tr>
-				<td colspan="4">내용</td>
+				<td colspan="5">내용</td>
 			
 			</tr>
 			<tr>
-				<td colspan="4">
+				<td colspan="5">
 					<p><%= b.getTgbBoardContent() %></p>
 				</td>
 			</tr>	
 		</table>
 		
 		<br>
+
 		<%--
 			<div class="btns" align="center">
 				<a href="tgbBoardSelect.do">목록으로</a> &nbsp;&nbsp;

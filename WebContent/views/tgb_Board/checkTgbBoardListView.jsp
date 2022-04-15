@@ -21,8 +21,8 @@
 	.outer{
 		width:800px;
 		height:500px;
-		background:black;
-		color:white;
+		background:#fff;
+		color:black;
 		margin:auto;
 		margin-top:50px;
 	}
@@ -34,9 +34,24 @@
 		margin-top:50px;
 	}
 	
-	.listArea>tbody>tr:hover{
-		background:darkgrey;
+	/* .listArea>tbody>tr:hover{
+		background:lightgrey;
 		cursor:pointer
+	} */
+	.pagingArea{
+		margin-top:15px;
+	}
+	.pagingArea button{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#searchbtn{
+		border: 1px solid black;
+		
+	}
+
+	#searchbtn:hover{
+		background-color:#eee;
 	}
 </style>
 </head>
@@ -48,43 +63,20 @@
 		<h2 align="center">공구_게시판</h2>
 		<br>
 		        
-		<table class="listArea" align="center">
+		<table class="listArea table table-hover" align="center">
 			<thead>
 				<tr>
 					<th>글번호</th>
 					<th width="300">글제목</th>
 					<th width="100">작성자</th>
 					<th>조회수</th>
-					<th width="100">작성일</th>
+					<th width="200">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
-				<!-- 
-				<tr>
-					<td>3</td>
-					<td>마지막 제목</td>
-					<td>admin</td>
-					<td>10</td>
-					<td>2020-02-10</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>두번째 제목</td>
-					<td>admin</td>
-					<td>100</td>
-					<td>2020-02-01</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>첫번째 제목</td>
-					<td>admin</td>
-					<td>45</td>
-					<td>2019-12-25</td>
-				</tr>
-				 -->
 				 	 <% if(list.isEmpty()){ %>
 				 	<tr>
-						<td colspan="5">존재하는 공구게시판이 없습니다.</td>
+						<td colspan="5">존재하는 공구게시글이 없습니다.</td>
 					</tr>
 				 <% }else{  %>
 				 	<% for(TgbBoard_dto n : list){ %> <!-- 맨위에 ArrayList(<-list)에 담긴것 -->
@@ -108,7 +100,7 @@
 				<option value="content">내용</option>
 			</select>
 			<input type="search" name="search">
-			<button type="submit">검색하기</button>
+			<button class="btn btn-default" id="searchbtn" type="submit">검색하기</button>
 		</form>
 		
 		<!-- 페이징바 만들기 -->
@@ -170,7 +162,7 @@
 		<% } %>
 		</div>
 		 --%>
-		
+	</div>
 	</div>
 	<script type="text/javascript">
 		<% if(!list.isEmpty()){%>
