@@ -11,7 +11,44 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	
+<style>
+ .btnsArea{
+	   width: 100%;
+	   height: 150px;
+	   justify-content: center;
+	   display: flex;
+	   align-items: center;
+	   
+   }
+   .btn{
+	   margin-right: 30px;
+	   display: inline-block;
+   }
+    #goBack{
+	 
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 180px; 
+	height: 50px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 25px;
+   }
+   #save{
+	   background:rgb(11, 100, 159); 
+	   color:white; font-size:20px; 
+	   width: 180px; 
+		height: 50px;
+	   border-radius:5px;
+	   border: 0.2px solid rgb(216, 216, 216);
+	   font-family: 'Noto Sans KR', sans-serif;
+	   font-weight: 700;
+	   font-size: 25px;
+	}
+</style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
@@ -37,14 +74,14 @@
 						id="boardTitle" placeholder="제목을 입력해 주세요">
 				</div>
 				<div class="mb-3">
-					<textarea class="form-control" id="ir1" rows="15" name="content"
-						style="width: 100%;" placeholder="내용을 입력해 주세요"></textarea>
+					<span>내용</span>
+					<textarea placeholder="내용을 입력해 주세요" class="form-control" id="ir1" rows="15" name="content"
+						style="width: 100%;"></textarea>
 				</div>
-
-				<div id="se2_sample" style="margin: 10px 0;">
-					<button type="button" id="save">등록</button>
-					<button type="button" id="goBack">취소</button>
-					
+				
+				<div id="btnsArea" align="center">
+					<div class="btn"><button type="button" id="save">등록</button></div>
+					<div class="btn"><button type="button" id="goBack" onclick="history.back()">취소</button></div>
 				</div>
 			</form>
 		</div>
@@ -93,7 +130,6 @@
 		
 		$("#insertForm").submit();
 	})
-	
 </script>
 
 </html>

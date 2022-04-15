@@ -85,7 +85,8 @@ nhn.husky.SE2M_AttachQuickPhoto = jindo.$Class({
 				const extractSpanPattern2 = /<(\/body|body)([^>]*)>/gi;
 				sContents += this._getPhotoTag(aPhotoInfo);
 				console.log("sContents : " + sContents);
-				sContents = sContents.replace(/\n/ig,'');
+				sContent = sContent.replace(/[\n|\t]/g, ''); // 개행문자, 안보이는 공백 제거
+				sContent = sContent.replace(/[\v|\f]/g, ''); // 개행문자, 안보이는 공백 제거
 				sContents = sContents.replace(extractSpanPattern,"");
 				sContents = sContents.replace(extractSpanPattern2,"");
 				console.log("sContents final : " + sContents);
