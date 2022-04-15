@@ -6,7 +6,6 @@
 <c:set var="contextPath" value="<%= request.getContextPath()%>" scope="session"/>
 <%
 	String admin = (String)request.getAttribute("admin");
-	System.out.println("어드민 " + admin);
 %>
 <!DOCTYPE html>
 <html lang="en">
