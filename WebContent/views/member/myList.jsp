@@ -107,12 +107,12 @@
                 </nav>
                 <!-- Page content-->
 				<!-- <div class="content"></div> -->
-		<h2 align="center" style="margin-top:25px;">나의 진행 상품</h2>
+		<h2 align="center" style="margin-top:25px;">${loginUser.getUserName()} 님의 진행 상품</h2>
 		<br>
 		<div class="myGoods" align="center">
 		<table class="listArea table table-hover" align="center">
 			<thead>
-				<tr align="left">
+				<tr>
 					<th width="100">번호</th>
 					<th width="100"></th>
 					<th width="300">제목</th>
@@ -123,7 +123,7 @@
 				<c:choose>
 					<c:when test="${empty list}">
 						<tr>
-							<td colspan="5">공동구매 진행 내역이 없습니다.</td>
+							<td colspan="5" align="center">공동구매 진행 내역이 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -199,7 +199,6 @@ if(!${empty list}){
 	$(function(){
 		$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 			var bno = $(this).parent().children().eq(0).text();
-			console.log(bno)
 			location.href="${contextPath}/detailTgb.do?bno="+bno;
 		})
 	})

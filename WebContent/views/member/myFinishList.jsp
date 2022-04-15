@@ -25,20 +25,33 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/myPageStyles.css" rel="stylesheet" />
-        <style>
-
-	#updateForm{
-		/* border:1px solid white; */
-		width:100%;
-		margin-left:auto;
-		margin-right:auto;
+         <!-- Google fonts-->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<style>
+	.myGoods{
+		width:1000px;
+		margin: 0 auto;
 	}
-	#updateForm td:nth-child(1){text-align:right;}
-	#updateForm input{margin:3px;}
-	
-	#joinBtn{background:yellowgreen;}
-	#goMain{background:orangered;}
+
 	ul, li { list-style: none; }
+	.pagingArea>button{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	.listArea tr{
+	  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	  font-size: 20px;
+  	  color: #495057;
+      letter-spacing: 0.0625em;
+	}
+	.listArea td{
+	  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	  font-size: 20px;
+  	  color: #495057;
+      letter-spacing: 0.0625em;
+      vertical-align:middle;
+	}
 	
 </style>
     </head>
@@ -94,15 +107,15 @@
                 <!-- Page content-->
 				<!-- <div class="content"></div> -->
 				
-		<h2 align="center">나의 완료 상품</h2>
+		<h2 align="center" style="margin-top:25px;">${loginUser.getUserName()} 님의 완료 상품</h2>
 		<br>
 		<div class="myGoods" align="center">
-		<table class="listArea" align="center">
+		<table class="listArea table table-hover" align="center">
 			<thead>
 				<tr>
-					<th width="50">글번호</th>
-					<th width="100">썸네일</th>
-					<th width="300">글제목</th>
+					<th width="100">번호</th>
+					<th width="100"></th>
+					<th width="300">제목</th>
 					<th width="150">작성일</th>
 				</tr>
 			<thead>
@@ -110,15 +123,14 @@
 				<c:choose>
 					<c:when test="${empty finishList}">
 						<tr>
-							<td colspan="5">공동구매 만료 내역이 없습니다.</td>
+							<td colspan="5" align="center">공동구매 만료 내역이 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${finishList}" var="finishList" varStatus="status">
-						<c:out value="${status.index}" /> / <c:out value="${status.end}" />
 							<tr class="list">
 								<td>${finishList.tgbNo}</td>
-								<td><img src="<%=contextPath%>/assets/img_upfile/${finishList.thumnail}" width="100px" height="100px"></td>
+								<td><img src="<%=contextPath%>/assets/img_upfile/${finishList.thumnail}" width="200px" height="200px"></td>
 								<td>${finishList.tgbTitle }</td>
 								<td>${finishList.createDate }</td>
 							</tr>
