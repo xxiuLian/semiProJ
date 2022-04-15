@@ -20,6 +20,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 
 .listArea{
@@ -32,12 +35,49 @@
 	display: inline-block;
 	margin:20px;
 }
+h2{
+	border-bottom: 1px solid rgb(201, 200, 200) ;
+	width: 200px;
+	padding-bottom: 10px;
+}
+.list p{
+	font-family: 'Noto Sans KR', sans-serif;
+	
+	font-size: 20px;
+	margin: 0px;
+	
+}
+.proTitle{
+	font-size: 23px;
+	font-weight: 700;
+}
+.proPrice{
+	font-weight: bold;
+	color: rgb(44, 44, 160);
+}
+.proTerm{
+	font-size: 13px;
+	color: rgb(136, 136, 136);
+	font-weight: 300;
+}
+.paging button{
+	border: 0.2px solid rgb(255, 255, 255);
+	background-color: rgb(223, 223, 223);
+	border-radius: 7px;
+	color: rgb(75, 75, 75);
+	font-weight: bold;
+}
+.listcount{
+	font-family: 'Noto Sans KR', sans-serif;
+	color: rgb(176, 176, 177);
+}
 
 </style>
 <body>
 <%@ include file="../common/menubar.jsp" %>
-
-<h2 align="center">공구 목록 조회</h2>
+<div class="container">
+<h2>전체 상품</h2>
+<p class="listcount"> 총 ${listCount}개</p>
 <br>
 
 <div class="listArea" align="center">
@@ -49,11 +89,11 @@
 				<div class="list col-lg-3 col-md-4 col-sm-6" align = "center">
 					<input type="hidden" value="<%=t.getTgbNo() %>">
 					<img src="<%=contextPath %>/assets/img_upfile/<%=t.getThumnail()%>" width="300px" height="200px"><br>
-					<p>제목 : <%=t.getTgbTitle() %></p>
-					<p><%=t.getTgb_Price() %>원</p>
+					<p class="proTitle"><%=t.getTgbTitle() %></p>
+					<p class="proPrice"><%=t.getPrice() %> 원</p>
 					
 				 <%if(t.getTgbTerm() != null){ %><!-- Date라 조정필요 -->
-					<p><%=t.getTgbTerm() %>일까지</p>
+					<p class="proTerm"><%=t.getTgbTerm() %>일까지</p>
 					<%}%>
 					
 	
@@ -62,6 +102,7 @@
 		<%} %>
 	</div>	
 </div>
+
 <script>
 	$(function(){
 		$('.list').click(function(){
@@ -74,38 +115,39 @@
 
 <br><br>
 <!-- 페이징바 -->
-<div class="paging" align="center">
-	<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=1'">&lt;&lt;</button>
+	<div class="paging" align="center">
+		<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=1'">&lt;&lt;</button>
 
-<!-- 이전페이지로 -->
-	<%if(currentPage == 1) {%>
-	<button disabled>&lt;</button>
-	<%}else{ %>
-	
-		<button onclick="location.href='<%=contextPath %>/tgbList.do?currentPage=<%=currentPage-1 %>'">&lt;</button>
-	
-	<%} %>
-	
-	<!-- 페이지 목록 -->
-	<%for(int i = startPage; i<=endPage; i++){ %>
-		<%if(i ==currentPage){ %>
-		<button disabled><%= i %></button>
+	<!-- 이전페이지로 -->
+		<%if(currentPage == 1) {%>
+		<button disabled>&lt;</button>
 		<%}else{ %>
-		<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=<%=i%>'"><%=i %></button>
+		
+			<button onclick="location.href='<%=contextPath %>/tgbList.do?currentPage=<%=currentPage-1 %>'">&lt;</button>
+		
 		<%} %>
-	<%} %>
-	
-	<!-- 다음페이지로 -->
-	<%if(currentPage == maxPage) {%>
-	<button disabled>&gt;</button>
-	<%}else{ %>
-	
-	<button onclick="location.href='<%= contextPath %>/tgbList.do?currentPage=<%= currentPage+1 %>'"> &gt; </button>
-	
-	<%} %>
-	
-	<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
+		
+		<!-- 페이지 목록 -->
+		<%for(int i = startPage; i<=endPage; i++){ %>
+			<%if(i ==currentPage){ %>
+			<button disabled><%= i %></button>
+			<%}else{ %>
+			<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=<%=i%>'"><%=i %></button>
+			<%} %>
+		<%} %>
+		
+		<!-- 다음페이지로 -->
+		<%if(currentPage == maxPage) {%>
+		<button disabled>&gt;</button>
+		<%}else{ %>
+		
+		<button onclick="location.href='<%= contextPath %>/tgbList.do?currentPage=<%= currentPage+1 %>'"> &gt; </button>
+		
+		<%} %>
+		
+		<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
 
+	</div>
 </div>
 </body>
 </html>
