@@ -35,58 +35,52 @@
 		border: 1px solid lightgray;
 		border-radius: 5px;
 	}
-	#writeadmin, #searchbtn{
+	#deleteBtn,  #resetBtn{
 		border: 1px solid black;
 		
 	}
-	#writeadmin:hover{
+	 #deleteBtn:hover{
 		background-color:#eee;
 	}
-	#searchbtn:hover{
+	#resetBtn:hover{
 		background-color:#eee;
 	}
-	.qnaCategory{
-		float: left;
-	}
-	
-	.btnsArea{
-	   width: 100%;
-	   height: 80px;
-	   justify-content: center;
-	   display: flex;
-	   align-items: center;
-	   
-   }
-   #search1{
-   		padding-top: 10px;
-   		width: 200px; 
-   		height: 40px;
-   		border-radius:5px;
-   		border: 0.2px solid rgb(150, 150, 150);
-   }
    
-    #searchbtn{
+    #resetBtn{
 	background:rgb(216, 216, 216); 
 	color:rgb(85, 85, 85); 
 	font-size:20px; 
-	width: 70px; 
-	height: 40px;
+	width: 80px; 
+	height: 30px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 15px;
+   }
+   #deleteBtn{
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 250px; 
+	height: 60px;
 	border-radius:5px;
 	border: 0.2px solid rgb(216, 216, 216);
 	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 700;
 	font-size: 25px;
    }
-   #enrollBtn{
+   
+   #blueBtn{
 	   background:rgb(11, 100, 159); 
-	   color:white; font-size:20px; 
+	   color:white; 
 	   width: 140px; 
-		height: 50px;
+	   height: 40px;
 	   border-radius:5px;
 	   border: 0.2px solid rgb(216, 216, 216);
 	   font-family: 'Noto Sans KR', sans-serif;
 	   font-weight: 700;
-	   font-size: 20px;
+	   font-size: 17px;
 	}
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -167,7 +161,7 @@
 					<br>
 				<div class="outer">
 					<div class="btns" align="right">
-						<button type="button" onclick="addCategory()">카테고리 추가</button>
+						<button type="button" id="blueBtn" onclick="addCategory()">카테고리 추가</button>
 					</div>
 					<form id="deleteCategory" action="${contextPath}/deleteCategory.do?keyword=${keyword}"
 						method="post">
@@ -175,7 +169,7 @@
 						<table class="listArea table table-hover" align="center">
 							<thead>
 								<tr>
-									<th width="100"><button type="reset">전체취소</button></th>
+									<th width="100"><button id="resetBtn" type="reset">전체취소</button></th>
 									<th width="300">카테고리 번호</th>
 									<th width="300">카테고리명</th>
 								</tr>
@@ -202,7 +196,7 @@
 						<br>
 						<div class="btns" align="center">
 							<c:if test="${!empty category}">
-								<button type="button" onclick="deleteCategorys()">선택 카테고리 삭제</button>
+								<button type="button" id="deleteBtn" onclick="deleteCategorys()">선택 카테고리 삭제</button>
 							</c:if>
 						</div>
 						</form>
@@ -234,7 +228,8 @@
 	}
 	
 	function addCategory(){
-		window.open("${contextPath}/addCategoryForm.do?keyword=${keyword}", "카테고리 추가", "width=500, height=170 left=800, top=200" );
+		var option = "width=500, height=450, left=700, top=300, location=no, toolbars=no"
+		window.open("${contextPath}/addCategoryForm.do?keyword=${keyword}", "카테고리 추가", option );
 	}
 
 	if(!${empty category}){
@@ -242,7 +237,8 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var cno = $(this).parent().children().eq(1).text();
 				console.log(cno)
-				window.open("${contextPath}/selectCategory.do?keyword=${keyword}&cno="+cno, "카테고리 수정", "width=500, height=170 left=800, top=200" )
+					var option = "width=500, height=450, left=700, top=300, location=no, toolbars=no"
+				window.open("${contextPath}/selectCategory.do?keyword=${keyword}&cno="+cno, "카테고리 수정", option)
 			})
 		})
 	}
