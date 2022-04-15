@@ -32,11 +32,6 @@
 		margin-top:50px;
 	}
 	
-	/* .listArea>tbody>tr:hover{
-		background:lightgrey;
-		cursor:pointer
-	} */
-	
 	.pagingArea{
 		margin-top:15px;
 	}
@@ -56,6 +51,46 @@
 	}
 	.qnaCategory{
 		float: left;
+	}
+	
+	.btnsArea{
+	   width: 100%;
+	   height: 80px;
+	   justify-content: center;
+	   display: flex;
+	   align-items: center;
+	   
+   }
+   #search1{
+   		padding-top: 10px;
+   		width: 200px; 
+   		height: 40px;
+   		border-radius:5px;
+   		border: 0.2px solid rgb(150, 150, 150);
+   }
+   
+    #searchbtn{
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 70px; 
+	height: 40px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 25px;
+   }
+   #enrollBtn{
+	   background:rgb(11, 100, 159); 
+	   color:white; font-size:20px; 
+	   width: 140px; 
+		height: 50px;
+	   border-radius:5px;
+	   border: 0.2px solid rgb(216, 216, 216);
+	   font-family: 'Noto Sans KR', sans-serif;
+	   font-weight: 700;
+	   font-size: 20px;
 	}
 </style>
 </head>
@@ -116,17 +151,15 @@
 				</c:choose>
 			</tbody>
 		</table>
-
-		<br> <br>
-		<div align="center">
-			<c:if test="${loginUser != null}">
-				<button class="pagingicon" onclick="location.href='enrollFormQna.do'">작성하기</button>
-			</c:if>
-			<br><br>
-		</div>
+		<br>
+		<c:if test="${loginUser != null}">
+			<div class="btnsArea" align="center">
+					<button id="enrollBtn" onclick="location.href='enrollFormQna.do'">작성하기</button>
+			</div>
+		</c:if>
 		<div class="searchArea" align="center">
 			<input type="text" id="search1">
-			<button type="button" class="pagingicon" onclick="searchQnaList();">검색</button>
+			<button type="button" id="searchbtn" onclick="searchQnaList();">검색</button>
 		</div>
 			<br><br>
 		<!-- 페이징바 만들기 -->
