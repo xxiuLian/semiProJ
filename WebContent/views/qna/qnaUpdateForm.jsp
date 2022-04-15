@@ -13,13 +13,42 @@
 	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <title>문의 글 수정</title>
 <style>
-#deleteBtn {
-	color: gray;
-}
-
-#deleteBtn:hover {
-	cursor: pointer
-}
+ .btnsArea{
+	   width: 100%;
+	   height: 150px;
+	   justify-content: center;
+	   display: flex;
+	   align-items: center;
+	   
+   }
+   .btn{
+	   margin-right: 30px;
+	   display: inline-block;
+   }
+    #goBack{
+	 
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 180px; 
+	height: 50px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 25px;
+   }
+   #save{
+	   background:rgb(11, 100, 159); 
+	   color:white; font-size:20px; 
+	   width: 180px; 
+		height: 50px;
+	   border-radius:5px;
+	   border: 0.2px solid rgb(216, 216, 216);
+	   font-family: 'Noto Sans KR', sans-serif;
+	   font-weight: 700;
+	   font-size: 25px;
+	}
 </style>
 </head>
 <body>
@@ -54,10 +83,9 @@
 						style="width: 100%;">${q.qnaContent}</textarea>
 				</div>
 				<br>
-				<div id="se2_sample" style="margin: 10px 0;">
-					<button type="button" id="save">수정</button>
-					<button type="reset">취소</button>
-
+				<div id="btnsArea" align="center">
+					<div class="btn"><button type="button" id="save">수정</button></div>
+					<div class="btn"><button type="button" id="goBack" onclick="history.back()">취소</button></div>
 				</div>
 			</form>
 		</div>
