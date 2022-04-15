@@ -36,13 +36,14 @@ public class QnaInsertServlet extends HttpServlet {
 			String category = request.getParameter("category");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
+			
 			System.out.println(category);
 			int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 			
 			Qna q = new Qna();
 			q.setCategory(category);
 			q.setQnaTitle(title);
-			q.setQnaContent(content);
+			q.setQnaContent(content.replaceAll(System.lineSeparator(), ""));
 			q.setQnaWriter(String.valueOf(userNo));
 		
 			
