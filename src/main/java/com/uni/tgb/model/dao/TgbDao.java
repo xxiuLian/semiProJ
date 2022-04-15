@@ -379,7 +379,7 @@ public class TgbDao {
 						rset.getString("USER_ID"), 
 						rset.getInt("TGB_COUNT"), 
 						rset.getDate("TGB_TERM"), 
-						rset.getInt("TGB_PRICE"), 
+						rset.getString("TGB_PRICE"), 
 						rset.getDate("CREATE_DATE"),
 						rset.getString("CHANGE_NAME")));
 				
