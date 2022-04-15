@@ -81,6 +81,7 @@
 	   font-family: 'Noto Sans KR', sans-serif;
 	   font-weight: 700;
 	   font-size: 17px;
+	   margin-bottom: 20px;
 	}
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -125,7 +126,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> 카테고리
+							</div> 선택
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>

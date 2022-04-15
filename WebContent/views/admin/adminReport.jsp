@@ -144,7 +144,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> 카테고리
+							</div> 선택
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
@@ -306,7 +306,8 @@ if(!${empty report}){
 		$("#tbody>tr>td:not(:has(input))").click(function(){
 			var rno = $(this).parent().children().eq(1).text();
 			console.log(rno)
-			window.open("${contextPath}/detailReport.do?rno="+rno, "상품조회", "width=1000, height=600")
+			var option = "width=1000, height=800, left=400, top=100, location=no, toolbars=no"
+			window.open("${contextPath}/detailReport.do?rno="+rno, "상품조회", option)
 		})
 	})
 }
