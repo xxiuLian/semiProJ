@@ -231,7 +231,7 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var bno = $(this).parent().children().eq(2).text();
 				console.log(bno)
-				window.open("${contextPath}/detailTgb.do?bno="+bno, "상품조회", "width=1000, height=600")
+				window.open("${contextPath}/detailTgb.do?admin=admin&bno="+bno, "상품조회", "width=1000, height=600")
 			})
 		})
 	}
