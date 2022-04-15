@@ -9,6 +9,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
 <style type="text/css">
@@ -231,7 +232,8 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var bno = $(this).parent().children().eq(2).text();
 				console.log(bno)
-				window.open("${contextPath}/detailTgb.do?admin=admin&bno="+bno, "상품조회", "width=1000, height=600")
+				var option = "width=1000, height=800, left=400, top=100, location=no, toolbars=no"
+				window.open("${contextPath}/detailTgb.do?admin=admin&bno="+bno, "상품조회", option)
 			})
 		})
 	}
