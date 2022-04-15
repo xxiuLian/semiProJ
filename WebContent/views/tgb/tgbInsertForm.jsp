@@ -139,6 +139,8 @@ td{
 	margin-top: 20px;
 	overflow-y : scroll;
 	border-radius: 5px;
+	text-align: left;
+	padding-left: 10px;
 }
 
 #contentArea{
@@ -228,7 +230,7 @@ box-shadow: 0 0 10px #d2cef5;
 		<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
 		<div class="editor-menu" align="left">
 			<select id="select-font-size">
-				<option value="">글자 사이즈</option> 
+				<option value="">글자 크기</option> 
 				<option value="1">10px</option> 
 				<option value="2">13px</option> 
 				<option value="3">16px</option> 
@@ -557,7 +559,7 @@ if($('#contentArea').is(":visible")){
 </div>
 <%@ include file="../../views/common/footer.jsp" %>
 
-</script>
+
 
 </body>
 </html>
