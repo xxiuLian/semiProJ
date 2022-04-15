@@ -167,7 +167,7 @@ td{
 						</tr>
 						<tr>
 							<td class="labelText"> 비밀번호</td>
-							<td><input type="text" class="inputcss" id = "originPwd" name ="originPwd" value="${originPwd}" readonly></td>
+							<td><input type="text" class="inputcss" id = "originPwd" name ="originPwd" <%if(admin == null){ %>value="${originPwd}"<%}else{ %>value="해당 유저만 확인 가능합니다."<%} %> readonly></td>
 							<td></td>
 						</tr>
 						<tr>
