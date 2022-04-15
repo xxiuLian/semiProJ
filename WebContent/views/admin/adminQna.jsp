@@ -239,7 +239,7 @@
 		$(function(){
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var qno = $(this).parent().children().eq(1).text();
-				window.open("${contextPath}/detailQna.do?qno="+qno, "문의글조회", "width=1000, height=600")
+				window.open("${contextPath}/detailQna.do?admin=admin&qno="+qno, "문의글조회", "width=1000, height=600")
 			})
 		})
 	}
