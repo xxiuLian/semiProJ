@@ -78,15 +78,15 @@
             <div class="row kpx_row-md-offset-md-3">
                 <div class="col-12 col-md-6">
                     <hr />
-                    <form id="loginForm" action="<%=request.getContextPath()%>/loginMember.do" method="post">
+                    <form id="loginForm" action="<%=request.getContextPath()%>/loginMember.do" method="post" onsubmit="return loginValidate();">
                         <div class="input-group">
                             <span class="input-group-addon">아이디 </span>
-                            <input type="text" class="form-control" name="userId" placeholder="아이디를 입력하세요">
+                            <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요">
                         </div>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">비밀번호</span>
-                            <input type="password" class="form-control" name="userPwd" placeholder="비밀번호를 입력하세요">
+                            <input type="password" class="form-control" id="userPwd" name="userPwd" placeholder="비밀번호를 입력하세요">
                         </div>
                         <br>
                         <button class="btn btn-lg btn-outline-primary btn-block" type="submit"><i
@@ -140,7 +140,6 @@
 	function enrollPage(){
 		location.href="<%=request.getContextPath()%>/enroll.do";
 	}
-	
 </script>
 
 		<script type='text/javascript'>
