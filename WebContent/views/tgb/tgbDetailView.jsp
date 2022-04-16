@@ -62,7 +62,7 @@ td{
 	color: rgb(128, 128, 128);
 	display: flex;
     align-items: center;
-    margin-top:80px;
+    margin-top:30px;
 	
 }
 /*#titleImg img{
