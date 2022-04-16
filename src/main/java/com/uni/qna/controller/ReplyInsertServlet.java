@@ -37,7 +37,6 @@ public class ReplyInsertServlet extends HttpServlet {
 		Qna q = new Qna();
 		q.setQnaNo(qId);
 		q.setQnaReply(content);
-		
 		int result = new QnaService().insertReply(q);
 		
 		PrintWriter out = response.getWriter();
