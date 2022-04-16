@@ -13,10 +13,29 @@
 
 </head>
 <style>
-	.imgdiv{
-		display: inline-block;
-	width: 300px;
+.outer{
+	width:800px;
+	height:auto;
+	color:black;
+	margin:auto;
+	margin-top:50px;
+	text-align : center;
+	background-color: rgb(217, 237, 255);
+	
+	border-radius: 7px;
+}
+.entermain{
+	width: 100%;
 	height: auto;
+	display: block;
+}
+.imgdiv{
+	display: inline-block;
+	float: left;
+	width: 40%;
+	height: auto;
+	padding: 20px;
+	
 }
 #title{
 	text-align:center;
@@ -29,24 +48,11 @@
 	font-family: 'Noto Sans KR', sans-serif;
 	margin-bottom: 30px;
 }
-.outer{
-	width:800px;
-	height:auto;
-	color:black;
-	margin:auto;
-	margin-top:50px;
-	text-align : center;
-	background-color: rgb(217, 237, 255);
-	padding: 20px;
-	border-radius: 7px;
-}
-
 
 #titleImgTag{
-	width:300px;
+	width:100%;
 	height:200px;
 	border: 0.2px solid rgb(201, 201, 201);
-	overflow:hidden;
 	display:inline-block;
 	margin-bottom: 20px;
 	border-radius: 7px;
@@ -54,11 +60,13 @@
 }
 
 .option{
-	width:350px;
+	width:40%;
+	float: left;
 	height: auto;
 	background-color: aliceblue;
 	border-radius: 7px;
 	display:inline-block;
+	
 }
 .paytext{
 	font-family: 'Noto Sans KR', sans-serif;
@@ -67,7 +75,6 @@
 	color: rgb(133, 133, 133);
 }
 .btns{
-
 	text-align: left;
 }
 
@@ -122,11 +129,11 @@
 		
 		<br>
 		<input type="hidden">
-		<div class="container">
-			<div class="row">
-		<div class="col-4 imgdiv"><img id="titleImgTag" src = "${contextPath }/assets/img_upfile/${t.thumnail}"></div>
+		
+		<div class="entermain">	
+		<div class="imgdiv"><img id="titleImgTag" src = "${contextPath }/assets/img_upfile/${t.thumnail}"></div>
 	
-		<div class="col-4 option">
+		<div class="option">
 			
 			<div id="title">
 				<h2>${t.tgbTitle}</h2>
@@ -159,6 +166,7 @@
 			</c:choose>
 			
 		</div>
+	</div>
 		<div class="btns">
 			<button  type="button" onclick="progressdata();">진행상황</button>
 			<button type="button" onclick="boardMenu();">게시판</button>
@@ -172,8 +180,8 @@
 			</c:otherwise>
 		</c:choose>
 		</div>
-	</div>
-	</div>
+	
+	
 	</div>
 
 </div>

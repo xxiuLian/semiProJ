@@ -25,14 +25,14 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
-.tgbBoardArea{
+/*.tgbBoardArea{
 		border:1px solid white;
 		text-align:center;
 	}
 .tgbBoardArea>tbody>tr:hover{
 	background:darkgrey;
 	cursor:pointer
-}
+}*/
 </style>
 </head>
 <body>
@@ -40,7 +40,7 @@
 <jsp:include page = "tgbEnterView.jsp"/>
 
 	<!-- 1.목록 -->
-	<div class="outer">
+	<div id="outer">
 		<br>
 		<h2 align="center">공구_게시판</h2>
 		<br>
