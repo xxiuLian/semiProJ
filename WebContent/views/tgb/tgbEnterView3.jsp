@@ -6,19 +6,45 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	.memberouter{
+		width:800px;
+		margin: auto;
+		margin-top: 30px;
+	}
+	h3{
+		border-bottom: 1px solid rgb(149, 149, 149);
+	}
+</style>
 <body>
-<%@ include file="../common/menubar.jsp" %>
+	<%@ include file="../common/menubar.jsp" %>
+	<c:set var="i" value="0"></c:set>
 <jsp:include page = "tgbEnterView.jsp"/>
 
-<div class="content3">참여자정보
-<c:forEach items="${listMem}" var="list"  varStatus="st">
-<tr class="">
-	<td><c:out value="아이디 : ${list.userId}"/><br>
-	<td><c:out value="휴대폰 : ${list.phone}"/><br>
-	<td><c:out value="이메일 : ${list.email}"/><br>
-	
-</tr>
-</c:forEach>
+<div class="memberouter" align="center">
+	<h3>참여자 정보</h3>
+	<table class="table table-striped" >
+		<tr>
+			<th>번호</th>
+			<th>아이디</th>
+			<th>휴대폰 번호</th>
+			<th>이메일</th>
+		</tr>
+		
+		<c:forEach items="${listMem}" var="list"  varStatus="st">
+		<tr class="">
+			<td style="width: 50px;"><c:out value="${i+st.count}"/></td>
+			<td style="width: 100px;"><c:out value="${list.userId}"/></td>
+			<td style="width: 200px;"><c:out value="${list.phone}"/></td>
+			<td style="width: 200px;"><c:out value="${list.email}"/></td>
+			
+		</tr>
+		</c:forEach>
+
+		
+	</table>
+
+
 </div>
 
 

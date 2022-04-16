@@ -1,27 +1,27 @@
-package com.uni.tgb_board.controller;
+package com.uni.qna.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.common.Attachment;
-import com.uni.tgb_board.model.dto.TgbBoard_dto;
-import com.uni.tgb_board.model.service.TgbBoard_service;
+import com.uni.qna.model.dto.Qna;
+import com.uni.qna.model.service.QnaService;
 
 /**
- * Servlet implementation class tgbBoard_detailServlet
+ * Servlet implementation class qnaDetailServlet
  */
-@WebServlet("/checkTgbBoardDetail.do")
-public class CheckBoardTGBDetailViewServlet extends HttpServlet {
+@WebServlet("/checkDetailQna.do")
+public class CheckQnaDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckBoardTGBDetailViewServlet() {
+    public CheckQnaDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,19 +30,18 @@ public class CheckBoardTGBDetailViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int qno = Integer.parseInt(request.getParameter("qno"));
+		String admin = request.getParameter("admin");
+		Qna q = new QnaService().selectQna(qno);
 		
-		int nno = Integer.parseInt(request.getParameter("nno"));
-		TgbBoard_dto b = new TgbBoard_service().selectDetailTgbBoard(nno);
-		
-		String view = "";
-		if(b != null) {
-			request.setAttribute("b", b);
-			view = "views/tgb_Board/checkTgbBoardDetailView.jsp";
+		if(q != null) {
+			request.setAttribute("admin", admin);
+			request.setAttribute("q", q);
+			request.getRequestDispatcher("views/qna/checkDetailView.jsp").forward(request, response);
 		}else {
-			request.setAttribute("msg", "공동구매게시판 조회에 실패했습니다.");
-			view = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "게시글 상세조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	/**
