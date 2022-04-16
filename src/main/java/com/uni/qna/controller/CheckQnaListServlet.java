@@ -118,6 +118,10 @@ public class CheckQnaListServlet extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
+		
+		//추가해서 보내줌_재욱
+		int checking = 1;
+		request.setAttribute("checking", checking);
 		request.getRequestDispatcher("views/qna/qnaListView.jsp").forward(request, response);	
 		
 	}
