@@ -25,36 +25,74 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
+	rel="stylesheet" type="text/css" />
 </head>
 <body>
 <style>
 .outer {
-	width: 800px;
-	height: 500px;
+	width: 1000px;
 	margin: auto;
-	margin-top: 50px;
-}
-
-.listArea {
-	border: 1px solid white;
-	text-align: center;
 }
 
 .searchArea {
 	margin-top: 50px;
 }
 
-.listArea>tbody>tr:hover {
-	background: darkgrey;
-	cursor: pointer
-}
 
 td>img {
 	width: 300px;
 	height: 150px;
 }
-.styleCheck{
 
+#dib{
+	margin-top:-5px;
+	width:30px;
+	height: 30px;
+}
+
+.listArea tr {
+	font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-size: 20px;
+	color: #495057;
+	letter-spacing: 0.0625em;
+}
+
+.listArea td {
+	font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-size: 20px;
+	color: #495057;
+	letter-spacing: 0.0625em;
+	vertical-align: middle;
+}
+#delete {
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+#delete {
+	background-color: #c2c3c4;
+	border-radius: 7px;
+	border: 1px solid rgb(255, 255, 255);
+	color: white;
+	font-weight: bold;
+	margin-top: 30px;
+	width: 120px;
+	height: 40px;
+}
+#delete:hover{
+	background-color: #929292;
+}
+.pagingArea>button {
+	border: 1px solid lightgray;
+	border-radius: 5px;
 }
 </style>
 <link href="css/myPageStyles.css" rel="stylesheet" />
@@ -67,7 +105,7 @@ td>img {
 			<!-- Sidebar-->
 			<div class="border-end bg-white" id="sidebar-wrapper">
 				<div class="sidebar-heading border-bottom bg-light">
-					<a href="<%=contextPath%>/myPage.do">Start Bootstrap</a>
+					<a href="<%=contextPath%>/myPage.do">HOME</a>
 				</div>
 				<div class="list-group list-group-flush">
 					<a
@@ -89,13 +127,7 @@ td>img {
 						class="list-group-item list-group-item-action list-group-item-light p-3"
 						href="checkQnaList.do">문의내역조회</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="checkBoardTGBList.do">공동구매게시판조회</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Events</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Profile</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Status</a>
+						href="checkBoardTGBList.do">공동구매게시판조회</a>
 				</div>
 			</div>
 			<!-- Sidebar End -->
@@ -106,7 +138,7 @@ td>img {
 	
 			<div class="outer styleCheck">
 				<br>
-				<h2 align="center">찜목록 내역</h2>
+				<h2 align="center">${loginUser.getUserName()} 님의 찜 <img id="dib" src="<%=contextPath%>/assets/TgbAssets/dib.jpg"></h2>
 				<br>
 
 				<div>
@@ -121,22 +153,22 @@ td>img {
 
 				<form action="<%= contextPath %>/wishListDelete.do" method="post"
 					id="frm">
-					<table class="listArea" align="center">
+					<table class="listArea table table-hover" align="center">
 						<thead>
 							<tr>
 								<th></th>
 								<!-- 체크 -->
-								<th>글번호</th>
-								<th width="300">썸네일</th>
-								<th width="100">글제목</th>
-								<th width="100">공구 가격</th>
+								<th width="100">번호</th>
+								<th width="100"></th>
+								<th width="300">제목</th>
+								<th width="150">가격</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:choose>
 								<c:when test="${empty list}">
 									<tr>
-										<td colspan="5">찜한 내역이 없습니다.</td>
+										<td colspan="5" align="center">찜 내역이 없습니다.</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -156,7 +188,7 @@ td>img {
 						</tbody>
 
 					</table>
-					<button type="submit" id="delete">선택 목록 삭제하기</button>
+					<button type="submit" id="delete">선택 삭제</button>
 				</form>
 				<br> <br>
 			</div>
