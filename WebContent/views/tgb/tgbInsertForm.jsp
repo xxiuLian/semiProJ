@@ -134,7 +134,7 @@ td{
 }
 #uploaded{
 	width:100%; 
-	height:80px;
+	height:50px;
 	border : 1px solid rgb(192, 191, 191);
 	margin-top: 20px;
 	overflow-y : scroll;
@@ -409,7 +409,8 @@ if($('#contentArea').is(":visible")){
 	
 	function loadThumbImg(event){
 		$('#titleImgText').remove();
-		$('#titleImg').css("height", "auto");
+		
+		
 
         let fileInputControl = event.target;
         let files = Array.from(fileInputControl.files);

@@ -130,7 +130,7 @@ h2{
 		<!-- 페이지 목록 -->
 		<%for(int i = startPage; i<=endPage; i++){ %>
 			<%if(i ==currentPage){ %>
-			<button disabled><%= i %></button>
+			<button disabled style="background-color: rgb(98, 99, 100);"><%= i %></button>
 			<%}else{ %>
 			<button onclick="location.href='<%=contextPath%>/tgbList.do?currentPage=<%=i%>'"><%=i %></button>
 			<%} %>
