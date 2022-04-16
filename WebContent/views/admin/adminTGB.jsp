@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.ArrayList, com.uni.tgb.model.dto.*, com.uni.common.*"%>
 <!DOCTYPE html>
+<%
+	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -9,21 +12,93 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
 <style type="text/css">
-.listArea {
-	border: 1px solid black;
-	text-align: center;
-}
+.outer{
+		width:1000px;
+		height:500px;
+		background:#fff;
+		color:black;
+		margin:auto;
+		margin-top:50px;
+	}
+	.listArea{
+		border:1px solid white;
+		text-align:center;
+	}
+	.searchArea{
+		margin-top:50px;
+	}
+	
+	.pagingArea{
+		margin-top:15px;
+	}
+	.pagingicon{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#writeadmin, #searchbtn{
+		border: 1px solid black;
+		
+	}
+	#writeadmin:hover{
+		background-color:#eee;
+	}
+	#searchbtn:hover{
+		background-color:#eee;
+	}
+	.qnaCategory{
+		float: left;
+	}
+	
+	.btnsArea{
+	   width: 100%;
+	   height: 80px;
+	   justify-content: center;
+	   display: flex;
+	   align-items: center;
+	   
+   }
+ 
+    #resetBtn{
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 80px; 
+	height: 30px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 15px;
+   }
+   
+    #deleteBtn{
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 200px; 
+	height: 60px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 25px;
+   }
+   #enrollBtn{
+	   background:rgb(11, 100, 159); 
+	   color:white; font-size:20px; 
+	   width: 140px; 
+		height: 50px;
+	   border-radius:5px;
+	   border: 0.2px solid rgb(216, 216, 216);
+	   font-family: 'Noto Sans KR', sans-serif;
+	   font-weight: 700;
+	   font-size: 20px;
+	}
 
-.listArea>tbody>tr:hover {
-	background: darkgrey;
-	cursor: pointer
-}
-<%
-	ArrayList<Tgb> list = (ArrayList<Tgb>)request.getAttribute("list");
-%>
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="listCount" value="${pi.listCount}" scope="request" />
@@ -73,7 +148,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> 카테고리
+							</div> 선택
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
@@ -110,10 +185,10 @@
 					<form id="deleteTGB" action="${contextPath}/deleteTGBs.do"
 						method="post">
 
-						<table class="listArea" align="center">
+						<table class="listArea table table-hover" align="center">
 							<thead>
 								<tr>
-									<th width="100"><button type="reset">전체취소</button></th>
+									<th width="100"><button type="reset" id="resetBtn">전체취소</button></th>
 									<th width="50">썸네일</th>
 									<th width="100">글번호</th>
 									<th width="100">카테고리</th>
@@ -147,7 +222,7 @@
 						<br>
 						<div class="btns" align="center">
 							<c:if test="${!empty list}">
-								<button type="button" onclick="deleteTGBs()">선택 상품 삭제</button>
+								<button type="button" id="deleteBtn" onclick="deleteTGBs()">선택 상품 삭제</button>
 							</c:if>
 						</div>
 						</form>
@@ -156,18 +231,18 @@
 						<!-- 페이징바 만들기 -->
 						<div class="pagingArea" align="center">
 							<!-- 맨 처음으로 (<<) -->
-							<button
-								onclick="location.href='${contextPath}/adminTgbList.do?currentPage=1'">
+							<button class="pagingicon"
+								onclick="location.href='${contextPath}/adminTGB.do?currentPage=1'">
 								&lt;&lt;</button>
 
 							<!-- 이전페이지로(<) -->
 							<c:choose>
 								<c:when test="${currentPage eq 1}">
-									<button disabled>&lt;</button>
+									<button class="pagingicon" disabled>&lt;</button>
 								</c:when>
 								<c:otherwise>
-									<button
-										onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${currentPage - 1}&amdin=admin'">
+									<button class="pagingicon"
+										onclick="location.href='${contextPath}/adminTGB.do?currentPage=${currentPage - 1}&amdin=admin'">
 										&lt;</button>
 								</c:otherwise>
 							</c:choose>
@@ -175,11 +250,11 @@
 							<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
 								<c:choose>
 									<c:when test="${p eq currentPage}">
-										<button disabled>${p}</button>
+										<button class="pagingicon" disabled>${p}</button>
 									</c:when>
 									<c:otherwise>
-										<button
-											onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${p}'">
+										<button class="pagingicon"
+											onclick="location.href='${contextPath}/adminTGB.do?currentPage=${p}'">
 											${p}</button>
 									</c:otherwise>
 								</c:choose>
@@ -188,18 +263,18 @@
 							<!-- 다음페이지로(>) -->
 							<c:choose>
 								<c:when test="${currentPage eq maxPage}">
-									<button disabled>&gt;</button>
+									<button class="pagingicon" disabled>&gt;</button>
 								</c:when>
 								<c:otherwise>
-									<button
-										onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${currentPage + 1}'">
+									<button class="pagingicon"
+										onclick="location.href='${contextPath}/adminTGB.do?currentPage=${currentPage + 1}'">
 										&gt;</button>
 								</c:otherwise>
 							</c:choose>
 
 							<!-- 맨 끝으로 (>>) -->
-							<button
-								onclick="location.href='${contextPath}/adminTgbList.do?currentPage=${maxPage}'">
+							<button class="pagingicon"
+								onclick="location.href='${contextPath}/adminTGB.do?currentPage=${maxPage}'">
 								&gt;&gt;</button>
 						</div>
 						<br> <br>
@@ -231,7 +306,8 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var bno = $(this).parent().children().eq(2).text();
 				console.log(bno)
-				window.open("${contextPath}/detailTgb.do?bno="+bno, "상품조회", "width=1000, height=600")
+				var option = "width=1000, height=800, left=400, top=100, location=no, toolbars=no"
+				window.open("${contextPath}/detailTgb.do?admin=admin&bno="+bno, "상품조회", option)
 			})
 		})
 	}

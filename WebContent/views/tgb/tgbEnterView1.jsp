@@ -6,20 +6,69 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	.prg *{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	.count{
+		height: auto;
+		padding-top: 20px;
+		padding-bottom: 30px;
+		
+	}
+	.mg{
+		font-weight: bold;
+		font-size: 32px;
+	}
+	.time{
+		display: inline-block;
+	}
+	.timetext{
+		font-size: 14px;
+		color: rgb(121, 121, 121);
+	}
+	.percount{
+		margin-top: 30px;
+		height: auto;
+	}
+	.progress{
+		margin-top: 30px;
+	}
+	.progress {
+
+border-radius: 10px;
+
+}
+
+.progress-bar {
+-webkit-transition: width 2.5s ease;
+transition: width 2.5s ease;
+border-radius: 20px;
+background-color : #00003F;
+color :white;
+}
+
+</style>
 <body>
 <%@ include file="../common/menubar.jsp" %>
 <jsp:include page = "tgbEnterView.jsp"/>
 
-	<div class="menu1">
+	<div class="container" align="center">
+		<div class="outer" id="outer">
 		<c:choose>
 			<c:when test = "${t.status ne 'YN'}">
-				<div >
-					<div class="tiem mg"><h3>마감일까지</h3></div>
-					<div class="time"><h1 id="d-day"></h1></div>
-					<div class="time">초 남았습니다.</div>
-					<h4 class = "mg">현재 참여율</h4>
+				<div class="prg">
+					<div class="count">
+						<div class="tiem mg">⏱마감일까지⏱</div>
+						<div class="time"><h1 id="d-day"></h1></div>
+						<div class="time timetext">초 남았습니다.</div>
+					</div>
+					<hr>
+					<div class="percount">
+					<div class = "mg">🔥현재 참여율🔥</div>
 					<div class="progress mg"  style="height:30px; border-radius: 20px;">
 				  		<div class="progress-bar" role="progressbar" style="width : 0; height:30px;  background-color : #00003F;" aria-valuenow="${cntper}" aria-valuemin="0" aria-valuemax="100">${cntper}%</div>
+					</div>
 					</div>	
 				</div>
 			</c:when>
@@ -39,6 +88,7 @@
 				
 			};
 		</script>
+		</div>
 	</div>
 
 
@@ -117,8 +167,8 @@
 		}
 	
 	</script>
-
+<div id="chatbox">
 <%@ include file="../chat/chat.jsp" %>
-
+</div>
 </body>
 </html>

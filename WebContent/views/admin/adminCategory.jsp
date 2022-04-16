@@ -12,15 +12,77 @@
 <link href="${contextPath}/css/adminPageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"	crossorigin="anonymous"></script>
 <style type="text/css">
-.listArea {
-	border: 1px solid black;
-	text-align: center;
-}
-
-.listArea>tbody>tr:hover {
-	background: darkgrey;
-	cursor: pointer
-}
+	.outer{
+		width:1000px;
+		height:500px;
+		background:#fff;
+		color:black;
+		margin:auto;
+		margin-top:50px;
+	}
+	.listArea{
+		border:1px solid white;
+		text-align:center;
+	}
+	.searchArea{
+		margin-top:50px;
+	}
+	
+	.pagingArea{
+		margin-top:15px;
+	}
+	.pagingicon{
+		border: 1px solid lightgray;
+		border-radius: 5px;
+	}
+	#deleteBtn,  #resetBtn{
+		border: 1px solid black;
+		
+	}
+	 #deleteBtn:hover{
+		background-color:#eee;
+	}
+	#resetBtn:hover{
+		background-color:#eee;
+	}
+   
+    #resetBtn{
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 80px; 
+	height: 30px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 15px;
+   }
+   #deleteBtn{
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 250px; 
+	height: 60px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 25px;
+   }
+   
+   #blueBtn{
+	   background:rgb(11, 100, 159); 
+	   color:white; 
+	   width: 140px; 
+	   height: 40px;
+	   border-radius:5px;
+	   border: 0.2px solid rgb(216, 216, 216);
+	   font-family: 'Noto Sans KR', sans-serif;
+	   font-weight: 700;
+	   font-size: 17px;
+	   margin-bottom: 20px;
+	}
 </style>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
@@ -64,7 +126,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> 카테고리
+							</div> 선택
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
@@ -98,16 +160,17 @@
 						</div>
 					</div>
 					<br>
+				<div class="outer">
 					<div class="btns" align="right">
-						<button type="button" onclick="addCategory()">카테고리 추가</button>
+						<button type="button" id="blueBtn" onclick="addCategory()">카테고리 추가</button>
 					</div>
 					<form id="deleteCategory" action="${contextPath}/deleteCategory.do?keyword=${keyword}"
 						method="post">
 
-						<table class="listArea" align="center">
+						<table class="listArea table table-hover" align="center">
 							<thead>
 								<tr>
-									<th width="100"><button type="reset">전체취소</button></th>
+									<th width="100"><button id="resetBtn" type="reset">전체취소</button></th>
 									<th width="300">카테고리 번호</th>
 									<th width="300">카테고리명</th>
 								</tr>
@@ -134,7 +197,7 @@
 						<br>
 						<div class="btns" align="center">
 							<c:if test="${!empty category}">
-								<button type="button" onclick="deleteCategorys()">선택 카테고리 삭제</button>
+								<button type="button" id="deleteBtn" onclick="deleteCategorys()">선택 카테고리 삭제</button>
 							</c:if>
 						</div>
 						</form>
@@ -154,6 +217,7 @@
 					</div>
 				</div>
 			</footer>
+			</div>
 		</div>
 	</div>
 </body>
@@ -165,7 +229,8 @@
 	}
 	
 	function addCategory(){
-		window.open("${contextPath}/addCategoryForm.do?keyword=${keyword}", "카테고리 추가", "width=500, height=170 left=800, top=200" );
+		var option = "width=500, height=450, left=700, top=300, location=no, toolbars=no"
+		window.open("${contextPath}/addCategoryForm.do?keyword=${keyword}", "카테고리 추가", option );
 	}
 
 	if(!${empty category}){
@@ -173,7 +238,8 @@
 			$(".listArea>tbody>tr>td:not(:has(input))").click(function(){
 				var cno = $(this).parent().children().eq(1).text();
 				console.log(cno)
-				window.open("${contextPath}/selectCategory.do?keyword=${keyword}&cno="+cno, "카테고리 수정", "width=500, height=170 left=800, top=200" )
+					var option = "width=500, height=450, left=700, top=300, location=no, toolbars=no"
+				window.open("${contextPath}/selectCategory.do?keyword=${keyword}&cno="+cno, "카테고리 수정", option)
 			})
 		})
 	}

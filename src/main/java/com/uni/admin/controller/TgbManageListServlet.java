@@ -51,7 +51,7 @@ public class TgbManageListServlet extends HttpServlet {
 				}
 				
 				pageLimit = 10;
-				boardLimit = 20;
+				boardLimit = 5;
 				
 				maxPage = (int)Math.ceil((double)listCount/boardLimit);
 				

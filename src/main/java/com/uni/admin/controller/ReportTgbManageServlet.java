@@ -60,7 +60,7 @@ public class ReportTgbManageServlet extends HttpServlet {
 				pageLimit = 10;
 				
 				//게시글 최대개수
-				boardLimit = 10;
+				boardLimit = 5;
 				
 				// * maxPage : 총 페이지 수
 				/*

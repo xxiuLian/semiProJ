@@ -69,6 +69,9 @@ public class TgbListServlet extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
+		request.setAttribute("listCount", listCount);
+		
+		
 		
 		request.getRequestDispatcher("views/tgb/tgbListView.jsp").forward(request, response);
 		

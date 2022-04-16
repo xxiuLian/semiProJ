@@ -72,6 +72,7 @@ public class TgbSearchServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		request.setAttribute("keyword", keyword);
+		request.setAttribute("listCount", listCount);
 		
 		request.getRequestDispatcher("views/tgb/tgbSearchListView.jsp").forward(request, response);
 		
