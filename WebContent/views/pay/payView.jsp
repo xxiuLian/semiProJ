@@ -8,27 +8,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="css/styles.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
-.listArea {
-	border: 1px solid black;
-	text-align: center;
-}
-input{
-	width: 80px;
-}	
+	#blueBtn{
+		border: 1px solid black;
+		
+	}
+	#blueBtn:hover{
+		background-color:#eee;
+	}
+   #blueBtn{
+	   background:rgb(11, 100, 159); 
+	   color:white; font-size:20px; 
+	   width: 140px; 
+		height: 50px;
+	   border-radius:5px;
+	   border: 0.2px solid rgb(216, 216, 216);
+	   font-family: 'Noto Sans KR', sans-serif;
+	   font-weight: 700;
+	   font-size: 20px;
+	}
+	input{
+		width: 80px;
+	}	
 </style>
 
 </head>
 <body>
-	<h2>결제 정보 확인</h2>
+	<br><br><br>
+	<div align="center">
+		<h2>결제 정보 확인</h2>
+	</div>
+	<br><br><br><br><br>
 	<form id="paySubmit" action="${contextPath}/paySubmit.do" method="post">
 	<input type="hidden" name="bno" value="${t.tgbNo}">
-		<table class="listArea" align="center">
+		<table class="listArea table" align="center">
 			<tr>
 				<th width="100">공구 글</th>
 				<th width="50">썸네일</th>
@@ -44,8 +63,9 @@ input{
 				<td><input id="totPrice" type="text" name="totPrice" value="${t.tgb_Price}" readonly> 원</td>
 			</tr>
 		</table>
+		<br><br><br><br>
 		<div class="btns" align="center">
-			<button type="button" onclick="pay()">결제</button>
+			<button type="button" id="blueBtn" onclick="pay()">결제</button>
 		</div>
 	</form>
 </body>
