@@ -17,7 +17,6 @@ int qnaCount = (int) request.getAttribute("qnaCount");
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Simple Sidebar2 - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
@@ -95,7 +94,7 @@ td>img {
 			<!-- Sidebar-->
 			<div class="border-end bg-white" id="sidebar-wrapper">
 				<div class="sidebar-heading border-bottom bg-light">
-					<a href="<%=contextPath%>/myPage.do">Start Bootstrap</a>
+					<a href="<%=contextPath%>/myPage.do">HOME</a>
 				</div>
 				<div class="list-group list-group-flush">
 					<a
@@ -111,19 +110,9 @@ td>img {
 							<li><a class="nav-link" href="myFinishList.do">이전 상품</a></li>
 						</ul>
 					</div>
-					<a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="wishList.do">찜내역관리</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="checkQnaList.do">문의내역조회</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="checkBoardTGBList.do">공동구매게시판조회</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Events</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Profile</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Status</a>
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="wishList.do">찜내역관리</a> 
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="checkQnaList.do">문의내역조회</a> 
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="checkBoardTGBList.do">공동구매게시판조회</a>
 				</div>
 			</div>
 			<!-- Sidebar End -->
