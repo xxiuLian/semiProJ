@@ -13,13 +13,36 @@
 	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <title>상품 신고</title>
 <style>
-#deleteBtn {
-	color: gray;
-}
-
-#deleteBtn:hover {
-	cursor: pointer
-}
+ #save:hover{
+	background-color:#eee;
+	}
+#backBtn:hover{
+	background-color:#eee;
+	}
+ #backBtn{
+	background:rgb(216, 216, 216); 
+	color:rgb(85, 85, 85); 
+	font-size:20px; 
+	width: 200px; 
+	height: 50px;
+	border-radius:5px;
+	border: 0.2px solid rgb(216, 216, 216);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+	font-size: 25px;
+   }
+   
+  #save{
+   background:rgb(11, 100, 159); 
+   color:white; 
+   width: 200px; 
+   height: 50px;
+   border-radius:5px;
+   border: 0.2px solid rgb(216, 216, 216);
+   font-family: 'Noto Sans KR', sans-serif;
+   font-weight: 700;
+   font-size: 25px;
+	}
 </style>
 </head>
 <body>
@@ -34,13 +57,14 @@
 			<form id="reportTgb" action="${contextPath}/reportTgb.do" method="post">
 				<input type="hidden" name="bno" value="${bno}">
 				<div class="mb-3">
+					<a>신고 내용</a>
 					<textarea class="form-control" id="ir1" rows="15" name="content"
 						style="width: 100%;" placeholder="내용을 입력해 주세요"></textarea>
 				</div>
 				<br>
-				<div id="se2_sample" style="margin: 10px 0;">
+				<div id="se2_sample" align="center">
 					<button type="button" id="save">신고</button>
-					<button type="reset">취소</button>
+					<button type="reset" id="backBtn">취소</button>
 
 				</div>
 			</form>

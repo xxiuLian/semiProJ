@@ -198,102 +198,107 @@ $(function(){
 							
 							var tr = $("<tr>").append(replyInfo, replyContent, dateInfo, replyDate);
 							$("#replyList").append(tr);
-							$("#adminReply").html('')
-							$("#adminReply").append('<th>답변수정</th>' +
-													'<td><textarea rows="3" cols="60" id="replyContent"' +
-													'style="resize: none;">' +
-													reply.qnaReply +
-													'</textarea></td>' +
-													'<td id="replyBtn"><button class="replyBtn" id="addReply">답변수정</button></td>'+
-													'<td id="deleteBtn"><button class="replyBtn" id="deleteReply">답변삭제</button></td>'
-							)
-							$("#replyBtn").on('click', '#addReply', function submitReply(){
-								var content = $("#replyContent").val();
-								var qId = ${q.qnaNo};
+							if('${loginUser.userId}' == 'admin'){
 								
-								
-								$.ajax({
-									url:"rinsert.do",
-									type:"post",
-									data:{
-											content:content,
-										    qId:qId
-									},
-									success:function(status){
-										if(status =="success"){
-											selectReplyList();
-											$("#replyContent").val("");
-										}
-									},
-									error:function(){
-										console.log("ajax 통신실패 -댓글등록")
-									}
-									
-								})
-							})
 							
-							$("#deleteBtn").on('click', '#deleteReply', function deleteReply(){
-								var qId = ${q.qnaNo};
-								if(confirm("삭제하시겠습니까?")){
+									$("#adminReply").html('')
+									$("#adminReply").append('<th>답변수정</th>' +
+															'<td><textarea rows="3" cols="60" id="replyContent"' +
+															'style="resize: none;">' +
+															reply.qnaReply +
+															'</textarea></td>' +
+															'<td id="replyBtn"><button class="replyBtn" id="addReply">답변수정</button></td>'+
+															'<td id="deleteBtn"><button class="replyBtn" id="deleteReply">답변삭제</button></td>'
+									)
+									$("#replyBtn").on('click', '#addReply', function submitReply(){
+										var content = $("#replyContent").val();
+										var qId = ${q.qnaNo};
+										
+										
+										$.ajax({
+											url:"rinsert.do",
+											type:"post",
+											data:{
+													content:content,
+												    qId:qId
+											},
+											success:function(status){
+												if(status =="success"){
+													selectReplyList();
+													$("#replyContent").val("");
+												}
+											},
+											error:function(){
+												console.log("ajax 통신실패 -댓글등록")
+											}
+											
+										})
+									})
 									
-								
-								$.ajax({
-									url:"rdelete.do",
-									type:"post",
-									data:{
-										    qId:qId
-									},
-									success:function(status){
-										console.log(status)
-										if(status =="success"){
-											selectReplyList();
-											$("#replyContent").val("");
-											$("#adminReply").html('')
-											$("#adminReply").append('<th>답변작성</th>' +
-																	'<td><textarea rows="3" cols="60" id="replyContent"' +
-																	'style="resize: none;"></textarea></td>' +
-																	'<td id="replyBtn"><button class="replyBtn" id="addReply">답변등록</button></td>'
-																	
-																	)
-											$("#replyBtn").on('click', '#addReply', function submitReply(){
-												var content = $("#replyContent").val();
-												var qId = ${q.qnaNo};
-												
-												
-												$.ajax({
-													url:"rinsert.do",
-													type:"post",
-													data:{
-															content:content,
-														    qId:qId
-													},
-													success:function(status){
-														if(status =="success"){
-															selectReplyList();
-															$("#replyContent").val("");
-														}
-													},
-													error:function(){
-														console.log("ajax 통신실패 -댓글등록")
-													}
-													
-												})
-											})					
-										}
-									},
-									error:function(){
-										console.log("ajax 통신실패 -댓글등록")
+									$("#deleteBtn").on('click', '#deleteReply', function deleteReply(){
+										var qId = ${q.qnaNo};
+										if(confirm("삭제하시겠습니까?")){
+											
+										
+										$.ajax({
+											url:"rdelete.do",
+											type:"post",
+											data:{
+												    qId:qId
+											},
+											success:function(status){
+												console.log(status)
+												if(status =="success"){
+													selectReplyList();
+													$("#replyContent").val("");
+													$("#adminReply").html('')
+													$("#adminReply").append('<th>답변작성</th>' +
+																			'<td><textarea rows="3" cols="60" id="replyContent"' +
+																			'style="resize: none;"></textarea></td>' +
+																			'<td id="replyBtn"><button class="replyBtn" id="addReply">답변등록</button></td>'
+																			
+																			)
+													$("#replyBtn").on('click', '#addReply', function submitReply(){
+														var content = $("#replyContent").val();
+														var qId = ${q.qnaNo};
+														
+														
+														$.ajax({
+															url:"rinsert.do",
+															type:"post",
+															data:{
+																	content:content,
+																    qId:qId
+															},
+															success:function(status){
+																if(status =="success"){
+																	selectReplyList();
+																	$("#replyContent").val("");
+																}
+															},
+															error:function(){
+																console.log("ajax 통신실패 -댓글등록")
+															}
+															
+														})
+													})					
+												}
+											},
+											error:function(){
+												console.log("ajax 통신실패 -댓글등록")
+											}
+											
+										})
 									}
+									})
 									
-								})
 							}
-							})
-						}else{
-							var replyInfo = $("<td>").html('<b>답변 대기중</b>').attr("width", "500px").attr("align", "center");
-							var tr = $("<tr>").append(replyInfo);
-							$("#replyList").append(tr);
-						}
-						
+								}else{
+									var replyInfo = $("<td>").html('<b>답변 대기중</b>').attr("width", "500px").attr("align", "center");
+									var tr = $("<tr>").append(replyInfo);
+									$("#replyList").append(tr);
+								}
+								
 						
 				
 				},
