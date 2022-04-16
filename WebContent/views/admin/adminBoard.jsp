@@ -169,17 +169,9 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">커뮤니티 관리</h1>
 					<div class="card mb-4">
-						<div class="card-body">
-							This page is an example of using the light side navigation
-							option. By appending the
-							<code>.sb-sidenav-light</code>
-							class to the
-							<code>.sb-sidenav</code>
-							class, the side navigation will take on a light color scheme. The
-							<code>.sb-sidenav-dark</code>
-							is also available for a darker option.
+						<div class="card-body" align="center">
+							<code><h2>공동구매 게시판 관리</h2></code>
 						</div>
 					</div>
 					<br>
