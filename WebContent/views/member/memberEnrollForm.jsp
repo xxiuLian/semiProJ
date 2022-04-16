@@ -178,6 +178,7 @@
 							</td>
 							<tr>
 						</tr>
+						<tr>
 							<td class="labelText" >우편번호</td>
 							<td>
 								<input type="text" name="post" class="form-control mr-2 postcodify_postcode5" value="${ post }" size="6"> 

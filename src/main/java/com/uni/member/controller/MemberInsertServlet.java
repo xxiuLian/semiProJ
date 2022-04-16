@@ -50,8 +50,7 @@ public class MemberInsertServlet extends HttpServlet {
 		System.out.println(member);
 		//insert 성공
 		if(result > 0) {
-			request.setAttribute("msg", "회원가입이 완료되었습니다~!");
-			response.sendRedirect(request.getContextPath());//메인으로 고
+			request.getRequestDispatcher("views/member/insertComplete.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "회원가입 실패. 관리자에게 문의해주세요");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
