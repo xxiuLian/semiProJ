@@ -47,9 +47,9 @@ public class MemberInsertServlet extends HttpServlet {
 		//dto Member 매개변수 생성자 O
 		Member member = new Member(userId, userPwd, userName, phone, email, account, bank, post, address1, address2);
 		int result = new MemberService().insertMember(member);
-		System.out.println(member);
+
 		//insert 성공
-		if(result > 0) {
+		if(result > 0) { //회원가입이 성공했다면 성공했다는 jsp페이지로 이동
 			request.getRequestDispatcher("views/member/insertComplete.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "회원가입 실패. 관리자에게 문의해주세요");

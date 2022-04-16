@@ -30,7 +30,9 @@
                     </div>
                     <br><br>
                     <div style="text-align: center">
-                    	<button type="button" class="btn btn-primary" style="width: 210px" onclick= "history.go(-2)">로그인 화면으로 돌아가기</button>
+                    	<button type="button" class="btn btn-primary" style="width: 210px" onclick= "location.href='<%=contextPath %>/login.do'">로그인</button>
+                    	<button type="button" class="btn btn-primary" style="width: 210px" onclick= "location.href='<%=contextPath %>/findPwd.do'">비밀번호 찾기</button>
+                    
                     </div>
                     <br><br>
                 </div>
