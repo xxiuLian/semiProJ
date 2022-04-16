@@ -121,18 +121,18 @@
 
 
 <br><br>
-<div class="container">
-	<div class="outer">
+<div class="container outer">
+	
 	
 		<br>
 		
 		<br>
 		<input type="hidden">
 		
-		<div class="entermain">	
-		<div class="imgdiv"><img id="titleImgTag" src = "${contextPath }/assets/img_upfile/${t.thumnail}"></div>
+		<div class="row entermain">	
+		<div class="col-mg-6 imgdiv"><img id="titleImgTag" src = "${contextPath }/assets/img_upfile/${t.thumnail}"></div>
 	
-		<div class="option">
+		<div class="col-mg-6 option">
 			
 			<div id="title">
 				<h2>${t.tgbTitle}</h2>
@@ -146,7 +146,7 @@
 				<c:when test = "${t.status eq 'YN'}">
 					<button disabled>마감완료된 상품입니다.</button>
 				</c:when>
-				<c:otherwise>
+				<c:otherwise> 
 					<c:forEach var="b" items="${buyer}">
 						<c:if test="${b eq loginUser.userId}">
 							<c:set var="status" value="true"/>
@@ -181,7 +181,7 @@
 		</div>
 	
 	
-	</div>
+
 
 </div>
 
