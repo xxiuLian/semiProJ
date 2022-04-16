@@ -223,6 +223,8 @@
 				<button type="button" id="deleteBtn" onclick="deleteBoards()">해당 게시글 삭제</button>
 			</c:if>
 		</div>
+			</form>
+			</div>
 		<br><br>
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
