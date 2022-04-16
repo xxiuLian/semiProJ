@@ -31,7 +31,7 @@ public class tgbBoard_detailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int nno = Integer.parseInt(request.getParameter("nno"));
+		int nno = Integer.parseInt(request.getParameter("bno"));
 		TgbBoard_dto b = new TgbBoard_service().selectDetailTgbBoard(nno);
 		String admin = request.getParameter("admin");
 		String view = "";

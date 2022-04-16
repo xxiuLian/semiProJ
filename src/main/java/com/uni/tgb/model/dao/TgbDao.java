@@ -208,7 +208,7 @@ public class TgbDao {
 			
 			if(rset.next()) {
 				t = new Tgb(rset.getInt("TGB_NO"), 
-							rset.getString("TGB_CATEGORY_NAME"), 
+							rset.getString("TGB_CATEGORY_NO"), 
 							rset.getString("TGB_TITLE"), 
 							rset.getString("TGB_CONTENT"), 
 							rset.getString("TGB_GUIDE"), 
@@ -678,6 +678,7 @@ public class TgbDao {
 			
 		for(int i =0; i<arr.length; i++) {
 			
+		System.out.println("arr[i] : "+arr[i]);
 		
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, user);
