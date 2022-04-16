@@ -42,7 +42,7 @@
                             <br><br>
                         <div class="col-md-6 offset-md-3" style="text-align: center;">
                             <button type="submit" class="btn btn-primary">
-                                추가하기
+                                추가
                             </button>
                         </div>
                             <br><br>

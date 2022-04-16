@@ -52,7 +52,7 @@
                             <br><br>
                         <div class="col-md-6 offset-md-3" style="text-align: center;">
                             <button type="button" class="btn btn-primary" onclick="updateCategory()">
-                                추가하기
+                                변경
                             </button>
                         </div>
                             <br><br>
