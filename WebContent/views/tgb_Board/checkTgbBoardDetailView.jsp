@@ -159,12 +159,11 @@ table td {
 							.getUserNo() == Integer.parseInt(b.getTgbBoardWriter())) {
 					%>
 					<a href="tgbBoardUpdateForm.do?nno=<%=b.getTgbBoardNo()%>">수정하기</a>
-					&nbsp;&nbsp; <a
-						href="ChecktgbBoardDelete.do?nno=<%=b.getTgbBoardNo()%>">삭제하기</a>
-					<%
-					}
-					%>
- --%>
+					&nbsp;&nbsp; 
+					 --%>
+					<a href="ChecktgbBoardDelete.do?nno=<%=b.getTgbBoardNo()%>">삭제하기</a>
+					
+
 				</div>
 			</div>
 			

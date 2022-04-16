@@ -180,14 +180,11 @@ table td {
 
 					<c:if test="${sessionScope.loginUser.userId eq q.qnaWriter}">
 						<a href="javascript:void(0);" onclick="updateForm();">수정하기</a>&nbsp;&nbsp;
-			
+			 --%>
 				<a href="javascript:void(0);" onclick="deleteQna();">삭제하기</a>
-					</c:if>
 				</div>
-				<%
-				}
-				%>
- --%>
+			
+
 				<br> <br>
 			</div>
 		</div>
