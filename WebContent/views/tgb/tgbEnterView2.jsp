@@ -25,14 +25,14 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
-/*.tgbBoardArea{
+.tgbBoardArea{
 		border:1px solid white;
 		text-align:center;
 	}
 .tgbBoardArea>tbody>tr:hover{
 	background:darkgrey;
 	cursor:pointer
-}*/
+}
 </style>
 </head>
 <body>
@@ -45,7 +45,7 @@
 		<h2 align="center">공구_게시판</h2>
 		<br>
 		        
-		<table class="listArea" align="center">
+		<table class="tgbBoardArea listArea" align="center">
 			<thead>
 				<tr>
 					<th>글번호</th>

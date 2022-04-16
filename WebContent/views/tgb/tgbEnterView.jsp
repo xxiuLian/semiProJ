@@ -14,7 +14,7 @@
 </head>
 <style>
 .outer{
-	width:800px;
+	width:900px;
 	height:auto;
 	color:black;
 	margin:auto;
@@ -24,6 +24,9 @@
 	
 	border-radius: 7px;
 }
+#container{
+	width: 900px;
+}
 .entermain{
 	width: 100%;
 	height: auto;
@@ -32,7 +35,6 @@
 .imgdiv{
 	display: inline-block;
 	float: left;
-	width: 40%;
 	height: auto;
 	padding: 20px;
 	
@@ -50,8 +52,8 @@
 }
 
 #titleImgTag{
-	width:100%;
-	height:200px;
+	width:300px;
+	height:250px;
 	border: 0.2px solid rgb(201, 201, 201);
 	display:inline-block;
 	margin-bottom: 20px;
@@ -60,12 +62,14 @@
 }
 
 .option{
-	width:40%;
-	float: left;
-	height: auto;
+	margin: 20px;
+	width: 100%;
+	height: 250px;
 	background-color: aliceblue;
 	border-radius: 7px;
 	display:inline-block;
+	float: right;
+	padding-top: 30px;
 	
 }
 .paytext{
@@ -106,9 +110,10 @@
 	color: white;
 	
 }
-#report{
-	background-color: rgb(198, 199, 199);
-	color: rgb(80, 80, 80);
+.paybutton{
+	width: 200px;
+	font-size: 25px;
+	
 }
 
 #outer{
@@ -121,7 +126,7 @@
 
 
 <br><br>
-<div class="container outer">
+<div class="container outer" id="container">
 	
 	
 		<br>
@@ -130,12 +135,12 @@
 		<input type="hidden">
 		
 		<div class="row entermain">	
-		<div class="col-mg-6 imgdiv"><img id="titleImgTag" src = "${contextPath }/assets/img_upfile/${t.thumnail}"></div>
+		<div class="col-lg-6 imgdiv"><img id="titleImgTag" src = "${contextPath }/assets/img_upfile/${t.thumnail}"></div>
 	
-		<div class="col-mg-6 option">
-			
+		<div class="col-lg-6">
+			<div class="option">
 			<div id="title">
-				<h2>${t.tgbTitle}</h2>
+				<h2 >${t.tgbTitle}</h2>
 				<p id="price">${t.price }원</p>
 			</div>
 			
@@ -157,13 +162,12 @@
 								<p class="paytext">이미 결제된 상품입니다.</p>
 	                        </c:when>
 					     	<c:otherwise>
-								 <button type="button" onclick="payment();">결제</button>
+								 <button class="paybutton" type="button" onclick="payment();">결 제</button>
 					     	</c:otherwise>
 			     	  	</c:choose>
-					<button type="button" id="report" onclick="reportTgb();">상품 신고</button>
 				</c:otherwise>
 			</c:choose>
-			
+			</div>
 		</div>
 	</div>
 		<div class="btns">
