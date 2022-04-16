@@ -46,7 +46,9 @@ public class CheckQnaListServlet extends HttpServlet {
 		int boardLimit;  //한페이지에 보여질 게시글 최대 개수
 		
 		//총 게시글 개수
-		listCount = new QnaService().getListCount();
+		//추가해서 보내줌_재욱
+		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		listCount = new QnaService().checkgetListCount(writer);
 		System.out.println("listCount : " + listCount);
 		
 		//현재페이지
@@ -111,18 +113,15 @@ public class CheckQnaListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		
-		//추가해서 보내줌_재욱
-		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		
 		
 		ArrayList<Qna> list = new QnaService().CheckSelectList(pi, writer);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
-		//추가해서 보내줌_재욱
-		int checking = 1;
-		request.setAttribute("checking", checking);
-		request.getRequestDispatcher("views/qna/qnaListView.jsp").forward(request, response);	
+		
+		request.getRequestDispatcher("views/qna/checkListView.jsp").forward(request, response);	
 		
 	}
 

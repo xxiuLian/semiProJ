@@ -234,6 +234,16 @@ public class QnaService {
 		return result;
 	}
 
+	public int checkgetListCount(int writer) {
+		Connection conn = getConnection();
+		
+		int listCount = new QnaDao().checkGetListCount(conn, writer);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
 
 
 }

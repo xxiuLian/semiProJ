@@ -134,13 +134,8 @@
 						class="list-group-item list-group-item-action list-group-item-light p-3"
 						href="checkQnaList.do">문의내역조회</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="checkBoardTGBList.do">공동구매게시판조회</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Events</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Profile</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Status</a>
+						href="checkBoardTGBList.do">공동구매게시판조회</a> 
+						
 				</div>
 			</div>
 			<!-- Sidebar End -->
@@ -273,6 +268,7 @@
 
 </body>
 <script>
+
 	if(!${empty list}){
 		$(function(){
 			$("#tbody>tr").click(function(){
@@ -281,6 +277,8 @@
 			})
 		})
 	}
+
+	
 	function searchQnaList(){
 		var keyword1 = $('#search1').val();
 		if(keyword1 == 'non') return;

@@ -89,13 +89,8 @@ ArrayList<TgbBoard_dto> list = (ArrayList<TgbBoard_dto>) request.getAttribute("l
 						class="list-group-item list-group-item-action list-group-item-light p-3"
 						href="checkQnaList.do">문의내역조회</a> <a
 						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="checkBoardTGBList.do">공동구매게시판조회</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Events</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Profile</a> <a
-						class="list-group-item list-group-item-action list-group-item-light p-3"
-						href="#!">Status</a>
+						href="checkBoardTGBList.do">공동구매게시판조회</a> 
+						
 				</div>
 			</div>
 			<!-- Sidebar End -->
@@ -105,7 +100,7 @@ ArrayList<TgbBoard_dto> list = (ArrayList<TgbBoard_dto>) request.getAttribute("l
 			<div id="page-content-wrapper">
 				<div class="outer">
 					<br>
-					<h2 align="center">공구_게시판3</h2>
+					<h2 align="center">나의 공동구매 게시판</h2>
 					<br>
 
 					<table class="listArea table table-hover" align="center">
