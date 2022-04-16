@@ -95,7 +95,7 @@ td>img {
 			<!-- Sidebar-->
 			<div class="border-end bg-white" id="sidebar-wrapper">
 				<div class="sidebar-heading border-bottom bg-light">
-					<a href="<%=contextPath%>/myPage.do">Start Bootstrap123123</a>
+					<a href="<%=contextPath%>/myPage.do">Start Bootstrap</a>
 				</div>
 				<div class="list-group list-group-flush">
 					<a
