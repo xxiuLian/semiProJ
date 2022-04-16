@@ -33,6 +33,28 @@
 	background:darkgrey;
 	cursor:pointer
 }
+.searchArea{
+	margin-top:50px;
+}
+.pagingArea{
+		margin-top:15px;
+}
+.pagingicon{
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+#searchbtn{
+	border: 1px solid black;
+	
+}
+#searchbtn:hover{
+	background-color:#eee;
+}
+.boadOuter{
+	width: 800px;
+	margin: auto;
+}
+
 </style>
 </head>
 <body>
@@ -40,19 +62,19 @@
 <jsp:include page = "tgbEnterView.jsp"/>
 
 	<!-- 1.목록 -->
-	<div class="outer">
+	<div id="outer" class="boadOuter">
 		<br>
-		<h2 align="center">공구_게시판</h2>
+		<h2 align="center">게시판</h2>
 		<br>
 		        
-		<table class="listArea" align="center">
+		<table class="tgbBoardArea listArea table table-hover" align="center">
 			<thead>
 				<tr>
 					<th>글번호</th>
 					<th width="300">글제목</th>
 					<th width="100">작성자</th>
 					<th>조회수</th>
-					<th width="100">작성일</th>
+					<th width="200">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -82,23 +104,23 @@
 				<option value="content">내용</option>
 			</select>
 			<input type="search" name="search">
-			<button type="submit">검색하기</button>
+			<button type="submit" class="btn btn-default" sid="searchbtn">검색하기</button>
 		</form>
 		
 		<!-- 페이징바 만들기 -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button
+			<button class="pagingicon"
 				onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=1'">
 				&lt;&lt;</button>
 
 			<!-- 이전페이지로(<) -->
 			<c:choose>
 				<c:when test="${currentPage eq 1}">
-					<button disabled>&lt;</button>
+					<button class="pagingicon" disabled>&lt;</button>
 				</c:when>
 				<c:otherwise>
-					<button
+					<button class="pagingicon"
 						onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=${currentPage - 1}'">
 						&lt;</button>
 				</c:otherwise>
@@ -107,10 +129,10 @@
 			<c:forEach var="p" begin="${startPage}" end="${endPage}" step="1">
 				<c:choose>
 					<c:when test="${p eq currentPage}">
-						<button disabled>${p}</button>
+						<button disabled class="pagingicon">${p}</button>
 					</c:when>
 					<c:otherwise>
-						<button
+						<button class="pagingicon"
 							onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=${p}'">
 							${p}</button>
 					</c:otherwise>
@@ -120,17 +142,17 @@
 			<!-- 다음페이지로(>) -->
 			<c:choose>
 				<c:when test="${currentPage eq maxPage}">
-					<button disabled>&gt;</button>
+					<button class="pagingicon" disabled>&gt;</button>
 				</c:when>
 				<c:otherwise>
-					<button
+					<button class="pagingicon"
 						onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=${currentPage + 1}'">
 						&gt;</button>
 				</c:otherwise>
 			</c:choose>
 
 			<!-- 맨 끝으로 (>>) -->
-			<button
+			<button class="pagingicon"
 				onclick="location.href='${contextPath}/tgbBoardSelect.do?currentPage=${maxPage}'">
 				&gt;&gt;</button>
 		

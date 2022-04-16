@@ -33,8 +33,6 @@ public class WishListDeleteServlet extends HttpServlet {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		int user = loginUser.getUserNo();
 		String[] arr = request.getParameterValues("ch");
-		System.out.println(arr[0]);
-		System.out.println(arr[1]);
 		
 		int result = new TgbService().wishListDelete(user, arr);
 		
