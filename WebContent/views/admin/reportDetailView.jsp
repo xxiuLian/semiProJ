@@ -126,7 +126,7 @@
 		
 		<div class="btns" align="center">
 		<button type="button" id="blueBtn" onclick="location.href='${contextPath}/detailTgb.do?bno=${r.tgbNo}'">상품 보기</button>
-		<button type="submit" id="deleteBtn">신고 삭제하기</button>
+		<button type="submit" id="deleteBtn">신고 삭제</button>
 		</div>
 		</form>
 		

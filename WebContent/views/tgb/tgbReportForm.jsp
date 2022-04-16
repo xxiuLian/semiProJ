@@ -64,7 +64,7 @@
 				<br>
 				<div id="se2_sample" align="center">
 					<button type="button" id="save">신고</button>
-					<button type="reset" id="backBtn">취소</button>
+					<button type="button" id="backBtn" onclick="history.back()">취소</button>
 
 				</div>
 			</form>
