@@ -103,7 +103,7 @@
 <div class="container">
 	<div class="outer">
 		<br>
-		<h2 align="center">문의 게시판</h2>
+		<h2 align="center">문의 게시판4</h2>
 		<div class="qnaCategory">
 			<select name="category" id="boardCategory">
 				<option value="non">카테고리 선택</option>
