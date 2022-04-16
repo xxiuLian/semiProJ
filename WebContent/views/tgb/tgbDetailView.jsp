@@ -59,7 +59,8 @@ td{
 	float : left;
 	color: rgb(128, 128, 128);
 	display: flex;
-    align-items: center
+    align-items: center;
+    margin-top:80px;
 	
 }
 /*#titleImg img{
@@ -213,7 +214,7 @@ td{
 		
 		<button type="button" id="wish" value=""><img src="<%=contextPath%>/assets/TgbAssets/undib.png"></button>
 		<button type="button" id="ptici" onclick="participation();">참여하기</button><br>
-		<button type="button" class="bottombtns" id="sos" onclick="reportTgb();">상품 신고</button>
+		<button type="button" class="bottombtns" id="sos" onclick="reportTgb();">신 고</button>
 	</div>
 	<div class="btns"><button type="button" id="ctnbtn" disabled>Content</button><button type="button" id="gidbtn">Guide</button></div>
 	<div id="contentArea" class="textarea" ><%=t.getTgbContent() %></div>
