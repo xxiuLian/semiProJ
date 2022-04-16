@@ -16,9 +16,13 @@
 <title>문의 게시판</title>
 <link href="css/styles.css" rel="stylesheet" />
 <style>
+.container{
+	margin-bottom: 50px;
+
+}
 	.outer{
 		width:1000px;
-		height:500px;
+		height:100%;
 		background:#fff;
 		color:black;
 		margin:auto;
@@ -57,7 +61,7 @@
 	   width: 100%;
 	   height: 80px;
 	   justify-content: center;
-	   display: flex;
+	   display: block;
 	   align-items: center;
 	   
    }
@@ -96,7 +100,7 @@
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
-
+<div class="container">
 	<div class="outer">
 		<br>
 		<h2 align="center">문의 게시판</h2>
@@ -215,9 +219,11 @@
 		<br> <br>
 		
 	</div>
-</div></div></div>
-
+</div>
+  <!-- Footer-->
+<%@ include file="../../views/common/footer.jsp" %>
 </body>
+
 <script>
 	if(!${empty list}){
 		$(function(){
