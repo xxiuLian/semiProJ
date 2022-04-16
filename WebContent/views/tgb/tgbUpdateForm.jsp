@@ -205,7 +205,7 @@ box-shadow: 0 0 10px #d2cef5;
 						<div>
 							<select name="category" class="inputcss" id="tgbCategory">
 								<c:forEach items="${catelist}" var="category" varStatus="st">
-									<option value="${category.categoryNo}"><c:out value="${category.categoryName}"/></option>
+									<option class="cateoption" value="${category.categoryNo}"><c:out value="${category.categoryName}"/></option>
 								</c:forEach>
 							</select>
 						</div>
@@ -374,7 +374,7 @@ if($('#contentArea').is(":visible")){
 		<textarea name="content" id="content" hidden></textarea> 
 		<textarea name="guide" id="guide" hidden></textarea> 
 
-		<div class="btns"><button type="button" class="bottombtns id="fileinput">이미지 삽입</button></div>
+		<div class="btns"><button type="button" class="bottombtns" id="fileinput">이미지 삽입</button></div>
 		
 		<div id="uploaded"></div>
 		<button type="button" class="bottombtns" id="deletimgbtn" onclick="deleteImg();">선택파일 삭제</button>
@@ -409,7 +409,7 @@ if($('#contentArea').is(":visible")){
 
 	var arr = [false, false, false, false, false, false, false, false, false, false];
 	$(document).ready(function(){
-
+		console.log("slkdjf");
 		var num= 0;
 		
 		<%for(int i = 1; i < list.size() ;i++){%>//content 본문에 이미지 추가
@@ -420,7 +420,10 @@ if($('#contentArea').is(":visible")){
 		arr[num] = true;
 		num++;
 		<%};%>
-		
+
+		var cateNo = ${t.tgbCategory}-1;
+			console.log(cateNo)
+		$('.cateoption').eq(cateNo).prop("selected", true);
 		
 			
 	});

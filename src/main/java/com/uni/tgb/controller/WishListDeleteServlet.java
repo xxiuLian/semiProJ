@@ -33,8 +33,11 @@ public class WishListDeleteServlet extends HttpServlet {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		int user = loginUser.getUserNo();
 		String[] arr = request.getParameterValues("ch");
+		for(int i = 0; i<arr.length; i++) {
+			System.out.println(arr[i]);
+		}
 		
-		int result = new TgbService().wishListDelete(user, arr);
+		/*int result = new TgbService().wishListDelete(user, arr);
 		
 		if(result <= arr.length) {
 			request.getRequestDispatcher("wishList.do").forward(request, response);
@@ -42,7 +45,7 @@ public class WishListDeleteServlet extends HttpServlet {
 		}else if(result < 0) {
 			request.getRequestDispatcher("").forward(request, response);
 			
-		}
+		}*/
 		
 	}
 

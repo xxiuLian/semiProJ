@@ -204,7 +204,7 @@ td>img {
 			if(selected === '000'){
 				$('.listArea').children('tbody').empty();
 				<%if(list.isEmpty()){%>
-				$('.listArea').children('tbody').html('<tr><td colspan="5">찜한 내역이 없습니다.</td></tr>');
+				$('.listArea').children('tbody').append('<tr><td colspan="5">찜한 내역이 없습니다.</td></tr>');
 				
 				<%}else{%>
 				<%for(Tgb t : list){%>
@@ -260,9 +260,8 @@ td>img {
 	$(function(){
 				$('.list').click(function(){
 					var bno = $(this).children().eq(1).text();
-					alert("[지우기]글번호:"+bno);
-					location.href="<%=contextPath%>
-		/detailTgb.do?bno=" + bno;
+					
+					location.href="<%=contextPath%>/detailTgb.do?bno=" + bno;
 			});
 		});
 	</script>
