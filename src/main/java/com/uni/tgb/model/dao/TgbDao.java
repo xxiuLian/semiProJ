@@ -973,6 +973,8 @@ public class TgbDao {
 							rset.getString("TGB_PRICE"), 
 							rset.getDate("CREATE_DATE"));
 				
+				t.setStatus(rset.getString("STATUS"));
+				
 			
 				t.setThumnail(rset.getString("CHANGE_NAME"));
 				
