@@ -153,12 +153,12 @@
 						</tr>
 						<tr>
 							<td class="labelText" >* 연락처</td>
-							<td><input type="tel" class="inputcss" maxlength="11" name="phone" placeholder="(-없이)01012345678"></td>
+							<td><input type="tel" class="inputcss" maxlength="11" name="phone" placeholder="(-없이)01012345678" required></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td class="labelText" >* 이메일</td>
-							<td><input type="email" class="inputcss" name="email"></td>
+							<td><input type="email" class="inputcss" name="email" required></td>
 							<td></td>
 						</tr>
 						<tr>
@@ -232,8 +232,8 @@
 	<script>
 	
 		function joinValidate(){
-			
-			if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#enrollForm input[name=userId]").val()))){
+			// /^[a-z][a-z\d]{3,11}$/ : 숫자가 먼저 오는 아이디는 사용할 수 없음 
+			if(!(/^[a-z\d]{3,10}$/i.test($("#enrollForm input[name=userId]").val()))){
 				$("#enrollForm input[name=userId]").focus();
 		        return false;
 			}

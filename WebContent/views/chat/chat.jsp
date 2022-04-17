@@ -176,6 +176,10 @@
 	
 	
 	function chatSubmit() {
+		if(toId == ''){
+			alert("참여자를 선택하세요")
+			return;
+		}
 		var fromId = '${loginUser.userId}';
 		if (${loginUser.userId != t.tgbWriter}){//진행자가 아니면(참여자면)
 			toId = '${t.tgbWriter}'//보내는사람이 진행자로 고정

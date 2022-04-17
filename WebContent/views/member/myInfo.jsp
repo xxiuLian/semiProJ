@@ -252,10 +252,22 @@ td{
 		} //window.open : 새창 열기
 
 		function deleteMember(){
-			var pwd = prompt("비밀번호를 입력하세요");
-			var op = $("#originPwd").val(); //form 안에 있는 원래 비번 값(.val())
-			
-			if(op === pwd){
+			if($('#originPwd').val() != ""){
+				var pwd = prompt("비밀번호를 입력하세요");
+				var op = $("#originPwd").val(); //form 안에 있는 원래 비번 값(.val())
+				
+				if(op === pwd){
+					var val = confirm("정말로 가치사를 탈퇴 하시겠습니까?");
+					if(val){ //true(확인) : 삭제하겠따
+						$("#updateForm").attr("action","${contextPath}/deleteMember.do"); 
+						                                                            //MemberDeleteServlet.java로 이동
+						$("#updateForm").submit();
+						alert("탈퇴 완료 되었습니다.");
+					}else{
+						alert("취소하였습니다");
+					}
+				}
+			}else{ //네이버, 카카오 유저일 경우 비밀번호가 없다
 				var val = confirm("정말로 가치사를 탈퇴 하시겠습니까?");
 				if(val){ //true(확인) : 삭제하겠따
 					$("#updateForm").attr("action","${contextPath}/deleteMember.do"); 
@@ -265,6 +277,7 @@ td{
 				}else{
 					alert("취소하였습니다");
 				}
+				
 			}
 		}
 
