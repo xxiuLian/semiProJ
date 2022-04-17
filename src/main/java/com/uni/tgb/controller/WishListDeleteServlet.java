@@ -37,7 +37,7 @@ public class WishListDeleteServlet extends HttpServlet {
 			System.out.println(arr[i]);
 		}
 		
-		/*int result = new TgbService().wishListDelete(user, arr);
+		int result = new TgbService().wishListDelete(user, arr);
 		
 		if(result <= arr.length) {
 			request.getRequestDispatcher("wishList.do").forward(request, response);
@@ -45,7 +45,7 @@ public class WishListDeleteServlet extends HttpServlet {
 		}else if(result < 0) {
 			request.getRequestDispatcher("").forward(request, response);
 			
-		}*/
+		}
 		
 	}
 
