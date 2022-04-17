@@ -186,7 +186,7 @@
 									<th width="100">카테고리</th>
 									<th width="300">글제목</th>
 									<th width="100">작성자</th>
-									<th width="100">조회수</th>
+									<th width="100">목표인원</th>
 									<th width="150">작성일</th>
 								</tr>
 							<thead>
@@ -204,7 +204,7 @@
 										<td><%= t.getTgbCategory() %>
 										<td><%= t.getTgbTitle() %></td>
 										<td><%= t.getTgbWriter() %></td>
-										<td><%= t.getCount() %></td>
+										<td><%= t.getCount() %> 명</td>
 										<td><%= t.getCreateDate() %></td>
 									</tr>
 									<%} %>
