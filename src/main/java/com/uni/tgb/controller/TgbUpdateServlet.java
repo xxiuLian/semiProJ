@@ -131,12 +131,12 @@ public class TgbUpdateServlet extends HttpServlet {
 			
 			
 			if(result >0) {
-				request.getSession().setAttribute("msg", "공구 등록에 성공했습니다.");
+				request.getSession().setAttribute("msg", "공구 글 수정에 성공했습니다.");
 				response.sendRedirect("tgbList.do");
 			}else {
 				
 				
-				request.setAttribute("msg", "공구 등록에 실패했습니다.");
+				request.setAttribute("msg", "공구 글 수정에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 			

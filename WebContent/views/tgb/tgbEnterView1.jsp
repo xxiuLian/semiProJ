@@ -144,26 +144,6 @@ color :white;
 	  setInterval(remaindTime,1000);
 
 	  
-	  function deadline(){
-		  
-		  $.ajax({
-			  url : "updateStatus.do",
-			  data : {
-				  tno : ${t.tgbNo}
-			  },
-			  type : "post",
-			  success : function(result){
-				  console.log(result);
-				  alert("마감이 완료되었습니다.");
-			  },
-			  error : function(e){
-				  console.log("통신 실패"+e);
-			  }
-		  })
-		  
-		  
-	  }
-	  
 	  function payment(){
 		  window.open("${contextPath}/payView.do?bno=${t.tgbNo}", "결제정보", "width=1000, height=700 left=800, top=200" )
 		}
