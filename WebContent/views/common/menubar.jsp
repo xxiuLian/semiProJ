@@ -124,7 +124,7 @@ a:hover {
 			<img class="navLogo" src="assets/img/navLogo.jpg" alt="가치사 navLogo" onclick="main();"/>
 
 			<% if(loginUser == null){ %>
-			 <input type="text" id="search" style="width:500px; height:50px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
+			 <input type="text" id="search" style="width:400px; height:50px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav" style="">					
 					<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:20px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
