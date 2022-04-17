@@ -141,7 +141,7 @@
 		$("#chatList").append('<div class="row">'
 								+ '<div class="col-lg-12">'
 								+ '<div class="meidia">'
-								+'<a class="pull-left" href="#">'
+								+'<a class="pull-left">'
 								+'<img class="media-object img-circle" style="width:30px; height:30px" src="assets/img/chat.jpg" alt="">'
 								+'</a>'
 								+'<div class="media-body">'
@@ -162,17 +162,18 @@
 		$("#chatList").scrollTop($("#chatList")[0].scrollHeight)//추가될때마다 스크롤 가장 아래로 내리기
 	}
 	
-	function getInfiniteChat(){//상대방이 보낸 메세지 3초마다 갱신
-		setInterval(function(){
-			chatList(lastNo);//가장 마지막 채팅번호를 매개변수로 보냄
-		}, 3000);
-	}
+	
 	
 	$(document).ready(function(){//처음 열리면 상위 10개만 불러올것
 		chatList('ten');
 		getInfiniteChat();//무한갱신 메소드
 	})
 	
+	function getInfiniteChat(){//상대방이 보낸 메세지 3초마다 갱신
+		setInterval(function(){
+			chatList(lastNo);//가장 마지막 채팅번호를 매개변수로 보냄
+		}, 3000);
+	}
 	
 	
 	function chatSubmit() {

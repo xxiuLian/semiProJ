@@ -43,7 +43,7 @@ public class QnaInsertServlet extends HttpServlet {
 			Qna q = new Qna();
 			q.setCategory(category);
 			q.setQnaTitle(title);
-			q.setQnaContent(content.replaceAll(System.lineSeparator(), ""));
+			q.setQnaContent(content);
 			q.setQnaWriter(String.valueOf(userNo));
 		
 			

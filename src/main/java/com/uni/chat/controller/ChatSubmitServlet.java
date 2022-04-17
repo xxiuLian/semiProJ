@@ -34,8 +34,8 @@ public class ChatSubmitServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");// 보냍 타입과 인코딩 설정
-		String fromId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
+		response.setContentType("text/html;charset=UTF-8");// ajax에 리턴할 타입과 인코딩 설정
+		String fromId = request.getParameter("fromId");
 		String toId = request.getParameter("toId");
 		String chatContent = request.getParameter("chatContent");
 		int bno = Integer.parseInt(request.getParameter("bno"));

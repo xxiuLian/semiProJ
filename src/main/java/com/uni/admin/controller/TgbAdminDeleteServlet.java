@@ -40,11 +40,11 @@ public class TgbAdminDeleteServlet extends HttpServlet {
 		String report = request.getParameter("report");
 		
 		if (result1*result2 > 0 && report != null) {
-			request.getSession().setAttribute("msg", "글이 삭제되었습니다.");
+			request.getSession().setAttribute("msg", result1 + "개 신고 상품이 삭제되었습니다.");
 			response.sendRedirect("adminReportTgb.do");
 		}
 		else if(result1*result2 > 0) {
-			request.getSession().setAttribute("msg", "글이 삭제되었습니다.");
+			request.getSession().setAttribute("msg", result1 + "개 상품이 삭제되었습니다.");
 			response.sendRedirect("adminTGB.do");
 		
 		}else if(result1>0 &&result2 < 0 ) {

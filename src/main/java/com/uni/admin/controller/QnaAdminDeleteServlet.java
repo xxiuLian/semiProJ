@@ -38,7 +38,7 @@ public class QnaAdminDeleteServlet extends HttpServlet {
 		int result = new QnaService().deleteQnas(qno);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("msg", "문의게시글 삭제 성공");
+			request.getSession().setAttribute("msg", result +  "개 문의게시글 삭제 성공");
 			response.sendRedirect("adminQnaList.do");
 		}else {
 			request.setAttribute("msg", "문의게시글 삭제 실패");
