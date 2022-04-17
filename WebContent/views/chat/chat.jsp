@@ -177,7 +177,8 @@
 	
 	function chatSubmit() {
 		if(toId == ''){
-			alert("참여자를 선택하세요")
+			alert("참여자를 선택하세요");
+			$("#chatContent").val('');
 			return;
 		}
 		var fromId = '${loginUser.userId}';
