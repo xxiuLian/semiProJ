@@ -248,7 +248,7 @@ td{
 		console.log('진입')
 	}
 		function updatePwd(){
-			window.open("${contextPath}/updatePwdForm.do","비밀번호 변경창 ","width=500, height=300")
+			window.open("${contextPath}/updatePwdForm.do","비밀번호 변경창 ","width=600, height=600")
 		} //window.open : 새창 열기
 
 		function deleteMember(){

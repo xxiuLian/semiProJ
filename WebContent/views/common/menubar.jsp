@@ -43,6 +43,13 @@
   color: #495057;
   letter-spacing: 0.0625em;
 }
+.navbar-nav{
+margin-left:20px;
+	width:600px;
+}
+#userInfo{
+	width:250px;
+}
 .userWho{
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: #495057;
@@ -88,8 +95,8 @@ a:hover {
   color: #e9677de1;
 }
 .navbar-nav{
-	margin-left:10px;
-	padding: 0 10px;
+	margin-left:20px;
+	width:600px;
 }
 .navbar-nav li{
 	margin-left: 10px;
@@ -120,13 +127,14 @@ a:hover {
 			 <input type="text" id="search" style="width:500px; height:50px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav" style="">					
-					<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:28px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
+					<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:20px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
 					<ul class="event">
-						<li class="nav-item"><a class="nav-link" href="eventList.do" style="font-size:20px;">이벤트</a></li>
-						<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:20px;">공지</a></li>
+						<li class="nav-item"><a class="nav-link" href="eventList.do" style="font-size:18px;">이벤트</a></li>
+						<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:18px;">공지</a></li>
 					</ul>
-					<li class="nav-item"><a class="nav-link" href="login.do" style="font-size:28px; margin-right:10px;">로그인</a></li>
-					<li class="nav-item"><a class="nav-link" href="enroll.do" style="font-size:28px; margin-right:10px;">회원가입</a></li>
+					<li class="nav-item"><a class="nav-link" href="tgbList.do" style="font-size:20px; margin-right:10px;">공동구매 조회</a></li>
+					<li class="nav-item"><a class="nav-link" href="login.do" style="font-size:20px; margin-right:10px;">로그인</a></li>
+					<li class="nav-item"><a class="nav-link" href="enroll.do" style="font-size:20px; margin-right:10px;">회원가입</a></li>
 				</ul>
 			</div>
 
@@ -138,7 +146,6 @@ a:hover {
 							<ul class="event">
 								<li class="nav-item"><a class="nav-link" href="eventList.do">이벤트</a></li>
 								<li class="nav-item"><a class="nav-link" href="noticeList.do">공지</a></li>
-								<li class="nav-item"><a class="nav-link" href="tgbBoardSelect.do">공동구매게시판</a></li>
 							</ul>
 					</ul>
 			</div>
