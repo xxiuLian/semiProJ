@@ -36,8 +36,6 @@ public class ReplyListServlet extends HttpServlet {
 		int qId = Integer.parseInt(request.getParameter("qId"));
 		
 		Qna reply = new QnaService().selectRList(qId);
-		System.out.println("답변일 : "+reply.getQnaReply());
-		System.out.println("답변날짜 : "+reply.getReplyDate());
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create();
 		gson.toJson(reply, response.getWriter());

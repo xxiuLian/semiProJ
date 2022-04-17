@@ -141,7 +141,7 @@
 						</a> <a class="nav-link" href="adminBoard.do">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-tachometer-alt"></i>
-							</div> 커뮤니티
+							</div> 공동구매 게시판
 						</a>
 						<div class="sb-sidenav-menu-heading">카테고리</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -158,7 +158,7 @@
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link" href="categoryList.do?keyword=tgb">상품</a> <a
-									class="nav-link" href="categoryList.do?keyword=board">커뮤니티</a>
+									class="nav-link" href="categoryList.do?keyword=board">공동구매 게시판</a>
 								<a class="nav-link" href="categoryList.do?keyword=qna">문의</a>
 							</nav>
 						</div>
@@ -286,7 +286,7 @@
 				var bno = $(this).parent().children().eq(1).text();
 				console.log(bno)
 				var option = "width=1000, height=800, left=400, top=100, location=no, toolbars=no"
-				window.open("${contextPath}/tgbBoardDetail.do?admin=admin&nno="+bno, "문의글조회", option)
+				window.open("${contextPath}/tgbBoardDetail.do?admin=admin&bno="+bno, "문의글조회", option)
 			})
 		})
 	}

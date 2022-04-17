@@ -246,7 +246,7 @@ $(function(){
 						if(reply.qnaReply != null){
 							var replyInfo = $("<td>").html('<b>답변내용</b>').attr("width", "100px");
 							var dateInfo = $("<td>").html('<b>답변 작성일</b>').attr("width", "100px");
-							var replyContent = $("<td>").text(reply.qnaReply).attr("width", "330px");
+							var replyContent = $("<td>").html(reply.qnaReply).attr("width", "330px");
 							var replyDate = $("<td>").text(reply.replyDate).attr("width", "150px");
 							
 							var tr = $("<tr>").append(replyInfo, replyContent, dateInfo, replyDate);
