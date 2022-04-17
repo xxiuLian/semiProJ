@@ -196,6 +196,8 @@ td>img {
 
 	</div>
 	<script type="text/javascript">
+	
+	
 	$(function(){
 		$('#tgbCategory').change(function(){
 			var selected = $('option:selected').val();
@@ -209,7 +211,7 @@ td>img {
 				<%}else{%>
 				<%for(Tgb t : list){%>
 				var imgsrc = "<%=t.getThumnail()%>";
-				var td = '<tr><td><input type="checkbox" name="ch" vlaue = "<%=t.getTgbNo()%>"></td>';
+				var td = '<tr><td><input type="checkbox" name="ch" value = "<%=t.getTgbNo()%>"></td>';
 				td += '<td>'+<%=t.getTgbNo()%>+'</td>';
 				td += '<td><img src='+"<%=contextPath%>"+'/assets/img_upfile/'+imgsrc+'>';
 				td +='<td>'+"<%=t.getTgbTitle()%>"+'</td>';
@@ -227,7 +229,7 @@ td>img {
 				
 				
 			}else{
-				$('.listArea').children('tbody').empty();
+				
 				$('.listArea').children('tbody').empty();
 				<%if(list.isEmpty()){%>
 				$('.listArea').children('tbody').html('<tr><td colspan="5">찜한 내역이 없습니다.</td></tr>');
@@ -237,7 +239,7 @@ td>img {
 				
 				if(selected === "<%=t.getTgbCategory()%>"){
 					var imgsrc = "<%=t.getThumnail()%>";
-					var td = '<tr><td><input type="checkbox" name="ch" vlaue = "<%=t.getTgbNo()%>"></td>';
+					var td = '<tr><td><input type="checkbox" name="ch" value = "<%=t.getTgbNo()%>"></td>';
 					td += '<td>'+<%=t.getTgbNo()%>+'</td>';
 					td += '<td><img src='+"<%=contextPath%>"+'/assets/img_upfile/'+imgsrc+'>';
 					td +='<td>'+"<%=t.getTgbTitle()%>"+'</td>';
