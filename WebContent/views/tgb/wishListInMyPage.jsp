@@ -260,8 +260,9 @@ td>img {
 	})
 	
 	$(function(){
-				$('.list').click(function(){
-					var bno = $(this).children().eq(1).text();
+				$('.listArea>tbody>tr>td:not(:has(input))').click(function(){
+					var bno = $(this).parent().children().eq(1).text();
+					
 					
 					location.href="<%=contextPath%>/detailTgb.do?bno=" + bno;
 			});

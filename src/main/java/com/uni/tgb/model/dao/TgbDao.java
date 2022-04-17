@@ -994,6 +994,49 @@ public class TgbDao {
 		return t;
 	}
 
+	public Tgb detailTgb(Connection conn, int bno) {
+		Tgb t = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+//		detailTGB=SELECT TGB_NO, TGB_CATEGORY_NAME, TGB_TITLE, TGB_CONTENT, TGB_GUIDE, USER_ID, TGB_COUNT, TGB_TERM, TGB_PRICE, CREATE_DATE, TGB.STATUS FROM TGB \
+//				JOIN MEMBER ON TGB_WRITER = USER_NO WHERE TGB_NO = ? AND TGB.STATUS !='N'
+		String sql = prop.getProperty("detailTGB");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				t = new Tgb(rset.getInt("TGB_NO"), 
+							rset.getString("TGB_CATEGORY_NAME"), 
+							rset.getString("TGB_TITLE"), 
+							rset.getString("TGB_CONTENT"), 
+							rset.getString("TGB_GUIDE"), 
+							rset.getString("USER_ID"), 
+							rset.getInt("TGB_COUNT"), 
+							rset.getDate("TGB_TERM"), 
+							rset.getInt("TGB_PRICE"), 
+							rset.getDate("CREATE_DATE"));
+				
+				t.setStatus(rset.getString("STATUS"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		
+		return t;
+	}
+
 
 
 }
