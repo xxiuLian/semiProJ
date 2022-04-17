@@ -43,17 +43,14 @@
   color: #495057;
   letter-spacing: 0.0625em;
 }
-.navbar-nav{
-margin-left:20px;
-	width:600px;
-}
-#userInfo{
-	width:250px;
-}
+
+
 .userWho{
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: #495057;
   font-size: 18px;
+  text-align:center;
+  
 }
 #navbarResponsive{margin-right:30px;}
 #search{
@@ -96,10 +93,13 @@ a:hover {
 }
 .navbar-nav{
 	margin-left:20px;
-	width:600px;
+	width:500px;
 }
 .navbar-nav li{
 	margin-left: 10px;
+}
+#userInfo{
+	width:350px;
 }
 /*
 a:hover {
