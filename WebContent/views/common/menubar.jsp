@@ -93,7 +93,7 @@ a:hover {
 }
 .navbar-nav{
 	margin-left:20px;
-	width:530px;
+	width:550px;
 }
 .navbar-nav li{
 	margin-left: 10px;
