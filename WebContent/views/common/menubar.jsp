@@ -54,9 +54,9 @@
 }
 #navbarResponsive{margin-right:30px;}
 #search{
-  margin-left:80px; 
+  margin-left:30px; 
   margin-right:15px;
-  width: 250px;
+  width: 180px;
   height: 40px;
   font-size: 15px;
   border: 0;
@@ -93,7 +93,7 @@ a:hover {
 }
 .navbar-nav{
 	margin-left:20px;
-	width:500px;
+	width:530px;
 }
 .navbar-nav li{
 	margin-left: 10px;
@@ -139,7 +139,7 @@ a:hover {
 			</div>
 
 			<% }else if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
-			<input type="text" id="search" style="width:500px; height:50px; margin-left:150px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
+			<input type="text" id="search" style="width:400px; height:50px; margin-left:30px;"><button type="button" class="searchbutton" onclick="searching();">검 색</button><br><br><!-- 검색창 -->
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link" href="noticeList.do" style="font-size:28px; margin-right:10px;">공지 <i class="fa-solid fa-angle-down"></i></a>
@@ -150,7 +150,7 @@ a:hover {
 					</ul>
 			</div>
 			<div id = "userInfo">
-            <b class="userWho"><%=loginUser.getUserName() %></b> 접속중
+            <b class="userWho" style="margin-left:50px;"><%=loginUser.getUserName() %></b> 접속중
             <br><br>
             <div class ="btns" align="center">
                <a href = "<%=contextPath %>/adminMember.do">관리자페이지</a> &nbsp;&nbsp;
