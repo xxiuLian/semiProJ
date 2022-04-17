@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="css/styles.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	var msg="<%= msg %>";
@@ -34,32 +35,47 @@
 </script>
 </head>
 <body>
-	<b>비밀번호 변경</b>
-	<br>
-	
-	<form id="updatePwdForm" action="<%= request.getContextPath() %>/updatePwdMember.do" method="post">
-		<table>
-			<tr>
-				<td><label>현재 비밀번호</label>
-				<td><input type="password" name="userPwd" id="userPwd"></td>
-			</tr>
-			<tr>
-				<td><label>변경할 비밀번호</label></td>
-				<td><input type="password" name="newPwd"></td>
-			</tr>
-			<tr>
-				<td><label>변경할 비밀번호 확인</label></td>
-				<td><input type="password" name="checkPwd"></td>
-			</tr>
-		</table>
-		
-		<br>
-		<br>
-		
-		<div class="btns" align="center">
-			<button  type="button" onclick="fnCheckPwd()">변경하기</button>
-		</div>
-	</form>
+<div class="container" style="text-align: center;">
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+            <div class="card">
+				 <div class="card-header"><b>비밀번호 변경</b></div>
+					<br>
+				<div class="card-body">
+					<form id="updatePwdForm" action="<%= request.getContextPath() %>/updatePwdMember.do" method="post">
+                        <div class="form-group row">
+                            <label for="userName" class="col-md-4 col-form-label text-md-right">현재 비밀번호</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" name="userPwd" id="userPwd" placeholder="현재 비밀번호"
+                                    required autofocus>
+                            </div>
+                        </div>
+                        <br>
+							<div class="form-group row">
+                            <label for="userName" class="col-md-4 col-form-label text-md-right">변경할 비밀번호</label>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" name="newPwd" placeholder="새 비밀번호"
+                                    required autofocus>
+                            </div>
+                        </div>
+                        <br>
+						<div class="form-group row">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">변경할 비밀번호 확인</label>
+                            <div class="col-md-6">
+                                <input type="password" id="phone" class="form-control" name="checkPwd" placeholder="새 비밀번호 확인" required>
+                            </div>
+                        </div>
+                            <br>
+						<div class="btns col-md-6 offset-md-3" align="center">
+							<button  type="button" class="btn btn-primary" onclick="fnCheckPwd()">변경하기</button>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+        </div>
+	</div>
+</div>
 	<script>
 		function fnCheckPwd(){
 			var userPwd = $("#userPwd");

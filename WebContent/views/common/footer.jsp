@@ -43,7 +43,7 @@ a{color:#3036b4;}
                  <li><a>뉴스룸</a></li>
              </ul>
             <ul class="link2">
-                 <li><i class="fab fa-facebook-f"></i></li>
+                 <li><i class="fab fa-facebook-f" onclick="javascript:location.href='sooyeon.jsp';"></i></li>
                  <li><i class="fab fa-twitter"></i></li>
                  <li><i class="fab fa-linkedin-in"></i></li>
                  <li><i class="fab fa-instagram"></i></li>
