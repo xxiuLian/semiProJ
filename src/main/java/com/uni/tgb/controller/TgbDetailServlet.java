@@ -35,8 +35,9 @@ public class TgbDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
+		System.out.println(bno);
 		String admin = request.getParameter("admin");
-		Tgb t = new TgbService().selectTgb(bno);// 해당 번호의 글을 불러오는 메소드
+		Tgb t = new TgbService().detailTgb(bno);// 해당 번호의 글을 불러오는 메소드
 		ArrayList<Attachment> aList = new TgbService().selectAttachment(bno); // 해당 번호의 글의 첨부파일을 불러오는 메소드
 		System.out.println("t : "+ t);
 		boolean wish = false;
