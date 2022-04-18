@@ -43,10 +43,10 @@ a{color:#3036b4;}
                  <li><a>뉴스룸</a></li>
              </ul>
             <ul class="link2">
-                 <li><i class="fab fa-facebook-f" onclick="javascript:location.href='sooyeon.jsp';"></i></li>
-                 <li><i class="fab fa-twitter"></i></li>
-                 <li><i class="fab fa-linkedin-in"></i></li>
-                 <li><i class="fab fa-instagram"></i></li>
+                 <li><i class="fab fa-facebook-f" onclick="javascript:location.href='jaewook.jsp';"></i></li>
+                 <li><i class="fab fa-twitter" onclick="javascript:location.href='ohsun.jsp';"></i></li>
+                 <li><i class="fab fa-linkedin-in" onclick="javascript:location.href='sooyeon.jsp';"></i></li>
+                 <li><i class="fab fa-instagram" onclick="javascript:location.href='seoyoung.jsp';"></i></li>
              </ul>
           </div>
           
