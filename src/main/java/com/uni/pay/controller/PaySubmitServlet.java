@@ -43,7 +43,7 @@ public class PaySubmitServlet extends HttpServlet {
 		int result = new PayService().insertPay(p);
 
 		if (result > 0) {
-			request.setAttribute("msg", "결제 완료. 결제금액 : " + totPrice);
+			request.setAttribute("msg", "결제 완료. 결제금액 : " + totPrice + "원");
 			request.setAttribute("sTag", "Y");
 			request.getRequestDispatcher("views/admin/close.jsp").forward(request, response);
 		} else {

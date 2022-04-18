@@ -39,7 +39,7 @@ public class BoardAdminDeleteServlet extends HttpServlet {
 		int result = new TgbBoard_service().deleteBoards(bno);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("msg", "게시글 삭제 성공");
+			request.getSession().setAttribute("msg", result + "개 게시글 삭제 성공");
 			response.sendRedirect("adminBoard.do");
 		}else {
 			request.setAttribute("msg", "게시글 삭제 실패");

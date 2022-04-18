@@ -118,10 +118,10 @@
 		
 		var contentVal = $("#ir1").val();
 		console.log(contentVal);
-		//contentVal = contentVal.replace(/<p>/gi,"");
-		//contentVal = contentVal.replace(/<\/p>/gi,"<br>");
-		//contentVal = contentVal.replace(/<p><br><\/p>/gi,"<br>");
-		//contentVal = contentVal.replace(/<\/p><p>/gi, "<br>");
+		contentVal = contentVal.replace(/<p>/gi,"");
+		contentVal = contentVal.replace(/<\/p>/gi,"<br>");
+		contentVal = contentVal.replace(/<p><br><\/p>/gi,"<br>");
+		contentVal = contentVal.replace(/<\/p><p>/gi, "<br>");
 		if(contentVal == "" || contentVal == "<p>&nbsp;</p>"){
 			alert("글 내용을 입력해주세요");
 			return;
