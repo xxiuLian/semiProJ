@@ -37,7 +37,7 @@ public class UpdatePwdServlet extends HttpServlet {
 		String newPwd = request.getParameter("newPwd"); //변경할 새 비번
 		String originPwd = (String)request.getAttribute("originPwd");
 		
-		//현재비번, 새비번, 새비번 확인창
+		//현재비번, 새비번, 확인창
 		Member updatePwd = new MemberService().updatePwd(userId, userPwd, newPwd);
 		
 		if(updatePwd != null) {

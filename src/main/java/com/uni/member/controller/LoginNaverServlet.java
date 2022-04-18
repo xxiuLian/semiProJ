@@ -39,8 +39,8 @@ public class LoginNaverServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String clientId = "ZncfIzzOzACjfv58Qta_";//애플리케이션 클라이언트 아이디값";
-	      String clientSecret = "2flkt6Xepj";//애플리케이션 클라이언트 시크릿값";
+		String clientId = "ZncfIzzOzACjfv58Qta_";//가치사 클라이언트 아이디값";
+	      String clientSecret = "2flkt6Xepj";//가치사 클라이언트 시크릿값";
 	      String code = request.getParameter("code");
 	      String state = request.getParameter("state");
 	      String redirectURI = URLEncoder.encode("http://localhost:8100/valueSa/naverLogin.do", "UTF-8");
@@ -113,8 +113,7 @@ public class LoginNaverServlet extends HttpServlet {
       			System.out.println("jsonObj" + jsonObj);
       			System.out.println("resObj" +resObj);
 
-      			//왼쪽 변수 이름은 원하는 대로 정하면 된다. 
-      			//단, 우측의 get()안에 들어가는 값은 와인색 상자 안의 값을 그대로 적어주어야 한다.
+      			//get()안 변수는 네이버에서 지정한 변수 그대로 사용해야함
       			String name = (String)resObj.get("name");
       			String mobile = (String)resObj.get("mobile");
       			String userIds = (String)resObj.get("id");
