@@ -145,8 +145,8 @@
 			</div>
 			
 			<c:choose>
-				<c:when test="${loginUser.userId eq t.tgbWriter}">
-					<button type="button"  onclick="deadline();">마감완료</button>
+				<c:when test="${loginUser.userId eq t.tgbWriter && t.status eq 'Y'}">
+					<button type="button"  onclick="deadline();" id="deadlinebtn">마감완료</button>
 				</c:when>
 				<c:when test = "${t.status eq 'YN'}">
 					<button disabled>마감완료된 상품입니다.</button>
@@ -240,6 +240,8 @@
 			  success : function(result){
 				  console.log(result);
 				  alert("마감이 완료되었습니다.");
+				  $('#deadlinebtn').attr("disabled", true);
+				  
 			  },
 			  error : function(e){
 				  console.log("통신 실패"+e);
