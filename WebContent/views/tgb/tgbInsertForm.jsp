@@ -431,10 +431,6 @@ if($('#contentArea').is(":visible")){
 	
 		$('#btn1').click(function(){// 작성완료 버튼 누르면 실행-> SUBMIT
 			$('#contentArea').children('img').attr("src","");
-			//var a =  $('#contentArea').html(); 사용 안하는 듯? 나중에 지우기
-			
-			//alert($('input[type=hidden]').val()); 작성자 유저번호 
-			
 	
 	        $('#guide').val($('#guidArea').html());
 	        $('#content').val($('#contentArea').html());

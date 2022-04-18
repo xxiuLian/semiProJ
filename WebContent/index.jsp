@@ -100,13 +100,13 @@
            window.onload=function(){ //팝업 오픈
                $("#popups").fadeIn();
             }
-            $("#popups").click(function(){ //다른곳을 클릭하면 닫기
-                $(this).fadeOut();
-            })
-            $(".close").click(function(){ //x버튼 눌러도 닫기
+
+            $(".close").click(function(){ //x버튼 눌러 닫기
                 $("#popups").fadeOut();
             })
-            
+           //$("#popups").click(function(){ //다른곳을 클릭하면 닫기
+           //    $(this).fadeOut();
+           //})
            <!--  setInterval을 통한 이벤트 배너 넘기기 -->
            let imgNum = $(".slide li").length;
            let imgWidth = $(".slide li").width();

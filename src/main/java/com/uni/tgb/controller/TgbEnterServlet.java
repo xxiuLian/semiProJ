@@ -67,12 +67,10 @@ public class TgbEnterServlet extends HttpServlet {
 		long b = t.getTgbTerm().getTime() - t.getCreateDate().getTime();
 		long bdays = b/( 24*60*60*1000); 
 		System.out.println("bdays: "+bdays);// 전체일자
-//		System.out.println("term : "+t.getTgbTerm());
+
 //		
 		double tp = (((double)adays/bdays)*100);
 		
-//		System.out.println(tper);
-//		System.out.println((int)(((double)adays/bdays)*100));
 		String cntper = String.format("%.1f", c);
 		String tper = String.format("%.1f", tp);
 		
