@@ -218,16 +218,10 @@ td>img {
 				td+='<td>'+<%=t.getTgb_Price()%>+'</td></tr>';
 					
 				$('.listArea').children('tbody').append(td);
-										
-			
 					
 				<%}%>
-					
-				
-				
+
 				<%}%>
-				
-				
 			}else{
 				
 				$('.listArea').children('tbody').empty();
