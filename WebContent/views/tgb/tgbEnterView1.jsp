@@ -60,7 +60,7 @@ color :white;
 			<c:when test = "${t.status ne str}">
 				<div class="prg">
 					<div class="count">
-					${t.status}
+				
 						<div class="tiem mg">⏱마감일까지⏱</div>
 						<div class="time"><h1 id="d-day"></h1></div>
 						<div class="time timetext">초 남았습니다.</div>
