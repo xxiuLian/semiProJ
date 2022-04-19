@@ -145,12 +145,12 @@
 		<script type='text/javascript'>
     	//가치사 javascript키
     	Kakao.init('9fb8871864e8f093d41c5c8020df9c37');
-    	// 카카오 로그인 버튼을 생성합니다.
+    	//카카오 로그인 버튼을 생성합니다.
     	Kakao.Auth.createLoginButton({
       		container: '#kakao-login-btn',
      		success: function(authObj) {
           
-          //로그인 성공시, 카카오 API를 호출한다.(카카오에 있는 데이터 불러옴)
+          //로그인 성공시, 카카오 API를 호출(카카오에 있는 데이터 불러옴)
           Kakao.API.request({
               url: '/v2/user/me',
               success: function(res){
