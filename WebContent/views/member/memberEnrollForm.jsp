@@ -260,11 +260,11 @@
 			}
 			
 			$.ajax({
-				url:"idCheck.do", //해당 서블릿 만들기
+				url:"idCheck.do",
 				type:"post",
 				data:{userId : userId.val()}, //userId키값에 userid값을 넣음
 				success:function(result){
-					if(result =="fail"){
+					if(result =="fail"){ //아이디 있음
 						alert("사용할 수 없는 아이디입니다.");
 						userId.focus();
 						
